@@ -42,6 +42,11 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - M0.4 **Part A PASS:** `runtest.sh -a res://test` → exit 0, 2/2 tests, report artifact.
 - M0.5 **Part B PASS (riskiest):** `Godot --path .` rendered via Metal/Forward+ and wrote a valid 640×360 PNG; visually verified (dark bg + centered yellow card, taxonomy-clean).
 - M0.6 Wrote durable state (CLAUDE/PLAN/STRUCTURE/MEMORY + this file).
+- M0 committed (`dccda38`) on `main` (initial commit; `.antigravitycli/` machine-symlink added to .gitignore).
+- M1 **Logic backbone, built test-first (TDD):** wrote `test/rules_test.gd` first → exit 105 (types missing) →
+  added `GameState`/`Card` + no-op `Rules.play_card` stub → exit 100 (math assertion fails) → implemented
+  pure math → **exit 0, 4/4**. Also proved the purity test's teeth via a throwaway mutate-in-place impl
+  (only that test failed), then restored. Artifact `reports/report_6`.
 
 ## Gotchas worth porting (see MEMORY.md for detail)
 - `runtest.sh` prints a benign `remote port ... between 1 and 65535` ERROR (intentional debugger trap) — run still passes.
@@ -49,4 +54,6 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - The agent/terminal session here HAS GPU + window-server access — required for Part B. On a headless box this step would hard-stop.
 
 ## Status / next
-M0 complete (both loop parts proven). **Paused at the M0→M1 boundary for PM OK** before building the slice (M1–M3). Companion-doc Open-Items update is parked for M4.
+M0 + M1 complete (env proven; pure rule + tests green, exit 0). **Next: M2** — Part-B visual slice
+(scene with 1 card + 1 hex tile reflecting `GameState`; capture asserts card rect ⊂ viewport).
+Companion-doc Open-Items update is parked for M4.

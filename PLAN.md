@@ -9,7 +9,7 @@
 | Milestone | Gate (objective) | Status |
 |---|---|---|
 | **M0** Environment proven | trivial gdUnit4 test exits 0 & ran ≥1 test; capture writes non-blank PNG | ✅ DONE |
-| **M1** Logic backbone | pure `play_card` rule + gdUnit4 test exits 0, report artifact | ⬜ pending (awaiting PM OK to pass M0) |
+| **M1** Logic backbone | pure `play_card` rule + gdUnit4 test exits 0, report artifact | ✅ DONE |
 | **M2** Visual slice | scene draws 1 card + 1 hex tile; capture PNG taxonomy-clean, `ASSERT PASS`, no errors | ⬜ pending |
 | **M3** Closed-loop proof (= DoD) | logic bug → exit 100; visual bug → `ASSERT FAIL`/screenshot; both fixed → exit 0 + clean PNG | ⬜ pending |
 | **M4** Capture learnings | fold confirmed commands/timings/decisions into `doc/agent-development-loop.md` + Changelog | ⬜ pending (M0 findings parked in MEMORY.md/agent-process.md) |
@@ -19,7 +19,14 @@
 - gdUnit4 **v6.1.3** addon installed; `runtest.sh -a res://test` → **exit 0**, 2/2 tests, `reports/report_1/results.xml`.
 - `capture.gd` → `captures/m0_smoke.png` (640×360, non-blank, ASSERT PASS) under real Metal/Forward+ GPU. **Baseline screenshot:** `captures/m0_smoke.png`.
 
-## M1–M3 — the smallest slice (design, not yet built)
+## M1 — DONE (evidence, built test-first)
+- `game/game_state.gd` (`GameState` RefCounted: `energy`, `gold`, `duplicate()`), `game/card.gd` (`Card`: `cost`, `reward`), `game/rules.gd` (`Rules.play_card` static, pure).
+- `test/rules_test.gd`: 2 cases — energy/gold math + input-purity. Built via red→green:
+  - RED: test referencing missing types → exit **105** (parse error); then no-op stub → exit **100** (math assertion fails 3≠2, 0≠5).
+  - Teeth check: mutate-in-place impl → only the purity test fails (exit **100**), proving it's not vacuous.
+  - GREEN: pure impl → **exit 0**, 4/4 cases, artifact `reports/report_6`.
+
+## M2–M3 — the smallest slice (design, not yet built)
 - **Rule (M1, pure/Part A):** `Rules.play_card(state, card) -> GameState`. `GameState` = `RefCounted` with `energy:int`, `gold:int`. Card costs energy, grants gold. Static, GUI-free; unit-tested with gdUnit4 (assert exact post-state).
 - **Scene (M2, Part B):** one card (ColorRect+Label, no art pipeline) + one hex tile (`Polygon2D`) reflecting `GameState`. `capture.gd` adds an `ASSERT` on the card's on-screen rect ⊂ viewport.
 - **Deliberate bugs (M3 = DoD):**
@@ -31,4 +38,5 @@
 gdUnit4 (doc rec) · pure `RefCounted`+static fns (no `.tres`/JSON for one rule) · capture-script only, **no MCP server** (defer per §5) · layout `game/ test/ tools/ addons/ reports/ captures/`.
 
 ## Next action
-**Awaiting PM OK** to execute past M0 (build M1). Stop point per kickoff instruction.
+**M2** (Part B visual slice): scene draws 1 card + 1 hex tile reflecting a `GameState`;
+`capture.gd` asserts the card's on-screen rect ⊂ viewport; capture PNG taxonomy-clean.

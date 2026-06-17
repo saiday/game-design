@@ -26,3 +26,15 @@ Verified on this Mac (Apple M1 Pro, macOS 25.5, Godot 4.6.3) on 2026-06-17.
   guards against a no-render hang.
 - **res:// is writable at runtime** when running from source (not exported), so screenshots can save under
   `res://captures/`. Used `globalize_path` to be safe.
+- **New `class_name` scripts need an import pass before tests resolve them** (M1): a test referencing a
+  brand-new `class_name` global fails discovery with exit **105** ("Identifier ... not declared",
+  `Parse error`) until `--headless --path . --import` rebuilds the global class cache. So the import
+  warm-up is *load-bearing* whenever you add a new `class_name`, not just cosmetic. Run it before every
+  test run in the loop.
+- **gdUnit4 CLI aborts the rest of a suite after a failing test** (M1, observed): when an earlier test
+  case in a suite FAILED, the later cases in that *same* suite did not execute (suite reported `1 test
+  cases` instead of 2; `0 skipped`). A single suite can therefore mask later failures. Implications:
+  gate on the **exit code** (100=fail) not the case count; for M3 bug-injection this is fine; to see all
+  failures, keep suites small / fix one at a time. (Other suites still run — example_test ran fine.)
+- **gdUnit4 counts assertions, not just cases, as failures:** one failing test with two bad
+  `assert_int`s reports `2 failures` against `1 test case`. Don't read "failures" as "tests failed".
