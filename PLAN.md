@@ -11,7 +11,7 @@
 | **M0** Environment proven | trivial gdUnit4 test exits 0 & ran ≥1 test; capture writes non-blank PNG | ✅ DONE |
 | **M1** Logic backbone | pure `play_card` rule + gdUnit4 test exits 0, report artifact | ✅ DONE |
 | **M2** Visual slice | scene draws 1 card + 1 hex tile; capture PNG taxonomy-clean, `ASSERT PASS`, no errors | ✅ DONE |
-| **M3** Closed-loop proof (= DoD) | logic bug → exit 100; visual bug → `ASSERT FAIL`/screenshot; both fixed → exit 0 + clean PNG | ⬜ pending |
+| **M3** Closed-loop proof (= DoD) | logic bug → exit 100; visual bug → `ASSERT FAIL`/screenshot; both fixed → exit 0 + clean PNG | ✅ DONE |
 | **M4** Capture learnings | fold confirmed commands/timings/decisions into `doc/agent-development-loop.md` + Changelog | ⬜ pending (M0 findings parked in MEMORY.md/agent-process.md) |
 
 ## M0 — DONE (evidence)
@@ -31,16 +31,17 @@
 - `game/main.gd` (`extends Node2D`) composes bg + `HexTile` + card (ColorRect+Label) + HUD bound to a `GameState`; HUD shows the M1 rule's effect (`Energy 3->2  Gold 0->5`). `main.tscn` repointed to it.
 - Part A: **exit 0, 6/6**. Part B: `Godot --path .` → **exit 0**, `captures/m2_slice.png` (640×360), **ASSERT PASS** on 3 taxonomy-aware checks (card rect ⊂ viewport · card-center pixel = card color · hex-center pixel = hex color), visually verified taxonomy-clean.
 
-## M3 — the deliberate-bug slice (design, = DoD)
-- **Deliberate bugs (M3 = DoD):**
-  - *Logic:* wrong resource math in `play_card` (e.g. energy not decremented). Caught by gdUnit4 (**exit 100**); scene still renders → visual layer stays clean. Proves logic⇒test layer.
-  - *Visual:* card moved off-screen / behind the tile (logic untouched). Tests stay green; capture `ASSERT FAIL` + visible defect. Proves render⇒visual layer.
-  - Fix both → exit 0 + taxonomy-clean PNG. Loop closed once.
+## M3 — DONE (= Definition of Done; loop proven once)
+One deliberately-broken change carried BOTH bugs; each detector fired at its own layer, independently:
+- *Logic bug:* `play_card` sign flip (`energy += cost`). **Part A → exit 100**, `test_play_card_spends_energy_and_grants_gold` failed (energy expected 2, was 4). Part B still rendered (logic bug didn't block the view).
+- *Visual bug:* `CARD_POS` off the right edge (x=700 > 640). **Part B → ASSERT FAIL** ("card rect … not inside viewport") + broken PNG shows the card gone; hex still drew. Part A unaffected by it.
+- Fixed both → **Part A exit 0 (6/6)** + **Part B exit 0, ASSERT PASS**, `captures/m2_slice.png` visually taxonomy-clean (HUD `Energy 3->2  Gold 0->5`). **Loop closed.**
+- Note: bugs were injected → caught → reverted; M3 adds no code diff — its deliverable is this proof (recorded here).
 
 ## Decisions made (§3) — reversible, recorded
 gdUnit4 (doc rec) · pure `RefCounted`+static fns (no `.tres`/JSON for one rule) · capture-script only, **no MCP server** (defer per §5) · layout `game/ test/ tools/ addons/ reports/ captures/`.
 
 ## Next action
-**M3 (= Definition of Done):** inject a logic bug in `play_card` (wrong resource math → gdUnit4
-exit 100) AND a visual bug (card off-screen / behind tile → capture `ASSERT FAIL`), confirm each is
-caught at its layer, fix both → Part A exit 0 + Part B ASSERT PASS + taxonomy-clean PNG. Loop closed once.
+**M4** (capture learnings): fold the confirmed commands/exit-codes/timings + §3 decisions and the
+M0–M3 quirks (MEMORY.md) into `doc/agent-development-loop.md`, resolve its §10 Open Items, add a
+Changelog line. Doc-only; closes out the PoC.

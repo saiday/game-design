@@ -51,7 +51,11 @@ export GODOT_DISABLE_LEAK_CHECKS=1
   `test/hex_tile_test.gd`, red 105→100→green, **6/6**). Part-B: `game/main.gd` composes bg+hex+card+HUD
   bound to a `GameState` (HUD shows the rule's effect), retargeted `main.tscn` to it. `Godot --path .` →
   **exit 0**, `captures/m2_slice.png`, **ASSERT PASS** on 3 gamma-tolerant pixel/rect checks; PNG visually
-  verified taxonomy-clean.
+  verified taxonomy-clean. Committed `5fb8790`.
+- M3 **= Definition of Done — loop proven once.** One broken change with BOTH a logic bug
+  (`play_card` sign flip) and a visual bug (card off-screen): Part A caught the logic bug (**exit 100**),
+  Part B caught the visual bug (**ASSERT FAIL** + card-gone PNG), each at its own layer independently.
+  Fixed both → Part A **exit 0 (6/6)** + Part B **ASSERT PASS** + clean PNG. Bugs reverted, so no code diff.
 
 ## Gotchas worth porting (see MEMORY.md for detail)
 - `runtest.sh` prints a benign `remote port ... between 1 and 65535` ERROR (intentional debugger trap) — run still passes.
@@ -59,6 +63,6 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - The agent/terminal session here HAS GPU + window-server access — required for Part B. On a headless box this step would hard-stop.
 
 ## Status / next
-M0–M2 complete (env proven; pure rule + tests green; visual slice renders + ASSERT PASS). **Next: M3 =
-Definition of Done** — inject a logic bug (gdUnit4 exit 100) AND a visual bug (capture ASSERT FAIL),
-confirm each layer catches its own, fix both → all green + clean PNG. Companion-doc Open-Items parked for M4.
+M0–M3 complete — **the self-correction loop is PROVEN** (DoD met: logic bug caught by tests, visual bug
+caught by screenshot, both fixed, slice green + clean). **Next: M4** — fold confirmed commands/quirks +
+§3 decisions into `doc/agent-development-loop.md`, resolve its §10 Open Items, add a Changelog line.
