@@ -46,7 +46,12 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - M1 **Logic backbone, built test-first (TDD):** wrote `test/rules_test.gd` first → exit 105 (types missing) →
   added `GameState`/`Card` + no-op `Rules.play_card` stub → exit 100 (math assertion fails) → implemented
   pure math → **exit 0, 4/4**. Also proved the purity test's teeth via a throwaway mutate-in-place impl
-  (only that test failed), then restored. Artifact `reports/report_6`.
+  (only that test failed), then restored. Artifact `reports/report_6`. Committed `1857a88`.
+- M2 **Visual slice (both loop parts):** Part-A TDD'd the hex geometry (`HexTile.regular_hexagon`,
+  `test/hex_tile_test.gd`, red 105→100→green, **6/6**). Part-B: `game/main.gd` composes bg+hex+card+HUD
+  bound to a `GameState` (HUD shows the rule's effect), retargeted `main.tscn` to it. `Godot --path .` →
+  **exit 0**, `captures/m2_slice.png`, **ASSERT PASS** on 3 gamma-tolerant pixel/rect checks; PNG visually
+  verified taxonomy-clean.
 
 ## Gotchas worth porting (see MEMORY.md for detail)
 - `runtest.sh` prints a benign `remote port ... between 1 and 65535` ERROR (intentional debugger trap) — run still passes.
@@ -54,6 +59,6 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - The agent/terminal session here HAS GPU + window-server access — required for Part B. On a headless box this step would hard-stop.
 
 ## Status / next
-M0 + M1 complete (env proven; pure rule + tests green, exit 0). **Next: M2** — Part-B visual slice
-(scene with 1 card + 1 hex tile reflecting `GameState`; capture asserts card rect ⊂ viewport).
-Companion-doc Open-Items update is parked for M4.
+M0–M2 complete (env proven; pure rule + tests green; visual slice renders + ASSERT PASS). **Next: M3 =
+Definition of Done** — inject a logic bug (gdUnit4 exit 100) AND a visual bug (capture ASSERT FAIL),
+confirm each layer catches its own, fix both → all green + clean PNG. Companion-doc Open-Items parked for M4.

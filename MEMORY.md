@@ -38,3 +38,11 @@ Verified on this Mac (Apple M1 Pro, macOS 25.5, Godot 4.6.3) on 2026-06-17.
   failures, keep suites small / fix one at a time. (Other suites still run — example_test ran fine.)
 - **gdUnit4 counts assertions, not just cases, as failures:** one failing test with two bad
   `assert_int`s reports `2 failures` against `1 test case`. Don't read "failures" as "tests failed".
+- **Part-B pixel asserts: classify by nearest known color, don't match exact** (M2). The viewport
+  read-back (`get_viewport().get_texture().get_image()`) may differ from source RGB by color space/gamma,
+  so exact `==` is brittle. Instead pick a few known scene colors (bg/hex/card) and assert a sampled
+  pixel is *closer* to its expected color than to the others (squared-distance). This is gamma-tolerant
+  and gives real teeth — an off-screen or hidden element classifies as the wrong color and fails.
+- **Image coords == Control/screen coords** (reconfirmed M2): with the root `Node2D` at identity and no
+  `Camera2D`, a `Control`'s `get_global_rect()` and a `Node2D`'s `position` map 1:1 to `Image` pixels
+  (top-left origin, y-down). So `Rect2(0,0,w,h).encloses(card.get_global_rect())` is a valid on-screen check.
