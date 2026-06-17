@@ -1,7 +1,7 @@
 # Agent Development Loop & PoC Plan
 
 > **Purpose:** the canonical reference for *how an AI agent develops, runs, observes, and self-corrects this game*.  
-> **Status:** Pre-PoC. Engine decision is locked, but **NOT yet proven on this machine for Godot**. See [Open Items](#open-items--verify-on-this-machine).  
+> **Status:** **PoC complete — the two-part self-correction loop is proven on this machine** (Godot 4.6.3.stable.official, macOS 25.5, Apple M1 Pro · Metal/Forward+), 2026-06-17. A logic bug was caught headless and a visual bug at the screenshot layer in one broken change, both fixed, slice ended green. The prior [Open Items](#open-items--verify-on-this-machine) are resolved; see the [Changelog](#changelog).  
 > **Maintain this doc:** when you complete a step, run a command that works/fails, or learn something that contradicts what's written here, **update the relevant section and add a line to the [Changelog](#changelog)**. Do not let this drift from reality.
 
 Last updated: 2026-06-17.
@@ -58,17 +58,20 @@ Both are actively maintained (2026) and run headless from the command line.
 
 > Recommendation: **gdUnit4**, for its CI ergonomics and report formats. Revisit only if mocking/coverage gaps bite.
 
-### Exact commands (verify on this machine — see Open Items)
+### Exact commands (VERIFIED on this machine — Godot 4.6.3, gdUnit4 v6.1.3, 2026-06-17)
 
 **gdUnit4** (its documented runner script):
 ```bash
 export GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot
+export GODOT_DISABLE_LEAK_CHECKS=1
 chmod +x ./addons/gdUnit4/runtest.sh
 ./addons/gdUnit4/runtest.sh -a res://test
 ```
 - Key flags: `-a` add test dir/suite · `-i` ignore a suite/case · `-c` continue past first failure · `-rd` report dir.
-- **Exit codes: `0` = all pass, `100` = failures, `101` = warnings.** CI keys off these.
-- Reports written to `res://reports/` by default.
+- **Exit codes (confirmed): `0` = all pass, `100` = failures, `101` = warnings**, and **`105` = test discovery/parse error** (e.g. a referenced `class_name` not yet imported — see gotcha #1). CI keys off these.
+- Reports written to **`reports/report_N/{results.xml,index.html}`** (numbered per run), not a single `res://reports/` file.
+- **By default the CLI aborts the remaining cases in a suite after one fails** (observed): a single suite can mask later failures, and the "failures" count tallies *assertions*, not cases. Gate on the **exit code**, keep suites small, or pass `-c` to continue past the first failure. (Other suites still run.)
+- **Benign noise to ignore:** `ERROR: The remote port number must be between 1 and 65535` — that's the intentional `--remote-debug tcp://127.0.0.1:0` debugger trap inside `runtest.sh`; the run still succeeds. `runtest.sh` does **not** pass `--headless` (Metal initializes anyway); for a strictly headless run invoke `GdUnitCmdTool.gd` directly with `--headless`.
 
 **GUT** (Godot-4 headless form):
 ```bash
@@ -86,7 +89,7 @@ Sourced from Godot engine issues; treat as load-bearing:
    $GODOT_BIN --headless --path . --import --quit-after 2000
    # step 2: run tests (commands above)
    ```
-2. **First headless import can exit with code 1 even on success** ([godot#83449](https://github.com/godotengine/godot/issues/83449)), and `--quit` / `--quit-after 1` could fail to import while `--quit-after 2` works ([godot#77508](https://github.com/godotengine/godot/issues/77508) — **closed/fixed in 4.3**, so on Godot 4.6 the `--quit-after 2000` warm-up may no longer be strictly necessary; keep it as a harmless safety belt but **verify, don't assume**). Don't trust the import step's exit code; gate CI on the *test* step's exit code.
+2. **First headless import can exit with code 1 even on success** ([godot#83449](https://github.com/godotengine/godot/issues/83449)), and `--quit` / `--quit-after 1` could fail to import while `--quit-after 2` works ([godot#77508](https://github.com/godotengine/godot/issues/77508) — **closed/fixed in 4.3**). **Verified on 4.6.3:** the import warm-up exits **`0`** — the exit-code-1 trap did **not** bite. But the warm-up turned out **load-bearing for a different reason**: when you add a **new `class_name` script**, tests that reference it fail discovery with **exit `105`** ("Identifier … not declared") until an `--import` pass rebuilds the global class cache. So **run the warm-up before every test run that follows adding a `class_name`** — it's not just a safety belt. Still don't trust the import step's own exit code; gate CI on the *test* step's exit code.
 3. **Set `GODOT_DISABLE_LEAK_CHECKS=1`** in the test environment to avoid false-positive non-zero exits from Godot's shutdown leak checker.
 4. **Headless ≠ rendering.** Tests can pass headless while the game crashes under a real GPU (shader compile errors, GPU-specific issues). Part B (visual verification) is what catches these — headless tests alone are not sufficient sign-off.
 
@@ -213,13 +216,13 @@ flowchart TD
 
 Goal of the PoC is **not** game content — it is to **prove the full loop closes on this machine** with the smallest real slice.
 
-- [ ] Repo + git initialized; `CLAUDE.md` written.
-- [ ] gdUnit4 installed; trivial headless test green from CLI (Part A proven). **Guard against false-greens:** confirm the run actually executed ≥1 test (non-zero test count / at least one PASS line) — gdUnit4 can exit `0` on "no tests found".
-- [ ] Embedded GDScript capture script writes a screenshot PNG of a launched scene to disk (Part B proven). (Visual MCP server deferred — see [§5](#5-visual--runtime-verification-part-b-mechanisms).)
-- [ ] One **pure-function rule** with a gdUnit4 test, e.g. `play_card(state, card) -> new_state` changes resources deterministically.
-- [ ] One **scene** that draws 1 card + 1 hex tile and reflects that state visually.
-- [ ] Run the whole loop once on a deliberately-broken change: edit → test catches logic bug → fix → capture-script screenshot catches a render bug → fix → green + correct render.
-- [ ] Record the result (timings, what worked, what didn't) back into this doc's Changelog.
+- [x] Repo + git initialized; `CLAUDE.md` written. *(M0)*
+- [x] gdUnit4 installed; trivial headless test green from CLI (Part A proven). **Guard against false-greens:** confirm the run actually executed ≥1 test (non-zero test count / at least one PASS line) — gdUnit4 can exit `0` on "no tests found". *(M0: 2/2 tests ran, exit 0.)*
+- [x] Embedded GDScript capture script writes a screenshot PNG of a launched scene to disk (Part B proven). (Visual MCP server deferred — see [§5](#5-visual--runtime-verification-part-b-mechanisms).) *(M0: `captures/m0_smoke.png` under Metal/Forward+.)*
+- [x] One **pure-function rule** with a gdUnit4 test, e.g. `play_card(state, card) -> new_state` changes resources deterministically. *(M1: `Rules.play_card` + `test/rules_test.gd`, built test-first.)*
+- [x] One **scene** that draws 1 card + 1 hex tile and reflects that state visually. *(M2: `game/main.gd` + `HexTile`; HUD shows the rule's effect.)*
+- [x] Run the whole loop once on a deliberately-broken change: edit → test catches logic bug → fix → capture-script screenshot catches a render bug → fix → green + correct render. *(M3: logic bug → exit 100, visual bug → ASSERT FAIL, both fixed → green.)*
+- [x] Record the result (timings, what worked, what didn't) back into this doc's Changelog. *(see below.)*
 
 After the PoC closes, expand toward the first real subsystem (recommended order: card/deck data model → one hex tile + fog reveal → one room/event resolving to a card reward).
 
@@ -236,11 +239,11 @@ After the PoC closes, expand toward the first real subsystem (recommended order:
 | **Headless import exit-code-1 / `--quit` import failure** | Two-step import warm-up + `GODOT_DISABLE_LEAK_CHECKS=1` ([§4](#4-logic-verification-headless-unit-tests)). |
 
 ## 10. Open items / verify on this machine
-Everything below is **unverified by me** (I have no Godot installed in the agent session). A future agent or the PM must confirm:
-- [ ] Exact gdUnit4 `runtest.sh` invocation + exit codes on **this** Godot 4.6 / macOS install (agy suggested a `--run-gdunit-tests` flag; the official docs use `runtest.sh` — trust the docs, but confirm empirically).
-- [ ] The embedded GDScript capture script writes a correct screenshot of a launched scene on **this** Mac/GPU (the primary Part B path). godot-mcp-runtime is only verified later, if/when we add it.
-- [ ] Whether the two-step headless import warm-up is still needed on Godot 4.6 (godot#77508 is fixed in 4.3) or only the exit-code-1 trap (godot#83449) remains.
-- [ ] Whether GoPeak's step-debugging is worth the addon footprint for this project.
+Resolved during the PoC (Godot 4.6.3, macOS 25.5, Apple M1 Pro), 2026-06-17:
+- [x] **gdUnit4 `runtest.sh` invocation + exit codes — CONFIRMED.** `./addons/gdUnit4/runtest.sh -a res://test` is correct; exit `0`/`100`/`101` (plus `105` for discovery/parse errors). agy's `--run-gdunit-tests` flag was **not** needed — the official `runtest.sh` is right. (Full notes in [§4](#4-logic-verification-headless-unit-tests).)
+- [x] **Embedded capture script writes a correct screenshot on this Mac/GPU — CONFIRMED.** `Godot --path .` (no `--headless`) renders via Metal/Forward+ and `get_viewport().get_texture().get_image()` reads back a real frame; PNGs saved under `res://captures/`. This is the primary Part B path; godot-mcp-runtime remains deferred.
+- [x] **Import warm-up on 4.6 — RESOLVED.** The exit-code-1 trap (godot#83449) did **not** bite on 4.6.3 (warm-up exits `0`). It is, however, **load-bearing for registering newly-added `class_name` globals** before tests can resolve them (else exit `105`). Keep it; run it after adding any `class_name`. (See [§4](#4-logic-verification-headless-unit-tests) gotcha #2.)
+- [ ] Whether GoPeak's step-debugging is worth the addon footprint for this project. *(Still open — no MCP server was needed to close the loop.)*
 
 ## 11. References (all fetched/verified 2026-06-17)
 - Autonomous Godot agent loop (frame-grounded self-repair): https://github.com/htdt/godogen
@@ -254,3 +257,4 @@ Everything below is **unverified by me** (I have no Godot installed in the agent
 ## Changelog
 - **2026-06-17** — Doc created. Engine locked (Godot 4.6/GDScript/2D). Web loop proven in a prior session via Puppeteer MCP. Godot loop researched and specified; **not yet run on hardware** — see Open Items.
 - **2026-06-17** — Folded in godogen extractions: Part B screenshot-review defect taxonomy (§3), GDScript capture-helper fallback (§5), `godot-api` skill scaffold note (§7); aligned §1 art description with the art guide's self-generated-pack shift.
+- **2026-06-17** — **PoC closed on hardware (M0–M3): the two-part self-correction loop is proven.** Env: Godot 4.6.3.stable.official (`brew install --cask godot`), gdUnit4 v6.1.3 (source tarball — release has no zip asset), Apple M1 Pro / Metal / Forward+. M0: trivial test 2/2 green + capture PNG rendered. M1: pure `Rules.play_card` + tests, built test-first. M2: scene (1 card + 1 hex tile, HUD reflects state) + gamma-tolerant pixel/rect ASSERTs. **M3 (DoD):** one broken change → Part A caught the logic bug (`exit 100`) and Part B caught the visual bug (`ASSERT FAIL`, card off-screen) **independently**; both fixed → Part A `exit 0` (6/6) + Part B `ASSERT PASS` + clean PNG. §10 Open Items resolved; confirmed commands/exit-codes/quirks folded into §4. Timings: Part A ~10–20 ms/run after import; per-loop wall-clock dominated by the ~2 s import warm-up + GPU launch, not the checks. No MCP server needed. Durable specifics in `MEMORY.md` / `agent-process.md`.

@@ -12,7 +12,7 @@
 | **M1** Logic backbone | pure `play_card` rule + gdUnit4 test exits 0, report artifact | ✅ DONE |
 | **M2** Visual slice | scene draws 1 card + 1 hex tile; capture PNG taxonomy-clean, `ASSERT PASS`, no errors | ✅ DONE |
 | **M3** Closed-loop proof (= DoD) | logic bug → exit 100; visual bug → `ASSERT FAIL`/screenshot; both fixed → exit 0 + clean PNG | ✅ DONE |
-| **M4** Capture learnings | fold confirmed commands/timings/decisions into `doc/agent-development-loop.md` + Changelog | ⬜ pending (M0 findings parked in MEMORY.md/agent-process.md) |
+| **M4** Capture learnings | fold confirmed commands/timings/decisions into `doc/agent-development-loop.md` + Changelog | ✅ DONE |
 
 ## M0 — DONE (evidence)
 - Godot **4.6.3.stable.official** via `brew install --cask godot`.
@@ -42,6 +42,6 @@ One deliberately-broken change carried BOTH bugs; each detector fired at its own
 gdUnit4 (doc rec) · pure `RefCounted`+static fns (no `.tres`/JSON for one rule) · capture-script only, **no MCP server** (defer per §5) · layout `game/ test/ tools/ addons/ reports/ captures/`.
 
 ## Next action
-**M4** (capture learnings): fold the confirmed commands/exit-codes/timings + §3 decisions and the
-M0–M3 quirks (MEMORY.md) into `doc/agent-development-loop.md`, resolve its §10 Open Items, add a
-Changelog line. Doc-only; closes out the PoC.
+**PoC complete (M0–M4).** The self-correction loop is proven and the spec is reconciled to reality.
+Recommended next (per spec §8, awaiting PM direction): expand to the first real subsystem —
+card/deck data model → one hex tile + fog reveal → one room/event resolving to a card reward.

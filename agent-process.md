@@ -63,6 +63,7 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - The agent/terminal session here HAS GPU + window-server access — required for Part B. On a headless box this step would hard-stop.
 
 ## Status / next
-M0–M3 complete — **the self-correction loop is PROVEN** (DoD met: logic bug caught by tests, visual bug
-caught by screenshot, both fixed, slice green + clean). **Next: M4** — fold confirmed commands/quirks +
-§3 decisions into `doc/agent-development-loop.md`, resolve its §10 Open Items, add a Changelog line.
+**M0–M4 complete — PoC closed.** The two-part self-correction loop is proven (DoD met) and
+`doc/agent-development-loop.md` is reconciled to reality (status flipped, §4 commands confirmed, §10
+Open Items resolved, §8 checklist ticked, Changelog entry added). Next, pending PM direction: expand to
+the first real subsystem (spec §8 order: card/deck model → hex tile + fog → room/event → card reward).
