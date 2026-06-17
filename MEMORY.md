@@ -46,3 +46,6 @@ Verified on this Mac (Apple M1 Pro, macOS 25.5, Godot 4.6.3) on 2026-06-17.
 - **Image coords == Control/screen coords** (reconfirmed M2): with the root `Node2D` at identity and no
   `Camera2D`, a `Control`'s `get_global_rect()` and a `Node2D`'s `position` map 1:1 to `Image` pixels
   (top-left origin, y-down). So `Rect2(0,0,w,h).encloses(card.get_global_rect())` is a valid on-screen check.
+- **`doc/prompts.md` is a live prompt-log the user's tooling rewrites every turn** (current prompt up top,
+  prior ones archived). It will show as *modified* constantly. Don't be surprised, and **stage doc commits
+  deliberately** (`git add <specific paths>`) instead of `git add -A`, or it gets swept into unrelated commits.
