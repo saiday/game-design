@@ -1,7 +1,8 @@
-# Agent Development Loop & PoC Plan
+# Agent Development Loop (canonical)
 
-> **Purpose:** the canonical reference for *how an AI agent develops, runs, observes, and self-corrects this game*.  
-> **Status:** **PoC complete — the two-part self-correction loop is proven on this machine** (Godot 4.6.3.stable.official, macOS 25.5, Apple M1 Pro · Metal/Forward+), 2026-06-17. A logic bug was caught headless and a visual bug at the screenshot layer in one broken change, both fixed, slice ended green. The prior [Open Items](#open-items--verify-on-this-machine) are resolved; see the [Changelog](#changelog).  
+> **Purpose:** the canonical reference for *how an AI agent develops, runs, observes, and self-corrects this game* — for the whole project, not just the PoC.  
+> **Status:** **PoC closed (2026-06-17) — the two-part self-correction loop is proven on this machine** (Godot 4.6.3.stable.official, macOS 25.5, Apple M1 Pro · Metal/Forward+): a logic bug was caught headless and a visual bug at the screenshot layer in one broken change, both fixed, slice ended green. **This doc is now the standing loop for ongoing development.** The prior [Open Items](#11-open-items--verify-on-this-machine) are resolved; see the [Changelog](#changelog).  
+> **Verdict (see [§10](#10-long-term-suitability--scaling-the-poc-verdict)):** adopt this loop as the long-term backbone — but it verifies *correctness*, not *fun*, and Part B (visual) is blind to motion/feel. The two limits to plan around: **fun/balance can never be agent-verified** (human-owned, and the real throughput ceiling), and **Part B needs an upgrade when animation/interaction arrive.**  
 > **Maintain this doc:** when you complete a step, run a command that works/fails, or learn something that contradicts what's written here, **update the relevant section and add a line to the [Changelog](#changelog)**. Do not let this drift from reality.
 
 Last updated: 2026-06-17.
@@ -34,7 +35,7 @@ Deck rules, fog reveal, pathfinding, resource economy, event resolution, run-len
 ### Part B — Visual / runtime verification (~30%)
 "Did the card actually render? Is the hex highlighted? Did the fog reveal? Did anything crash at runtime?" This needs the agent to **launch the game, capture what it actually renders, and read runtime errors** — and, when needed, inspect the live scene and inject input. The **primary** mechanism for this project is an **embedded GDScript capture script** (the proven, dependency-free pattern); a visual Godot MCP server is an **optional enhancement** layered on once the loop is proven (see [§5](#5-visual--runtime-verification-part-b-mechanisms)).
 
-> **The 70/30 weighting is an estimate, not a measurement.** Recalibrate during the PoC: if Part B is catching a large share of defects (say >40%), invest more in the visual path before scaling up.
+> **The 70/30 weighting is an estimate, not a measurement** — and the PoC slice was far too small to measure it (≈6 logic assertions and one static frame). Treat recalibration as a **standing long-term task**: track which layer actually catches each *real* defect as subsystems land, and if Part B's share climbs past ~40%, invest in the visual path (richer ASSERTs, multi-frame capture, or the MCP upgrade in [§5](#5-visual--runtime-verification-part-b-mechanisms)) before scaling further. See [§10](#10-long-term-suitability--scaling-the-poc-verdict).
 
 **Screenshot-review checklist — actively hunt these, don't just confirm "it rendered"** (defect taxonomy from [godogen](https://github.com/htdt/godogen)):
 - **Clipping** — elements cut off or overlapping wrongly.
@@ -210,11 +211,11 @@ flowchart TD
 3. **Add gdUnit4** as an addon; get **one trivial headless test passing from the CLI** (prove Part A first).
 4. **Write `CLAUDE.md`** at the project root pinning Godot 4.6 idioms (`await` not `yield`; `CharacterBody2D` not `KinematicBody2D`; static typing; signal-naming conventions) and the test/loop commands from this doc. Consider also authoring a **`godot-api` domain skill** under `.claude/skills/` that pins engine API knowledge — the scaffold pattern [godogen](https://github.com/htdt/godogen) ships (`CLAUDE.md` + `.claude/skills/`, plus `AGENTS.md` for Codex).
 5. **Write the embedded GDScript capture script** (no install needed); first milestone = **get it to launch a scene and write one screenshot PNG to disk** on this hardware (prove Part B before building on it). Defer installing a visual MCP server (godot-mcp-runtime, Node.js 20+) until the basic loop is proven and interactive scene queries / input injection are actually needed.
-6. Only then start the PoC vertical slice ([§8](#8-poc-plan-vertical-slice)).
+6. Only then start the PoC vertical slice ([§8](#8-poc-plan--outcome-closed--roadmap)). **(All of §7 is done — recorded in `agent-process.md`.)**
 
-## 8. PoC plan (vertical slice)
+## 8. PoC plan & outcome (closed) + roadmap
 
-Goal of the PoC is **not** game content — it is to **prove the full loop closes on this machine** with the smallest real slice.
+**Goal of the PoC (recap):** not game content — to **prove the full loop closes on this machine** *and that the self-correction property actually holds* (defects are caught by the two layers and fixed, not rationalized away because the code compiled). The smallest real slice was the vehicle; the loop was the product. **Status: closed — every box below is ticked** (milestones M0–M4; details in `PLAN.md` / `agent-process.md`).
 
 - [x] Repo + git initialized; `CLAUDE.md` written. *(M0)*
 - [x] gdUnit4 installed; trivial headless test green from CLI (Part A proven). **Guard against false-greens:** confirm the run actually executed ≥1 test (non-zero test count / at least one PASS line) — gdUnit4 can exit `0` on "no tests found". *(M0: 2/2 tests ran, exit 0.)*
@@ -224,7 +225,11 @@ Goal of the PoC is **not** game content — it is to **prove the full loop close
 - [x] Run the whole loop once on a deliberately-broken change: edit → test catches logic bug → fix → capture-script screenshot catches a render bug → fix → green + correct render. *(M3: logic bug → exit 100, visual bug → ASSERT FAIL, both fixed → green.)*
 - [x] Record the result (timings, what worked, what didn't) back into this doc's Changelog. *(see below.)*
 
-After the PoC closes, expand toward the first real subsystem (recommended order: card/deck data model → one hex tile + fog reveal → one room/event resolving to a card reward).
+### Roadmap — first real subsystems (post-PoC)
+Build in this order; each rides the same loop ([§6](#6-the-loop-end-to-end--and-agent-working-conventions)) and follows the [§10](#10-long-term-suitability--scaling-the-poc-verdict) scaling rules. Content scope and feel are a **PM decision** at each step.
+1. **Card/deck data model** — pure data + rules (draw / discard / shuffle, deck mutation). Almost entirely Part A; highest agent autonomy; start here.
+2. **One hex tile + fog reveal** — pure reveal/visibility logic (Part A) behind a rendered tilemap (Part B asserts the reveal actually shows).
+3. **One room/event resolving to a card reward** — ties logic + view + the reward economy; the first place balance/feel needs human review.
 
 ## 9. Pitfalls (verified, agent-relevant)
 
@@ -237,15 +242,41 @@ After the PoC closes, expand toward the first real subsystem (recommended order:
 | **Hallucinating Godot 3 syntax** | `CLAUDE.md` pins Godot 4.6 idioms; gdUnit4 tests catch silent failures. |
 | **UID corruption** — hand-editing `.tscn` breaks Godot's `uid://` dependency tracking | Prefer editing scenes via the Godot editor / scene-builder scripts over raw `.tscn` rewrites. |
 | **Headless import exit-code-1 / `--quit` import failure** | Two-step import warm-up + `GODOT_DISABLE_LEAK_CHECKS=1` ([§4](#4-logic-verification-headless-unit-tests)). |
+| **Stale global class cache** — tests can't see a newly-added `class_name` (parse error, exit `105`) until re-import | Run the `--import` warm-up after adding any `class_name`, *then* run tests ([§4](#4-logic-verification-headless-unit-tests) gotcha #2). |
+| **Suite masking** — gdUnit4 aborts the rest of a suite after the first failing case, hiding later cases | Gate on the exit code, keep suites small, or pass `-c` to continue past failures ([§4](#4-logic-verification-headless-unit-tests)). |
 
-## 10. Open items / verify on this machine
+## 10. Long-term suitability & scaling (the PoC verdict)
+
+**Verdict: yes — adopt this loop as the long-term backbone — but it verifies *correctness*, never *fun*, and its visual half has a known ceiling.** The PoC proved the *method* on a trivial slice; the points below are about extrapolating it to a full game, and should be read as conditions, not guarantees.
+
+### What scales well (lean on it)
+- **Part A (pure-function logic).** A turn-based deckbuilder is overwhelmingly deterministic — deck rules, resource economy, fog/visibility, pathfinding, event resolution, run-length math. Pushed into pure `RefCounted`/static functions, these are fast, headless, fully autonomous to verify, and cheap to keep green. **This is the durable foundation; the more logic lives here, the more of the game the agent can self-correct.**
+- **Objective gates.** Exit codes + reports + `ASSERT PASS/FAIL` give un-rationalizable signals. This is what stops "it compiled" hand-waving, and it holds at any scale.
+- **Durable state + resumability** ([§6b](#6b-scaffolding--durable-state-from-godogen)) survive long, compaction-prone sessions — essential for a multi-month build.
+
+### What does NOT scale on its own (plan around it)
+- **Part B is stills-only.** It catches static defects (clipping, z-order, off-screen, missing assets, wrong scale) but is **blind to motion, timing, transitions, juice, and audio.** The deliberately-static card art keeps this mostly fine *today*; every animation/interaction added shrinks Part B's coverage. **Upgrade trigger:** when interactive/animated feedback becomes load-bearing, move Part B to multi-frame/video capture or the visual MCP server's input injection + live scene-tree ([§5](#5-visual--runtime-verification-part-b-mechanisms)) — don't keep trusting a single frame.
+- **Fun/balance is unverifiable, forever.** The agent confirms a rule fires, renders, and doesn't crash — never whether the 3-hour run is satisfying or the economy fair. **Human review is the real throughput ceiling, and it grows with content, not with agent speed.** The loop accelerates correctness; it does not accelerate design.
+- **Combinatorial content.** Card × relic × event interactions explode beyond enumerable unit tests. Per-rule tests stay necessary but insufficient.
+- **Self-judged screenshots.** The agent grading its own PNGs can still err; ASSERTs reduce this, but aesthetic correctness still needs human spot-checks.
+
+### Scaling practices to adopt as subsystems land
+- **Design for testability up front:** seedable/deterministic RNG, data-driven content (`.tres`/resources), logic kept out of nodes. *(Guardrail: logic leaking back into scene nodes is the single biggest threat to Part A coverage — flag it in review.)*
+- **Add simulation & property tests** for combinatorial behaviour: auto-play N *seeded* runs and assert invariants (no negative resources, run terminates, economy stays in bounds), plus gdUnit4 fuzzers for rule inputs. This covers what enumerated cases can't.
+- **CI + regression suite:** wire the [`gdunit4-action`](https://github.com/marketplace/actions/gdunit4-test-runner-action); keep suites small (the CLI aborts a suite after the first failure — [§4](#4-logic-verification-headless-unit-tests)) and fast. Per-loop wall-clock is dominated by the ~2 s import + GPU launch, not the checks — batch Part B captures and cache `.godot` to keep it tight.
+- **Recalibrate the 70/30** ([§3](#3-the-core-idea-a-two-part-self-correction-loop)) from real defect data; let evidence, not the estimate, decide how much to invest in the visual path.
+
+### Bottom line
+Recommended for the long term **as a correctness engine**, conditional on: (1) keeping logic pure/testable, (2) upgrading Part B when motion/feel arrive, and (3) accepting that human design review — not the agent — sets the pace once content scales.
+
+## 11. Open items / verify on this machine
 Resolved during the PoC (Godot 4.6.3, macOS 25.5, Apple M1 Pro), 2026-06-17:
 - [x] **gdUnit4 `runtest.sh` invocation + exit codes — CONFIRMED.** `./addons/gdUnit4/runtest.sh -a res://test` is correct; exit `0`/`100`/`101` (plus `105` for discovery/parse errors). agy's `--run-gdunit-tests` flag was **not** needed — the official `runtest.sh` is right. (Full notes in [§4](#4-logic-verification-headless-unit-tests).)
 - [x] **Embedded capture script writes a correct screenshot on this Mac/GPU — CONFIRMED.** `Godot --path .` (no `--headless`) renders via Metal/Forward+ and `get_viewport().get_texture().get_image()` reads back a real frame; PNGs saved under `res://captures/`. This is the primary Part B path; godot-mcp-runtime remains deferred.
 - [x] **Import warm-up on 4.6 — RESOLVED.** The exit-code-1 trap (godot#83449) did **not** bite on 4.6.3 (warm-up exits `0`). It is, however, **load-bearing for registering newly-added `class_name` globals** before tests can resolve them (else exit `105`). Keep it; run it after adding any `class_name`. (See [§4](#4-logic-verification-headless-unit-tests) gotcha #2.)
 - [ ] Whether GoPeak's step-debugging is worth the addon footprint for this project. *(Still open — no MCP server was needed to close the loop.)*
 
-## 11. References (all fetched/verified 2026-06-17)
+## 12. References (all fetched/verified 2026-06-17)
 - Autonomous Godot agent loop (frame-grounded self-repair): https://github.com/htdt/godogen
 - Claude Code + Godot 2026 best practices & MCP value: https://www.summerengine.com/blog/claude-for-godot
 - In-editor agent vs file-level MCP (why runtime observation differs): https://www.summerengine.com/blog/godot-ai-agent-guide · https://www.summerengine.com/blog/best-ai-tools-for-godot
@@ -257,4 +288,5 @@ Resolved during the PoC (Godot 4.6.3, macOS 25.5, Apple M1 Pro), 2026-06-17:
 ## Changelog
 - **2026-06-17** — Doc created. Engine locked (Godot 4.6/GDScript/2D). Web loop proven in a prior session via Puppeteer MCP. Godot loop researched and specified; **not yet run on hardware** — see Open Items.
 - **2026-06-17** — Folded in godogen extractions: Part B screenshot-review defect taxonomy (§3), GDScript capture-helper fallback (§5), `godot-api` skill scaffold note (§7); aligned §1 art description with the art guide's self-generated-pack shift.
-- **2026-06-17** — **PoC closed on hardware (M0–M3): the two-part self-correction loop is proven.** Env: Godot 4.6.3.stable.official (`brew install --cask godot`), gdUnit4 v6.1.3 (source tarball — release has no zip asset), Apple M1 Pro / Metal / Forward+. M0: trivial test 2/2 green + capture PNG rendered. M1: pure `Rules.play_card` + tests, built test-first. M2: scene (1 card + 1 hex tile, HUD reflects state) + gamma-tolerant pixel/rect ASSERTs. **M3 (DoD):** one broken change → Part A caught the logic bug (`exit 100`) and Part B caught the visual bug (`ASSERT FAIL`, card off-screen) **independently**; both fixed → Part A `exit 0` (6/6) + Part B `ASSERT PASS` + clean PNG. §10 Open Items resolved; confirmed commands/exit-codes/quirks folded into §4. Timings: Part A ~10–20 ms/run after import; per-loop wall-clock dominated by the ~2 s import warm-up + GPU launch, not the checks. No MCP server needed. Durable specifics in `MEMORY.md` / `agent-process.md`.
+- **2026-06-17** — **PoC closed on hardware (M0–M3): the two-part self-correction loop is proven.** Env: Godot 4.6.3.stable.official (`brew install --cask godot`), gdUnit4 v6.1.3 (source tarball — release has no zip asset), Apple M1 Pro / Metal / Forward+. M0: trivial test 2/2 green + capture PNG rendered. M1: pure `Rules.play_card` + tests, built test-first. M2: scene (1 card + 1 hex tile, HUD reflects state) + gamma-tolerant pixel/rect ASSERTs. **M3 (DoD):** one broken change → Part A caught the logic bug (`exit 100`) and Part B caught the visual bug (`ASSERT FAIL`, card off-screen) **independently**; both fixed → Part A `exit 0` (6/6) + Part B `ASSERT PASS` + clean PNG. Open Items resolved; confirmed commands/exit-codes/quirks folded into §4. Timings: Part A ~10–20 ms/run after import; per-loop wall-clock dominated by the ~2 s import warm-up + GPU launch, not the checks. No MCP server needed. Durable specifics in `MEMORY.md` / `agent-process.md`.
+- **2026-06-17** — **Finalized as the canonical long-term loop doc (post-PoC).** Retitled (dropped "PoC Plan") and added the [§10](#10-long-term-suitability--scaling-the-poc-verdict) suitability verdict: the loop is the right backbone for *correctness*, with two hard limits — Part B is stills-only (blind to motion/feel; upgrade trigger noted) and fun/balance stays human-owned (the real throughput ceiling). Corrected the 70/30 note (PoC too small to measure → recalibration is a standing task). Reframed §8 to outcome-closed + a first-subsystem roadmap (card/deck → hex+fog → room/event). Added §9 pitfalls (stale class cache → exit 105; suite-masking). Renumbered Open Items → §11, References → §12.
