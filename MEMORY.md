@@ -1,0 +1,28 @@
+# MEMORY.md — quirks & workarounds (append-only)
+
+Verified on this Mac (Apple M1 Pro, macOS 25.5, Godot 4.6.3) on 2026-06-17.
+
+- **Engine install:** `brew install --cask godot` → Godot **4.6.3** at
+  `/Applications/Godot.app/Contents/MacOS/Godot`. (Homebrew lives at `/opt/homebrew`;
+  `brew` may be off a non-interactive shell's PATH — call it by full path.)
+- **gdUnit4 install:** latest is `godot-gdunit-labs/gdUnit4` **v6.1.3** (old `MikeSchulze/gdUnit4`
+  301-redirects). Release has no zip asset → pull the source tarball for the tag and copy
+  `addons/gdUnit4/` into the project.
+- **Import warm-up works on 4.6.3:** `--headless --path . --import --quit-after 2000` exits **0**
+  (the godot#83449 exit-code-1 trap did NOT bite here). Kept as a harmless safety belt; still
+  gate CI on the *test* step, not this. *(Not tested whether skipping it entirely is safe.)*
+- **gdUnit4 run:** `GODOT_BIN=... GODOT_DISABLE_LEAK_CHECKS=1 ./addons/gdUnit4/runtest.sh -a res://test`
+  → exit **0** = pass (100=fail, 101=warn). Reports at `reports/report_N/{results.xml,index.html}`.
+  - The official `runtest.sh` is correct — **agy's `--run-gdunit-tests` flag was not needed** (companion §10 Open Item resolved).
+  - **Benign error to ignore:** `ERROR: The remote port number must be between 1 and 65535` — that's the
+    intentional `--remote-debug tcp://127.0.0.1:0` debugger trap in runtest.sh; the run still succeeds.
+  - runtest.sh does **not** pass `--headless` (Metal initializes anyway and it works). For a strictly
+    headless run, invoke `GdUnitCmdTool.gd` directly with `--headless`.
+- **Part B capture works in this Claude Code session:** `Godot --path .` (NO `--headless`) renders via
+  **Metal 4.0 / Forward+** on the M1 Pro and `get_viewport().get_texture().get_image()` reads back a real
+  frame. So the agent session has GPU/window-server access here. Pattern that works: in `_ready`, build
+  visuals → `await get_tree().process_frame` → `await RenderingServer.frame_post_draw` → `get_image()` →
+  `save_png(ProjectSettings.globalize_path("res://captures/..."))` → `get_tree().quit()`. A watchdog timer
+  guards against a no-render hang.
+- **res:// is writable at runtime** when running from source (not exported), so screenshots can save under
+  `res://captures/`. Used `globalize_path` to be safe.

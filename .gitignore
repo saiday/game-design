@@ -1,0 +1,15 @@
+# Godot 4.x import cache (not committed; regenerated on import — companion doc §4)
+.godot/
+
+# Godot misc
+export_presets.cfg
+*.translation
+
+# gdUnit4 CLI reports (regenerated each run)
+reports/
+
+# Runtime screenshot captures (regenerated; path recorded in PLAN.md, blob not committed)
+captures/
+
+# Local agent/editor tooling (machine-specific symlinks, not project content)
+.antigravitycli/
