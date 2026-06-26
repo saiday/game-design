@@ -13,3 +13,6 @@ captures/
 
 # Local agent/editor tooling (machine-specific symlinks, not project content)
 .antigravitycli/
+
+# macOS folder metadata
+.DS_Store
