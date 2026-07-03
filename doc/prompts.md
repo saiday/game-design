@@ -1,5 +1,31 @@
 # Live Editing
 
+playable-concept 遊玩回饋，這些都跟我們遊戲設計有關，要理解後完整調整：
+1. 抗稅村莊怎麼可能會有文明中沒看過的騎兵團兵種跟賠償，這不合邏輯，這種戰鬥類型應該要在低幸福度時才被觸發，而且沒有獎勵，當發生內戰時有兩種勝利條件（拖過五回合或戰鬥勝利），戰鬥勝利會減少人口跟降低幸福度，拖過五回合沒有獎勵，完全沒有攻擊會得到一個「立正吃巴掌」的永久文化增益 Legacy。
+
+---
+
+<details>
+<summary>Archived</summary>
+
+### [2026-06-30 06:51:00] RimWorld & Frostpunk Style Point-Based Operations Research
+
+/deep-research 我想調整目前的遊戲營運部分，想概念上參考 RimWorld 跟 Frostpunk，讓玩家在營運的時候透過建造營運事業體（住房、食物採集、軍營、學校、研究中心、藝術中心、...）來決定營運的方向。
+更像是 Frostpunk 玩家是從建築物直接選而非像 RimWorld 從 canvas 開始設計。
+
+跟 RimWorld 及 Frostpunk 的 realtime 遊戲進行不一樣的是這個遊戲的營運是點數制，每個回合可以建造的點數是固定的步驟，操作完就回合結束（可跳過），每回合增加。
+
+我需要你研究範例跟提案
+
+### [2026-06-26 09:05:35] Dynamic Design Workflow: 遊戲設計細節與下一輪問題
+
+我已經完成這輪的回答，請使用 dynamic workflow 來執行後續的理解、分析、調查跟提問任務。
+這一輪你的一些問題引出了更多遊戲設計細節的補充，請確保你有完整理解並更新對應的文件，並且準備下一輪問題。
+下一輪有一個預設問題「目前的遊戲設計是否足夠交付執行？有什麼核心的設計邏輯還沒被補完嗎？」
+
+
+### [2026-06-26 09:00:10] Executing Dynamic Design Workflow
+
 我已完成這輪的回答，成果豐碩。使用 dynamic workflow 執行以下任務，任務間有依賴關係，請依序完成。
 
 **任務一：理解與查證（先做，其餘任務的基礎）**
@@ -29,11 +55,6 @@
 
 
 **完成條件：** 由 subagent 的新鮮視角看文件並回答你預設的幾個遊戲設計核心問題，他的答案應符合你的預期（若不符合預期，透過他的答案我們應考慮完善文件或調整語句）。也利用一個 subagent 去操作 playable-concept，並給予回饋，回饋認為適合交給 PM 確認下一輪問題後即完成任務。
-
----
-
-<details>
-<summary>Archived</summary>
 
 ### [2026-06-24 14:25:04] Glossary, Documentation Guidelines & Interactive Game Concept
 
