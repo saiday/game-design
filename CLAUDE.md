@@ -7,16 +7,24 @@ product is a *proven self-correction loop*, not game content. Specs live in
 `PLAN.md`, `STRUCTURE.md`, `MEMORY.md`. Setup recipe: `agent-process.md`.
 
 ## Game-design corpus (Obsidian — *what* we'd build, separate from *this PoC loop*)
-The divergent game concept is converged (deletion-first) into an Obsidian plan corpus at
-`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game ideas/agent plans/`.
-That corpus is the **design** (forks, spine, cuts); this repo is the **buildable loop**. Don't
-duplicate game-design detail into this file — link to it. Entry points there:
-- `index.md` (MOC) · `constitution.md` (game constitution — *timeless* invariants, philosophy, iteration method only; no round-specific decisions)
-- `glossary.md` (canonical, plain-language definitions of every game term — start here for "what does X mean") · `questions-for-discussion.md` (the CURRENT round's open decisions — humans decide these) · `archive/round-N-questions.md`
-- `core-settings.md` (the connected systems model — fed_by/feeds, marks `鎖定` vs `提案`/open) · `playable-concept.html` (interactive **text** playable: walk the loop, money=life battle, Legacy, democracy funding, death-spiral demo)
-- `converged-spine.md` (surviving mechanics + purpose) · `cut-list.md` (deletions + why) · `parody-nouns.md` · `game-loop-flowchart.html` (round-2 structure snapshot; superseded in detail by core-settings/playable)
-- Five **table-driven** reference docs (concrete entries, feed/fed-by headers — the maintainable source for content): `battle-event-types.md` (battle/event types: 出現條件/開場選項/勝利獎勵/內容) · `card-types.md` (部隊卡/技能卡/工事卡 + card economy) · `operation-options.md` (per-era exclusive operate menu; eras named 部落→古典→信仰→工業→現代→資訊) · `candidate-options.md` (10-set democracy candidate pool: action-descriptions/風格/連任) · `civilization-types.md` (the 5 fixed opponent civs + automa growth-curve + World Wars at rounds 15/35: camps/reparations)
-The constitution's stack/method invariants mirror the Non-negotiables below — those are shared and locked. Round-specific design decisions live in the living docs (core-settings/spine/glossary), NOT the constitution.
+The game design lives in an Obsidian corpus at
+`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` (**the current
+planning home since 2026-07-04**; game title: **Insignificant**). That corpus is the **design**;
+this repo is the **buildable loop**. Don't duplicate game-design detail into this file — link to it.
+- Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
+  loops, systems table). Every game term wikilinks to its dedicated setting doc.
+- Setting docs (one per system, big-table format, placeholder numbers as knobs): `時代與回合`,
+  `營運` (BP/regions/building lines/escalating build cost — no maintenance fee), `國策`, `Legacy`,
+  `經濟與債務` (single money pool, debt = negative treasury), `幸福`, `內亂與失敗` (fail chain →
+  政權崩潰 at pop<5, the only game over), `戰鬥` (3-lane battlefield), `卡牌`, `地圖與機會`,
+  `對手文明` (5 fixed power-curve automa), `世界大戰` (rounds 15/35; reparations
+  `max(正國庫×50%, power×2)`, can go negative), `民主` (candidate truth table), `結局`
+  (survive to round 50 = win; ranking gives narrative epilogue only, never a loss).
+- **Unresolved points are marked inline as `>` quote blocks** inside each doc — that's the open-
+  question mechanism now (no separate questions doc yet in the new folder).
+- The old corpus `.../obsidian/game ideas/agent plans/` is **archived** (7 Q&A rounds, decision
+  history in its `archive/`; `constitution.md` there still holds the timeless invariants and the
+  design-iteration method). Consult it for rationale/history, don't update it.
 
 **Design-iteration loop** (how the game design advances; canonical copy in `constitution.md` §5):
 `answer (human) → converge into a CONNECTED model (every system names what it feeds / is fed by) → multi-round adversarial validation (skeptics hunt "outputs without inputs" disconnects) → archive this round's questions → pose the next, deeper round`. Run each round as a dynamic workflow. The human's standing rule: questions must come from connected understanding, never surface plausibility.
