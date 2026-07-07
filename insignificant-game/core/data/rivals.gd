@@ -33,8 +33,6 @@ const CLASSES: Dictionary = {
 	},
 }
 
-const DIFFICULTY_G_DELTA: Dictionary = {&"easy": -0.02, &"normal": 0.0, &"hard": 0.02}
-
 # --- power-scalar mappings (對手＝一條 power 標量; these project it onto other axes).
 # The design pins only "國庫由 power 映射" — factors are driver decisions.
 const TREASURY_PER_POWER: float = 2.0     # matches WW reparations floor power×2

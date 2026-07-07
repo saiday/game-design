@@ -34,13 +34,14 @@ static func setup(state: GameState) -> void:
 
 static func base_power(class_id: StringName, generation: int, difficulty: StringName) -> float:
 	var entry: Dictionary = RivalData.CLASSES[class_id]
-	var delta: float = float(RivalData.DIFFICULTY_G_DELTA[difficulty])
+	var delta: float = Difficulty.rival_g_delta(difficulty)
+	var p0: float = float(entry["p0"]) * Difficulty.rival_p0_mult(difficulty)
 	var g: float = float(entry["g"]) + delta
 	if entry.has("g_switch_gen") and generation > int(entry["g_switch_gen"]):
 		var switch_gen: int = int(entry["g_switch_gen"])
 		var g_late: float = float(entry["g_late"]) + delta
-		return float(entry["p0"]) * pow(g, switch_gen) * pow(g_late, generation - switch_gen)
-	return float(entry["p0"]) * pow(g, generation)
+		return p0 * pow(g, switch_gen) * pow(g_late, generation - switch_gen)
+	return p0 * pow(g, generation)
 
 
 static func update_powers(state: GameState) -> void:
@@ -138,7 +139,7 @@ static func roll_aggression(state: GameState) -> StringName:
 	# Returns the id of a rival attacking this generation (injected as an extra node), or &"".
 	for rival: RivalState in living(state):
 		var period: int = int(RivalData.CLASSES[rival.id]["attack_period"])
-		if period > 0 and state.rng.chance(&"rivals", 1.0 / float(period)):
+		if period > 0 and state.rng.chance(&"rivals", Difficulty.aggression_mult(state) / float(period)):
 			return rival.id
 	return &""
 

@@ -84,8 +84,8 @@ static func resolve_opportunity(state: GameState, opportunity_id: StringName, ch
 	var effects: Dictionary = OpportunityData.TABLE[opportunity_id]["choices"][choice]
 	var coeff: int = Era.coeff(state.generation)
 	var report: Dictionary = {"opportunity": opportunity_id, "choice": choice}
-	var money: int = int(effects.get("money_per_coeff", 0)) * coeff
-	var fee: int = int(effects.get("cost_per_coeff", 0)) * coeff
+	var money: int = Difficulty.scale_penalty(state, int(effects.get("money_per_coeff", 0)) * coeff)
+	var fee: int = -Difficulty.scale_penalty(state, -(int(effects.get("cost_per_coeff", 0)) * coeff))
 	state.treasury += money - fee
 	report["money"] = money
 	report["fee"] = fee
@@ -127,6 +127,14 @@ static func _roll_node(state: GameState) -> Dictionary:
 	if not is_battle:
 		return {
 			"kind": &"unknown", "content": &"opportunity", "battle_type": &"",
+			"face_shown": face_shown, "surprise": false,
+		}
+	# 為民主而流血: low-frequency unknown draw while democracy is unlocked-but-refused
+	# and happiness < 70 (design/戰鬥.md; 15% share is a driver decision).
+	if not state.is_democracy and state.culture > 20 and state.happiness < 70 \
+			and state.rng.chance(&"map", 0.15):
+		return {
+			"kind": &"unknown", "content": &"battle", "battle_type": &"democracy_blood",
 			"face_shown": face_shown, "surprise": false,
 		}
 	var hidden: bool = state.rng.chance(&"map", HIDDEN_AMONG_UNKNOWN_BATTLES)

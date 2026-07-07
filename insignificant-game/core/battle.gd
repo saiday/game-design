@@ -312,25 +312,27 @@ static func _build_enemy(state: GameState, battle: BattleField) -> void:
 	var coeff: int = Era.coeff(state.generation)
 	match battle.battle_type:
 		&"tax_battle":
-			_add_enemies(battle, [&"weak", &"weak"], coeff, false)
+			_add_enemies(state, battle, [&"weak", &"weak"], coeff, false)
 		&"field_battle":
-			_add_enemies(battle, [&"medium", &"medium", &"weak"], coeff, false)
+			_add_enemies(state, battle, [&"medium", &"medium", &"weak"], coeff, false)
 		&"hidden_battle":
-			_add_enemies(battle, [&"hard", &"hard"], coeff, true)
+			_add_enemies(state, battle, [&"hard", &"hard"], coeff, true)
 		&"riot":
-			_add_enemies(battle, [&"medium", &"medium"], coeff, false)
+			_add_enemies(state, battle, [&"medium", &"medium"], coeff, false)
 		&"democracy_blood":
-			_add_enemies(battle, [&"hard", &"hard", &"medium"], coeff, false)
+			_add_enemies(state, battle, [&"hard", &"hard", &"medium"], coeff, false)
 		&"civil_war":
 			_build_civil_war_enemy(state, battle, coeff)
 
 
-static func _add_enemies(battle: BattleField, grades: Array, coeff: int, siege: bool) -> void:
+static func _add_enemies(state: GameState, battle: BattleField, grades: Array, coeff: int, siege: bool) -> void:
 	for grade: StringName in grades:
 		var stats: Array = GRADE_STATS[grade]
 		var flags: Array = [&"siege"] if siege else []
 		battle.enemy_units.append({
-			"grade": grade, "attack": int(stats[0]) * coeff, "hp": int(stats[1]) * coeff,
+			"grade": grade,
+			"attack": Difficulty.scale_enemy_stat(state, int(stats[0]) * coeff),
+			"hp": Difficulty.scale_enemy_stat(state, int(stats[1]) * coeff),
 			"row": &"melee", "flags": flags, "leader": false,
 		})
 
@@ -348,8 +350,8 @@ static func _build_civil_war_enemy(state: GameState, battle: BattleField, coeff:
 			var flags: Array = [&"siege"] if grade == &"hard" else []
 			battle.enemy_units.append({
 				"grade": grade,
-				"attack": maxi(int(round(float(int(stats[0]) * coeff) * mult)), 1),
-				"hp": int(stats[1]) * coeff,
+				"attack": maxi(int(round(float(Difficulty.scale_enemy_stat(state, int(stats[0]) * coeff)) * mult)), 1),
+				"hp": Difficulty.scale_enemy_stat(state, int(stats[1]) * coeff),
 				"row": &"melee", "flags": flags, "leader": false,
 			})
 	if battle.enemy_units.is_empty():   # tiny rival still fields one discounted weak unit
