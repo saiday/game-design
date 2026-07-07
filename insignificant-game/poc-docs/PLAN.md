@@ -41,9 +41,11 @@ every green wave.
       demo mode INSIG_DEMO=1 simulates clicks, captures per-phase PNGs, prints ASSERTs).
       Gate: all 8 phase captures written, 0 ASSERT FAIL, exit 0, taxonomy review clean.
       *(done 2026-07-08. Part B caught a real defect — stale phase titles on WW/ending — fixed.)*
-- [ ] **W6 — Balance instrumentation + wrap.** Telemetry summary from sim runs (BP curve, escalating
-      cost 0.25, unrest weights — the three sensitive knobs); decision docs complete in `poc-docs/`;
-      final report to PM.
+- [x] **W6 — Balance instrumentation + wrap.** `tools/balance_batch.gd` (60 seeded runs ×3
+      difficulties) -> `poc-docs/balance-report.md` (three knobs measured; surfaced: no late-game
+      money sink, happiness pegs at 100, rival churn high, zero collapses in 60 runs);
+      `decision-w3-w5-gaps.md` completes the decision log. *(done 2026-07-08; final Part A
+      181/181 exit 0.)*
 
 ## Module status (agents/driver: flip these as suites go green)
 

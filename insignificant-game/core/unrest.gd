@@ -54,6 +54,7 @@ static func roll(state: GameState) -> bool:
 	var triggered: bool = state.rng.chance(&"unrest", weight(state))
 	if triggered:
 		state.unrest_battles_this_gen += 1
+		state.flags[&"unrest_triggered_total"] = int(state.flags.get(&"unrest_triggered_total", 0)) + 1
 	return triggered
 
 
