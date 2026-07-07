@@ -13,7 +13,7 @@ planning home since 2026-07-04**; game title: **Insignificant**). That corpus is
 this repo is the **buildable loop**. Don't duplicate game-design detail into this file — link to it.
 - Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
   loops, systems table). Every game term wikilinks to its dedicated setting doc.
-- Setting docs (one per system, big-table format, placeholder numbers as knobs): `時代與回合`,
+- Setting docs (one per system, big-table format, numbers are v1 baseline knobs): `時代與回合`,
   `營運` (BP/regions/building lines/escalating build cost — no maintenance fee), `國策`, `Legacy`,
   `經濟與債務` (single money pool, debt = negative treasury), `幸福`, `內亂與失敗` (fail chain →
   政權崩潰 at pop<5, the only game over), `戰鬥` (single battlefield, auto-deployment by combat attribute,
@@ -21,8 +21,11 @@ this repo is the **buildable loop**. Don't duplicate game-design detail into thi
   `對手文明` (5 fixed power-curve automa), `世界大戰` (rounds 15/35; reparations
   `max(正國庫×50%, power×2)`, can go negative), `民主` (candidate truth table), `結局`
   (survive to round 50 = win; ranking gives narrative epilogue only, never a loss).
-- **Unresolved points are marked inline as `>` quote blocks** inside each doc — that's the open-
-  question mechanism now (no separate questions doc yet in the new folder).
+- **The corpus is 定稿 / development-ready (2026-07-07)**: all history annotations and open-question
+  quote blocks were resolved and removed. The only remaining `>` blocks are each doc's intro summary
+  (keep that format). Structure/rules/links are locked; numeric values are v1 baselines calibrated by
+  playtesting — calibration changes values, never structure. New open questions go back in as `>`
+  quote blocks when a future design round reopens something.
 - The old corpus `.../obsidian/game ideas/agent plans/` is **archived** (7 Q&A rounds, decision
   history in its `archive/`; `constitution.md` there still holds the timeless invariants and the
   design-iteration method). Consult it for rationale/history, don't update it.
