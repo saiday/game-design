@@ -32,10 +32,11 @@ every green wave.
       driver: 165/165, 17 suites, exit 0. WW resolved as automated common-table strength contest
       — faithful camps/merit/reparations math, no per-card play [documented simplification].
       slow_burner g_late calibrated 1.24: design's stated 1.11 can't reach its own 230@35 target.)*
-- [ ] **W4 — Difficulty + orchestrator + simulation.** `difficulty.gd`, `turn.gd`, `sim.gd`;
-      full-run seeded simulation tests (50 generations, invariants: no NaN/negative pop, run
-      terminates, economy in bounds); `poc-docs/difficulty-design.md` + **sync formula back to the
-      Obsidian corpus** (guideline requirement). Gate: Part A green incl. sim suite.
+- [x] **W4 — Difficulty + orchestrator + simulation.** `difficulty.gd`, `turn.gd`, `sim.gd`;
+      full-run seeded simulation tests; `doc/difficulty-design.md`; formula synced into the
+      Obsidian corpus (對手文明 + pointers in 戰鬥/地圖與機會; snapshot refreshed; also fixed
+      slow_burner g_late 1.11→1.24 there — value calibration to its own 230@35 target).
+      Gate: Part A green incl. sim suite. *(done 2026-07-08: 181/181, 20 suites, exit 0)*
 - [ ] **W5 — View layer (Part B).** `view/main.tscn` phase UI blocks (operate / route / node /
       battle / settle / WW / democracy), click-driven, placeholder visuals only; `tools/capture.gd`
       with ASSERT PASS/FAIL + PNG to `captures/`. Gate: capture PNG shows each phase block, no
@@ -64,9 +65,9 @@ every green wave.
 | democracy (+data) | ✓ | ✓ | money deltas ×coeff; auto-explore 15×coeff/node |
 | legacy | ✓ | ✓ | passive magnitudes are driver v1 values |
 | ending (+data) | ✓ | ✓ | collapse epilogue text is a driver addition |
-| difficulty | — | — | |
-| turn | — | — | |
-| sim | — | — | |
+| difficulty | ✓ | ✓ | |
+| turn | ✓ | ✓ | |
+| sim | ✓ | ✓ | |
 | view/main + capture | — | — | Part B |
 
 ## Standing rules
