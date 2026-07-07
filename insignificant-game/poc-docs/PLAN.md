@@ -17,8 +17,9 @@ every green wave.
 
 - [x] **W0 — Scaffold.** Nested project + gdUnit4 + `.gdignore` isolation + design snapshot +
       architecture contract + this board. Gate: smoke test 2/2, exit 0. *(done 2026-07-07)*
-- [ ] **W1 — Foundations (driver-authored, inline).** `rng.gd`, `era.gd`, `game_state.gd` + tests.
+- [x] **W1 — Foundations (driver-authored, inline).** `rng.gd`, `era.gd`, `game_state.gd` + tests.
       Gate: Part A green. These three ARE the contract; driver writes them, not agents.
+      *(done 2026-07-07: 20/20, exit 0; starting values decided in decision-starting-values.md)*
 - [ ] **W2 — Inner systems (workflow, 7 agents).** `economy.gd`, `operations.gd`, `policy.gd`
       (+ `data/policy_nodes.gd`), `happiness.gd`, `unrest.gd`, `cards.gd` (+ `data/cards.gd`),
       `map_nodes.gd` (+ `data/opportunities.gd`). Gate: Part A green.
@@ -41,9 +42,9 @@ every green wave.
 
 | Module | Written | Tests green | Notes |
 |---|---|---|---|
-| rng | — | — | |
-| era | — | — | |
-| game_state | — | — | |
+| rng | ✓ | ✓ | |
+| era | ✓ | ✓ | |
+| game_state | ✓ | ✓ | schema may gain fields via module reports |
 | economy | — | — | |
 | operations | — | — | |
 | policy (+data) | — | — | |
