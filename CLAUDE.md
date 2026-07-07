@@ -13,6 +13,10 @@ planning home since 2026-07-04**; game title: **Insignificant**). That corpus is
 this repo is the **buildable loop**. Don't duplicate game-design detail into this file — link to it.
 - Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
   loops, systems table). Every game term wikilinks to its dedicated setting doc.
+- **Doc ↔ code relation:** every setting doc's frontmatter carries a `code:` list mapping it to
+  its module / data table / test suite, paths relative to this repo (e.g.
+  `insignificant-game/core/economy.gd`). Keep it current when modules move. The reverse direction
+  is each module's header comment citing its `design/*.md` source.
 - Setting docs (one per system, big-table format, numbers are v1 baseline knobs): `時代與回合`,
   `營運` (BP/regions/building lines/escalating build cost — no maintenance fee), `國策`, `Legacy`,
   `經濟與債務` (single money pool, debt = negative treasury), `幸福`, `內亂與失敗` (fail chain →

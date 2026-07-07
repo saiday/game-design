@@ -2,6 +2,15 @@
 type: game-concept
 status: 定稿（主文件）；數值＝首版基準值
 date: 2026-07-07
+code:
+  - insignificant-game/poc-docs/architecture.md
+  - insignificant-game/core/game_state.gd
+  - insignificant-game/core/turn.gd
+  - insignificant-game/core/sim.gd
+  - insignificant-game/view/main.gd
+  - insignificant-game/test/game_state_test.gd
+  - insignificant-game/test/turn_test.gd
+  - insignificant-game/test/sim_test.gd
 ---
 
 # Insignificant

@@ -2,6 +2,9 @@
 type: game-setting
 status: 定稿；數值＝首版基準值（試玩校準）
 date: 2026-07-07
+code:
+  - insignificant-game/core/legacy.gd
+  - insignificant-game/test/legacy_test.gd
 ---
 
 # Legacy（文明精神）
