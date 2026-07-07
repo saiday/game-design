@@ -37,10 +37,10 @@ every green wave.
       Obsidian corpus (對手文明 + pointers in 戰鬥/地圖與機會; snapshot refreshed; also fixed
       slow_burner g_late 1.11→1.24 there — value calibration to its own 230@35 target).
       Gate: Part A green incl. sim suite. *(done 2026-07-08: 181/181, 20 suites, exit 0)*
-- [ ] **W5 — View layer (Part B).** `view/main.tscn` phase UI blocks (operate / route / node /
-      battle / settle / WW / democracy), click-driven, placeholder visuals only; `tools/capture.gd`
-      with ASSERT PASS/FAIL + PNG to `captures/`. Gate: capture PNG shows each phase block, no
-      ASSERT FAIL, no runtime errors.
+- [x] **W5 — View layer (Part B).** `view/main.tscn` + `view/main.gd` (UI built programmatically;
+      demo mode INSIG_DEMO=1 simulates clicks, captures per-phase PNGs, prints ASSERTs).
+      Gate: all 8 phase captures written, 0 ASSERT FAIL, exit 0, taxonomy review clean.
+      *(done 2026-07-08. Part B caught a real defect — stale phase titles on WW/ending — fixed.)*
 - [ ] **W6 — Balance instrumentation + wrap.** Telemetry summary from sim runs (BP curve, escalating
       cost 0.25, unrest weights — the three sensitive knobs); decision docs complete in `poc-docs/`;
       final report to PM.
@@ -68,7 +68,7 @@ every green wave.
 | difficulty | ✓ | ✓ | |
 | turn | ✓ | ✓ | |
 | sim | ✓ | ✓ | |
-| view/main + capture | — | — | Part B |
+| view/main + capture | ✓ | ✓ | demo mode = embedded capture script (Part B) |
 
 ## Standing rules
 
