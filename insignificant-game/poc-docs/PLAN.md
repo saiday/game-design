@@ -26,9 +26,12 @@ every green wave.
       Gate: Part A green. *(done 2026-07-08: 99/99, 11 suites, exit 0. First workflow attempt
       died on usage limits; data tables salvaged from it, logic+tests finished inline by the
       driver one module at a time. Gap decisions: decision-w2-gaps.md.)*
-- [ ] **W3 — Outer systems (workflow, 6 agents).** `rivals.gd` (+ `data/rivals.gd`), `battle.gd`
-      (+ `data/enemies.gd`), `world_war.gd`, `democracy.gd` (+ `data/candidates.gd`), `legacy.gd`,
-      `ending.gd` (+ `data/epilogues.gd`). Gate: Part A green.
+- [x] **W3 — Outer systems.** `rivals.gd` (+ `data/rivals.gd`), `battle.gd` (enemy specs inline),
+      `world_war.gd`, `democracy.gd` (+ `data/candidates.gd`), `legacy.gd`,
+      `ending.gd` (+ `data/epilogues.gd`). Gate: Part A green. *(done 2026-07-08 inline by the
+      driver: 165/165, 17 suites, exit 0. WW resolved as automated common-table strength contest
+      — faithful camps/merit/reparations math, no per-card play [documented simplification].
+      slow_burner g_late calibrated 1.24: design's stated 1.11 can't reach its own 230@35 target.)*
 - [ ] **W4 — Difficulty + orchestrator + simulation.** `difficulty.gd`, `turn.gd`, `sim.gd`;
       full-run seeded simulation tests (50 generations, invariants: no NaN/negative pop, run
       terminates, economy in bounds); `poc-docs/difficulty-design.md` + **sync formula back to the
@@ -55,12 +58,12 @@ every green wave.
 | unrest | ✓ | ✓ | |
 | cards (+data) | ✓ | ✓ | |
 | map_nodes (+data) | ✓ | ✓ | |
-| rivals (+data) | — | — | |
-| battle (+data) | — | — | |
-| world_war | — | — | |
-| democracy (+data) | — | — | |
-| legacy | — | — | |
-| ending (+data) | — | — | |
+| rivals (+data) | ✓ | ✓ | power-scalar mappings are driver decisions (data/rivals.gd) |
+| battle (+data) | ✓ | ✓ | hand system (open 4 / draw 1) is a driver decision |
+| world_war | ✓ | ✓ | automated resolution (simplification) |
+| democracy (+data) | ✓ | ✓ | money deltas ×coeff; auto-explore 15×coeff/node |
+| legacy | ✓ | ✓ | passive magnitudes are driver v1 values |
+| ending (+data) | ✓ | ✓ | collapse epilogue text is a driver addition |
 | difficulty | — | — | |
 | turn | — | — | |
 | sim | — | — | |
