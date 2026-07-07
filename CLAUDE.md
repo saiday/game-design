@@ -16,7 +16,8 @@ this repo is the **buildable loop**. Don't duplicate game-design detail into thi
 - Setting docs (one per system, big-table format, placeholder numbers as knobs): `時代與回合`,
   `營運` (BP/regions/building lines/escalating build cost — no maintenance fee), `國策`, `Legacy`,
   `經濟與債務` (single money pool, debt = negative treasury), `幸福`, `內亂與失敗` (fail chain →
-  政權崩潰 at pop<5, the only game over), `戰鬥` (3-lane battlefield), `卡牌`, `地圖與機會`,
+  政權崩潰 at pop<5, the only game over), `戰鬥` (single battlefield, auto-deployment by combat attribute,
+  win = clear enemy while holding land units, minimize-military-spend gamble), `卡牌`, `地圖與機會`,
   `對手文明` (5 fixed power-curve automa), `世界大戰` (rounds 15/35; reparations
   `max(正國庫×50%, power×2)`, can go negative), `民主` (candidate truth table), `結局`
   (survive to round 50 = win; ranking gives narrative epilogue only, never a loss).
