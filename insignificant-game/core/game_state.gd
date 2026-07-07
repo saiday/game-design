@@ -27,7 +27,8 @@ var buildings_built: int = 0          # lifetime NEW buildings (escalating cost;
 # policy tree
 var policies: Array[StringName] = []
 var policy_in_progress: StringName = &""
-var policy_points_in: int = 0
+var policy_progress: Dictionary = {}    # node id -> BP invested (switching pauses, keeps progress)
+var policy_bp_this_gen: int = 0         # locked this generation (cap 2), reset each generation
 
 # deck
 var deck: Array = []                   # Array of CardInstance (cards.gd)

@@ -121,6 +121,31 @@ Derived values are functions, not stored fields: `Operations.bp_income(state)`,
 (democracy rename of treasury, same pool) · 資本利得 capital gains · 國寶 national treasure
 · 工事 fortification · 人數型/機械型/技能 personnel/mechanical/skill cards.
 
+## Canonical IDs (StringName; use these exactly — never invent variants)
+
+**Regions (5):** `livelihood` 民生 · `academic` 學術 · `military` 軍事 · `culture` 文化 · `finance` 金融
+
+**Building lines (12):** `housing` 住宅 · `food` 食物 · `medical` 醫療 (livelihood) ·
+`school` 學堂 · `astronomy` 天文 (academic) · `barracks` 兵營 · `arsenal` 兵工 (military) ·
+`arts` 藝術 · `media` 傳播 (culture) · `commerce` 商業 · `bank` 銀行 · `debt_office` 國債司 (finance)
+
+**Policy nodes (24):** `centralization` 中央集權 · `bureaucracy` 官僚體系 · `secret_police` 秘密警察 ·
+`cultural_revolution` 文化大革命 · `enlightened_absolutism` 開明專制 · `writing_calendar` 文字與曆法 ·
+`secularization` 推行世俗 · `patent_system` 專利制度 · `moon_race` 登月競賽 · `space_station` 太空站 ·
+`ancestor_worship` 祖靈崇拜 · `state_religion` 建立國教 · `theocracy` 政教合一 · `holy_war` 聖戰 ·
+`hundred_schools` 百家爭鳴 · `mass_media` 大眾媒體 · `cultural_export` 文化輸出 · `great_voyage` 大航海 ·
+`world_map` 世界地圖 · `world_expo` 萬國博覽會 · `scout_camp` 斥候營 · `political_marriage` 政治聯姻 ·
+`intelligence_agency` 情報單位 · `satellite_surveillance` 衛星監控
+
+**Legacies (7):** `religious_dogma` 宗教教條 · `rational_spirit` 理性精神 · `critical_spirit` 批判精神 ·
+`rock_spirit` 搖滾精神 · `democratic_spirit` 民主精神 · `melting_pot` 文化大熔爐 · `martial_law` 戒嚴
+
+**Rival classes (5):** `science_state` 科學邦 · `culture_state` 文化國 · `iron_tribe` 鐵血部 ·
+`vast_state` 廣土邦 · `slow_burner` 慢熱國
+
+Policy effects are queried by direct membership test (`state.policies.has(&"bureaucracy")`) from any
+module — the Policy module owns tree structure/progression, not effect lookups.
+
 ## Test conventions
 
 - One suite per module, `class_name XTest extends GdUnitTestSuite`, file `test/x_test.gd`.
