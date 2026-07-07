@@ -20,12 +20,12 @@ every green wave.
 - [x] **W1 — Foundations (driver-authored, inline).** `rng.gd`, `era.gd`, `game_state.gd` + tests.
       Gate: Part A green. These three ARE the contract; driver writes them, not agents.
       *(done 2026-07-07: 20/20, exit 0; starting values decided in decision-starting-values.md)*
-- [ ] **W2 — Inner systems (workflow, 6 agents; economy owns happiness too).** `economy.gd` +
+- [x] **W2 — Inner systems (workflow, 6 agents; economy owns happiness too).** `economy.gd` +
       `happiness.gd`, `operations.gd` (+ `data/buildings.gd`), `policy.gd` (+ `data/policy_nodes.gd`),
       `unrest.gd`, `cards.gd` (+ `data/cards.gd`), `map_nodes.gd` (+ `data/opportunities.gd`).
-      Gate: Part A green. *(launched 2026-07-07, workflow run wf_d9a2e1dc-c3e; if interrupted:
-      modules may exist unverified on disk — run the Part A commands and fix red before rerunning
-      anything.)*
+      Gate: Part A green. *(done 2026-07-08: 99/99, 11 suites, exit 0. First workflow attempt
+      died on usage limits; data tables salvaged from it, logic+tests finished inline by the
+      driver one module at a time. Gap decisions: decision-w2-gaps.md.)*
 - [ ] **W3 — Outer systems (workflow, 6 agents).** `rivals.gd` (+ `data/rivals.gd`), `battle.gd`
       (+ `data/enemies.gd`), `world_war.gd`, `democracy.gd` (+ `data/candidates.gd`), `legacy.gd`,
       `ending.gd` (+ `data/epilogues.gd`). Gate: Part A green.
@@ -48,13 +48,13 @@ every green wave.
 | rng | ✓ | ✓ | |
 | era | ✓ | ✓ | |
 | game_state | ✓ | ✓ | schema may gain fields via module reports |
-| economy | — | — | |
-| operations | — | — | |
-| policy (+data) | — | — | |
-| happiness | — | — | |
-| unrest | — | — | |
-| cards (+data) | — | — | |
-| map_nodes (+data) | — | — | |
+| economy | ✓ | ✓ | |
+| operations | ✓ | ✓ | |
+| policy (+data) | ✓ | ✓ | per-node progress banking (換節點保留進度) |
+| happiness | ✓ | ✓ | |
+| unrest | ✓ | ✓ | |
+| cards (+data) | ✓ | ✓ | |
+| map_nodes (+data) | ✓ | ✓ | |
 | rivals (+data) | — | — | |
 | battle (+data) | — | — | |
 | world_war | — | — | |
