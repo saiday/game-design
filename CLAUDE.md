@@ -1,10 +1,12 @@
 # CLAUDE.md — agent operating pins for this project
 
-Godot **4.6** / **GDScript** (never C#) / **2D** roguelike deckbuilder. The PoC's
-product is a *proven self-correction loop*, not game content. Specs live in
-`doc/agent-development-loop.md` (prescriptive single source of truth) and
-`doc/poc-implementation-guide.md` (gates + guardrails). Durable state:
-`PLAN.md`, `STRUCTURE.md`, `MEMORY.md`. Setup recipe: `agent-process.md`.
+Godot **4.6** / **GDScript** (never C#) / **2D** roguelike deckbuilder. Two projects live here:
+the repo-root **loop PoC** (closed 2026-06-17; proved the two-part self-correction loop — specs in
+`doc/agent-development-loop.md`, gates in `doc/poc-implementation-guide.md`; durable state
+`PLAN.md`/`STRUCTURE.md`/`MEMORY.md`) and **`insignificant-game/` — the full-game PoC and the
+active workstream** (guideline: `doc/poc-implementation-gudielines.md`). **Working on the game?
+Read `insignificant-game/CLAUDE.md` and cd there** — it is a nested, `.gdignore`-isolated Godot
+project with its own contract, dev loop, and task board.
 
 ## Game-design corpus (Obsidian — *what* we'd build, separate from *this PoC loop*)
 The game design lives in an Obsidian corpus at
