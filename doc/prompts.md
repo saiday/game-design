@@ -105,6 +105,14 @@ You must split all systems into clean Data/Logic and View layers.
 <details>
 <summary>Archived</summary>
 
+### [2026-07-08 14:21:21] Image-Assets Generation Orchestrator Cookbook
+
+I do have a Mac Studio M2 Max with 96GB RAM (currently we're on a Macbook), do you think it's eligible device for this game's image assets generation? If yes, I'd like you to choose which image generation tool/env and if I will let future Opus to be the assets orchestrator on that device, are you able to write a cookbook for them?
+
+Ask me essential questions. When you have all the answers, write down the cookbook that future Opus (or Opus) will need in @doc/image-assets-generation-orchestrator-cookbook.md
+
+*(Answers given: hobby/undecided commercially — prefer permissive licenses anyway; local-only; all four asset classes; Claude Code runs on the Studio. Outcome: cookbook written, stack locked to ComfyUI API + SDXL/pixel-LoRA + Pillow pixelization. Follow-ups same day: template-first semi-generated consistency workflow adopted (frozen frames/chrome, compose in Godot); Z-Image-Turbo picked over FLUX.2-dev (6B Apache-2.0 vs 32B non-commercial) with FLUX.1-schnell as fallback; art-pipeline-poc-guide.md merged into the cookbook and removed; `doc/mac-studio-handoff.md` written with paste-ready Prompt 0–3 for the Studio sessions.)*
+
 ### [2026-06-30 06:51:00] RimWorld & Frostpunk Style Point-Based Operations Research
 
 /deep-research 我想調整目前的遊戲營運部分，想概念上參考 RimWorld 跟 Frostpunk，讓玩家在營運的時候透過建造營運事業體（住房、食物採集、軍營、學校、研究中心、藝術中心、...）來決定營運的方向。

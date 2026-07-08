@@ -11,6 +11,9 @@ The repo root is **documentation only**; all code lives in one place:
   self-correction loop, proven by the original repo-root loop PoC, closed 2026-06-17),
   `poc-implementation-guidelines.md` (merged guide: Part 1 = full-game PoC contract, fulfilled
   2026-07-08; Part 2 = the archived loop-PoC guide), `prompts.md` (live prompt log),
+  `image-assets-generation-orchestrator-cookbook.md` (art pipeline on the Mac Studio — the agent
+  cookbook; absorbed the exploratory art-pipeline-poc-guide, which was removed 2026-07-08) with
+  `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions),
   `doc/loop-poc-archive/` (the loop PoC's PLAN/STRUCTURE/MEMORY/process snapshots). The loop
   PoC's code was removed 2026-07-08 — recover it via git history if ever needed.
 
