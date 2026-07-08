@@ -2,7 +2,7 @@
 
 > **If you are resuming after an interruption:** this file + git log is the truth. Find the first
 > unchecked gate below, verify the previous gate actually holds (run Part A; run Part B if past W5),
-> and continue from there. Guideline: `doc/poc-implementation-gudielines.md` (repo root).
+> and continue from there. Guideline: `doc/poc-implementation-guidelines.md` Part 1 (repo root).
 > Contract: `poc-docs/architecture.md`. Design: `design/` (snapshot; Obsidian corpus is upstream).
 
 ## Method

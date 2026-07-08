@@ -3,8 +3,8 @@
 Godot **4.6** / **GDScript** (never C#) / **2D**. A civilization-management × StS-style
 deckbuilder: 50 generations, survive to the end = win, pop<5 = the only game over. This is the
 **full-game simulation PoC** — every system implemented as pure logic under a two-part
-verification loop, built to calibrate the design's v1 baseline numbers. It is a NESTED Godot
-project inside the repo's outer (closed) loop-PoC — always `cd` here before running anything.
+verification loop, built to calibrate the design's v1 baseline numbers. This directory is the
+repo's ONLY Godot project (the root is docs-only) — always `cd` here before running anything.
 
 ## Read in this order (don't code before 1–2)
 
@@ -12,8 +12,8 @@ project inside the repo's outer (closed) loop-PoC — always `cd` here before ru
    canonical StringName IDs (24 policy nodes / 12 building lines / regions / legacies / rival
    classes), 中→EN glossary, cross-module API pins, test conventions. Everything below is a
    summary of it or an exception to nothing in it.
-2. `poc-docs/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 8 pitfalls
-   that actually bit (false-green cwd trap, exit-105 class_name cache, determinism rules…).
+2. `poc-docs/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
+   that actually bit (cwd trap, exit-105 class_name cache, determinism rules…).
 3. `design/` — the 15 game-rule docs (snapshot; see "Design authority" below). The system you're
    touching, plus anything it feeds (each doc's intro lists 被誰餵/餵給誰).
 4. `poc-docs/PLAN.md` — task board & wave history; the recovery point after any interruption.

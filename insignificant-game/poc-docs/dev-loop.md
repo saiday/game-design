@@ -45,20 +45,20 @@ Compare against `poc-docs/balance-report.md` before/after a knob change.
 
 ## Pitfalls (all hit for real in this repo)
 
-1. **Shell cwd resets between tool calls.** A bare `runtest.sh` run from the repo root executes
-   the OUTER loop-PoC project's 6 old tests and exits 0 — a convincing false green. If the
-   summary doesn't say ~20 suites / 180+ cases, you ran the wrong project.
+1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
+   Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
+   ~20 suites / 180+ cases. (Historical note: the repo root used to hold a second Godot project
+   whose 6 stale tests produced a convincing false green; it was removed 2026-07-08, so a wrong
+   cwd now fails loudly instead — keep the count check anyway.)
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
-3. **`.gdignore` at this project's root** hides it from the outer Godot project. Don't delete
-   it; it does not affect running THIS project via `--path .`.
-4. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show
+3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show
    everything; re-run after each fix. "Failures" counts assertions, not cases.
-5. **`Array.shuffle()`/`randi()` are forbidden in core/** — they use the global RNG and break
+4. **`Array.shuffle()`/`randi()` are forbidden in core/** — they use the global RNG and break
    run determinism (the sim tests will catch you). Everything random goes through
    `state.rng.<track>` (see architecture.md).
-6. **Untyped-for-loop warnings:** iterate with typed loop vars (`for x: StringName in ...`);
+5. **Untyped-for-loop warnings:** iterate with typed loop vars (`for x: StringName in ...`);
    integer division needs `@warning_ignore("integer_division")` to stay warning-clean.
-7. **Env vars don't persist between tool calls** — re-export `GODOT_BIN` etc. in every command.
-8. **iCloud corpus files** (`design/` upstream) can change between read and write — re-read
+6. **Env vars don't persist between tool calls** — re-export `GODOT_BIN` etc. in every command.
+7. **iCloud corpus files** (`design/` upstream) can change between read and write — re-read
    immediately before editing an Obsidian file; escape `|` as `\|` inside table wikilinks.

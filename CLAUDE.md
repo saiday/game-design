@@ -1,18 +1,24 @@
-# CLAUDE.md — agent operating pins for this project
+# CLAUDE.md — agent operating pins for this repo
 
-Godot **4.6** / **GDScript** (never C#) / **2D** roguelike deckbuilder. Two projects live here:
-the repo-root **loop PoC** (closed 2026-06-17; proved the two-part self-correction loop — specs in
-`doc/agent-development-loop.md`, gates in `doc/poc-implementation-guide.md`; durable state
-`PLAN.md`/`STRUCTURE.md`/`MEMORY.md`) and **`insignificant-game/` — the full-game PoC and the
-active workstream** (guideline: `doc/poc-implementation-gudielines.md`). **Working on the game?
-Read `insignificant-game/CLAUDE.md` and cd there** — it is a nested, `.gdignore`-isolated Godot
-project with its own contract, dev loop, and task board.
+Godot **4.6** / **GDScript** (never C#) / **2D** roguelike deckbuilder (**Insignificant**).
+The repo root is **documentation only**; all code lives in one place:
 
-## Game-design corpus (Obsidian — *what* we'd build, separate from *this PoC loop*)
+- **`insignificant-game/` — the full-game PoC and the only Godot project.** Working on the game?
+  **Read `insignificant-game/CLAUDE.md` and cd there** — it has the contract
+  (`poc-docs/architecture.md`), the verified dev-loop commands (`poc-docs/dev-loop.md`), and the
+  task board. Never run engine/test commands from the repo root; there is no project here.
+- **`doc/`** — project history and doctrine: `agent-development-loop.md` (the two-part
+  self-correction loop, proven by the original repo-root loop PoC, closed 2026-06-17),
+  `poc-implementation-guidelines.md` (merged guide: Part 1 = full-game PoC contract, fulfilled
+  2026-07-08; Part 2 = the archived loop-PoC guide), `prompts.md` (live prompt log),
+  `doc/loop-poc-archive/` (the loop PoC's PLAN/STRUCTURE/MEMORY/process snapshots). The loop
+  PoC's code was removed 2026-07-08 — recover it via git history if ever needed.
+
+## Game-design corpus (Obsidian — *what* we're building; the design source of truth)
 The game design lives in an Obsidian corpus at
 `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` (**the current
 planning home since 2026-07-04**; game title: **Insignificant**). That corpus is the **design**;
-this repo is the **buildable loop**. Don't duplicate game-design detail into this file — link to it.
+this repo is the **build**. Don't duplicate game-design detail into this file — link to it.
 - Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
   loops, systems table). Every game term wikilinks to its dedicated setting doc.
 - **Doc ↔ code relation:** every setting doc's frontmatter carries a `code:` list mapping it to
@@ -39,29 +45,12 @@ this repo is the **buildable loop**. Don't duplicate game-design detail into thi
 **Design-iteration loop** (how the game design advances; canonical copy in `constitution.md` §5):
 `answer (human) → converge into a CONNECTED model (every system names what it feeds / is fed by) → multi-round adversarial validation (skeptics hunt "outputs without inputs" disconnects) → archive this round's questions → pose the next, deeper round`. Run each round as a dynamic workflow. The human's standing rule: questions must come from connected understanding, never surface plausibility.
 
-## Engine + commands (verified on this Mac — see MEMORY.md)
-```bash
-export GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot   # Godot 4.6.3
-export GODOT_DISABLE_LEAK_CHECKS=1                              # avoid false non-zero exit
-
-# Part A — headless logic tests (gdUnit4). Exit 0=pass, 100=fail, 101=warn.
-"$GODOT_BIN" --headless --path . --import --quit-after 2000     # import warm-up (don't gate on its exit)
-./addons/gdUnit4/runtest.sh -a res://test                      # reports -> reports/report_N/
-
-# Part B — runtime/visual capture (NOT --headless; needs the real GPU).
-"$GODOT_BIN" --path .                                           # runs main scene -> capture.gd -> captures/*.png
-# Judge from the PNG + grep stdout for "ASSERT FAIL".
-```
-
-## Non-negotiables (guide §2)
+## Non-negotiables (full versions in `insignificant-game/CLAUDE.md`)
 - GDScript, 2D, Godot 4.6 idioms: `await` not `yield`; `CharacterBody2D` not `KinematicBody2D`; **static typing** everywhere.
 - **Game logic lives in pure, GUI-free functions** (`RefCounted` / static fns) so it's unit-testable headless.
 - **Both loop parts before "done":** headless tests can pass while a GPU run fails. Always run Part B.
 - Don't hand-corrupt `.tscn` `uid://` identity; don't reopen locked decisions (engine/language/dimensionality).
 - Humans own fun/balance — surface design questions, don't decide them.
-
-## Loop
-edit → Part A (gdUnit4) → Part B (capture PNG + ASSERT) → human (feel/balance). After each green gate, update `STRUCTURE.md`/`MEMORY.md` and commit.
 
 ## Reference implementation — `../Slay-The-Robot/` (read it, don't restate it)
 A sibling clone (`../Slay-The-Robot/`, MIT, **same stack: Godot 4.6 / GDScript / 2D**) is a mature, complete StS-clone *framework*. Treat it as a **worked reference design to consult when planning or implementing a subsystem** — open the actual source, don't paraphrase its design back into this file. It answers "how would a finished version model this?", not "what should we build." Where to look:

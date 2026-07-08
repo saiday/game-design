@@ -1,6 +1,6 @@
 # Difficulty design (formula + rationale)
 
-> Required by `doc/poc-implementation-gudielines.md`. Implementation: `core/difficulty.gd`.
+> Required by `doc/poc-implementation-guidelines.md` (Part 1). Implementation: `core/difficulty.gd`.
 > The same formula is copied into the design corpus (對手文明 difficulty section, with
 > pointers from 戰鬥 and 地圖與機會).
 

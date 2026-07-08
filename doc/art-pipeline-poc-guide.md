@@ -2,7 +2,7 @@
 
 > **Audience:** agents standing up and driving a local image-generation pipeline for this game.
 > **Nature:** **exploration, not a decision.** Principle-level — objectives, gates, guardrails. You (the implementing agent) choose the specific tools, models, and parameters. Nothing here locks a style or a stack; the point is to learn enough to choose later.
-> **Companion docs:** `doc/agent-development-loop.md` (engine/code loop) and `doc/poc-implementation-guide.md` (code PoC). The art asset eventually has to land in Godot as a 2D sprite/texture, so keep that endpoint in mind.
+> **Companion docs:** `doc/agent-development-loop.md` (engine/code loop) and `doc/poc-implementation-guidelines.md` (code PoC guides, merged). The art asset eventually has to land in Godot as a 2D sprite/texture, so keep that endpoint in mind.
 
 Last updated: 2026-06-17.
 
