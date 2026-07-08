@@ -1,5 +1,6 @@
 # comfy_run.py — submit an API-format workflow to ComfyUI and wait for the result.
 # Usage: python3 comfy_run.py workflows/sdxl_txt2img.json [--seed N] [--prompt TEXT] [--prefix NAME]
+#        [--negative TEXT] [--width N] [--height N] [--lora NAME] [--lora-strength F]
 # Prints the elapsed sampling time and the output image paths. See cookbook §4 for the driving rules.
 import argparse
 import json
@@ -17,21 +18,50 @@ def find_node(wf: dict, class_type: str) -> str:
     return ids[0]
 
 
+def find_one_of(wf: dict, class_types: tuple[str, ...]) -> str:
+    ids = [k for k, v in wf.items() if v["class_type"] in class_types]
+    if len(ids) != 1:
+        raise SystemExit(f"expected exactly one of {class_types}, found {len(ids)}")
+    return ids[0]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("workflow")
     ap.add_argument("--seed", type=int)
     ap.add_argument("--prompt")
     ap.add_argument("--prefix")
+    ap.add_argument("--negative")
+    ap.add_argument("--width", type=int)
+    ap.add_argument("--height", type=int)
+    ap.add_argument("--lora")
+    ap.add_argument("--lora-strength", type=float)
     args = ap.parse_args()
 
     with open(args.workflow) as f:
         wf = json.load(f)
+    sampler = wf[find_node(wf, "KSampler")]["inputs"]
     if args.seed is not None:
-        wf[find_node(wf, "KSampler")]["inputs"]["seed"] = args.seed
+        sampler["seed"] = args.seed
     if args.prompt is not None:
-        pos = wf[find_node(wf, "KSampler")]["inputs"]["positive"][0]
-        wf[pos]["inputs"]["text"] = args.prompt
+        wf[sampler["positive"][0]]["inputs"]["text"] = args.prompt
+    if args.negative is not None:
+        neg = wf[sampler["negative"][0]]
+        if neg["class_type"] != "CLIPTextEncode":
+            raise SystemExit("workflow has no text negative (e.g. ConditioningZeroOut) — drop --negative")
+        neg["inputs"]["text"] = args.negative
+    if args.width or args.height:
+        latent = wf[find_one_of(wf, ("EmptyLatentImage", "EmptySD3LatentImage"))]["inputs"]
+        latent["width"] = args.width or latent["width"]
+        latent["height"] = args.height or latent["height"]
+    if args.lora or args.lora_strength is not None:
+        lora = wf[find_one_of(wf, ("LoraLoader", "LoraLoaderModelOnly"))]["inputs"]
+        if args.lora:
+            lora["lora_name"] = args.lora
+        if args.lora_strength is not None:
+            lora["strength_model"] = args.lora_strength
+            if "strength_clip" in lora:
+                lora["strength_clip"] = args.lora_strength
     if args.prefix is not None:
         wf[find_node(wf, "SaveImage")]["inputs"]["filename_prefix"] = args.prefix
 
