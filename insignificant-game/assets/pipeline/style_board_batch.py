@@ -33,11 +33,15 @@ RECIPES = {
            ["--negative", NEG, "--lora", "PixelArtRedmond-Lite64.safetensors", "--lora-strength", "1.0"]),
     "r3": ("workflows/zimage_lora_txt2img.json", "Pixel art style. ",
            ["--lora", "pixel_art_style_z_image_turbo.safetensors", "--lora-strength", "1.0"]),
+    # r4 Moebius LoRA: author says no trigger word, avoid art-style descriptors in the prompt.
+    "r4": ("workflows/krea2_lora_txt2img.json", "",
+           ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]),
 }
 
 
 def main() -> None:
-    for recipe, (workflow, prefix, extra) in RECIPES.items():  # recipe-major = checkpoint-grouped
+    wanted = sys.argv[1:] or list(RECIPES)  # e.g. `style_board_batch.py r4` runs one recipe
+    for recipe, (workflow, prefix, extra) in ((k, RECIPES[k]) for k in wanted):  # recipe-major = checkpoint-grouped
         for subject, (core, w, h) in SUBJECTS.items():
             for seed in SEEDS:
                 job_id = f"sb_{recipe}_{subject}_s{seed}"
