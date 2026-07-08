@@ -1,7 +1,104 @@
 # Live Editing
 
-playable-concept 遊玩回饋，這些都跟我們遊戲設計有關，要理解後完整調整：
-1. 抗稅村莊怎麼可能會有文明中沒看過的騎兵團兵種跟賠償，這不合邏輯，這種戰鬥類型應該要在低幸福度時才被觸發，而且沒有獎勵，當發生內戰時有兩種勝利條件（拖過五回合或戰鬥勝利），戰鬥勝利會減少人口跟降低幸福度，拖過五回合沒有獎勵，完全沒有攻擊會得到一個「立正吃巴掌」的永久文化增益 Legacy。
+重新做一次 playable-concept，這次希望涵蓋營運、事件地圖及戰鬥的畫面及流程，畫面不需要特殊設計可用文字跟區塊組成為主即可，目的是為了確認遊戲性。
+這次以 godot 實作 PoC 另外存在新的 folder (/Insignificant-game/)，這個 PoC 是可以在未來延續的使用的，所以遊戲設計架構應是重要的。
+設計並 apply 一個遊戲難度公式並記錄在文件中，playable-concept 也可以 opt-in 透過 developer 模式調整難度。（目前對手文明有難度，但未完整定義，但是事件還沒有難度）
+
+希望以 dynamic workflow 的方式來進行 PoC 開發。
+
+## Claude Code Prompt
+
+# Goal: Build "Insignificant" Playable Concept Standalone PoC in Godot 4.6
+
+You are an expert agentic game developer. Your task is to implement the full playable-concept prototype (PoC) for the turn-based roguelike deckbuilder and civilization management game "Insignificant". 
+
+This must be a standalone, fully playable project built inside the folder `/Insignificant-game/` under the workspace root. 
+
+---
+
+## Guidelines
+- **Gameplay Mechanics:** Implement **everything** described in the design specs. Every major system (Operations, Map Node Selection, Battle Cards/Lanes, Economy/Debt, Eras/Rounds, and Democracy) must be fully simulated and playable to test and verify game balance.
+- **Visuals & Audio:** Omit custom art and audio assets. Use the absolute minimum placeholder visuals (e.g., basic shapes, text, and default colors) required to make the game fully functional, playable, and testable. 
+- **Extensibility:** Maintain a highly modular, decoupled code architecture so the PoC code can be directly extended for the final production game.
+- **In-progress Documentation:** Continuously update and maintain documentation in the `poc-docs/` directory, detailing key architectural decisions, implementation choices, and design trade-offs made during development.
+
+---
+
+## 🛠️ Software Architecture & Test-Driven Requirements
+You must split all systems into clean Data/Logic and View layers.
+1. **Pure logic separation (MANDATORY):** Game logic, state transitions, card calculations, map generation, difficulty multipliers, and battle outcomes must NOT be coupled to Godot scene nodes or `_ready` loops. Write them in pure scripts inheriting from `RefCounted` or as static utility classes.
+2. **Static Typing:** Force static typing (`var x: int`, `func test() -> void`, etc.) on all GDScript variables and functions.
+3. **Headless Unit Testing:** Set up `addons/gdUnit4` within `/Insignificant-game/`. You must write extensive unit tests under `test/` for all logic models:
+   - **GameState & Economy:** Resource math, BP calculation, single-treasury operations, interest scaling, and debt threshold triggers.
+   - **Difficulty Formulas:** Calculation of difficulty multipliers across eras and events.
+   - **Operations & Costs:** Incremental building costs and region unlock thresholds.
+   - **Battle Simulation:** Auto-battler attack priorities, damage resolution, fortification durability, and win/loss states.
+   - **Card & Deck Rules:** Drawing, discarding, era-based unit evolution, and card deletion logic.
+4. **Two-Part Verification Loop:**
+   - **Part A:** Run headless gdUnit4 unit tests via `./addons/gdUnit4/runtest.sh` and ensure they exit 0.
+   - **Part B:** Launch the scene runner to execute visual assertions (e.g. confirming labels/cards render within bounds) and capture a gameplay PNG in `captures/`.
+
+---
+
+## 🎮 Core Game Systems to Implement
+
+### 1. Era & Round Loop (時代與回合)
+- **Eras:** Implement the 6 eras (部落, 古典, 信仰, 工業, 現代, 資訊) across 50 rounds. Apply Era-specific cost multipliers (×1, ×2, ×3, ×5, ×8, ×12).
+- **Generation Phases:** Each round must execute:
+  1. **Operations Phase:** Spend BP on constructions/policies.
+  2. **Path Selection:** Choose from 1–3 mystery map nodes.
+  3. **Node Resolution:** Combat (auto-battler) or Opportunity Event.
+  4. **Turn Income & Upkeep Calculations:** Taxes, interest, debt penalties, civ growth.
+- **Special Rounds:** Overwrite rounds 15 and 35 with the World War (世界大戰) phase. Trigger the transition to Democracy (民主) under specific criteria (rounds 35–42, or forced by unrest).
+
+### 2. Operations & Regions (營運與區域)
+- **BP Math:** Base BP = `max(1, floor(Population / 10))`, capped by Era limits.
+- **Escalating Costs:** Cost = `1 BP + Base Cost * Era Scale * (1 + 0.25 * Built Buildings)`.
+- **Regions:** Implement 5 regions (民生, 學術, 軍事, 文化, 金融). Each region unlocks card pools, passive stats, and opens 2-3 specific building lines (total 12 lines including 住宅, 兵營, 天文, 國債司).
+
+### 3. Economy, Debt, & Failure (經濟、債務與失敗鏈)
+- **Single Treasury:** All expenses (operations, card costs, bribes) draw from a single money pool. Negative treasury is allowed (debt).
+- **Interest & Unrest:** Debt incurs compounding interest and generates civil unrest (民怨). If Population drops below 5, trigger Regime Collapse (政權崩潰) -> Game Over.
+
+### 4. Event Map & Opportunities (地圖與機會)
+- **Nodes:** Generate path networks with `known` (combat) and `unknown` (60% combat, 40% opportunities) nodes obscured by fog of war.
+- **Skip Node:** Allow paying gold to skip nodes.
+- **Events:** Implement the Opportunity Event table: Refugee, Merchant/Treasure, and Disasters. Modulate event pools using the player's Happiness factor.
+
+### 5. Combat & Automated Auto-Battler (戰鬥與自動佈陣)
+- **Single Battlefield:** No lane splits. Cards require Gold to play.
+- **Auto-Deployment:** Deploy units into rows: 工事線 (Fortifications/Shields/Trenches), 近戰列 (Melee), 遠程列 (Ranged), 空域 (Air).
+- **Auto-Battle Rules:** Resolve attacks simultaneously. Melee attacks frontlines, ranged attacks target freely, fortifications absorb hits. Aircraft do not count as land units for victory.
+- **Combat Types:** Support 保底收稅戰, 一般地圖戰, 隱藏戰, 內部暴動戰, 為民主而流血, 文明戰爭, and 世界大戰.
+
+### 6. Card Deck & Evolution (卡牌與演化)
+- **Deck Actions:** Draw, discard, delete cards, and recruit units.
+- **Mechanical vs. Human Units:** Human units return to the population pool when disbanded; mechanical units are permanently consumed upon defeat.
+- **Automatic Evolution:** Automatically rename and scale unit attributes as the player progresses through Eras (e.g. Infantry: 棍棒戰團 -> 長矛方陣 -> 劍盾步兵 -> 線列步兵 -> 摩托化步兵 -> 動力裝甲兵).
+
+### 7. Democracy & Candidates (民主與候選人)
+- **Phase Shift:** Once Democracy begins, the direct Operations phase is disabled.
+- **Automation:** The winning political candidate automatically makes building choices and explores nodes.
+- **Bribe System:** Allow the player to fund/bribe candidate campaigns to steer policies and influence automation.
+
+---
+
+## 📈 Difficulty System & Developer mode
+- **Difficulty Formula:** Write a custom difficulty algorithm scaling:
+  - Base enemy combat card scaling coefficients.
+  - Severity and penalty outcomes of Opportunity Events.
+  - Rival civ starting power and aggression parameters.
+- **Documentation:** Create `/Insignificant-game/doc/difficulty-design.md` detailing the formula.
+- **Developer mode Overlay (Opt-in UI):**
+  - Slider to manually adjust active difficulty factor.
+  - Cheat commands to adjust Gold, BP, Happiness, and trigger specific Eras or rounds.
+  - Shortcut options to jump directly to any sub-phase (e.g., straight to Combat Phase or Democracy Phase).
+
+---
+
+## 🏁 Verification Goals
+1. All unit tests (`test/`) must run headlessly and pass successfully.
+2. The scene runner must start, render the full UI blocks for each phase, successfully handle user clicks to simulate gameplay, and verify that the layout and fonts stay clean in generated screenshots.
 
 ---
 
