@@ -97,9 +97,10 @@ Environment pin at lock time: ComfyUI 0.27.0 @ `ffbecfff` (git clone, launchd se
 3.12.11, torch 2.12.1, MPS. Per §14 (2026-07-08): seed reproducibility is per-environment — after
 a torch upgrade, re-anchor any img2img lineage in progress.
 
-## 8. Open question handed to the human (engine side, decide before Phase 4)
+## 8. Resolution (resolved 2026-07-09)
 
-640×360 native resolution was a pixel-art-coupled decision. Raw Moebius linework downscaled to
-640×360 will alias away. Viewport/native resolution (e.g. 1280×720 or full-res with scaled UI)
-needs a human decision at Godot-integration time; flagged in cookbook §10 and in the corpus as an
-open-question block.
+640×360 native resolution was a pixel-art-coupled decision and died with pixelization. **Human
+decision 2026-07-09: the shipped game targets Full HD 1920×1080.** Assets ship at generation
+resolution and scale in-engine; templates record content-window rects and 9-slice margins
+relative to the generated image, never to screen pixels. The PoC window stays 1280×720 until
+Phase 4 wiring (cookbook §10).

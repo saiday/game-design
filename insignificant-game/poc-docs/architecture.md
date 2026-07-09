@@ -171,8 +171,8 @@ module — the Policy module owns tree structure/progression, not effect lookups
 - **Content as GDScript const tables** (`core/data/`), not `.tres`/JSON — legible to agents, typed,
   zero parse layer; revisit only if modding/save-compat demands it.
 - **Window 1280×720 for the PoC** (text-heavy placeholder UI needs readable density). The shipped
-  game's resolution is an open art question since the 2026-07-09 style pick (Moebius illustration
-  replaced 640×360 pixel art; see `assets/pipeline/style-bible.md`) — an art decision, not a
-  logic one; nothing in core knows the resolution.
+  game targets **Full HD 1920×1080** (human decision 2026-07-09, after the same-day Moebius style
+  pick replaced 640×360 pixel art; see `assets/pipeline/style-bible.md` §8) — an art decision,
+  not a logic one; nothing in core knows the resolution.
 - **Mutate-in-place + report objects** over immutable state copies: the state is large; full-run
   simulations (50 generations × invariants) need cheap turns.

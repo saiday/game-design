@@ -14,7 +14,7 @@ Last updated: 2026-07-09.
 
 | Decision | Value | Source |
 |---|---|---|
-| Art style | **Moebius-style illustration** (ligne-claire linework, watercolor fills) via Krea-2-Turbo + Moebius LoRA; **no pixelization for any asset class**. Locked in `insignificant-game/assets/pipeline/style-bible.md`. Supersedes the original pixel-art direction; corpus §視覺與聽覺風格 updated same day. Native resolution (was 640×360, a pixel-art-coupled call) is an **open question** for Phase 4, see §10. Flat info-dense UI unchanged. | human pick at the Phase 1 gate, 2026-07-09 |
+| Art style | **Moebius-style illustration** (ligne-claire linework, watercolor fills) via Krea-2-Turbo + Moebius LoRA; **no pixelization for any asset class**. Locked in `insignificant-game/assets/pipeline/style-bible.md`. Supersedes the original pixel-art direction; corpus §視覺與聽覺風格 updated same day. Native resolution: **Full HD 1920×1080** (human, 2026-07-09; was 640×360, a pixel-art-coupled call — see §10). Flat info-dense UI unchanged. | human pick at the Phase 1 gate, 2026-07-09 |
 | Generation locality | **Local-only** on the Mac Studio. No cloud image APIs. | human, 2026-07-08 |
 | Commercial status | Hobby / undecided — but **prefer permissively-licensed models anyway** (SDXL, FLUX.1-schnell, Z-Image-Turbo, Apache/MIT LoRAs) so a later commercial pivot doesn't invalidate assets. Non-permissive weights need explicit human sign-off. **Signed off 2026-07-09: Krea 2** (Community License, commercial free only under $1M TTM revenue) as the production checkpoint, with the pivot risk surfaced — record in style-bible.md §6; re-verify before any commercial release. | human, 2026-07-08 / 2026-07-09 |
 | Asset scope v1 | All four classes: buildings/units ×6 eras, card illustrations, UI icons & frames, backgrounds & portraits | human, 2026-07-08 |
@@ -243,8 +243,8 @@ Expect manual cleanup on chrome (image editor or Pillow scripting) — that's th
 4. **Backgrounds & portraits** — low volume, large canvas; generated under the style-bible recipe
    like everything else (~170 s/image on Krea 2 is fine at this volume).
 
-**Phase 4 — Godot integration**: §10. Human decides the target resolution first (§10 open
-question), then approved assets composited and rendered in-engine, capture reviewed — same
+**Phase 4 — Godot integration**: §10. Target resolution decided 2026-07-09: **Full HD
+1920×1080** (§10). Approved assets composited and rendered in-engine, capture reviewed — same
 Part-B discipline as the code loop.
 
 ## 8. Objective self-checks (before an image reaches the human)
@@ -252,8 +252,9 @@ Part-B discipline as the code loop.
 Reject and re-roll without asking if: silhouette unreadable at ship size; wrong aspect/framing or
 doesn't fit its frozen template rect; alpha halos after keying; subject mismatch with the
 inventory line; obvious artifacts (extra limbs, garbled text); **invented logo badges or fake
-artist signatures** (the Krea 2 artifact class, §14 2026-07-09 — there is no negative-prompt
-lever at cfg 1, so reject + re-roll is the only control); era variant that doesn't visibly differ
+artist signatures** (a Phase 1 observation on the r4 recipe — 3/4 seeds on two subjects, §14
+2026-07-09 — not established model behavior: tally the rate per batch and log it in §14; there
+is no negative-prompt lever at cfg 1, so reject + re-roll is the only control); era variant that doesn't visibly differ
 from its neighbors. What you must NOT judge: whether it's pretty, on-theme, or the best of the
 batch — that's the human's pick. (The pre-2026-07-09 off-palette check died with pixelization, §5.)
 
@@ -288,12 +289,13 @@ grid/palette pixelization retired 2026-07-09, §5.) Naming: `building_<line>_era
 
 ## 10. Godot integration
 
-- **OPEN QUESTION (since the 2026-07-09 style pick): render resolution.** 640×360 native low-res
-  was a pixel-art-coupled decision; raw Moebius linework downscaled that far will alias away. The
-  human decides the target viewport (e.g. 1280×720 or full-res) before Phase 4 wiring — the PoC
-  already runs 1280×720 and core is resolution-blind (`poc-docs/architecture.md`). Until then:
-  assets are high-res illustrations — default (linear) texture filtering, lossless PNG import;
-  the old nearest-neighbor pin died with pixelization.
+- **Render resolution: Full HD 1920×1080** (human decision 2026-07-09, closing the question the
+  same-day style pick opened — 640×360 was a pixel-art-coupled call that would alias Moebius
+  linework away). The PoC window stays 1280×720 until Phase 4 wiring; core is resolution-blind
+  (`poc-docs/architecture.md`). Assets are high-res illustrations — default (linear) texture
+  filtering, lossless PNG import; the old nearest-neighbor pin died with pixelization. Templates
+  still record rects/margins relative to the generated image, not screen pixels — scaling
+  happens in-engine.
 - **Composite, don't bake** (§6): cards/panels are scene trees — frozen frame texture +
   illustration texture + `Label` text (UI font, §6) — never single baked PNGs.
 - Wire assets data-driven where possible (path derived from id + era), matching the pure-core
@@ -364,3 +366,5 @@ grid/palette pixelization retired 2026-07-09, §5.) Naming: `building_<line>_era
 | 2026-07-09 | **Krea 2 staged as recipe r4 (human request).** Weights: `Comfy-Org/Krea-2` repack — `krea2_turbo_bf16.safetensors` (25GB, 12B DiT) + `qwen3vl_4b_bf16.safetensors` text encoder + `qwen_image_vae.safetensors`. Native in our clone (0.27.0): CLIPLoader type `krea2`, KSampler **euler/simple, 8 steps, cfg 1**, ConditioningZeroOut negative (no real negative prompt available), `EmptySD3LatentImage`; shift 1.15 is baked into the model config — no ModelSampling node. Timing on MPS bf16: **~170 s/image @1024², ~125 s @768×1024**. **License is NOT permissive: "Krea 2 Community License" — commercial use free only while company TTM revenue < $1M USD, deployer content-filtering obligation, above that an enterprise license is required.** Flagged to the human at Phase 1 presentation; using it beyond style boards = an explicit human sign-off item. Urabewe's LoRA collection (incl. `Krea2_Moebius_LoRA.safetensors`) is MIT; the Moebius LoRA has **no trigger word** and its author says to avoid art-style descriptors in prompts (trained on Krea-2-Raw, runs on Turbo). ImageMagick 7.1.2 is now installed (human request, same day); contact sheets still use Pillow. |
 | 2026-07-09 | **r4 (Krea2+Moebius) batch learnings (16 images, seeds 41-44):** follows isolation instructions perfectly — all 16 came out as single isolated subjects on the light-gray ground, no sprite-sheet drift. New artifact class instead: **invented game-logo badges** on building sprites (3/4 bld1 seeds) and **fake artist signatures** on card art (3/4 card seeds) — with cfg 1 + zeroed negative there is no negative-prompt lever, so §8-reject and re-roll; add "logo/signature present?" to the §8 checklist. Style finding: the ligne-claire look is glorious at raw 1024 and survives 96×128 card grids, but **64×64 pixelization destroys thin linework + watercolor fills** — Moebius style and §5's pixelize-to-grid step are in tension; if r4 wins the pick, §5 grids (or pixelization itself) need a human decision. r4 contact sheet therefore carries an extra top "raw" row. |
 | 2026-07-09 | **Phase 1 gate CLOSED — human decision: recipe r4 wins (Krea-2-Turbo + Moebius LoRA @1.0), pixelization dropped for ALL assets.** Locked into `assets/pipeline/style-bible.md` (exact recipe + prompt block + model hashes + the four raw picks committed as `assets/pipeline/style-refs/`); Krea 2 Community License explicitly signed off (recorded in style-bible §6). Doc fallout applied the same day: cookbook §0/§5/§6/§7/§8/§9/§10 updated (pixelize.py + palettes/ retired to provenance, §8 off-palette check replaced by logo/signature check), corpus `Insignificant.md` §視覺與聽覺風格 rewritten (pixel art → Moebius) + design/ snapshot re-copied, inventory grid proposals voided, hand-off prompts 2-3 updated. **Left open on purpose: the native render resolution** (640×360 was pixel-coupled) — human decides before Phase 4, flagged in §10 and the corpus. |
+| 2026-07-09 | **Render resolution decided by the human: Full HD 1920×1080** — closes the open question from the same-day style pick. §10/§0/§7 updated; corpus open-question block resolved and removed; PoC window stays 1280×720 until Phase 4 (core is resolution-blind). |
+| 2026-07-09 | **Human challenged the "Krea 2 invents logo badges" phrasing — correct challenge.** It is a Phase 1 observation (3/4 seeds on the building subject, 3/4 on the card subject; 16 images, one prompt each), not established model behavior. §8 reworded from a standing trait to a per-batch check; tally the artifact rate on every batch (starting with the Phase 2 template batch) and record it here. |

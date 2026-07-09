@@ -53,11 +53,17 @@ Cookbook Phase 1 (style anchor), per §7:
 ## Prompt 2 — templates (after the style bible is locked)
 
 ```
-Cookbook Phase 2 (templates), per §6-§7: generate candidates for the frozen structural assets —
-card frame(s) with recorded content-window rects, panel/button 9-slice sources, icon base plate —
-in the locked style (assets/pipeline/style-bible.md). Contact-sheet them, commit, push, and STOP
-for my pick. Manual cleanup on chrome is allowed here (once). Frozen templates never regenerate
-after this gate (§12).
+Cookbook Phase 2 (templates), per §6-§7: generate candidates for the five frozen structural
+assets in inventory.md "UI templates" — card frame (content-window rect recorded at freeze),
+panel 9-slice, button 9-slice, icon base plate, divider — under the locked style bible
+(assets/pipeline/style-bible.md): subject-only prompts, fixed seeds, §8 checks (invented logo
+badges / fake signatures hit 3/4 seeds twice in Phase 1 — tally this batch's rate and log it in
+§14). The target resolution is Full HD 1920×1080 (decided 2026-07-09, §10); still record the
+content-window rect and 9-slice margins relative to the generated image, never to screen
+pixels — scaling happens in-engine. Also propose 2-3 legible UI fonts with
+Traditional Chinese coverage (license-verified, OFL preferred) — the §6 font pick happens at
+this gate. Contact-sheet, commit, push, and STOP for my pick. Manual cleanup on chrome is
+allowed here (once). Frozen templates never regenerate after this gate (§12).
 ```
 
 ## Prompt 3 — class pipelines (repeatable; one class per session is fine)
