@@ -164,15 +164,12 @@ module — the Policy module owns tree structure/progression, not effect lookups
 
 ## Key decisions log (each big one also gets a standalone file in poc-docs/)
 
-- **Nested Godot project** at `insignificant-game/`, originally isolated from the repo-root
-  loop-PoC project via a `.gdignore` (verified both projects import cleanly, 2026-07-07). The
-  root project was removed 2026-07-08, so this is now the repo's only Godot project and the
-  `.gdignore` is gone; the root is docs-only.
+- **Nested Godot project** at `insignificant-game/` — the repo's only Godot project; the root is
+  docs-only.
 - **Content as GDScript const tables** (`core/data/`), not `.tres`/JSON — legible to agents, typed,
   zero parse layer; revisit only if modding/save-compat demands it.
 - **Window 1280×720 for the PoC** (text-heavy placeholder UI needs readable density). The shipped
-  game targets **Full HD 1920×1080** (human decision 2026-07-09, after the same-day Moebius style
-  pick replaced 640×360 pixel art; see `assets/pipeline/style-bible.md` §8) — an art decision,
+  game targets **Full HD 1920×1080** (see `assets/pipeline/style-bible.md` §8) — an art decision,
   not a logic one; nothing in core knows the resolution.
 - **Mutate-in-place + report objects** over immutable state copies: the state is large; full-run
   simulations (50 generations × invariants) need cheap turns.

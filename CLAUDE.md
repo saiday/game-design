@@ -3,24 +3,31 @@
 Godot **4.6** / **GDScript** (never C#) / **2D** roguelike deckbuilder (**Insignificant**).
 The repo root is **documentation only**; all code lives in one place:
 
+**Documentation style (human rule):** docs describe the **current state**, written for fresh
+eyes to read and follow. Never store log-style/changelog notes in them — no decision dates, no
+"was X / superseded / decided on <date> / kept for the record" narratives. That history belongs
+in **git commit messages**. The only exceptions are purpose-built logs (cookbook §14 findings
+log, `doc/prompts.md`, `poc-docs/PLAN.md`, `poc-docs/decision-*.md`) and license sign-off /
+verification records, which keep their dates.
+
 - **`insignificant-game/` — the full-game PoC and the only Godot project.** Working on the game?
   **Read `insignificant-game/CLAUDE.md` and cd there** — it has the contract
   (`poc-docs/architecture.md`), the verified dev-loop commands (`poc-docs/dev-loop.md`), and the
   task board. Never run engine/test commands from the repo root; there is no project here.
 - **`doc/`** — project history and doctrine: `agent-development-loop.md` (the two-part
-  self-correction loop, proven by the original repo-root loop PoC, closed 2026-06-17),
-  `poc-implementation-guidelines.md` (merged guide: Part 1 = full-game PoC contract, fulfilled
-  2026-07-08; Part 2 = the archived loop-PoC guide), `prompts.md` (live prompt log),
+  self-correction loop, proven by the original repo-root loop PoC),
+  `poc-implementation-guidelines.md` (merged guide: Part 1 = the full-game PoC contract,
+  Part 2 = the archived loop-PoC guide), `prompts.md` (live prompt log),
   `image-assets-generation-orchestrator-cookbook.md` (art pipeline on the Mac Studio — the agent
-  cookbook; absorbed the exploratory art-pipeline-poc-guide, which was removed 2026-07-08) with
+  cookbook) with
   `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions),
   `doc/loop-poc-archive/` (the loop PoC's PLAN/STRUCTURE/MEMORY/process snapshots). The loop
-  PoC's code was removed 2026-07-08 — recover it via git history if ever needed.
+  PoC's code lives only in git history.
 
 ## Game-design corpus (Obsidian — *what* we're building; the design source of truth)
 The game design lives in an Obsidian corpus at
 `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` (**the current
-planning home since 2026-07-04**; game title: **Insignificant**). That corpus is the **design**;
+planning home**; game title: **Insignificant**). That corpus is the **design**;
 this repo is the **build**. Don't duplicate game-design detail into this file — link to it.
 - Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
   loops, systems table). Every game term wikilinks to its dedicated setting doc.
@@ -36,7 +43,7 @@ this repo is the **build**. Don't duplicate game-design detail into this file �
   `對手文明` (5 fixed power-curve automa), `世界大戰` (rounds 15/35; reparations
   `max(正國庫×50%, power×2)`, can go negative), `民主` (candidate truth table), `結局`
   (survive to round 50 = win; ranking gives narrative epilogue only, never a loss).
-- **The corpus is 定稿 / development-ready (2026-07-07)**: all history annotations and open-question
+- **The corpus is 定稿 / development-ready**: all history annotations and open-question
   quote blocks were resolved and removed. The only remaining `>` blocks are each doc's intro summary
   (keep that format). Structure/rules/links are locked; numeric values are v1 baselines calibrated by
   playtesting — calibration changes values, never structure. New open questions go back in as `>`
@@ -63,4 +70,4 @@ A sibling clone (`../Slay-The-Robot/`, MIT, **same stack: Godot 4.6 / GDScript /
 - **Effect pipeline (architecture idea):** `scripts/actions/**`, `scripts/action_interceptors/**`, `scripts/validators/**` — one logic path shared by gameplay and UI previews. `README.md` is the feature-level tour.
 - **Save / mod:** `SerializableData` + `autoload/FileLoader.gd`.
 
-**Reference only — never lift code.** It has **no automated tests** and its logic is coupled to ~13 autoload singletons (`Global`, `Signals`, `ActionHandler`, `HandManager`…). Copying it imports that coupling and breaks our non-negotiable (pure, GUI-free, headless-testable). So: borrow the **design + data shapes**, re-express them as pure `RefCounted`/static fns under our two-part loop. (Cosmetic: it renders `gl_compatibility` @1200×700 vs our Forward+/Metal — don't expect pixel-identical behavior; our shipped resolution is Full HD 1920×1080, decided 2026-07-09 with the Moebius style pick.)
+**Reference only — never lift code.** It has **no automated tests** and its logic is coupled to ~13 autoload singletons (`Global`, `Signals`, `ActionHandler`, `HandManager`…). Copying it imports that coupling and breaks our non-negotiable (pure, GUI-free, headless-testable). So: borrow the **design + data shapes**, re-express them as pure `RefCounted`/static fns under our two-part loop. (Cosmetic: it renders `gl_compatibility` @1200×700 vs our Forward+/Metal — don't expect pixel-identical behavior; our shipped resolution is Full HD 1920×1080.)

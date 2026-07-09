@@ -1,6 +1,6 @@
 # Asset inventory — Insignificant (v1 scope, cookbook §7 Phase 1)
 
-Built 2026-07-08 from the Obsidian corpus setting docs (營運 / 卡牌 / 戰鬥 / 時代與回合 /
+Built from the Obsidian corpus setting docs (營運 / 卡牌 / 戰鬥 / 時代與回合 /
 對手文明 / 國策 / Legacy / 經濟與債務 / 幸福 / 內亂與失敗 / 地圖與機會 / 民主 / 世界大戰 / 結局 /
 Insignificant.md). Ids follow cookbook §9 naming and the canonical StringName ids in
 `insignificant-game/poc-docs/architecture.md`; era numbers are 1=部落 2=古典 3=信仰 4=工業
@@ -11,13 +11,11 @@ fortifications — structures, not units), `portrait_civ_<rival_class>` (class i
 index — display names are drawn per run from the 命名表, the class is the stable identity),
 `portrait_candidate_<id>` (democracy candidates), `ui_<template>` (Phase 2 frozen templates).
 
-**Phase 1 resolution (2026-07-09): pixelization was dropped, so the sprite-grid proposals in the
-section headings below are void** — per-class *generation sizes* now live in
-`style-bible.md` §3 (headings kept as written for the record; see "Proposals" at the bottom).
-Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
+Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
+cookbook §5). Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
 backgrounds 9 · portraits 15 → **328 assets**.
 
-## Buildings (`building_<line>_era<n>`, proposed 64×64) — source: 營運 建築線總表/政權核心
+## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
 One sprite per line per era form (一線一棟、就地升級換名換皮). `debt_office` starts era 3
 (信仰時代解鎖). `core` = 政權核心 (free, always present, holds the policy tree).
@@ -101,7 +99,7 @@ One sprite per line per era form (一線一棟、就地升級換名換皮). `deb
 | building_core_era5 | 中央政府 |
 | building_core_era6 | 總統府 |
 
-## Units (`unit_<type>_era<n>`, proposed 32×32) — source: 卡牌 部隊卡的時代演化總表
+## Units (`unit_<type>_era<n>`) — source: 卡牌 部隊卡的時代演化總表
 
 Battlefield sprites for the auto-deployed rows (戰鬥). "—" eras in the corpus table have no
 form and no asset. Player sprites are reused mirrored for enemy sides where the enemy is a
@@ -155,7 +153,7 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | unit_privateers_era5 | 戰地承包商 |
 | unit_privateers_era6 | 網路傭兵團 |
 
-### Fortifications (`fort_<type>_era<n>`, proposed 32×32) — source: 卡牌 工事卡的時代演化表
+### Fortifications (`fort_<type>_era<n>`) — source: 卡牌 工事卡的時代演化表
 
 | id | subject (era form) |
 |---|---|
@@ -178,7 +176,7 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | fort_anti_air_era5 | 防空飛彈 |
 | fort_anti_air_era6 | 雷射攔截網 |
 
-### Abstract enemy tiers (`unit_enemy_<tier>_era<n>`, proposed 32×32) — source: 戰鬥 敵方單位級別
+### Abstract enemy tiers (`unit_enemy_<tier>_era<n>`) — source: 戰鬥 敵方單位級別
 
 Generic hostiles for 收稅戰/地圖戰/隱藏戰/內亂戰 (弱/中/硬 per era look).
 
@@ -190,7 +188,7 @@ Generic hostiles for 收稅戰/地圖戰/隱藏戰/內亂戰 (弱/中/硬 per er
 
 (18 assets; each of the 3 tier lines above is 6 assets, listed compact to keep this readable.)
 
-## Card illustrations (`card_<id>_era<n>` / `card_<id>`, proposed 96×128) — source: 卡牌
+## Card illustrations (`card_<id>_era<n>` / `card_<id>`) — source: 卡牌
 
 One illustration per era form for evolving cards (卡就地演化換皮); skill cards are era-neutral
 (one illustration each, 技能卡不演化名). Illustrations are produced to the frozen card-frame
@@ -220,7 +218,7 @@ coherence — same subject, larger canvas.
 
 (68 assets.)
 
-## UI icons (`icon_<id>`, proposed 16×16) — sources: 經濟與債務 / 幸福 / 內亂與失敗 / 營運 / 國策 / Legacy / 地圖與機會 / 戰鬥 / 民主 / 時代與回合
+## UI icons (`icon_<id>`) — sources: 經濟與債務 / 幸福 / 內亂與失敗 / 營運 / 國策 / Legacy / 地圖與機會 / 戰鬥 / 民主 / 時代與回合
 
 Hard requirement (Insignificant.md, 結局): 債務深度、利息、內亂權重、人口距崩潰門檻 visible at
 all times — those stats need unmistakable icons. Glyphs are generated onto the frozen icon
@@ -254,7 +252,7 @@ base plate (Phase 2, §6).
 
 (5 assets.)
 
-## Backgrounds (`bg_*`, proposed 640×360) — sources: 時代與回合 / 結局 / Insignificant.md
+## Backgrounds (`bg_*`) — sources: 時代與回合 / 結局 / Insignificant.md
 
 Era backdrops serve both the battle screen and the operations screen (UI panels over them).
 
@@ -272,7 +270,7 @@ Era backdrops serve both the battle screen and the operations screen (UI panels 
 
 (9 assets.)
 
-## Portraits (`portrait_civ_<class>` / `portrait_candidate_<id>`, proposed 64×64) — sources: 對手文明 / 民主
+## Portraits (`portrait_civ_<class>` / `portrait_candidate_<id>`) — sources: 對手文明 / 民主
 
 One portrait per rival class (per-run drawn names share the class portrait) and one per
 democracy candidate faction (ids from `core/data/candidates.gd`).
@@ -296,19 +294,3 @@ democracy candidate faction (ids from `core/data/candidates.gd`).
 | portrait_candidate_revolutionary | 革命激進派 |
 
 (15 assets.)
-
-## Proposals (Phase 1 human gate — RESOLVED 2026-07-09)
-
-**Outcome:** the human picked recipe r4 (Krea-2-Turbo + Moebius LoRA) and **dropped pixelization
-for all assets**, so neither proposal below was adopted. No master palette exists; style cohesion
-comes from the locked recipe. Per-class generation sizes replace sprite grids — see
-`style-bible.md`. Kept for the record:
-
-**Master palette candidates** (Lospec; license verified at download, see manifest) — *not adopted*:
-1. **endesga-32** — 32 colors, balanced generalist, strong on earth/stone/metal ramps (buildings across 6 eras).
-2. **resurrect-64** — 64 colors, widest range; safest for 6-era span (tribal ochres → neon info-age) at the cost of looser cohesion.
-3. **apollo** — 46 colors, muted/painterly bias; strongest single mood, may starve the 資訊 era of saturated accents.
-
-**Sprite grids** (cookbook §7 starting proposal, unchanged after building the inventory —
-volumes support it) — *void with pixelization*: buildings 64×64 · units/forts 32×32 · card art
-96×128 · icons 16×16 · backgrounds 640×360 · portraits 64×64 (new class, not in §7's list).

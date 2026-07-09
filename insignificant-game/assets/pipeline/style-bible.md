@@ -1,16 +1,15 @@
-# Style bible — Insignificant (locked 2026-07-09)
+# Style bible — Insignificant
 
 > **Locked by human pick at the Phase 1 gate** (cookbook §7): recipe **r4** from
-> `contact-sheets/phase1_style_board_r4.png`, judged on the **raw** row. In the same decision the
-> human **dropped pixelization for all assets** (cookbook §5 retired). This file only changes by
-> explicit human decision (cookbook §12). Every generation cites this file.
+> `contact-sheets/phase1_style_board_r4.png`. Pixelization is dropped for all assets
+> (cookbook §5). This file only changes by explicit human decision (cookbook §12). Every
+> generation cites this file.
 
 ## 1. The style
 
 **Moebius-style illustration**: ligne-claire linework with flat watercolor-like fills, produced by
-Krea-2-Turbo under the Moebius LoRA. This is **not pixel art**; the earlier pixel-art direction
-(corpus 定稿 2026-07-07, recipes r1-r3) was rejected at the Phase 1 review and the corpus
-`Insignificant.md` §視覺與聽覺風格 was updated 2026-07-09.
+Krea-2-Turbo under the Moebius LoRA. This is **not pixel art**; the corpus `Insignificant.md`
+§視覺與聽覺風格 states the same direction.
 
 **Reference images** (the four Phase 1 picks, raw 1024-class, committed): `style-refs/`
 - `sb_r4_bld1_s43.png` — era-1 building (tribal farm settlement)
@@ -45,7 +44,7 @@ SHA-256 of the exact files used (recorded at lock time): see §7.
 LoRA author's explicit guidance; style words fight the LoRA). Prompts are subject-only, composed
 as `<subject core>, <class framing suffix>`:
 
-| Class | Framing suffix (verified in Phase 1) | Size |
+| Class | Framing suffix | Size |
 |---|---|---|
 | Buildings / units / forts | `game building sprite, side view, centered, isolated on a plain light gray background` (swap "building" for the class noun) | 1024×1024 |
 | Card illustrations | `game card illustration, dramatic composition` | 768×1024 |
@@ -53,26 +52,26 @@ as `<subject core>, <class framing suffix>`:
 | Backgrounds | scene description, no isolation suffix | 1344×768 (verify per batch) |
 | Portraits | `character portrait, bust, centered, plain light gray background` | 1024×1024 |
 
-Krea 2 + this LoRA follows isolation instructions perfectly (16/16 in Phase 1) — no sprite-sheet
-drift, unlike the SDXL recipes. Card and background sizes/framing beyond the two Phase 1-verified
-rows are working baselines: adjust freely, log in §14, but the style recipe itself is locked.
+Krea 2 + this LoRA follows isolation instructions reliably — no sprite-sheet drift. The building
+and icon rows are batch-verified; the other sizes/framings are working baselines: adjust freely,
+log in cookbook §14, but the style recipe itself is locked.
 
-## 4. Post-process (pixelization retired)
+## 4. Post-process
 
-- **No grid snap, no palette quantization, no master palette.** Assets ship at generation
-  resolution; scaling happens in-engine. `pixelize.py` and `palettes/` remain in the repo as
-  Phase 1 provenance only.
+- **No pixelization: no grid snap, no palette quantization, no master palette.** Assets ship at
+  generation resolution; scaling happens in-engine. `pixelize.py` and `palettes/` remain in the
+  repo as provenance only — never run them on production assets.
 - **Transparent sprites**: key out the flat light-gray ground (chroma/flood key on the isolation
   background), verify no halo on a dark and a light backdrop before approval.
 - Contact sheets and manifest provenance per cookbook §9, unchanged (`post` field: `null` or the
   keying params).
 
-## 5. Recipe-specific §8 checks (added at lock time)
+## 5. Recipe-specific §8 checks
 
-Reject and re-roll (no negative-prompt lever exists — see §2):
-- **Invented game-logo badges** on sprites (hit 3/4 building seeds in Phase 1).
-- **Fake artist signatures** on card art (hit 3/4 card seeds in Phase 1).
-- The old "off-palette pixels after quantization" check is void.
+Reject and re-roll (no negative-prompt lever exists — see §2). Observed artifact classes of this
+recipe (not established model behavior — tally the rate per batch in cookbook §14):
+- **Invented game-logo badges** on sprites.
+- **Fake artist signatures** on card art.
 
 ## 6. License sign-off (recorded)
 
@@ -94,13 +93,12 @@ a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f  vae/qwen_image
 ```
 
 Environment pin at lock time: ComfyUI 0.27.0 @ `ffbecfff` (git clone, launchd service), Python
-3.12.11, torch 2.12.1, MPS. Per §14 (2026-07-08): seed reproducibility is per-environment — after
+3.12.11, torch 2.12.1, MPS. Per cookbook §14: seed reproducibility is per-environment — after
 a torch upgrade, re-anchor any img2img lineage in progress.
 
-## 8. Resolution (resolved 2026-07-09)
+## 8. Resolution
 
-640×360 native resolution was a pixel-art-coupled decision and died with pixelization. **Human
-decision 2026-07-09: the shipped game targets Full HD 1920×1080.** Assets ship at generation
+**The shipped game targets Full HD 1920×1080** (human decision). Assets ship at generation
 resolution and scale in-engine; templates record content-window rects and 9-slice margins
 relative to the generated image, never to screen pixels. The PoC window stays 1280×720 until
 Phase 4 wiring (cookbook §10).

@@ -6,16 +6,16 @@
 > is only the ignition sequence. Session memory from the MacBook did NOT transfer; the cookbook
 > is deliberately self-contained.
 
-Last updated: 2026-07-09. Phases 0 and 1 are done (style bible locked 2026-07-09:
-Krea-2-Turbo + Moebius LoRA, pixelization dropped) — prompts 0-1 below are kept for the record;
-the next session starts at Prompt 2.
+Phases 0 and 1 are done (style bible locked: Krea-2-Turbo + Moebius LoRA, no pixelization —
+see `insignificant-game/assets/pipeline/style-bible.md`) — prompts 0-1 below are kept for the
+record; the next session starts at Prompt 2.
 
 ## Human checklist (before the first prompt)
 
 1. **Claude Code installed** on the Studio, logged in.
 2. **This repo cloned** with push access (`git clone` + verify `git push` works — the agent
    commits contact sheets and findings).
-3. **ComfyUI**: already installed (2026-07-08). Know two things the agent will ask: *how* it was installed (git clone + venv vs. desktop app — the desktop app can still serve the API, but the git install matches the cookbook), and how you launch it. No models are downloaded yet — the agent handles that.
+3. **ComfyUI**: already installed. Know two things the agent will ask: *how* it was installed (git clone + venv vs. desktop app — the desktop app can still serve the API, but the git install matches the cookbook), and how you launch it. No models are downloaded yet — the agent handles that.
 4. **Obsidian corpus on the Studio**: sign into the same iCloud account so
    `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` syncs.
    Not needed for Phase 0, **required from Phase 1** (asset inventory is built from the corpus).
@@ -24,7 +24,7 @@ the next session starts at Prompt 2.
 5. Optional but recommended for long batches: Energy Saver → prevent sleep, or let the agent use
    `caffeinate`.
 
-## Prompt 0 — bring-up (done 2026-07-08; kept for the record)
+## Prompt 0 — bring-up (done; kept for the record)
 
 ```
 Read doc/image-assets-generation-orchestrator-cookbook.md in full, then run Phase 0 (bring-up):
@@ -38,8 +38,7 @@ Read doc/image-assets-generation-orchestrator-cookbook.md in full, then run Phas
   and report — a negative result is a valid result.
 ```
 
-## Prompt 1 — style anchor (done 2026-07-09; kept for the record — the human rejected the three
-pixel recipes, added r4 Krea-2-Turbo + Moebius LoRA, picked it, and dropped pixelization)
+## Prompt 1 — style anchor (done; kept for the record — the outcome is the style bible)
 
 ```
 Cookbook Phase 1 (style anchor), per §7:
@@ -56,11 +55,10 @@ Cookbook Phase 1 (style anchor), per §7:
 Cookbook Phase 2 (templates), per §6-§7: generate candidates for the five frozen structural
 assets in inventory.md "UI templates" — card frame (content-window rect recorded at freeze),
 panel 9-slice, button 9-slice, icon base plate, divider — under the locked style bible
-(assets/pipeline/style-bible.md): subject-only prompts, fixed seeds, §8 checks (invented logo
-badges / fake signatures hit 3/4 seeds twice in Phase 1 — tally this batch's rate and log it in
-§14). The target resolution is Full HD 1920×1080 (decided 2026-07-09, §10); still record the
-content-window rect and 9-slice margins relative to the generated image, never to screen
-pixels — scaling happens in-engine. Also propose 2-3 legible UI fonts with
+(assets/pipeline/style-bible.md): subject-only prompts, fixed seeds, §8 checks (watch for
+invented logo badges / fake signatures — tally this batch's rate and log it in §14). The
+target resolution is Full HD 1920×1080 (§10); still record the content-window rect and 9-slice
+margins relative to the generated image, never to screen pixels — scaling happens in-engine. Also propose 2-3 legible UI fonts with
 Traditional Chinese coverage (license-verified, OFL preferred) — the §6 font pick happens at
 this gate. Contact-sheet, commit, push, and STOP for my pick. Manual cleanup on chrome is
 allowed here (once). Frozen templates never regenerate after this gate (§12).
