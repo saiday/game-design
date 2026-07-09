@@ -11,8 +11,10 @@ fortifications — structures, not units), `portrait_civ_<rival_class>` (class i
 index — display names are drawn per run from the 命名表, the class is the stable identity),
 `portrait_candidate_<id>` (democracy candidates), `ui_<template>` (Phase 2 frozen templates).
 
-Grid sizes below are the **Phase 1 proposal, not yet human-approved** — see "Proposals" at the
-bottom. Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
+**Phase 1 resolution (2026-07-09): pixelization was dropped, so the sprite-grid proposals in the
+section headings below are void** — per-class *generation sizes* now live in
+`style-bible.md` §3 (headings kept as written for the record; see "Proposals" at the bottom).
+Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
 backgrounds 9 · portraits 15 → **328 assets**.
 
 ## Buildings (`building_<line>_era<n>`, proposed 64×64) — source: 營運 建築線總表/政權核心
@@ -295,13 +297,18 @@ democracy candidate faction (ids from `core/data/candidates.gd`).
 
 (15 assets.)
 
-## Proposals (Phase 1 human gate — propose, don't decide)
+## Proposals (Phase 1 human gate — RESOLVED 2026-07-09)
 
-**Master palette candidates** (Lospec; license verified at download, see manifest):
+**Outcome:** the human picked recipe r4 (Krea-2-Turbo + Moebius LoRA) and **dropped pixelization
+for all assets**, so neither proposal below was adopted. No master palette exists; style cohesion
+comes from the locked recipe. Per-class generation sizes replace sprite grids — see
+`style-bible.md`. Kept for the record:
+
+**Master palette candidates** (Lospec; license verified at download, see manifest) — *not adopted*:
 1. **endesga-32** — 32 colors, balanced generalist, strong on earth/stone/metal ramps (buildings across 6 eras).
 2. **resurrect-64** — 64 colors, widest range; safest for 6-era span (tribal ochres → neon info-age) at the cost of looser cohesion.
 3. **apollo** — 46 colors, muted/painterly bias; strongest single mood, may starve the 資訊 era of saturated accents.
 
 **Sprite grids** (cookbook §7 starting proposal, unchanged after building the inventory —
-volumes support it): buildings 64×64 · units/forts 32×32 · card art 96×128 · icons 16×16 ·
-backgrounds 640×360 · portraits 64×64 (new class, not in §7's list).
+volumes support it) — *void with pixelization*: buildings 64×64 · units/forts 32×32 · card art
+96×128 · icons 16×16 · backgrounds 640×360 · portraits 64×64 (new class, not in §7's list).

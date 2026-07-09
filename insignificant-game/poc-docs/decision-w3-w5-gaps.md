@@ -20,4 +20,4 @@
 | Negative treasury at democracy entry | not reduced (only positive treasury takes the ×0.4 cut) | democracy.gd |
 | Collapse epilogue text | driver addition (corpus has only the 7 victory texts) | data/epilogues.gd |
 | Difficulty formula | 3-channel signed-level model; full rationale in doc/difficulty-design.md, synced to corpus | difficulty.gd |
-| PoC window 1280×720 | text-heavy placeholder UI needs the density; shipped game targets 640×360 pixel art (core is resolution-blind) | project.godot |
+| PoC window 1280×720 | text-heavy placeholder UI needs the density; shipped-game resolution reopened 2026-07-09 with the Moebius style pick, was 640×360 pixel art (core is resolution-blind) | project.godot |

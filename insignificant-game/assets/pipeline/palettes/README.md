@@ -1,4 +1,8 @@
-# Master-palette candidates (Phase 1, cookbook §7)
+# Master-palette candidates (Phase 1, cookbook §7) — RETIRED 2026-07-09
+
+**No palette was adopted: the human dropped pixelization (and with it palette quantization) for
+all assets at the Phase 1 gate** — see `../style-bible.md` and cookbook §5. This directory stays
+as Phase 1 provenance only.
 
 Downloaded 2026-07-08 from Lospec (`https://lospec.com/palette-list/<name>.hex`, metadata in
 `<name>.json`); PNGs built with `hex_to_png.py` and consumed by `pixelize.py` quantization.
@@ -18,5 +22,5 @@ conditions found on any of the three palette pages. Caveat: the example artwork 
 palette pages is copyrighted — the free use covers the hex values only. Crediting the palette
 author is etiquette, not a requirement; we credit here.
 
-The winning palette gets copied to `../palette.png` when the human locks the style bible; the
-losers stay here for reference.
+(Original plan, void since 2026-07-09: the winning palette would have been copied to
+`../palette.png` at style-bible lock time.)

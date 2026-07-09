@@ -6,7 +6,7 @@
 > `doc/art-pipeline-poc-guide.md` (2026-06-17; removed 2026-07-08, recoverable via git history) —
 > its still-valid rules live in §0, its escalation triggers in §12, its references in §13.
 
-Last updated: 2026-07-08.
+Last updated: 2026-07-09.
 
 ---
 
@@ -14,12 +14,12 @@ Last updated: 2026-07-08.
 
 | Decision | Value | Source |
 |---|---|---|
-| Art style | **Pixel art**, 640×360 native low-res, flat info-dense UI | corpus `Insignificant.md` §視覺與聽覺風格 (定稿 2026-07-07) |
+| Art style | **Moebius-style illustration** (ligne-claire linework, watercolor fills) via Krea-2-Turbo + Moebius LoRA; **no pixelization for any asset class**. Locked in `insignificant-game/assets/pipeline/style-bible.md`. Supersedes the original pixel-art direction; corpus §視覺與聽覺風格 updated same day. Native resolution (was 640×360, a pixel-art-coupled call) is an **open question** for Phase 4, see §10. Flat info-dense UI unchanged. | human pick at the Phase 1 gate, 2026-07-09 |
 | Generation locality | **Local-only** on the Mac Studio. No cloud image APIs. | human, 2026-07-08 |
-| Commercial status | Hobby / undecided — but **prefer permissively-licensed models anyway** (SDXL, FLUX.1-schnell, Z-Image-Turbo, Apache/MIT LoRAs) so a later commercial pivot doesn't invalidate assets. Non-permissive weights need explicit human sign-off. | human, 2026-07-08 |
+| Commercial status | Hobby / undecided — but **prefer permissively-licensed models anyway** (SDXL, FLUX.1-schnell, Z-Image-Turbo, Apache/MIT LoRAs) so a later commercial pivot doesn't invalidate assets. Non-permissive weights need explicit human sign-off. **Signed off 2026-07-09: Krea 2** (Community License, commercial free only under $1M TTM revenue) as the production checkpoint, with the pivot risk surfaced — record in style-bible.md §6; re-verify before any commercial release. | human, 2026-07-08 / 2026-07-09 |
 | Asset scope v1 | All four classes: buildings/units ×6 eras, card illustrations, UI icons & frames, backgrounds & portraits | human, 2026-07-08 |
 | Orchestration | Claude Code runs **on the Mac Studio** with this repo cloned; outputs reviewed via committed contact sheets | human, 2026-07-08 |
-| Backbone tool | **ComfyUI headless via its localhost JSON API**; SDXL + pixel-art LoRA workhorse; **Z-Image-Turbo** as high-fidelity source (FLUX.1-schnell = fallback; **FLUX.2-dev rejected**: 32B is too slow on MPS and its dev license is non-commercial); **Pillow post-process** for pixelization; Draw Things = human spot-checks only, never the pipeline | this doc + human, 2026-07-08 |
+| Backbone tool | **ComfyUI headless via its localhost JSON API**; production checkpoint since the Phase 1 pick = **Krea-2-Turbo + Moebius LoRA** (style bible); SDXL and Z-Image-Turbo stay installed as utility/fallback models (FLUX.1-schnell = fallback; **FLUX.2-dev rejected**: 32B is too slow on MPS and its dev license is non-commercial); **Pillow** for contact sheets and keying (pixelization retired, §5); Draw Things = human spot-checks only, never the pipeline | this doc + human, 2026-07-08 / 2026-07-09 |
 | Consistency strategy | **Template-first, semi-generated** (§6): structural assets are generated once, human-frozen, then reused mechanically; AI only fills content inside frozen structure | human + this doc, 2026-07-08 |
 
 Authority split (same as the code loop): **you own execution and objective checks; the human owns
@@ -39,7 +39,7 @@ evidence, the human picks. Nothing enters the game without human sign-off (§9).
 - **One self-generated, style-unified pack; never stitch third-party packs.** Each purchased pack
   carries its own palette, line weight, and lighting — mixing them guarantees clashes. Everything
   descends from one style source (the style bible, §7 Phase 1). Manual/vector/existing assets are
-  the *exception*, reserved for what AI does poorly, and even then restyled to the palette and
+  the *exception*, reserved for what AI does poorly, and even then restyled to the style bible and
   verified for cohesion.
 - **Known AI weak spots — plan around them, don't fight them:** seamless tilesets (output drifts,
   seams need explicit verification if any map tiling is ever needed), pixel-exact UI chrome and
@@ -52,14 +52,16 @@ evidence, the human picks. Nothing enters the game without human sign-off (§9).
 
 - `doc/art-pipeline-poc-guide.md` (2026-06-17) — **fully merged into this doc and removed
   2026-07-08**; recover via git history if the original wording ever matters. Questions it left
-  open are closed: style is **pixel** (the painting-vs-pixel dual trial is void), generation is
+  open are closed: style was first locked as **pixel** (the painting-vs-pixel dual trial is void;
+  superseded 2026-07-09 by the Moebius pick, §0), generation is
   local-only, commercial status is hobby/undecided with the permissive-license preference kept,
   and the device is an **M2 Max, 96GB** (not the Ultra it assumed — changes nothing but speed).
 - The **design corpus** (Obsidian `game-design/`, see repo `CLAUDE.md`) is the source of truth for
   *what* to draw: `營運` (building lines × 6 eras), `卡牌` (card list + era evolution), `時代與回合`
   (the six eras), `對手文明` (5 automa civs), `結局` (epilogue scenes), `經濟與債務`/`幸福` (the
   stats that need icons). Build the asset inventory from these docs, never from memory.
-- `insignificant-game/` is the delivery target: Godot 4.6, Forward+, 640×360 (§10).
+- `insignificant-game/` is the delivery target: Godot 4.6, Forward+; target resolution is an open
+  question since the 2026-07-09 style pick (§10).
 
 ## 2. Hardware reality (Mac Studio, M2 Max, 96GB unified memory)
 
@@ -105,7 +107,9 @@ in the manifest (§9).
 
 | Role | Model | Repo / file | License | Dir |
 |---|---|---|---|---|
-| Workhorse checkpoint | SDXL base 1.0 | `stabilityai/stable-diffusion-xl-base-1.0` → `sd_xl_base_1.0.safetensors` | OpenRAIL++ (permissive) | `checkpoints/` |
+| **Production checkpoint (since the 2026-07-09 style lock)** | Krea-2-Turbo | `Comfy-Org/Krea-2` → `krea2_turbo_bf16.safetensors` + `qwen3vl_4b_bf16.safetensors` (text encoder) + `qwen_image_vae.safetensors` (VAE) | **Krea 2 Community License — non-permissive, human-signed-off; see style-bible.md §6** | `diffusion_models/`, `text_encoders/`, `vae/` |
+| **Production style LoRA** | Krea2 Moebius | `Urabewe/Urabewe-LoRA-Collection` → `Krea 2/Krea2_Moebius_LoRA.safetensors` | MIT | `loras/` |
+| Workhorse checkpoint (utility since 2026-07-09) | SDXL base 1.0 | `stabilityai/stable-diffusion-xl-base-1.0` → `sd_xl_base_1.0.safetensors` | OpenRAIL++ (permissive) | `checkpoints/` |
 | VAE fix (mandatory with SDXL on MPS) | fp16-fix VAE | `madebyollin/sdxl-vae-fp16-fix` → `sdxl_vae.safetensors` | MIT | `vae/` |
 | Pixel-art LoRA (primary) | Pixel Art XL | `nerijs/pixel-art-xl` | check at download | `loras/` |
 | Pixel-art LoRA (alternate) | PixelArtRedmond | `artificialguybr/PixelArtRedmondV2` (or V1) | check at download | `loras/` |
@@ -139,31 +143,25 @@ Never click the GUI as your pipeline. The loop is:
 Rules: **explicit fixed seeds always** (no `-1`); one variable changes per iteration when
 debugging quality; batch via seed sweeps (same prompt, seeds `n..n+15`), not prompt roulette.
 
-## 5. Pixelization post-process (mandatory stage)
+## 5. Post-process (pixelization RETIRED 2026-07-09 — human decision at the Phase 1 gate)
 
-Raw diffusion output is never true pixel art — pixels are off-grid and colors unquantized, and it
-will look wrong at 640×360. Every kept image goes through this deterministic stage; its params are
-part of the asset's provenance.
+**Pixelization is dropped for all asset classes.** The Phase 1 boards showed the winning Moebius
+style (r4) is destroyed by grid-snap + palette quantization (thin ligne-claire linework and
+watercolor fills do not survive 64×64), and the human chose the raw style over the pixel
+direction. Consequences:
 
-Generate large, then reduce: SDXL at 1024², target grid = sprite size (e.g. 64×64 → factor 16).
-
-```python
-# pixelize.py — deterministic post-process; keep in insignificant-game/assets/pipeline/
-from PIL import Image
-
-def pixelize(src: str, dst: str, grid: tuple[int, int], palette_png: str, alpha_threshold: int = 128) -> None:
-    img = Image.open(src).convert("RGBA")                       # generate at grid*N (match aspect!)
-    small = img.resize(grid, Image.NEAREST)                     # snap to pixel grid, e.g. (64,64) or (96,128)
-    alpha = small.getchannel("A").point(lambda a: 255 if a >= alpha_threshold else 0)
-    pal = Image.open(palette_png).convert("RGB").quantize()     # master palette (§7 Phase 1)
-    quant = small.convert("RGB").quantize(palette=pal, dither=Image.Dither.NONE).convert("RGBA")
-    quant.putalpha(alpha)
-    quant.save(dst)                                             # ship size
-    quant.resize((grid[0] * 8, grid[1] * 8), Image.NEAREST).save(dst.replace(".png", "@8x.png"))  # review size
-```
-
-Transparent-background sprites: prompt for a plain flat background color absent from the palette,
-then key it out before `pixelize` (or use a background-removal node); verify no halo at @8x.
+- **No grid snap, no palette quantization, no master palette.** Assets ship at generation
+  resolution and scale in-engine. `pixelize.py` and `palettes/` stay in the repo as Phase 1
+  provenance only — do not run them on production assets.
+- What remains of post-processing:
+  - **Transparency keying** for sprites: prompt the isolation background (`plain light gray
+    background`, per the style bible prompt block), key it out, and verify no halo against a dark
+    and a light backdrop before approval.
+  - **Review copies / contact sheets** (§9) unchanged.
+- Per-class **generation sizes** replace sprite grids; they live in the style bible §3 and are
+  working baselines (resolution is cheap to change; the style recipe is what's locked).
+- Reopening pixelization, grids, or a master palette is a §12 escalation (human decision), not an
+  agent call.
 
 ## 6. Consistency strategy — template-first, semi-generated
 
@@ -183,14 +181,15 @@ human-approved, frozen forever) and *content* (generated fresh per asset, inside
 - **Icon base plate**: one frozen background plate/shape; only the glyph inside is generated.
 
 **Compose in Godot, don't bake:** a card on screen = frozen frame (`NinePatchRect`/`TextureRect`)
-+ illustration texture in the content window + **real `Label` text with a pixel font**. Never bake
++ illustration texture in the content window + **real `Label` text with a legible UI font**
+(font choice follows the locked style; a Phase 2 pick). Never bake
 frame+art+text into one PNG: baking means a frame tweak invalidates every card, numbers can't
 update live, and AI-rendered text is unusable anyway. The only baked composites allowed are
 review contact sheets.
 
 **Content variation inside frozen structure (per-asset generation):**
 - Card illustrations, portraits, backgrounds, building/unit sprites — generated fresh, but always
-  under the style bible + palette quantization, sized to the frozen rects.
+  under the style bible's locked recipe and prompt block, sized to the frozen rects.
 - **Masked inpainting** when a family shares layout: freeze the shared region, inpaint only the
   changing region (ComfyUI inpaint workflow).
 - **img2img lineage for era evolution**: era N's *approved* sprite is the init image for era N+1
@@ -198,7 +197,7 @@ review contact sheets.
 
 **Lever hierarchy — always exhaust the cheaper one first:**
 1. Frozen templates + runtime compositing (this section)
-2. Locked style-bible prompt block + pixel LoRA + master-palette quantization (§7 Phase 1)
+2. Locked style-bible recipe: Krea-2-Turbo + Moebius LoRA @1.0 + the subject-only prompt block (§7 Phase 1; no palette quantization, §5)
 3. Seed families / img2img lineage (same base seed or init image across a family)
 4. IP-Adapter style reference (zero-shot, weaker on fine detail)
 5. Custom style LoRA trained on our own approved set — **escalation, human decision** (§12)
@@ -208,11 +207,14 @@ review contact sheets.
 Phases are gate-ordered: **never claim a later gate before an earlier one holds.** A dynamic
 workflow may interleave work, but gates close in order.
 
-**Phase 0 — Bring-up**: §3 done; one SDXL image generated via API round-trip with
-saved seed/workflow; **Z-Image-Turbo brought up and sanity-checked** (fall back to FLUX.1-schnell
-per §3 only if it disappoints); record real timings in §14.
+**Phase 0 — Bring-up** (**closed 2026-07-08**, records in §14): §3 done; one SDXL image generated
+via API round-trip with saved seed/workflow; **Z-Image-Turbo brought up and sanity-checked** (fall
+back to FLUX.1-schnell per §3 only if it disappoints); record real timings in §14.
 
-**Phase 1 — Style anchor** (human gate, the most important phase):
+**Phase 1 — Style anchor** (human gate, the most important phase — **closed 2026-07-09**: after
+rejecting the three pixel recipes, the human added recipe r4 (Krea-2-Turbo + Moebius LoRA), picked
+it, and dropped pixelization; the lock lives in `assets/pipeline/style-bible.md`. The
+palette/grid proposals below are void — kept for the record):
 1. Build the asset inventory from the corpus docs (§1) into
    `insignificant-game/assets/pipeline/inventory.md` — every needed asset, one line each.
 2. Propose the **master palette** (3 candidates, e.g. from Lospec: endesga-32 / resurrect-64 /
@@ -222,41 +224,44 @@ per §3 only if it disappoints); record real timings in §14.
 3. Generate **style boards**: the same 3 subjects (one building across 2 eras, one card, one icon)
    rendered under 3 candidate style recipes (LoRA × prompt block × palette). Contact-sheet them.
 4. Human picks. Lock the winner into
-   `insignificant-game/assets/pipeline/style-bible.md`: the exact prompt block, negative prompt,
-   LoRA + strength, palette file, per-class grid sizes, and reference images. **Every later
-   generation cites the style bible; changing it is a human decision.**
+   `insignificant-game/assets/pipeline/style-bible.md`: the exact prompt block, LoRA + strength,
+   per-class generation sizes, license sign-offs, and reference images. **Every later generation
+   cites the style bible; changing it is a human decision.**
 
 **Phase 2 — Templates** (human gate): generate and freeze the structural assets per §6 — card
 frame(s) with recorded content-window rects, panel/button 9-slice sources, icon base plate.
-Expect manual pixel cleanup on chrome (Aseprite/Piskel or Pillow scripting) — that's the
+Expect manual cleanup on chrome (image editor or Pillow scripting) — that's the
 "semi-" in semi-generated, and it's allowed here precisely because it happens once.
 
 **Phase 3 — Class pipelines**, in this order (volume × risk):
 1. **UI icons** — glyphs on the frozen base plate; small, fast feedback; some icons may end up
-   hand-drawn/vector restyled to the palette (the allowed exception in §0 operating rules).
+   hand-drawn/vector restyled to the style bible (the allowed exception in §0 operating rules).
 2. **Buildings & units ×6 eras** — the volume class. Per building line: era N approved sprite
    seeds era N+1 via img2img lineage (§6); cross-era coherence is an explicit contact-sheet check.
 3. **Card illustrations** — per card in `卡牌`, produced to the frozen content-window rect;
    highest quality bar, human reviews in smaller batches.
-4. **Backgrounds & portraits** — low volume, large canvas; the Phase-0 winner model as source →
-   pixelize; fall back to SDXL if its Mac speed disappoints.
+4. **Backgrounds & portraits** — low volume, large canvas; generated under the style-bible recipe
+   like everything else (~170 s/image on Krea 2 is fine at this volume).
 
-**Phase 4 — Godot integration**: §10. Approved assets composited and rendered
-in-engine at 640×360, capture reviewed — same Part-B discipline as the code loop.
+**Phase 4 — Godot integration**: §10. Human decides the target resolution first (§10 open
+question), then approved assets composited and rendered in-engine, capture reviewed — same
+Part-B discipline as the code loop.
 
 ## 8. Objective self-checks (before an image reaches the human)
 
 Reject and re-roll without asking if: silhouette unreadable at ship size; wrong aspect/framing or
-doesn't fit its frozen template rect; off-palette pixels after quantization (programmatic check:
-every pixel ∈ palette); alpha halos; subject mismatch with the inventory line; obvious artifacts
-(extra limbs, garbled text); era variant that doesn't visibly differ from its neighbors. What you
-must NOT judge: whether it's pretty, on-theme, or the best of the batch — that's the human's pick.
+doesn't fit its frozen template rect; alpha halos after keying; subject mismatch with the
+inventory line; obvious artifacts (extra limbs, garbled text); **invented logo badges or fake
+artist signatures** (the Krea 2 artifact class, §14 2026-07-09 — there is no negative-prompt
+lever at cfg 1, so reject + re-roll is the only control); era variant that doesn't visibly differ
+from its neighbors. What you must NOT judge: whether it's pretty, on-theme, or the best of the
+batch — that's the human's pick. (The pre-2026-07-09 off-palette check died with pixelization, §5.)
 
 ## 9. Review loop, provenance, repo layout
 
 ```
 insignificant-game/assets/
-  pipeline/            # style-bible.md, inventory.md, palette.png, workflows/*.json, pixelize.py, manifest.jsonl
+  pipeline/            # style-bible.md, inventory.md, style-refs/, workflows/*.json, manifest.jsonl (pixelize.py + palettes/ = retired Phase 1 provenance, §5)
   contact-sheets/      # committed review grids (ImageMagick montage / Pillow), small
   approved/<class>/    # human-approved ship assets only — the ONLY dir Godot scenes reference
 ```
@@ -271,23 +276,26 @@ end):
 
 ```json
 {"id":"bld_farm_era3_s41","file":"approved/buildings/building_farm_era3.png","class":"buildings",
- "prompt":"...","negative":"...","seed":41,"checkpoint":"sd_xl_base_1.0@<hash>","loras":[["pixel-art-xl",0.9]],
- "workflow":"workflows/sprite_sdxl.json","init":"approved/buildings/building_farm_era2.png",
- "post":{"grid":[64,64],"palette":"palette.png"},"status":"approved","date":"2026-07-XX"}
+ "prompt":"...","negative":null,"seed":41,"checkpoint":"krea2_turbo_bf16@<hash>","loras":[["Krea2_Moebius_LoRA",1.0]],
+ "workflow":"workflows/krea2_lora_txt2img.json","init":"approved/buildings/building_farm_era2.png",
+ "post":{"key":"light-gray"},"status":"approved","date":"2026-07-XX"}
 ```
 
-(`init` records the img2img lineage parent, when used.) Naming: `building_<line>_era<n>.png`,
+(`init` records the img2img lineage parent, when used. `post` records keying params or `null` —
+grid/palette pixelization retired 2026-07-09, §5.) Naming: `building_<line>_era<n>.png`,
 `unit_<type>_era<n>.png`, `card_<id>.png`, `icon_<stat>.png`, `bg_era<n>.png`,
 `portrait_civ<n>.png` — ids matching the corpus/`core/` data tables.
 
 ## 10. Godot integration
 
-- Project renders **Forward+ @ 640×360**. Pixel art needs **nearest-neighbor filtering**: set
-  `rendering/textures/canvas_textures/default_texture_filter = Nearest` in project settings (or
-  per-node `texture_filter`); import PNGs as lossless. Don't expect the desktop preview to match
-  a Retina display without integer scaling.
+- **OPEN QUESTION (since the 2026-07-09 style pick): render resolution.** 640×360 native low-res
+  was a pixel-art-coupled decision; raw Moebius linework downscaled that far will alias away. The
+  human decides the target viewport (e.g. 1280×720 or full-res) before Phase 4 wiring — the PoC
+  already runs 1280×720 and core is resolution-blind (`poc-docs/architecture.md`). Until then:
+  assets are high-res illustrations — default (linear) texture filtering, lossless PNG import;
+  the old nearest-neighbor pin died with pixelization.
 - **Composite, don't bake** (§6): cards/panels are scene trees — frozen frame texture +
-  illustration texture + `Label` pixel-font text — never single baked PNGs.
+  illustration texture + `Label` text (UI font, §6) — never single baked PNGs.
 - Wire assets data-driven where possible (path derived from id + era), matching the pure-core
   architecture — read `insignificant-game/CLAUDE.md` and `poc-docs/architecture.md` before
   touching scenes, and run **both loop parts** (headless tests + Part B capture) after wiring.
@@ -322,7 +330,9 @@ end):
   Any proposal to train a custom style LoRA goes here (cost/benefit is a human call).
 - The style bible can't hold across a class (e.g. icons refuse to match sprites) after honest
   effort — surface evidence, don't quietly widen the style.
-- Frozen-template, sprite-size, or palette changes after their phase gate locked them.
+- Frozen-template or style-bible changes after their phase gate locked them — including any
+  proposal to reintroduce pixelization, sprite grids, or a master palette (dropped by human
+  decision 2026-07-09, §5).
 
 ## 13. References (fetched/verified 2026-06-17 by the exploration guide — re-verify before relying)
 
@@ -353,3 +363,4 @@ end):
 | 2026-07-08 | **Prompting learnings from the 56-image style-board batch (all three recipes, seeds 41-44):** (1) pixel LoRAs love emitting **multi-object sprite sheets** even when prompted "single X, centered, isolated" — SDXL recipes did it in over half the seeds; add `sprite sheet` to the negative prompt and expect to §8-reject sheet-layouts when a single sprite is wanted. (2) **Icons cannot be prompted at scene framing**: a "coin icon" leaves the subject ~25% of the canvas and dies at 16×16; prompt `extreme close-up ... fills the entire frame edge to edge` (re-roll fixed r1/r2). Even then 16×16 glyph readability is marginal for the SDXL recipes — icons may end up the §0 hand-drawn exception, or need simpler glyph subjects + the frozen §6 base plate. (3) **Recipe temperaments**: pixel-art-xl = crisp true-pixel sprites, follows isolation best of the SDXL pair; PixelArtRedmond = chunky softer pixels but **ignores background-isolation instructions** (always paints a full scene — plan to crop/key); Z-Image+tarn59 = follows instructions best (clean isolated sprites), tends to **isometric 3/4 views** for buildings (vs side view from SDXL recipes) and produces the most painterly card art and the boldest flat icons (best 16×16 survival). (4) Z-Image icon output is flat vector-like rather than pixel-styled — quantization hides this at 16×16. Timings held (SDXL ~45s, Z-Image ~80s). |
 | 2026-07-09 | **Krea 2 staged as recipe r4 (human request).** Weights: `Comfy-Org/Krea-2` repack — `krea2_turbo_bf16.safetensors` (25GB, 12B DiT) + `qwen3vl_4b_bf16.safetensors` text encoder + `qwen_image_vae.safetensors`. Native in our clone (0.27.0): CLIPLoader type `krea2`, KSampler **euler/simple, 8 steps, cfg 1**, ConditioningZeroOut negative (no real negative prompt available), `EmptySD3LatentImage`; shift 1.15 is baked into the model config — no ModelSampling node. Timing on MPS bf16: **~170 s/image @1024², ~125 s @768×1024**. **License is NOT permissive: "Krea 2 Community License" — commercial use free only while company TTM revenue < $1M USD, deployer content-filtering obligation, above that an enterprise license is required.** Flagged to the human at Phase 1 presentation; using it beyond style boards = an explicit human sign-off item. Urabewe's LoRA collection (incl. `Krea2_Moebius_LoRA.safetensors`) is MIT; the Moebius LoRA has **no trigger word** and its author says to avoid art-style descriptors in prompts (trained on Krea-2-Raw, runs on Turbo). ImageMagick 7.1.2 is now installed (human request, same day); contact sheets still use Pillow. |
 | 2026-07-09 | **r4 (Krea2+Moebius) batch learnings (16 images, seeds 41-44):** follows isolation instructions perfectly — all 16 came out as single isolated subjects on the light-gray ground, no sprite-sheet drift. New artifact class instead: **invented game-logo badges** on building sprites (3/4 bld1 seeds) and **fake artist signatures** on card art (3/4 card seeds) — with cfg 1 + zeroed negative there is no negative-prompt lever, so §8-reject and re-roll; add "logo/signature present?" to the §8 checklist. Style finding: the ligne-claire look is glorious at raw 1024 and survives 96×128 card grids, but **64×64 pixelization destroys thin linework + watercolor fills** — Moebius style and §5's pixelize-to-grid step are in tension; if r4 wins the pick, §5 grids (or pixelization itself) need a human decision. r4 contact sheet therefore carries an extra top "raw" row. |
+| 2026-07-09 | **Phase 1 gate CLOSED — human decision: recipe r4 wins (Krea-2-Turbo + Moebius LoRA @1.0), pixelization dropped for ALL assets.** Locked into `assets/pipeline/style-bible.md` (exact recipe + prompt block + model hashes + the four raw picks committed as `assets/pipeline/style-refs/`); Krea 2 Community License explicitly signed off (recorded in style-bible §6). Doc fallout applied the same day: cookbook §0/§5/§6/§7/§8/§9/§10 updated (pixelize.py + palettes/ retired to provenance, §8 off-palette check replaced by logo/signature check), corpus `Insignificant.md` §視覺與聽覺風格 rewritten (pixel art → Moebius) + design/ snapshot re-copied, inventory grid proposals voided, hand-off prompts 2-3 updated. **Left open on purpose: the native render resolution** (640×360 was pixel-coupled) — human decides before Phase 4, flagged in §10 and the corpus. |
