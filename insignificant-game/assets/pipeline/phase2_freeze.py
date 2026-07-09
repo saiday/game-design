@@ -18,6 +18,7 @@ PICKS = {
     "panel": ("p2_panel_s51", 60),
     "button": ("p2_button_s54", 95),
     "icon_plate": ("p2_icon_plate_s53", 60),
+    "divider": ("p2_divider2_s55", 60),  # v2 re-roll winner
 }
 
 
@@ -120,7 +121,7 @@ def main() -> None:
         cx, cy = crop[0], crop[1]
         for name, (x0, y0, x1, y1) in regions.items():
             print(f"  {name} rect (in cropped px): ({x0 - cx}, {y0 - cy}, {x1 - cx}, {y1 - cy})")
-        if tpl in ("panel", "button"):
+        if tpl in ("panel", "button", "divider"):  # divider: only L/R matter (3-slice)
             l, t, r, b = nine_slice_margins(np.asarray(img))
             print(f"  9-slice margins (cropped px, L/T/R/B): {l}/{t}/{r}/{b}")
 

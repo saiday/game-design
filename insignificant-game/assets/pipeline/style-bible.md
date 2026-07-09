@@ -117,8 +117,7 @@ in-engine (§8).
 | `ui_panel.png` 822×534 | p2_panel_s51 | NinePatchRect margins L87 T83 R88 B83; keep panels ≥ ~178×169 or corners squash |
 | `ui_button.png` 767×225 | p2_button_s54 | NinePatchRect margins L89 T66 R89 B69; keep buttons ≥ ~181×138; pressed state via modulate |
 | `ui_icon_plate.png` 788×806 | p2_icon_plate_s53 | glyph disc `(174, 170, 621, 625)` — icon glyphs are composited inside it |
-
-Divider: candidate re-roll awaiting the human pick (`contact-sheets/phase2_divider2.png`).
+| `ui_divider.png` 884×24 | p2_divider2_s55 (v2 re-roll) | 3-slice: end margins L21 / R22, stretch the middle run only |
 
 ## 10. UI font (locked)
 
