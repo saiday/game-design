@@ -67,6 +67,7 @@ code:
 ## 平台、技術與範圍（Platform, Technology, Scope）
 
 - PC 單機。**Godot 4.6、GDScript、2D**。
+- **預計多語系在地化**；UI 字型採 **Noto Sans 家族**（zh-TW：Noto Sans TC，SIL OFL），跨語言共用同一視覺聲音（字型鎖定於 repo `insignificant-game/assets/pipeline/style-bible.md`）。
 - 遊戲邏輯一律純函式（`RefCounted`／static），headless 可測；開發採兩段迴圈（headless 測試＋GPU 截圖驗證）。開發主體是 agent，人類由成品後滯反饋體驗與平衡。
 - 下一步是 PoC 的營運相位可玩切片，用試玩校準最敏感的三個旋鈕：BP 曲線、遞增造價、內亂權重。
 

@@ -102,3 +102,31 @@ a torch upgrade, re-anchor any img2img lineage in progress.
 resolution and scale in-engine; templates record content-window rects and 9-slice margins
 relative to the generated image, never to screen pixels. The PoC window stays 1280×720 until
 Phase 4 wiring (cookbook §10).
+
+## 9. Frozen UI templates (Phase 2 picks)
+
+Human-picked from `contact-sheets/phase2_templates.png`, processed once by `phase2_freeze.py`
+(background and baked shadow keyed to alpha; card-frame parchment ink marks inpainted — the one
+allowed manual cleanup), frozen in `../approved/ui/`. **Frozen templates never regenerate**
+(cookbook §6/§12). Rects are (x0, y0, x1, y1) in each frozen PNG's own pixels; scaling happens
+in-engine (§8).
+
+| File | Source candidate | Geometry |
+|---|---|---|
+| `ui_card_frame.png` 624×920 | p2_card_frame_s53 | content window `(134, 108, 490, 529)` — transparent, the illustration composites underneath; text panel `(77, 603, 545, 828)` — opaque parchment, `Label` text on top |
+| `ui_panel.png` 822×534 | p2_panel_s51 | NinePatchRect margins L87 T83 R88 B83; keep panels ≥ ~178×169 or corners squash |
+| `ui_button.png` 767×225 | p2_button_s54 | NinePatchRect margins L89 T66 R89 B69; keep buttons ≥ ~181×138; pressed state via modulate |
+| `ui_icon_plate.png` 788×806 | p2_icon_plate_s53 | glyph disc `(174, 170, 621, 625)` — icon glyphs are composited inside it |
+
+Divider: candidate re-roll awaiting the human pick (`contact-sheets/phase2_divider2.png`).
+
+## 10. UI font (locked)
+
+**Noto Sans family** — human decision, driven by localization: the game will ship in multiple
+languages, and Noto is the one OFL family with a consistent design across virtually every
+script, so all locales share one visual voice. zh-TW uses **Noto Sans TC** (SIL OFL 1.1,
+verified in the official repo LICENSE, `github.com/notofonts/noto-cjk`). Composition rule
+unchanged (cookbook §6): real `Label` text over frozen chrome, never baked into images. Fetch
+and subset the actual font binaries at Godot-integration time (static TC weights are ~16 MB
+each). Runners-up Iansui / jf open 粉圓 (cookbook §14) were rejected for being single-script
+personalities that would fracture cross-locale consistency.

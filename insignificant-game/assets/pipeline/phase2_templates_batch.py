@@ -26,8 +26,9 @@ TEMPLATES = {
     "icon_plate": ("game icon base plate, round emblem backplate with a decorative rim and a "
                    "plain empty center, centered, isolated on a plain light gray background",
                    1024, 1024),
-    "divider": ("game UI divider, long thin horizontal ornamental rule with a small emblem at "
-                "the center, isolated on a plain light gray background",
+    # v2 prompt: the human rejected the first sweep's dividers as too fancy (center emblems)
+    "divider": ("game UI divider, a single long thin plain horizontal rule with small subtle "
+                "flourishes at both ends only, isolated on a plain light gray background",
                 1024, 256),
 }
 
