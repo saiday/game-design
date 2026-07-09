@@ -72,11 +72,28 @@ def main() -> None:
         prompt_id = json.load(r)["prompt_id"]
     print(f"submitted prompt_id={prompt_id}")
 
+    misses = 0
+    polls = 0
     while True:
         time.sleep(1.0)
-        with urllib.request.urlopen(f"{API}/history/{prompt_id}") as r:
-            hist = json.load(r).get(prompt_id)
+        try:
+            with urllib.request.urlopen(f"{API}/history/{prompt_id}") as r:
+                hist = json.load(r).get(prompt_id)
+        except OSError:  # server blip/restart mid-poll (seen 2026-07-09: launchd SIGTERM+relaunch)
+            misses += 1
+            if misses > 30:
+                raise SystemExit("lost the ComfyUI server while polling (30 failed polls)")
+            time.sleep(4.0)
+            continue
+        misses = 0
         if not hist:
+            polls += 1
+            if polls % 60 == 0:  # job gone from queue with no history = lost to a server restart
+                with urllib.request.urlopen(f"{API}/queue") as r:
+                    q = json.load(r)
+                ids = {item[1] for lst in (q["queue_running"], q["queue_pending"]) for item in lst}
+                if prompt_id not in ids:
+                    raise SystemExit("job vanished from the queue without history (server restart?)")
             continue
         status = hist.get("status", {})
         if status.get("status_str") == "error":
