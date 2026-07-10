@@ -28,6 +28,14 @@ GROUPS = {
         "unrest": "a raised clenched fist, game unrest icon",
         "power": "a shield emblazoned with a five-pointed star, game power icon",
     },
+    # core gate re-rolls (human feedback): population must not read as a male/female pair;
+    # unrest came out monochrome and must carry color like the other glyphs.
+    "core_fix": {
+        "population2": "two identical villagers in matching hooded tunics standing side by side, game population icon",
+        "population3": "a huddled group of three identical hooded villagers, game population icon",
+        "unrest2": "a raised clenched fist in a torn red sleeve, game unrest icon",
+        "unrest3": "a raised clenched fist gripping a burning torch with orange flames, game unrest icon",
+    },
     "battle": {
         "attack": "a single sharp sword pointing upward, game attack icon",
         "hp": "a bold heart shape, game health icon",
