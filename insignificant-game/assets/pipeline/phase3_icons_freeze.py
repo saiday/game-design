@@ -14,6 +14,8 @@ from phase3_icon_sheets import keyed_glyph
 # canonical icon name -> picked candidate stem (human gate pick)
 PICKS = {
     "money": "p3_icon_money_s61",
+    "population": "p3_icon_population3_s62",
+    "unrest": "p3_icon_unrest2_s61",
     "bp": "p3_icon_bp_s61",
     "tech": "p3_icon_tech_s61",
     "culture": "p3_icon_culture_s61",
