@@ -1,5 +1,5 @@
 # comfy_run.py — submit an API-format workflow to ComfyUI and wait for the result.
-# Usage: python3 comfy_run.py workflows/sdxl_txt2img.json [--seed N] [--prompt TEXT] [--prefix NAME]
+# Usage: python3 comfy_run.py workflows/krea2_lora_txt2img.json [--seed N] [--prompt TEXT] [--prefix NAME]
 #        [--negative TEXT] [--width N] [--height N] [--lora NAME] [--lora-strength F]
 # Prints the elapsed sampling time and the output image paths. See cookbook §4 for the driving rules.
 import argparse

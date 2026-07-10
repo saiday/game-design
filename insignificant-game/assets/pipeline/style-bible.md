@@ -59,8 +59,7 @@ log in cookbook §14, but the style recipe itself is locked.
 ## 4. Post-process
 
 - **No pixelization: no grid snap, no palette quantization, no master palette.** Assets ship at
-  generation resolution; scaling happens in-engine. `pixelize.py` and `palettes/` remain in the
-  repo as provenance only — never run them on production assets.
+  generation resolution; scaling happens in-engine.
 - **Transparent sprites**: key out the flat light-gray ground (chroma/flood key on the isolation
   background), verify no halo on a dark and a light backdrop before approval.
 - Contact sheets and manifest provenance per cookbook §9, unchanged (`post` field: `null` or the
