@@ -12,6 +12,8 @@ LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0
 SUFFIX = ", bold dark outline, centered, plain light gray background"
 
 # group -> {icon id suffix: subject core (style bible §3 icon row; suffix appended)}
+# Subjects avoid prominent flat blank surfaces (crates, folders, chip faces, box fronts) where
+# the model prints invented text — the sweep batch's only artifact class (cookbook §14).
 GROUPS = {
     "core": {
         "money": "a single gold coin with an embossed crown, game currency icon",
@@ -121,6 +123,22 @@ GROUPS = {
     },
     "democracy": {
         "fund": "a hand dropping gold coins into a wooden ballot box, game campaign funding icon",
+    },
+    # sweep-gate re-rolls: flat surfaces (crates, folders, chips) invite invented printed text,
+    # and "grand pavilion" pulled full scene compositions — v2 subjects remove the invitation.
+    "sweep_fix": {
+        "policy_world_expo2": "a glass and iron exhibition dome building with a colorful flag on top, game world expo policy icon",
+        "policy_intelligence_agency2": "a brown dossier folder tied with red string, game intelligence agency policy icon",
+        "era6v2": "a glowing blue computer microchip covered in glowing circuit traces, game information era icon",
+        "policy_cultural_revolution2": "a raised red book with a golden star on its cover, game cultural revolution policy icon",
+        "legacy_critical_spirit2": "a quill crossing out unreadable scribbled lines with red ink on parchment, game critical spirit legacy icon",
+    },
+    # era6 second re-roll: v2 still printed "era" on the chip face 3/3 — the word leaks from the
+    # framing suffix itself and a bare chip center begs for part-number text. v3 occupies the
+    # center with an object; v4 swaps the subject away from chips entirely.
+    "era6_fix": {
+        "era6v3": "a glowing blue computer microchip with a hexagonal crystal core at its center, game digital age icon",
+        "era6v4": "a globe surrounded by a glowing blue network of connected nodes, game digital age icon",
     },
 }
 
