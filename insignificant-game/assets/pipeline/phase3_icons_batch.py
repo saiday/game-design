@@ -140,6 +140,14 @@ GROUPS = {
         "era6v3": "a glowing blue computer microchip with a hexagonal crystal core at its center, game digital age icon",
         "era6v4": "a globe surrounded by a glowing blue network of connected nodes, game digital age icon",
     },
+    # sweep-gate pick re-rolls (human): religion stays non-specific in this game — the neutral
+    # religious motif is a golden tree (dogma tome cover, era-3 stained glass); democratic_spirit
+    # should read as an explicit marked ballot, not a plain lined sheet.
+    "picks_fix": {
+        "legacy_religious_dogma2": "a thick closed tome with a golden tree emblem on its cover and a golden lock, game religious dogma legacy icon",
+        "legacy_democratic_spirit2": "a ballot paper marked with a bold red check mark, half inserted into the slot of a wooden ballot box, game democratic spirit legacy icon",
+        "era3v2": "a stained glass window with colorful panes depicting a golden tree, game faith era icon",
+    },
 }
 
 
