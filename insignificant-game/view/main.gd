@@ -1,13 +1,21 @@
 extends Control
 # Insignificant PoC view: one panel per phase (operate / route / battle / opportunity /
-# settle / world war / democracy / ending), placeholder visuals only (ColorRect / Label /
-# Button). The view computes NOTHING — every rule call goes through core/.
+# settle / world war / democracy / ending). Chrome is composed at RUNTIME from the frozen
+# approved templates + icon glyphs in core/data/asset_paths.gd (style bible §9): NinePatch-style
+# styleboxes, glyph-on-plate badges, card frame with live Label text — never baked together.
+# The view computes NOTHING — every rule call goes through core/.
 # Demo mode (INSIG_DEMO=1): simulates the same click handlers, captures a PNG per phase
 # into captures/, prints ASSERT PASS/FAIL lines, then quits (Part B of the loop).
 
 const BG_COLOR := Color(0.10, 0.11, 0.13)
 const PANEL_COLOR := Color(0.18, 0.20, 0.24)
 const ACCENT_COLOR := Color(0.85, 0.72, 0.35)
+const CHROME_SCALE := 0.5   # frozen templates render at half source scale (in-engine scaling, §8)
+const STAT_ICON := 28       # inline stat glyph size (px)
+const INK_COLOR := Color(0.20, 0.13, 0.08)         # body text on parchment chrome
+const INK_ACCENT_COLOR := Color(0.55, 0.16, 0.10)  # accent text on parchment chrome
+
+var _texture_cache: Dictionary = {}
 
 var state: GameState
 var nodes: Array[Dictionary] = []
@@ -15,8 +23,8 @@ var battle: Battle.BattleField = null
 var current_opportunity: StringName = &""
 var demo_failures: int = 0
 
-var stats_label: Label
-var danger_label: Label
+var stats_label: RichTextLabel
+var danger_label: RichTextLabel
 var phase_title: Label
 var event_label: Label
 var panels: Dictionary = {}
@@ -28,6 +36,8 @@ var battle_hand: VBoxContainer
 var battle_buttons: HBoxContainer
 var opportunity_label: Label
 var opportunity_actions: VBoxContainer
+var opportunity_card_art: TextureRect
+var opportunity_card_text: Label
 var settle_label: Label
 var ww_label: Label
 var democracy_label: Label
@@ -166,14 +176,24 @@ func _show_ending(ending: Dictionary) -> void:
 # ---------- panel refresh ----------
 
 func _refresh_stats() -> void:
-	stats_label.text = "第 %d 代（%s）  人口 %d  幸福 %d  文化 %d  科技 %d  國庫 %d  BP %d" % [
-		state.generation, Era.of(state.generation), state.population, state.happiness,
-		state.culture, state.tech, state.treasury, state.bp]
+	stats_label.text = "%s 第 %d 代（%s） %s %d %s %d %s %d %s %d %s %d %s %d" % [
+		_stat_img(AssetPaths.icon_era(Era.index(state.generation))), state.generation, Era.of(state.generation),
+		_stat_img(AssetPaths.icon(&"population")), state.population,
+		_stat_img(AssetPaths.icon(&"happiness")), state.happiness,
+		_stat_img(AssetPaths.icon(&"culture")), state.culture,
+		_stat_img(AssetPaths.icon(&"tech")), state.tech,
+		_stat_img(AssetPaths.icon(&"money")), state.treasury,
+		_stat_img(AssetPaths.icon(&"bp")), state.bp]
 	var danger := Ending.danger_panel(state)
-	danger_label.text = "債務 %d｜利息/代 %d｜內亂權重 %d%%｜人口距崩潰 %d" % [
-		int(danger["debt"]), int(danger["interest_per_gen"]),
-		int(round(float(danger["unrest_weight"]) * 100.0)),
-		state.population - int(danger["collapse_threshold"])]
+	danger_label.text = "%s 債務 %d｜%s 利息/代 %d｜%s 內亂權重 %d%%｜%s 人口距崩潰 %d" % [
+		_stat_img(AssetPaths.icon(&"debt")), int(danger["debt"]),
+		_stat_img(AssetPaths.icon(&"interest")), int(danger["interest_per_gen"]),
+		_stat_img(AssetPaths.icon(&"unrest")), int(round(float(danger["unrest_weight"]) * 100.0)),
+		_stat_img(AssetPaths.icon(&"population")), state.population - int(danger["collapse_threshold"])]
+
+
+func _stat_img(path: String) -> String:
+	return "[img=%d]%s[/img]" % [STAT_ICON, path]
 
 
 func _refresh_operate() -> void:
@@ -214,15 +234,21 @@ func _refresh_route() -> void:
 	for i: int in range(nodes.size()):
 		var node: Dictionary = nodes[i]
 		var face: String = "?"
+		var badge: StringName = &"map_unknown"
 		if node["kind"] == &"known" or bool(node["face_shown"]):
-			face = "戰鬥(%s)" % node["battle_type"] if node["content"] == &"battle" else "機會"
+			if node["content"] == &"battle":
+				face = "戰鬥(%s)" % node["battle_type"]
+				badge = &"map_battle"
+			else:
+				face = "機會"
+				badge = &""   # no dedicated map-opportunity glyph in the icon set (flagged)
 		var index := i
 		_add_button(route_actions, "節點 %d：%s／%s" % [i + 1, node["kind"], face],
-			func() -> void: _enter_node(index))
-	_add_button(route_actions, "付錢略過（%d）→ 結算" % MapNodes.skip_cost(state),
-		func() -> void:
-			MapNodes.skip_node(state)
-			_settle())
+			func() -> void: _enter_node(index), badge)
+	var skip_action := func() -> void:
+		MapNodes.skip_node(state)
+		_settle()
+	_add_button(route_actions, "付錢略過（%d）→ 結算" % MapNodes.skip_cost(state), skip_action, &"map_skip")
 
 
 func _refresh_battle() -> void:
@@ -260,6 +286,8 @@ func _refresh_opportunity() -> void:
 	phase_title.text = "機會事件"
 	var entry: Dictionary = OpportunityData.TABLE[current_opportunity]
 	opportunity_label.text = "%s" % entry["label"]
+	opportunity_card_art.texture = load(AssetPaths.icon_opportunity(current_opportunity)) as Texture2D
+	opportunity_card_text.text = String(entry["label"])
 	_clear(opportunity_actions)
 	for choice: StringName in MapNodes.opportunity_choices(current_opportunity):
 		var picked := choice
@@ -289,69 +317,175 @@ func _refresh_democracy() -> void:
 # ---------- UI scaffolding ----------
 
 func _build_ui() -> void:
+	theme = _build_theme()
 	var bg := ColorRect.new()
 	bg.color = BG_COLOR
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
 	var root := VBoxContainer.new()
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.offset_left = 16.0
-	root.offset_top = 12.0
-	root.offset_right = -16.0
-	root.offset_bottom = -12.0
-	root.add_theme_constant_override("separation", 8)
+	root.offset_left = 24.0
+	root.offset_top = 16.0
+	root.offset_right = -24.0
+	root.offset_bottom = -16.0
+	root.add_theme_constant_override("separation", 10)
 	add_child(root)
-	stats_label = _label(root, 16)
-	danger_label = _label(root, 14)
+	stats_label = _rich_label(root, 20)
+	danger_label = _rich_label(root, 17)
 	danger_label.modulate = ACCENT_COLOR
-	phase_title = _label(root, 20)
-	event_label = _label(root, 13)
+	_divider(root)
+	phase_title = _label(root, 30)
+	phase_title.add_theme_font_override("font", load(AssetPaths.FONT_BOLD) as FontFile)
+	event_label = _label(root, 15)
 	panels[&"operate"] = _panel(root)
 	operate_actions = _vbox(panels[&"operate"])
 	panels[&"route"] = _panel(root)
 	route_actions = _vbox(panels[&"route"])
 	panels[&"battle"] = _panel(root)
 	var battle_box := _vbox(panels[&"battle"])
-	battle_info = _label(battle_box, 14)
-	battle_spend = _label(battle_box, 16)
-	battle_spend.modulate = ACCENT_COLOR
+	battle_info = _panel_label(battle_box, 16)
+	battle_spend = _panel_label(battle_box, 18)
+	battle_spend.add_theme_color_override("font_color", INK_ACCENT_COLOR)
 	battle_hand = VBoxContainer.new()
 	battle_box.add_child(battle_hand)
 	battle_buttons = HBoxContainer.new()
 	battle_box.add_child(battle_buttons)
 	panels[&"opportunity"] = _panel(root)
-	var opp_box := _vbox(panels[&"opportunity"])
-	opportunity_label = _label(opp_box, 16)
+	var opp_split := HBoxContainer.new()
+	opp_split.add_theme_constant_override("separation", 28)
+	panels[&"opportunity"].add_child(opp_split)
+	opp_split.add_child(_build_opportunity_card())
+	var opp_box := VBoxContainer.new()
+	opp_box.add_theme_constant_override("separation", 6)
+	opp_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	opp_split.add_child(opp_box)
+	opportunity_label = _panel_label(opp_box, 20)
 	opportunity_actions = VBoxContainer.new()
 	opp_box.add_child(opportunity_actions)
 	panels[&"settle"] = _panel(root)
 	var settle_box := _vbox(panels[&"settle"])
-	settle_label = _label(settle_box, 15)
+	settle_label = _panel_label(settle_box, 18)
 	_add_button(settle_box, "進入下一代", _begin_generation)
 	panels[&"world_war"] = _panel(root)
 	var ww_box := _vbox(panels[&"world_war"])
-	ww_label = _label(ww_box, 15)
+	ww_label = _panel_label(ww_box, 18)
 	_add_button(ww_box, "結算 → 下一代", func() -> void: _settle())
 	panels[&"democracy"] = _panel(root)
 	var demo_box := _vbox(panels[&"democracy"])
-	democracy_label = _label(demo_box, 15)
+	democracy_label = _panel_label(demo_box, 18)
 	democracy_actions = VBoxContainer.new()
 	demo_box.add_child(democracy_actions)
 	panels[&"ending"] = _panel(root)
 	var ending_box := _vbox(panels[&"ending"])
-	ending_label = _label(ending_box, 16)
+	ending_label = _panel_label(ending_box, 19)
 	_add_button(ending_box, "再來一局", func() -> void: _start_run())
+
+
+# ---------- approved-art chrome helpers (style bible §9; scaled in-engine, never re-baked) ----------
+
+func _build_theme() -> Theme:
+	var t := Theme.new()
+	t.default_font = load(AssetPaths.FONT_REGULAR) as FontFile
+	t.default_font_size = 18
+	return t
+
+
+func _scaled_texture(path: String, scale: float) -> ImageTexture:
+	var key := "%s@%f" % [path, scale]
+	if not _texture_cache.has(key):
+		var image := _image(path)
+		image.resize(int(image.get_width() * scale), int(image.get_height() * scale),
+			Image.INTERPOLATE_LANCZOS)
+		_texture_cache[key] = ImageTexture.create_from_image(image)
+	return _texture_cache[key]
+
+
+func _image(path: String) -> Image:
+	var image: Image = (load(path) as Texture2D).get_image()
+	if image.is_compressed():
+		image.decompress()
+	return image
+
+
+func _chrome_stylebox(tpl: Dictionary, modulate_color: Color = Color.WHITE) -> StyleBoxTexture:
+	var style := StyleBoxTexture.new()
+	style.texture = _scaled_texture(String(tpl["path"]), CHROME_SCALE)
+	var margins: Dictionary = tpl["margins"]
+	style.texture_margin_left = float(margins["left"]) * CHROME_SCALE
+	style.texture_margin_top = float(margins["top"]) * CHROME_SCALE
+	style.texture_margin_right = float(margins["right"]) * CHROME_SCALE
+	style.texture_margin_bottom = float(margins["bottom"]) * CHROME_SCALE
+	style.content_margin_left = style.texture_margin_left * 0.8
+	style.content_margin_top = style.texture_margin_top * 0.8
+	style.content_margin_right = style.texture_margin_right * 0.8
+	style.content_margin_bottom = style.texture_margin_bottom * 0.8
+	style.modulate_color = modulate_color
+	return style
+
+
+func _plate_icon(icon_path: String, size: int) -> ImageTexture:
+	# glyph composited into the frozen plate's disc rect at runtime (style bible §9)
+	var key := "plate:%s@%d" % [icon_path, size]
+	if _texture_cache.has(key):
+		return _texture_cache[key]
+	var plate := _image(String(AssetPaths.UI_ICON_PLATE["path"]))
+	var glyph := _image(icon_path)
+	var disc: Rect2i = AssetPaths.UI_ICON_PLATE["disc"]
+	var fill := float(AssetPaths.UI_ICON_PLATE["glyph_fill"])
+	var box := Vector2(disc.size) * fill
+	var glyph_scale: float = minf(box.x / glyph.get_width(), box.y / glyph.get_height())
+	glyph.resize(int(glyph.get_width() * glyph_scale), int(glyph.get_height() * glyph_scale),
+		Image.INTERPOLATE_LANCZOS)
+	var at := disc.position + (disc.size - Vector2i(glyph.get_width(), glyph.get_height())) / 2
+	plate.blend_rect(glyph, Rect2i(Vector2i.ZERO, glyph.get_size()), at)
+	plate.resize(int(round(float(size) * plate.get_width() / plate.get_height())), size,
+		Image.INTERPOLATE_LANCZOS)
+	_texture_cache[key] = ImageTexture.create_from_image(plate)
+	return _texture_cache[key]
+
+
+func _build_opportunity_card() -> Control:
+	# live card composition (style bible §9): art UNDER the frame's transparent window,
+	# Label text OVER the parchment text panel — three layers, composed here, never baked.
+	var frame_size := Vector2(AssetPaths.UI_CARD_FRAME["size"] as Vector2i) * CHROME_SCALE
+	var card := Control.new()
+	card.custom_minimum_size = frame_size
+	card.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
+	var window: Rect2i = AssetPaths.UI_CARD_FRAME["window"]
+	opportunity_card_art = TextureRect.new()
+	opportunity_card_art.position = Vector2(window.position) * CHROME_SCALE
+	opportunity_card_art.size = Vector2(window.size) * CHROME_SCALE
+	opportunity_card_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	opportunity_card_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	card.add_child(opportunity_card_art)
+	var frame := TextureRect.new()
+	frame.texture = _scaled_texture(String(AssetPaths.UI_CARD_FRAME["path"]), CHROME_SCALE)
+	frame.size = frame_size
+	card.add_child(frame)
+	var text_panel: Rect2i = AssetPaths.UI_CARD_FRAME["text_panel"]
+	opportunity_card_text = Label.new()
+	opportunity_card_text.position = Vector2(text_panel.position) * CHROME_SCALE + Vector2(10, 8)
+	opportunity_card_text.size = Vector2(text_panel.size) * CHROME_SCALE - Vector2(20, 16)
+	opportunity_card_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	opportunity_card_text.add_theme_color_override("font_color", Color(0.20, 0.13, 0.08))
+	opportunity_card_text.add_theme_font_size_override("font_size", 18)
+	card.add_child(opportunity_card_text)
+	return card
+
+
+func _divider(parent: Control) -> void:
+	var rule := NinePatchRect.new()
+	rule.texture = load(String(AssetPaths.UI_DIVIDER["path"])) as Texture2D
+	var margins: Dictionary = AssetPaths.UI_DIVIDER["margins"]
+	rule.patch_margin_left = int(margins["left"])
+	rule.patch_margin_right = int(margins["right"])
+	rule.custom_minimum_size = Vector2(0, (AssetPaths.UI_DIVIDER["size"] as Vector2i).y)
+	parent.add_child(rule)
 
 
 func _panel(parent: Control) -> PanelContainer:
 	var panel := PanelContainer.new()
-	var style := StyleBoxFlat.new()
-	style.bg_color = PANEL_COLOR
-	style.content_margin_left = 12.0
-	style.content_margin_right = 12.0
-	style.content_margin_top = 10.0
-	style.content_margin_bottom = 10.0
-	panel.add_theme_stylebox_override("panel", style)
+	panel.add_theme_stylebox_override("panel", _chrome_stylebox(AssetPaths.UI_PANEL))
 	panel.visible = false
 	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	parent.add_child(panel)
@@ -373,9 +507,36 @@ func _label(parent: Control, size: int) -> Label:
 	return label
 
 
-func _add_button(parent: Control, text: String, handler: Callable) -> Button:
+func _panel_label(parent: Control, size: int) -> Label:
+	# labels living INSIDE parchment panels read in ink, not the on-dark default white
+	var label := _label(parent, size)
+	label.add_theme_color_override("font_color", INK_COLOR)
+	return label
+
+
+func _rich_label(parent: Control, size: int) -> RichTextLabel:
+	var label := RichTextLabel.new()
+	label.bbcode_enabled = true
+	label.fit_content = true
+	label.scroll_active = false
+	label.add_theme_font_size_override("normal_font_size", size)
+	parent.add_child(label)
+	return label
+
+
+func _add_button(parent: Control, text: String, handler: Callable, icon_id: StringName = &"") -> Button:
 	var button := Button.new()
 	button.text = text
+	button.add_theme_stylebox_override("normal", _chrome_stylebox(AssetPaths.UI_BUTTON))
+	button.add_theme_stylebox_override("hover", _chrome_stylebox(AssetPaths.UI_BUTTON, Color(1.08, 1.08, 1.02)))
+	button.add_theme_stylebox_override("pressed", _chrome_stylebox(AssetPaths.UI_BUTTON, Color(0.78, 0.78, 0.82)))
+	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	button.add_theme_color_override("font_color", Color(0.16, 0.11, 0.07))
+	button.add_theme_color_override("font_hover_color", Color(0.10, 0.06, 0.03))
+	button.add_theme_color_override("font_pressed_color", Color(0.16, 0.11, 0.07))
+	if icon_id != &"":
+		button.icon = _plate_icon(AssetPaths.icon(icon_id), 44)
+		button.add_theme_constant_override("h_separation", 10)
 	button.pressed.connect(handler)
 	parent.add_child(button)
 	return button

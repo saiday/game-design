@@ -46,6 +46,15 @@ every green wave.
       money sink, happiness pegs at 100, rival churn high, zero collapses in 60 runs);
       `decision-w3-w5-gaps.md` completes the decision log. *(done 2026-07-08; final Part A
       181/181 exit 0.)*
+- [x] **W7 — Approved-art integration (art pipeline Phase 4, handoff Prompt 4).**
+      `core/data/asset_paths.gd` (+ `test/asset_paths_test.gd`): registry mapping approved asset
+      ids -> res:// paths + frozen-template geometry (style bible §9). `assets/fonts/`: Noto Sans
+      TC subsets (OFL verified, README documents the rebuild). `view/main.gd`: runtime-composed
+      chrome (panel/button styleboxes, 3-slice divider, glyph-on-plate route badges, card-frame
+      opportunity widget, icon stat/danger bars via RichTextLabel img tags); window 1920×1080
+      (style bible §8). Gate: Part A 188/188 (21 suites, exit 0) + Part B 0 ASSERT FAIL,
+      captures reviewed. *(done 2026-07-13. Part B caught a real defect again — panel body text
+      unreadable on parchment chrome — fixed with ink-color overrides before the gate.)*
 
 ## Module status (agents/driver: flip these as suites go green)
 

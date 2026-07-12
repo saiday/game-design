@@ -1,0 +1,51 @@
+class_name AssetPathsTest
+extends GdUnitTestSuite
+# Registry ↔ disk contract: every id AssetPaths promises must resolve to a committed approved
+# asset, and the frozen-template geometry must stay inside its texture bounds (style bible §9).
+
+
+func test_every_icon_asset_exists() -> void:
+	for icon_id: StringName in AssetPaths.ICONS:
+		assert_bool(FileAccess.file_exists(AssetPaths.icon(icon_id))) \
+			.override_failure_message("missing approved icon: %s" % AssetPaths.icon(icon_id)) \
+			.is_true()
+
+
+func test_icon_inventory_is_complete() -> void:
+	assert_int(AssetPaths.ICONS.size()).is_equal(74)
+
+
+func test_canonical_id_helpers_resolve() -> void:
+	assert_bool(FileAccess.file_exists(AssetPaths.icon_policy(&"centralization"))).is_true()
+	assert_bool(FileAccess.file_exists(AssetPaths.icon_legacy(&"martial_law"))).is_true()
+	assert_bool(FileAccess.file_exists(AssetPaths.icon_region(&"finance"))).is_true()
+	assert_bool(FileAccess.file_exists(AssetPaths.icon_era(6))).is_true()
+	assert_bool(FileAccess.file_exists(AssetPaths.icon_opportunity(&"treasure"))).is_true()
+
+
+func test_approved_building_lines_exist_per_era() -> void:
+	# grows as line-pick gates close; food froze 2026-07-12
+	for era: int in range(1, 7):
+		assert_bool(AssetPaths.has_building(&"food", era)) \
+			.override_failure_message("missing building_food_era%d" % era).is_true()
+
+
+func test_ui_templates_exist() -> void:
+	for tpl: Dictionary in [AssetPaths.UI_PANEL, AssetPaths.UI_BUTTON, AssetPaths.UI_CARD_FRAME,
+			AssetPaths.UI_ICON_PLATE, AssetPaths.UI_DIVIDER]:
+		assert_bool(FileAccess.file_exists(String(tpl["path"]))) \
+			.override_failure_message("missing template: %s" % tpl["path"]).is_true()
+
+
+func test_fonts_exist() -> void:
+	assert_bool(FileAccess.file_exists(AssetPaths.FONT_REGULAR)).is_true()
+	assert_bool(FileAccess.file_exists(AssetPaths.FONT_BOLD)).is_true()
+
+
+func test_template_geometry_inside_texture_bounds() -> void:
+	var frame_size := AssetPaths.UI_CARD_FRAME["size"] as Vector2i
+	var frame_rect := Rect2i(Vector2i.ZERO, frame_size)
+	assert_bool(frame_rect.encloses(AssetPaths.UI_CARD_FRAME["window"] as Rect2i)).is_true()
+	assert_bool(frame_rect.encloses(AssetPaths.UI_CARD_FRAME["text_panel"] as Rect2i)).is_true()
+	var plate_rect := Rect2i(Vector2i.ZERO, AssetPaths.UI_ICON_PLATE["size"] as Vector2i)
+	assert_bool(plate_rect.encloses(AssetPaths.UI_ICON_PLATE["disc"] as Rect2i)).is_true()

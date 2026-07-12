@@ -117,17 +117,24 @@ backgrounds/portraits). The batch contract, proven in Phases 1-2:
   ComfyUI model memory (§14 habit). Escalate per §12 instead of widening the style.
 ```
 
-## Prompt 4 — Godot integration (after Phase 3 classes are approved)
+## Prompt 4 — Godot integration (runs per approved class; UI chrome first, then each sprite class)
 
 ```
 Cookbook Phase 4 (Godot integration), per §10, target 1920×1080 (style bible §8). Read
-insignificant-game/CLAUDE.md and poc-docs/architecture.md before touching the project. Wire
-approved assets data-driven (texture path derived from id + era); compose chrome at runtime —
-frozen templates with the NinePatchRect margins and content rects from style bible §9, real
-Label text in the locked Noto Sans family (fetch + subset the font binaries now, zh-TW = Noto
-Sans TC) — never bake frame+art+text. Respect the NinePatch minimum sizes (style bible §9).
-Keep the corpus code: frontmatter mapping current for anything you add. Run BOTH loop parts
-(headless tests + Part B capture) and STOP for my review of the captures.
+insignificant-game/CLAUDE.md, poc-docs/architecture.md and poc-docs/dev-loop.md before touching
+the project. Integrate ONLY manifest status=approved assets, per class:
+- Asset registry: one pure data-driven module maps asset id -> res:// texture path (icons
+  icon_<id>, buildings building_<line>_era<n> derived from line id + current era; new classes
+  slot in by the same id scheme). No node code computes paths; the view reads the registry.
+- UI chrome: compose at runtime — frozen templates with the NinePatchRect margins, content
+  rects and minimum sizes from style bible §9; real Label text in the locked Noto Sans family
+  (fetch + subset the font binaries now, zh-TW = Noto Sans TC); never bake frame+art+text.
+- Icons: bare approved glyphs composite into the plate's disc rect at runtime (style bible §9);
+  stat readouts pair glyph + Label number.
+- Buildings and later sprite classes: keyed transparent PNGs, scale in-engine only (assets ship
+  at generation resolution); era changes swap the texture by id, never restyle in code.
+- Keep the corpus code: frontmatter mapping current for anything you add. Run BOTH loop parts
+  (headless tests + Part B capture) and STOP for my review of the captures.
 ```
 
 ## Ground rules the human relies on (agent: these are already in the cookbook — obey them)
