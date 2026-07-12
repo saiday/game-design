@@ -10,6 +10,21 @@
     "stem": "p3_bld_housing_e2_s71",
     "seed": 71,
     "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_housing_e3_s71",
+    "seed": 71,
+    "prompt": "a row of connected stone townhouses along a narrow lane, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_housing_e4_s71",
+    "seed": 71,
+    "prompt": "a brick apartment building with many chimneys and hanging laundry lines, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_housing_e5_s71",
+    "seed": 71,
+    "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -22,6 +37,21 @@
     "stem": "p3_bld_housing_e2_s72",
     "seed": 72,
     "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_housing_e3_s72",
+    "seed": 72,
+    "prompt": "a row of connected stone townhouses along a narrow lane, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_housing_e4_s72",
+    "seed": 72,
+    "prompt": "a brick apartment building with many chimneys and hanging laundry lines, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_housing_e5_s72",
+    "seed": 72,
+    "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -34,6 +64,21 @@
     "stem": "p3_bld_housing_e2_s73",
     "seed": 73,
     "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_housing_e3_s73",
+    "seed": 73,
+    "prompt": "a row of connected stone townhouses along a narrow lane, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_housing_e4_s73",
+    "seed": 73,
+    "prompt": "a brick apartment building with many chimneys and hanging laundry lines, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_housing_e5_s73",
+    "seed": 73,
+    "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -46,6 +91,21 @@
     "stem": "p3_bld_housing_e2_s74",
     "seed": 74,
     "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_housing_e3_s74",
+    "seed": 74,
+    "prompt": "a row of connected stone townhouses along a narrow lane, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_housing_e4_s74",
+    "seed": 74,
+    "prompt": "a brick apartment building with many chimneys and hanging laundry lines, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_housing_e5_s74",
+    "seed": 74,
+    "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -60,6 +120,21 @@
     "stem": "p3_bld_medical_e2_s271",
     "seed": 271,
     "prompt": "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_medical_e3_s71",
+    "seed": 71,
+    "prompt": "a monastery infirmary with an arched ward hall and a small bell tower, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_medical_e4_s271",
+    "seed": 271,
+    "prompt": "a grand brick building with a columned entrance, tall arched windows and a bronze caduceus emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_medical_e5_s171",
+    "seed": 171,
+    "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -72,6 +147,21 @@
     "stem": "p3_bld_medical_e2_s72",
     "seed": 72,
     "prompt": "a small clinic house with a large mortar and pestle by the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_medical_e3_s72",
+    "seed": 72,
+    "prompt": "a monastery infirmary with an arched ward hall and a small bell tower, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_medical_e4_s272",
+    "seed": 272,
+    "prompt": "a grand brick building with a columned entrance, tall arched windows and a bronze caduceus emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_medical_e5_s172",
+    "seed": 172,
+    "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -84,6 +174,21 @@
     "stem": "p3_bld_medical_e2_s273",
     "seed": 273,
     "prompt": "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_medical_e3_s373",
+    "seed": 373,
+    "prompt": "an arched stone infirmary hall with rows of beds and a small bell tower, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_medical_e4_s73",
+    "seed": 73,
+    "prompt": "a public hospital building with a columned entrance and tall windows, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_medical_e5_s173",
+    "seed": 173,
+    "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -96,6 +201,21 @@
     "stem": "p3_bld_medical_e2_s74",
     "seed": 74,
     "prompt": "a small clinic house with a large mortar and pestle by the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_medical_e3_s74",
+    "seed": 74,
+    "prompt": "a monastery infirmary with an arched ward hall and a small bell tower, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_medical_e4_s274",
+    "seed": 274,
+    "prompt": "a grand brick building with a columned entrance, tall arched windows and a bronze caduceus emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_medical_e5_s174",
+    "seed": 174,
+    "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -110,6 +230,21 @@
     "stem": "p3_bld_school_e2_s71",
     "seed": 71,
     "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_school_e3_s71",
+    "seed": 71,
+    "prompt": "a monastery scriptorium with arched windows and stacked manuscripts, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_school_e4_s71",
+    "seed": 71,
+    "prompt": "a university hall with a bell tower and grand stone steps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_school_e5_s71",
+    "seed": 71,
+    "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -122,6 +257,21 @@
     "stem": "p3_bld_school_e2_s72",
     "seed": 72,
     "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_school_e3_s72",
+    "seed": 72,
+    "prompt": "a monastery scriptorium with arched windows and stacked manuscripts, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_school_e4_s72",
+    "seed": 72,
+    "prompt": "a university hall with a bell tower and grand stone steps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_school_e5_s72",
+    "seed": 72,
+    "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -134,6 +284,21 @@
     "stem": "p3_bld_school_e2_s73",
     "seed": 73,
     "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_school_e3_s73",
+    "seed": 73,
+    "prompt": "a monastery scriptorium with arched windows and stacked manuscripts, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_school_e4_s73",
+    "seed": 73,
+    "prompt": "a university hall with a bell tower and grand stone steps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_school_e5_s73",
+    "seed": 73,
+    "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -146,6 +311,21 @@
     "stem": "p3_bld_school_e2_s74",
     "seed": 74,
     "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_school_e3_s74",
+    "seed": 74,
+    "prompt": "a monastery scriptorium with arched windows and stacked manuscripts, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_school_e4_s74",
+    "seed": 74,
+    "prompt": "a university hall with a bell tower and grand stone steps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_school_e5_s74",
+    "seed": 74,
+    "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -160,6 +340,21 @@
     "stem": "p3_bld_astronomy_e2_s71",
     "seed": 71,
     "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_astronomy_e3_s71",
+    "seed": 71,
+    "prompt": "a calendar institute hall with a large carved sun-and-moon stone dial, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_astronomy_e4_s71",
+    "seed": 71,
+    "prompt": "an observatory with a copper dome and a long brass telescope through the roof slit, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_astronomy_e5_s71",
+    "seed": 71,
+    "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -172,6 +367,21 @@
     "stem": "p3_bld_astronomy_e2_s72",
     "seed": 72,
     "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_astronomy_e3_s72",
+    "seed": 72,
+    "prompt": "a calendar institute hall with a large carved sun-and-moon stone dial, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_astronomy_e4_s72",
+    "seed": 72,
+    "prompt": "an observatory with a copper dome and a long brass telescope through the roof slit, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_astronomy_e5_s72",
+    "seed": 72,
+    "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -184,6 +394,21 @@
     "stem": "p3_bld_astronomy_e2_s73",
     "seed": 73,
     "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_astronomy_e3_s73",
+    "seed": 73,
+    "prompt": "a calendar institute hall with a large carved sun-and-moon stone dial, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_astronomy_e4_s73",
+    "seed": 73,
+    "prompt": "an observatory with a copper dome and a long brass telescope through the roof slit, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_astronomy_e5_s73",
+    "seed": 73,
+    "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -196,6 +421,21 @@
     "stem": "p3_bld_astronomy_e2_s74",
     "seed": 74,
     "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_astronomy_e3_s74",
+    "seed": 74,
+    "prompt": "a calendar institute hall with a large carved sun-and-moon stone dial, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_astronomy_e4_s74",
+    "seed": 74,
+    "prompt": "an observatory with a copper dome and a long brass telescope through the roof slit, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_astronomy_e5_s74",
+    "seed": 74,
+    "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -210,6 +450,21 @@
     "stem": "p3_bld_barracks_e2_s71",
     "seed": 71,
     "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_barracks_e3_s71",
+    "seed": 71,
+    "prompt": "a knight order keep, a stone hall with plain red banners and a stable, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_barracks_e4_s271",
+    "seed": 271,
+    "prompt": "a stern brick fort with a walled drill yard, stacked supply barrels and a plain red pennant on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_barracks_e5_s71",
+    "seed": 71,
+    "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -222,6 +477,21 @@
     "stem": "p3_bld_barracks_e2_s72",
     "seed": 72,
     "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_barracks_e3_s72",
+    "seed": 72,
+    "prompt": "a knight order keep, a stone hall with plain red banners and a stable, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_barracks_e4_s72",
+    "seed": 72,
+    "prompt": "a conscription office building with a drill yard and stacked supply barrels, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_barracks_e5_s72",
+    "seed": 72,
+    "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -234,6 +504,21 @@
     "stem": "p3_bld_barracks_e2_s73",
     "seed": 73,
     "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_barracks_e3_s73",
+    "seed": 73,
+    "prompt": "a knight order keep, a stone hall with plain red banners and a stable, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_barracks_e4_s73",
+    "seed": 73,
+    "prompt": "a conscription office building with a drill yard and stacked supply barrels, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_barracks_e5_s73",
+    "seed": 73,
+    "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -246,6 +531,21 @@
     "stem": "p3_bld_barracks_e2_s74",
     "seed": 74,
     "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_barracks_e3_s74",
+    "seed": 74,
+    "prompt": "a knight order keep, a stone hall with plain red banners and a stable, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_barracks_e4_s274",
+    "seed": 274,
+    "prompt": "a stern brick fort with a walled drill yard, stacked supply barrels and a plain red pennant on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_barracks_e5_s74",
+    "seed": 74,
+    "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -260,6 +560,21 @@
     "stem": "p3_bld_arsenal_e2_s71",
     "seed": 71,
     "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arsenal_e3_s71",
+    "seed": 71,
+    "prompt": "a foundry with a stone furnace pouring glowing molten metal, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arsenal_e4_s71",
+    "seed": 71,
+    "prompt": "an arms factory with smokestacks and cannon barrels stacked in the yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arsenal_e5_s71",
+    "seed": 71,
+    "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -272,6 +587,21 @@
     "stem": "p3_bld_arsenal_e2_s72",
     "seed": 72,
     "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arsenal_e3_s72",
+    "seed": 72,
+    "prompt": "a foundry with a stone furnace pouring glowing molten metal, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arsenal_e4_s72",
+    "seed": 72,
+    "prompt": "an arms factory with smokestacks and cannon barrels stacked in the yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arsenal_e5_s72",
+    "seed": 72,
+    "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -284,6 +614,21 @@
     "stem": "p3_bld_arsenal_e2_s73",
     "seed": 73,
     "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arsenal_e3_s73",
+    "seed": 73,
+    "prompt": "a foundry with a stone furnace pouring glowing molten metal, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arsenal_e4_s73",
+    "seed": 73,
+    "prompt": "an arms factory with smokestacks and cannon barrels stacked in the yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arsenal_e5_s73",
+    "seed": 73,
+    "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -296,6 +641,21 @@
     "stem": "p3_bld_arsenal_e2_s74",
     "seed": 74,
     "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arsenal_e3_s74",
+    "seed": 74,
+    "prompt": "a foundry with a stone furnace pouring glowing molten metal, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arsenal_e4_s74",
+    "seed": 74,
+    "prompt": "an arms factory with smokestacks and cannon barrels stacked in the yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arsenal_e5_s74",
+    "seed": 74,
+    "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -310,6 +670,21 @@
     "stem": "p3_bld_arts_e2_s71",
     "seed": 71,
     "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arts_e3_s71",
+    "seed": 71,
+    "prompt": "a grand cathedral with a circular rose window, its spires topped with golden tree emblems, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arts_e4_s71",
+    "seed": 71,
+    "prompt": "an opera house with a gilded arched facade and red velvet banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arts_e5_s71",
+    "seed": 71,
+    "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -322,6 +697,21 @@
     "stem": "p3_bld_arts_e2_s72",
     "seed": 72,
     "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arts_e3_s72",
+    "seed": 72,
+    "prompt": "a grand cathedral with a circular rose window, its spires topped with golden tree emblems, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arts_e4_s72",
+    "seed": 72,
+    "prompt": "an opera house with a gilded arched facade and red velvet banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arts_e5_s72",
+    "seed": 72,
+    "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -334,6 +724,21 @@
     "stem": "p3_bld_arts_e2_s73",
     "seed": 73,
     "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arts_e3_s73",
+    "seed": 73,
+    "prompt": "a grand cathedral with a circular rose window, its spires topped with golden tree emblems, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arts_e4_s73",
+    "seed": 73,
+    "prompt": "an opera house with a gilded arched facade and red velvet banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arts_e5_s73",
+    "seed": 73,
+    "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -346,6 +751,21 @@
     "stem": "p3_bld_arts_e2_s74",
     "seed": 74,
     "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_arts_e3_s74",
+    "seed": 74,
+    "prompt": "a grand cathedral with a circular rose window, its spires topped with golden tree emblems, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_arts_e4_s74",
+    "seed": 74,
+    "prompt": "an opera house with a gilded arched facade and red velvet banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_arts_e5_s74",
+    "seed": 74,
+    "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -360,6 +780,21 @@
     "stem": "p3_bld_media_e2_s71",
     "seed": 71,
     "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_media_e3_s71",
+    "seed": 71,
+    "prompt": "a printing workshop with a wooden printing press and blank drying paper sheets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_media_e4_s71",
+    "seed": 71,
+    "prompt": "a press house with giant paper rolls and a loading dock, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_media_e5_s71",
+    "seed": 71,
+    "prompt": "a broadcast station with a tall red and white radio mast and satellite dishes, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -372,6 +807,21 @@
     "stem": "p3_bld_media_e2_s72",
     "seed": 72,
     "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_media_e3_s72",
+    "seed": 72,
+    "prompt": "a printing workshop with a wooden printing press and blank drying paper sheets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_media_e4_s72",
+    "seed": 72,
+    "prompt": "a press house with giant paper rolls and a loading dock, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_media_e5_s172",
+    "seed": 172,
+    "prompt": "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -384,6 +834,21 @@
     "stem": "p3_bld_media_e2_s73",
     "seed": 73,
     "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_media_e3_s73",
+    "seed": 73,
+    "prompt": "a printing workshop with a wooden printing press and blank drying paper sheets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_media_e4_s73",
+    "seed": 73,
+    "prompt": "a press house with giant paper rolls and a loading dock, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_media_e5_s173",
+    "seed": 173,
+    "prompt": "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -396,6 +861,21 @@
     "stem": "p3_bld_media_e2_s74",
     "seed": 74,
     "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_media_e3_s74",
+    "seed": 74,
+    "prompt": "a printing workshop with a wooden printing press and blank drying paper sheets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_media_e4_s74",
+    "seed": 74,
+    "prompt": "a press house with giant paper rolls and a loading dock, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_media_e5_s74",
+    "seed": 74,
+    "prompt": "a broadcast station with a tall red and white radio mast and satellite dishes, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -410,6 +890,21 @@
     "stem": "p3_bld_commerce_e2_s71",
     "seed": 71,
     "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_commerce_e3_s71",
+    "seed": 71,
+    "prompt": "a merchant guild hall with a carved golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_commerce_e4_s71",
+    "seed": 71,
+    "prompt": "a commercial arcade building with glass canopies and striped awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_commerce_e5_s171",
+    "seed": 171,
+    "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -422,6 +917,21 @@
     "stem": "p3_bld_commerce_e2_s72",
     "seed": 72,
     "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_commerce_e3_s72",
+    "seed": 72,
+    "prompt": "a merchant guild hall with a carved golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_commerce_e4_s72",
+    "seed": 72,
+    "prompt": "a commercial arcade building with glass canopies and striped awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_commerce_e5_s172",
+    "seed": 172,
+    "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -434,6 +944,21 @@
     "stem": "p3_bld_commerce_e2_s73",
     "seed": 73,
     "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_commerce_e3_s73",
+    "seed": 73,
+    "prompt": "a merchant guild hall with a carved golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_commerce_e4_s73",
+    "seed": 73,
+    "prompt": "a commercial arcade building with glass canopies and striped awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_commerce_e5_s173",
+    "seed": 173,
+    "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -446,6 +971,21 @@
     "stem": "p3_bld_commerce_e2_s74",
     "seed": 74,
     "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_commerce_e3_s74",
+    "seed": 74,
+    "prompt": "a merchant guild hall with a carved golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_commerce_e4_s74",
+    "seed": 74,
+    "prompt": "a commercial arcade building with glass canopies and striped awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_commerce_e5_s174",
+    "seed": 174,
+    "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -460,6 +1000,21 @@
     "stem": "p3_bld_bank_e2_s71",
     "seed": 71,
     "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_bank_e3_s71",
+    "seed": 71,
+    "prompt": "a private bank townhouse with barred windows and a golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_bank_e4_s71",
+    "seed": 71,
+    "prompt": "a central bank with a grand columned facade and heavy bronze doors, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_bank_e5_s171",
+    "seed": 171,
+    "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -472,6 +1027,21 @@
     "stem": "p3_bld_bank_e2_s72",
     "seed": 72,
     "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_bank_e3_s72",
+    "seed": 72,
+    "prompt": "a private bank townhouse with barred windows and a golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_bank_e4_s72",
+    "seed": 72,
+    "prompt": "a central bank with a grand columned facade and heavy bronze doors, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_bank_e5_s172",
+    "seed": 172,
+    "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -484,6 +1054,21 @@
     "stem": "p3_bld_bank_e2_s73",
     "seed": 73,
     "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_bank_e3_s73",
+    "seed": 73,
+    "prompt": "a private bank townhouse with barred windows and a golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_bank_e4_s73",
+    "seed": 73,
+    "prompt": "a central bank with a grand columned facade and heavy bronze doors, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_bank_e5_s173",
+    "seed": 173,
+    "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -496,6 +1081,21 @@
     "stem": "p3_bld_bank_e2_s74",
     "seed": 74,
     "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_bank_e3_s74",
+    "seed": 74,
+    "prompt": "a private bank townhouse with barred windows and a golden coin emblem above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_bank_e4_s74",
+    "seed": 74,
+    "prompt": "a central bank with a grand columned facade and heavy bronze doors, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_bank_e5_s174",
+    "seed": 174,
+    "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -510,6 +1110,21 @@
     "stem": "p3_bld_core_e2_s71",
     "seed": 71,
     "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_core_e3_s71",
+    "seed": 71,
+    "prompt": "a lord's manor estate, a fortified great house with plain golden banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_core_e4_s71",
+    "seed": 71,
+    "prompt": "a city hall with a domed tower, stone staircase and a plain red pennant, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_core_e5_s71",
+    "seed": 71,
+    "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -522,6 +1137,21 @@
     "stem": "p3_bld_core_e2_s72",
     "seed": 72,
     "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_core_e3_s72",
+    "seed": 72,
+    "prompt": "a lord's manor estate, a fortified great house with plain golden banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_core_e4_s72",
+    "seed": 72,
+    "prompt": "a city hall with a domed tower, stone staircase and a plain red pennant, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_core_e5_s72",
+    "seed": 72,
+    "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -534,6 +1164,21 @@
     "stem": "p3_bld_core_e2_s73",
     "seed": 73,
     "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_core_e3_s73",
+    "seed": 73,
+    "prompt": "a lord's manor estate, a fortified great house with plain golden banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_core_e4_s73",
+    "seed": 73,
+    "prompt": "a city hall with a domed tower, stone staircase and a plain red pennant, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_core_e5_s73",
+    "seed": 73,
+    "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -546,6 +1191,91 @@
     "stem": "p3_bld_core_e2_s74",
     "seed": 74,
     "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "3": {
+    "stem": "p3_bld_core_e3_s74",
+    "seed": 74,
+    "prompt": "a lord's manor estate, a fortified great house with plain golden banners, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_core_e4_s74",
+    "seed": 74,
+    "prompt": "a city hall with a domed tower, stone staircase and a plain red pennant, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_core_e5_s74",
+    "seed": 74,
+    "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "debt_office": {
+  "71": {
+   "3": {
+    "stem": "p3_bld_debt_office_e3_s71",
+    "seed": 71,
+    "prompt": "a treasury debt office, a stern stone hall with ledger books and chained strongboxes, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_debt_office_e4_s71",
+    "seed": 71,
+    "prompt": "a national debt bureau with a columned facade and a large bronze ledger emblem, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_debt_office_e5_s171",
+    "seed": 171,
+    "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "3": {
+    "stem": "p3_bld_debt_office_e3_s72",
+    "seed": 72,
+    "prompt": "a treasury debt office, a stern stone hall with ledger books and chained strongboxes, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_debt_office_e4_s172",
+    "seed": 172,
+    "prompt": "a columned stone hall with a large bronze ledger emblem and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_debt_office_e5_s172",
+    "seed": 172,
+    "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "3": {
+    "stem": "p3_bld_debt_office_e3_s73",
+    "seed": 73,
+    "prompt": "a treasury debt office, a stern stone hall with ledger books and chained strongboxes, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_debt_office_e4_s73",
+    "seed": 73,
+    "prompt": "a national debt bureau with a columned facade and a large bronze ledger emblem, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_debt_office_e5_s173",
+    "seed": 173,
+    "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "3": {
+    "stem": "p3_bld_debt_office_e3_s274",
+    "seed": 274,
+    "prompt": "a stern stone hall with tall ledger bookshelves, chained strongboxes and a heavy vault door, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_bld_debt_office_e4_s174",
+    "seed": 174,
+    "prompt": "a columned stone hall with a large bronze ledger emblem and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "5": {
+    "stem": "p3_bld_debt_office_e5_s174",
+    "seed": 174,
+    "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  }

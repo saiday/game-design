@@ -40,9 +40,9 @@ LINES = {
     "medical": [
         "an open herbalist shed with drying herb bundles and clay pots",                      # 藥草棚
         "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door",  # 醫館
-        "a monastery infirmary with an arched ward hall and a small bell tower",              # 修道院醫院
-        "a public hospital building with a columned entrance and tall windows",               # 公立醫院
-        "a modern medical center with a glass atrium and an ambulance bay",                   # 醫療中心
+        "an arched stone infirmary hall with rows of beds and a small bell tower",            # 修道院醫院
+        "a grand brick building with a columned entrance, tall arched windows and a bronze caduceus emblem above the door",  # 公立醫院
+        "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance",                   # 醫療中心
         "a futuristic gene clinic with a DNA double-helix sculpture and glowing lab pods",    # 基因診所
     ],
     "school": [
@@ -65,7 +65,7 @@ LINES = {
         "a dirt training ground with wooden practice dummies and a rack of wooden spears",    # 校場
         "a military camp of ordered tents behind a wooden palisade",                          # 軍營
         "a knight order keep, a stone hall with plain red banners and a stable",              # 騎士團部
-        "a conscription office building with a drill yard and stacked supply barrels",        # 徵兵所
+        "a stern brick fort with a walled drill yard, stacked supply barrels and a plain red pennant on the roof",  # 徵兵所
         "a military base with bunkers, a watchtower and camouflage nets",                     # 軍事基地
         "a drone squadron hangar with quadcopter drones parked on a launch deck",             # 無人機聯隊
     ],
@@ -90,7 +90,7 @@ LINES = {
         "a poetry society pavilion by a pond with hanging paper lanterns",                    # 詩社
         "a printing workshop with a wooden printing press and blank drying paper sheets",     # 印刷坊
         "a press house with giant paper rolls and a loading dock",                            # 報社
-        "a broadcast station with a tall red and white radio mast and satellite dishes",      # 廣播電視
+        "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps",  # 廣播電視
         "a social network campus with a giant glowing speech-bubble sculpture at the entrance",  # 社群平台
     ],
     "commerce": [
@@ -98,7 +98,7 @@ LINES = {
         "a trading house with amphorae, crates and a balance scale at the door",              # 商行
         "a merchant guild hall with a carved golden coin emblem above the door",              # 商會
         "a commercial arcade building with glass canopies and striped awnings",               # 商業中心
-        "a grand department store with tiered floors and golden display windows",             # 百貨集團
+        "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance",             # 百貨集團
         "an e-commerce logistics hub with conveyor ramps and delivery drones carrying parcels",  # 電商平台
     ],
     "bank": [
@@ -106,13 +106,13 @@ LINES = {
         "a stone vault house with a heavy barred iron door",                                  # 金庫
         "a private bank townhouse with barred windows and a golden coin emblem above the door",  # 私有銀行
         "a central bank with a grand columned facade and heavy bronze doors",                 # 中央銀行
-        "an investment bank tower of dark glass with a golden bull statue at the entrance",   # 投資銀行
+        "a tower of dark glass and bronze with a golden bull statue at the entrance",   # 投資銀行
         "a stock exchange hall with glowing rising-chart light strips across its facade",     # 證券市場
     ],
     "debt_office": [
-        "a treasury debt office, a stern stone hall with ledger books and chained strongboxes",  # 國債司 (era 3)
-        "a national debt bureau with a columned facade and a large bronze ledger emblem",     # 國債局
-        "a treasury bond department building with filing wings and a coin-stack monument",    # 財政部公債署
+        "a stern stone hall with tall ledger bookshelves, chained strongboxes and a heavy vault door",  # 國債司 (era 3)
+        "a columned stone hall with a large bronze ledger emblem and chained strongboxes at the entrance",  # 國債局
+        "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance",    # 財政部公債署
         "a sovereign wealth fund tower with a golden globe sculpture at its base",            # 主權基金
     ],
     "core": [
