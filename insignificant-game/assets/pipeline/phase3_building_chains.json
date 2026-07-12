@@ -25,6 +25,11 @@
     "stem": "p3_bld_housing_e5_s71",
     "seed": 71,
     "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_housing_e6_s71",
+    "seed": 71,
+    "prompt": "a smart residential tower with curved glass balconies and rooftop garden lights, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -52,6 +57,11 @@
     "stem": "p3_bld_housing_e5_s72",
     "seed": 72,
     "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_housing_e6_s72",
+    "seed": 72,
+    "prompt": "a smart residential tower with curved glass balconies and rooftop garden lights, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -79,6 +89,11 @@
     "stem": "p3_bld_housing_e5_s73",
     "seed": 73,
     "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_housing_e6_s173",
+    "seed": 173,
+    "prompt": "a smart residential tower with curved glass balconies and rooftop garden lights, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -106,6 +121,11 @@
     "stem": "p3_bld_housing_e5_s74",
     "seed": 74,
     "prompt": "a large concrete public housing block with rows of balconies, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_housing_e6_s74",
+    "seed": 74,
+    "prompt": "a smart residential tower with curved glass balconies and rooftop garden lights, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -135,6 +155,11 @@
     "stem": "p3_bld_medical_e5_s171",
     "seed": 171,
     "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_medical_e6_s71",
+    "seed": 71,
+    "prompt": "a futuristic gene clinic with a DNA double-helix sculpture and glowing lab pods, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -162,6 +187,11 @@
     "stem": "p3_bld_medical_e5_s172",
     "seed": 172,
     "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_medical_e6_s72",
+    "seed": 72,
+    "prompt": "a futuristic gene clinic with a DNA double-helix sculpture and glowing lab pods, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -189,6 +219,11 @@
     "stem": "p3_bld_medical_e5_s173",
     "seed": 173,
     "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_medical_e6_s73",
+    "seed": 73,
+    "prompt": "a futuristic gene clinic with a DNA double-helix sculpture and glowing lab pods, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -216,6 +251,11 @@
     "stem": "p3_bld_medical_e5_s174",
     "seed": 174,
     "prompt": "a modern building with a tall glass atrium, white curved wings and a bronze caduceus emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_medical_e6_s74",
+    "seed": 74,
+    "prompt": "a futuristic gene clinic with a DNA double-helix sculpture and glowing lab pods, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -245,6 +285,11 @@
     "stem": "p3_bld_school_e5_s71",
     "seed": 71,
     "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_school_e6_s71",
+    "seed": 71,
+    "prompt": "a national laboratory with a domed accelerator hall and glowing blue conduits, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -272,6 +317,11 @@
     "stem": "p3_bld_school_e5_s72",
     "seed": 72,
     "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_school_e6_s72",
+    "seed": 72,
+    "prompt": "a national laboratory with a domed accelerator hall and glowing blue conduits, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -299,6 +349,11 @@
     "stem": "p3_bld_school_e5_s73",
     "seed": 73,
     "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_school_e6_s73",
+    "seed": 73,
+    "prompt": "a national laboratory with a domed accelerator hall and glowing blue conduits, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -326,6 +381,11 @@
     "stem": "p3_bld_school_e5_s74",
     "seed": 74,
     "prompt": "a research center with modernist concrete wings and a radar dish on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_school_e6_s74",
+    "seed": 74,
+    "prompt": "a national laboratory with a domed accelerator hall and glowing blue conduits, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -355,6 +415,11 @@
     "stem": "p3_bld_astronomy_e5_s71",
     "seed": 71,
     "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_astronomy_e6_s171",
+    "seed": 171,
+    "prompt": "a deep space exploration array of giant radio dish antennas, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -382,6 +447,11 @@
     "stem": "p3_bld_astronomy_e5_s72",
     "seed": 72,
     "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_astronomy_e6_s72",
+    "seed": 72,
+    "prompt": "a deep space exploration array of giant radio dish antennas, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -409,6 +479,11 @@
     "stem": "p3_bld_astronomy_e5_s73",
     "seed": 73,
     "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_astronomy_e6_s73",
+    "seed": 73,
+    "prompt": "a deep space exploration array of giant radio dish antennas, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -436,6 +511,11 @@
     "stem": "p3_bld_astronomy_e5_s74",
     "seed": 74,
     "prompt": "a space program launch facility with a red and white rocket on a gantry pad, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_astronomy_e6_s74",
+    "seed": 74,
+    "prompt": "a deep space exploration array of giant radio dish antennas, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -465,6 +545,11 @@
     "stem": "p3_bld_barracks_e5_s71",
     "seed": 71,
     "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_barracks_e6_s71",
+    "seed": 71,
+    "prompt": "a drone squadron hangar with quadcopter drones parked on a launch deck, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -492,6 +577,11 @@
     "stem": "p3_bld_barracks_e5_s72",
     "seed": 72,
     "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_barracks_e6_s72",
+    "seed": 72,
+    "prompt": "a drone squadron hangar with quadcopter drones parked on a launch deck, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -519,6 +609,11 @@
     "stem": "p3_bld_barracks_e5_s73",
     "seed": 73,
     "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_barracks_e6_s73",
+    "seed": 73,
+    "prompt": "a drone squadron hangar with quadcopter drones parked on a launch deck, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -546,6 +641,11 @@
     "stem": "p3_bld_barracks_e5_s74",
     "seed": 74,
     "prompt": "a military base with bunkers, a watchtower and camouflage nets, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_barracks_e6_s74",
+    "seed": 74,
+    "prompt": "a drone squadron hangar with quadcopter drones parked on a launch deck, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -575,6 +675,11 @@
     "stem": "p3_bld_arsenal_e5_s71",
     "seed": 71,
     "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arsenal_e6_s71",
+    "seed": 71,
+    "prompt": "a defense technology park of sleek angular buildings with a railgun prototype, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -602,6 +707,11 @@
     "stem": "p3_bld_arsenal_e5_s72",
     "seed": 72,
     "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arsenal_e6_s72",
+    "seed": 72,
+    "prompt": "a defense technology park of sleek angular buildings with a railgun prototype, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -629,6 +739,11 @@
     "stem": "p3_bld_arsenal_e5_s73",
     "seed": 73,
     "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arsenal_e6_s73",
+    "seed": 73,
+    "prompt": "a defense technology park of sleek angular buildings with a railgun prototype, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -656,6 +771,11 @@
     "stem": "p3_bld_arsenal_e5_s74",
     "seed": 74,
     "prompt": "a military industrial complex with assembly hangars and tank hulls on a line, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arsenal_e6_s274",
+    "seed": 274,
+    "prompt": "sleek angular fortress buildings with a giant railgun mounted across the roofline and armored vehicles in the yard, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -685,6 +805,11 @@
     "stem": "p3_bld_arts_e5_s71",
     "seed": 71,
     "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arts_e6_s71",
+    "seed": 71,
+    "prompt": "a media center tower with glowing color-gradient light panels, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -712,6 +837,11 @@
     "stem": "p3_bld_arts_e5_s72",
     "seed": 72,
     "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arts_e6_s72",
+    "seed": 72,
+    "prompt": "a media center tower with glowing color-gradient light panels, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -739,6 +869,11 @@
     "stem": "p3_bld_arts_e5_s73",
     "seed": 73,
     "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arts_e6_s73",
+    "seed": 73,
+    "prompt": "a media center tower with glowing color-gradient light panels, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -766,6 +901,11 @@
     "stem": "p3_bld_arts_e5_s74",
     "seed": 74,
     "prompt": "an arts center with sweeping curved white walls and a colorful abstract sculpture, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_arts_e6_s174",
+    "seed": 174,
+    "prompt": "a media center tower with glowing color-gradient light panels, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -795,6 +935,11 @@
     "stem": "p3_bld_media_e5_s71",
     "seed": 71,
     "prompt": "a broadcast station with a tall red and white radio mast and satellite dishes, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_media_e6_s71",
+    "seed": 71,
+    "prompt": "a social network campus with a giant glowing speech-bubble sculpture at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -822,6 +967,11 @@
     "stem": "p3_bld_media_e5_s172",
     "seed": 172,
     "prompt": "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_media_e6_s72",
+    "seed": 72,
+    "prompt": "a social network campus with a giant glowing speech-bubble sculpture at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -849,6 +999,11 @@
     "stem": "p3_bld_media_e5_s173",
     "seed": 173,
     "prompt": "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_media_e6_s73",
+    "seed": 73,
+    "prompt": "a social network campus with a giant glowing speech-bubble sculpture at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -876,6 +1031,11 @@
     "stem": "p3_bld_media_e5_s74",
     "seed": 74,
     "prompt": "a broadcast station with a tall red and white radio mast and satellite dishes, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_media_e6_s74",
+    "seed": 74,
+    "prompt": "a social network campus with a giant glowing speech-bubble sculpture at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -905,6 +1065,11 @@
     "stem": "p3_bld_commerce_e5_s171",
     "seed": 171,
     "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_commerce_e6_s71",
+    "seed": 71,
+    "prompt": "an e-commerce logistics hub with conveyor ramps and delivery drones carrying parcels, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -932,6 +1097,11 @@
     "stem": "p3_bld_commerce_e5_s172",
     "seed": 172,
     "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_commerce_e6_s172",
+    "seed": 172,
+    "prompt": "a logistics hub of conveyor ramps moving parcels, delivery drones lifting parcels from the rooftop, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -959,6 +1129,11 @@
     "stem": "p3_bld_commerce_e5_s173",
     "seed": 173,
     "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_commerce_e6_s273",
+    "seed": 273,
+    "prompt": "a logistics hub of conveyor ramps moving parcels, delivery drones lifting parcels from the rooftop, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -986,6 +1161,11 @@
     "stem": "p3_bld_commerce_e5_s174",
     "seed": 174,
     "prompt": "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_commerce_e6_s174",
+    "seed": 174,
+    "prompt": "a logistics hub of conveyor ramps moving parcels, delivery drones lifting parcels from the rooftop, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -1015,6 +1195,11 @@
     "stem": "p3_bld_bank_e5_s171",
     "seed": 171,
     "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_bank_e6_s171",
+    "seed": 171,
+    "prompt": "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -1042,6 +1227,11 @@
     "stem": "p3_bld_bank_e5_s172",
     "seed": 172,
     "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_bank_e6_s172",
+    "seed": 172,
+    "prompt": "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -1069,6 +1259,11 @@
     "stem": "p3_bld_bank_e5_s173",
     "seed": 173,
     "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_bank_e6_s173",
+    "seed": 173,
+    "prompt": "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -1096,6 +1291,11 @@
     "stem": "p3_bld_bank_e5_s174",
     "seed": 174,
     "prompt": "a tower of dark glass and bronze with a golden bull statue at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_bank_e6_s174",
+    "seed": 174,
+    "prompt": "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -1125,6 +1325,11 @@
     "stem": "p3_bld_core_e5_s71",
     "seed": 71,
     "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_core_e6_s171",
+    "seed": 171,
+    "prompt": "a presidential palace with a grand dome, formal gardens, a fountain and plain golden pennants on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -1152,6 +1357,11 @@
     "stem": "p3_bld_core_e5_s72",
     "seed": 72,
     "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_core_e6_s72",
+    "seed": 72,
+    "prompt": "a presidential palace with a grand dome, formal gardens and a fountain, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -1179,6 +1389,11 @@
     "stem": "p3_bld_core_e5_s73",
     "seed": 73,
     "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_core_e6_s173",
+    "seed": 173,
+    "prompt": "a presidential palace with a grand dome, formal gardens, a fountain and plain golden pennants on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -1206,6 +1421,11 @@
     "stem": "p3_bld_core_e5_s74",
     "seed": 74,
     "prompt": "a central government complex with a wide colonnade, a dome and plain golden pennants, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_core_e6_s174",
+    "seed": 174,
+    "prompt": "a presidential palace with a grand dome, formal gardens, a fountain and plain golden pennants on the roof, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -1225,6 +1445,11 @@
     "stem": "p3_bld_debt_office_e5_s171",
     "seed": 171,
     "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_debt_office_e6_s171",
+    "seed": 171,
+    "prompt": "a sovereign wealth fund tower with a golden globe sculpture at its base, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "72": {
@@ -1242,6 +1467,11 @@
     "stem": "p3_bld_debt_office_e5_s172",
     "seed": 172,
     "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_debt_office_e6_s72",
+    "seed": 72,
+    "prompt": "a sovereign wealth fund tower with a golden globe sculpture at its base, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
@@ -1259,6 +1489,11 @@
     "stem": "p3_bld_debt_office_e5_s173",
     "seed": 173,
     "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_debt_office_e6_s73",
+    "seed": 73,
+    "prompt": "a sovereign wealth fund tower with a golden globe sculpture at its base, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "74": {
@@ -1276,6 +1511,11 @@
     "stem": "p3_bld_debt_office_e5_s174",
     "seed": 174,
     "prompt": "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_bld_debt_office_e6_s74",
+    "seed": 74,
+    "prompt": "a sovereign wealth fund tower with a golden globe sculpture at its base, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  }

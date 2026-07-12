@@ -75,7 +75,7 @@ LINES = {
         "a foundry with a stone furnace pouring glowing molten metal",                        # 鑄造所
         "an arms factory with smokestacks and cannon barrels stacked in the yard",            # 兵工廠
         "a military industrial complex with assembly hangars and tank hulls on a line",       # 軍工複合體
-        "a defense technology park of sleek angular buildings with a railgun prototype",      # 國防科技園
+        "sleek angular fortress buildings with a giant railgun mounted across the roofline and armored vehicles in the yard",  # 國防科技園
     ],
     "arts": [
         "a bonfire plaza ringed with carved totem poles and drums",                           # 篝火廣場
@@ -99,7 +99,7 @@ LINES = {
         "a merchant guild hall with a carved golden coin emblem above the door",              # 商會
         "a commercial arcade building with glass canopies and striped awnings",               # 商業中心
         "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance",             # 百貨集團
-        "an e-commerce logistics hub with conveyor ramps and delivery drones carrying parcels",  # 電商平台
+        "a logistics hub of conveyor ramps moving parcels, delivery drones lifting parcels from the rooftop",  # 電商平台
     ],
     "bank": [
         "a money changer stall with strings of coins and a locked wooden chest",              # 錢莊
@@ -107,7 +107,7 @@ LINES = {
         "a private bank townhouse with barred windows and a golden coin emblem above the door",  # 私有銀行
         "a central bank with a grand columned facade and heavy bronze doors",                 # 中央銀行
         "a tower of dark glass and bronze with a golden bull statue at the entrance",   # 投資銀行
-        "a stock exchange hall with glowing rising-chart light strips across its facade",     # 證券市場
+        "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart",  # 證券市場
     ],
     "debt_office": [
         "a stern stone hall with tall ledger bookshelves, chained strongboxes and a heavy vault door",  # 國債司 (era 3)
@@ -121,7 +121,7 @@ LINES = {
         "a lord's manor estate, a fortified great house with plain golden banners",           # 領主莊園
         "a city hall with a domed tower, stone staircase and a plain red pennant",            # 市政廳
         "a central government complex with a wide colonnade, a dome and plain golden pennants",  # 中央政府
-        "a presidential palace with a grand dome, formal gardens and a fountain",             # 總統府
+        "a presidential palace with a grand dome, formal gardens, a fountain and plain golden pennants on the roof",  # 總統府
     ],
 }
 
