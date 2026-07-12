@@ -1,0 +1,552 @@
+{
+ "housing": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_housing_e1_s71",
+    "seed": 71,
+    "prompt": "a small thatched mud hut dwelling with a cooking fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_housing_e2_s71",
+    "seed": 71,
+    "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_housing_e1_s72",
+    "seed": 72,
+    "prompt": "a small thatched mud hut dwelling with a cooking fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_housing_e2_s72",
+    "seed": 72,
+    "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_housing_e1_s73",
+    "seed": 73,
+    "prompt": "a small thatched mud hut dwelling with a cooking fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_housing_e2_s73",
+    "seed": 73,
+    "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_housing_e1_s74",
+    "seed": 74,
+    "prompt": "a small thatched mud hut dwelling with a cooking fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_housing_e2_s74",
+    "seed": 74,
+    "prompt": "a modest timber and stone cottage dwelling with a small vegetable yard, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "medical": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_medical_e1_s71",
+    "seed": 71,
+    "prompt": "an open herbalist shed with drying herb bundles and clay pots, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_medical_e2_s271",
+    "seed": 271,
+    "prompt": "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_medical_e1_s72",
+    "seed": 72,
+    "prompt": "an open herbalist shed with drying herb bundles and clay pots, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_medical_e2_s72",
+    "seed": 72,
+    "prompt": "a small clinic house with a large mortar and pestle by the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_medical_e1_s73",
+    "seed": 73,
+    "prompt": "an open herbalist shed with drying herb bundles and clay pots, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_medical_e2_s273",
+    "seed": 273,
+    "prompt": "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_medical_e1_s74",
+    "seed": 74,
+    "prompt": "an open herbalist shed with drying herb bundles and clay pots, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_medical_e2_s74",
+    "seed": 74,
+    "prompt": "a small clinic house with a large mortar and pestle by the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "school": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_school_e1_s71",
+    "seed": 71,
+    "prompt": "an open-air learning hut hung with knotted rope cords, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_school_e2_s71",
+    "seed": 71,
+    "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_school_e1_s72",
+    "seed": 72,
+    "prompt": "an open-air learning hut hung with knotted rope cords, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_school_e2_s72",
+    "seed": 72,
+    "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_school_e1_s73",
+    "seed": 73,
+    "prompt": "an open-air learning hut hung with knotted rope cords, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_school_e2_s73",
+    "seed": 73,
+    "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_school_e1_s74",
+    "seed": 74,
+    "prompt": "an open-air learning hut hung with knotted rope cords, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_school_e2_s74",
+    "seed": 74,
+    "prompt": "a classical academy with a colonnaded courtyard and olive trees, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "astronomy": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_astronomy_e1_s71",
+    "seed": 71,
+    "prompt": "a stone stargazing platform with standing stones and a fire bowl, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_astronomy_e2_s71",
+    "seed": 71,
+    "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_astronomy_e1_s72",
+    "seed": 72,
+    "prompt": "a stone stargazing platform with standing stones and a fire bowl, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_astronomy_e2_s72",
+    "seed": 72,
+    "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_astronomy_e1_s73",
+    "seed": 73,
+    "prompt": "a stone stargazing platform with standing stones and a fire bowl, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_astronomy_e2_s73",
+    "seed": 73,
+    "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_astronomy_e1_s74",
+    "seed": 74,
+    "prompt": "a stone stargazing platform with standing stones and a fire bowl, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_astronomy_e2_s74",
+    "seed": 74,
+    "prompt": "a classical observatory tower with a bronze armillary sphere on top, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "barracks": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_barracks_e1_s171",
+    "seed": 171,
+    "prompt": "a dirt training ground with wooden practice dummies and a rack of wooden spears, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_barracks_e2_s71",
+    "seed": 71,
+    "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_barracks_e1_s72",
+    "seed": 72,
+    "prompt": "a dirt training ground with wooden practice dummies and a weapon rack, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_barracks_e2_s72",
+    "seed": 72,
+    "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_barracks_e1_s73",
+    "seed": 73,
+    "prompt": "a dirt training ground with wooden practice dummies and a weapon rack, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_barracks_e2_s73",
+    "seed": 73,
+    "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_barracks_e1_s174",
+    "seed": 174,
+    "prompt": "a dirt training ground with wooden practice dummies and a rack of wooden spears, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_barracks_e2_s74",
+    "seed": 74,
+    "prompt": "a military camp of ordered tents behind a wooden palisade, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "arsenal": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_arsenal_e1_s71",
+    "seed": 71,
+    "prompt": "a blacksmith forge shed with an anvil and glowing orange coals, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arsenal_e2_s71",
+    "seed": 71,
+    "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_arsenal_e1_s72",
+    "seed": 72,
+    "prompt": "a blacksmith forge shed with an anvil and glowing orange coals, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arsenal_e2_s72",
+    "seed": 72,
+    "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_arsenal_e1_s73",
+    "seed": 73,
+    "prompt": "a blacksmith forge shed with an anvil and glowing orange coals, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arsenal_e2_s73",
+    "seed": 73,
+    "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_arsenal_e1_s74",
+    "seed": 74,
+    "prompt": "a blacksmith forge shed with an anvil and glowing orange coals, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arsenal_e2_s74",
+    "seed": 74,
+    "prompt": "a weapons workshop with spears and round shields racked outside, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "arts": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_arts_e1_s71",
+    "seed": 71,
+    "prompt": "a bonfire plaza ringed with carved totem poles and drums, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arts_e2_s71",
+    "seed": 71,
+    "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_arts_e1_s72",
+    "seed": 72,
+    "prompt": "a bonfire plaza ringed with carved totem poles and drums, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arts_e2_s72",
+    "seed": 72,
+    "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_arts_e1_s73",
+    "seed": 73,
+    "prompt": "a bonfire plaza ringed with carved totem poles and drums, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arts_e2_s73",
+    "seed": 73,
+    "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_arts_e1_s74",
+    "seed": 74,
+    "prompt": "a bonfire plaza ringed with carved totem poles and drums, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_arts_e2_s74",
+    "seed": 74,
+    "prompt": "a classical temple theater with a semicircular stone stage, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "media": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_media_e1_s71",
+    "seed": 71,
+    "prompt": "a storyteller's raised wooden platform with a cloth canopy and log benches, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_media_e2_s71",
+    "seed": 71,
+    "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_media_e1_s72",
+    "seed": 72,
+    "prompt": "a storyteller's raised wooden platform with a cloth canopy and log benches, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_media_e2_s72",
+    "seed": 72,
+    "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_media_e1_s73",
+    "seed": 73,
+    "prompt": "a storyteller's raised wooden platform with a cloth canopy and log benches, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_media_e2_s73",
+    "seed": 73,
+    "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_media_e1_s74",
+    "seed": 74,
+    "prompt": "a storyteller's raised wooden platform with a cloth canopy and log benches, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_media_e2_s74",
+    "seed": 74,
+    "prompt": "a poetry society pavilion by a pond with hanging paper lanterns, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "commerce": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_commerce_e1_s71",
+    "seed": 71,
+    "prompt": "an open market of wooden stalls with fruit baskets and striped cloth awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_commerce_e2_s71",
+    "seed": 71,
+    "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_commerce_e1_s72",
+    "seed": 72,
+    "prompt": "an open market of wooden stalls with fruit baskets and striped cloth awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_commerce_e2_s72",
+    "seed": 72,
+    "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_commerce_e1_s73",
+    "seed": 73,
+    "prompt": "an open market of wooden stalls with fruit baskets and striped cloth awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_commerce_e2_s73",
+    "seed": 73,
+    "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_commerce_e1_s74",
+    "seed": 74,
+    "prompt": "an open market of wooden stalls with fruit baskets and striped cloth awnings, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_commerce_e2_s74",
+    "seed": 74,
+    "prompt": "a trading house with amphorae, crates and a balance scale at the door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "bank": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_bank_e1_s71",
+    "seed": 71,
+    "prompt": "a money changer stall with strings of coins and a locked wooden chest, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_bank_e2_s71",
+    "seed": 71,
+    "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_bank_e1_s72",
+    "seed": 72,
+    "prompt": "a money changer stall with strings of coins and a locked wooden chest, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_bank_e2_s72",
+    "seed": 72,
+    "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_bank_e1_s73",
+    "seed": 73,
+    "prompt": "a money changer stall with strings of coins and a locked wooden chest, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_bank_e2_s73",
+    "seed": 73,
+    "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_bank_e1_s174",
+    "seed": 174,
+    "prompt": "a money changer stall with strings of coins and a locked wooden chest, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_bank_e2_s74",
+    "seed": 74,
+    "prompt": "a stone vault house with a heavy barred iron door, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "core": {
+  "71": {
+   "1": {
+    "stem": "p3_bld_core_e1_s71",
+    "seed": 71,
+    "prompt": "a tribal center longhouse with a great carved totem and a gathering fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_core_e2_s71",
+    "seed": 71,
+    "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "72": {
+   "1": {
+    "stem": "p3_bld_core_e1_s72",
+    "seed": 72,
+    "prompt": "a tribal center longhouse with a great carved totem and a gathering fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_core_e2_s72",
+    "seed": 72,
+    "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "73": {
+   "1": {
+    "stem": "p3_bld_core_e1_s73",
+    "seed": 73,
+    "prompt": "a tribal center longhouse with a great carved totem and a gathering fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_core_e2_s73",
+    "seed": 73,
+    "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "74": {
+   "1": {
+    "stem": "p3_bld_core_e1_s74",
+    "seed": 74,
+    "prompt": "a tribal center longhouse with a great carved totem and a gathering fire, game building sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "2": {
+    "stem": "p3_bld_core_e2_s74",
+    "seed": 74,
+    "prompt": "a town center hall with a bell tower and a market square well, game building sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ }
+}

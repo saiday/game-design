@@ -39,7 +39,7 @@ LINES = {
     ],
     "medical": [
         "an open herbalist shed with drying herb bundles and clay pots",                      # 藥草棚
-        "a small clinic house with a large mortar and pestle by the door",                    # 醫館
+        "a small stone house with a large mortar and pestle, herb bundles hanging by the door and a wreath of dried herbs mounted above the door",  # 醫館
         "a monastery infirmary with an arched ward hall and a small bell tower",              # 修道院醫院
         "a public hospital building with a columned entrance and tall windows",               # 公立醫院
         "a modern medical center with a glass atrium and an ambulance bay",                   # 醫療中心
@@ -62,7 +62,7 @@ LINES = {
         "a deep space exploration array of giant radio dish antennas",                        # 深空探測
     ],
     "barracks": [
-        "a dirt training ground with wooden practice dummies and a weapon rack",              # 校場
+        "a dirt training ground with wooden practice dummies and a rack of wooden spears",    # 校場
         "a military camp of ordered tents behind a wooden palisade",                          # 軍營
         "a knight order keep, a stone hall with plain red banners and a stable",              # 騎士團部
         "a conscription office building with a drill yard and stacked supply barrels",        # 徵兵所

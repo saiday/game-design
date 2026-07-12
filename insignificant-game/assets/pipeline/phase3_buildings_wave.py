@@ -56,7 +56,8 @@ def gen_cell(state: dict, line: str, chain: int, era: int, seed: int) -> None:
             break
     else:
         raise SystemExit(f"{stem} failed twice, aborting the wave")
-    state.setdefault(line, {}).setdefault(str(chain), {})[str(era)] = {"stem": stem, "seed": seed}
+    state.setdefault(line, {}).setdefault(str(chain), {})[str(era)] = {
+        "stem": stem, "seed": seed, "prompt": core + SUFFIX}
     save_state(state)
 
 
