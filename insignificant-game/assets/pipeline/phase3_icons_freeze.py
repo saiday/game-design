@@ -12,9 +12,12 @@ from PIL import Image, ImageDraw, ImageFont
 from phase3_icon_sheets import keyed_glyph
 
 # canonical icon name -> picked candidate stem (human gate picks; variant suffixes in the stem
-# collapse to the canonical name). Pending picks are absent: legacy_religious_dogma,
-# legacy_democratic_spirit, era3 (picks_fix re-rolls), era6 (v3 vs v4).
+# collapse to the canonical name). All 74 icons picked.
 PICKS = {
+    "legacy_religious_dogma": "p3_icon_legacy_religious_dogma2_s62",
+    "legacy_democratic_spirit": "p3_icon_legacy_democratic_spirit2_s62",
+    "era3": "p3_icon_era3v2_s62",
+    "era6": "p3_icon_era6v3_s61",
     "money": "p3_icon_money_s61",
     "population": "p3_icon_population3_s62",
     "unrest": "p3_icon_unrest2_s61",
