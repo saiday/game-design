@@ -1,14 +1,34 @@
 # comfy_run.py — submit an API-format workflow to ComfyUI and wait for the result.
 # Usage: python3 comfy_run.py workflows/krea2_lora_txt2img.json [--seed N] [--prompt TEXT] [--prefix NAME]
 #        [--negative TEXT] [--width N] [--height N] [--lora NAME] [--lora-strength F]
+#        [--image PATH] [--denoise F]   (img2img workflows with a LoadImage node)
 # Prints the elapsed sampling time and the output image paths. See cookbook §4 for the driving rules.
 import argparse
 import json
+import os
 import time
 import urllib.request
 import uuid
 
 API = "http://127.0.0.1:8188"
+
+
+def upload_image(path: str) -> str:
+    """POST the file to /upload/image; returns the server-side name for LoadImage."""
+    boundary = uuid.uuid4().hex
+    name = os.path.basename(path)
+    with open(path, "rb") as f:
+        data = f.read()
+    body = (
+        f"--{boundary}\r\nContent-Disposition: form-data; name=\"image\"; filename=\"{name}\"\r\n"
+        f"Content-Type: image/png\r\n\r\n".encode() + data +
+        f"\r\n--{boundary}\r\nContent-Disposition: form-data; name=\"overwrite\"\r\n\r\ntrue\r\n"
+        f"--{boundary}--\r\n".encode()
+    )
+    req = urllib.request.Request(f"{API}/upload/image", data=body,
+                                 headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    with urllib.request.urlopen(req) as r:
+        return json.load(r)["name"]
 
 
 def find_node(wf: dict, class_type: str) -> str:
@@ -36,6 +56,8 @@ def main() -> None:
     ap.add_argument("--height", type=int)
     ap.add_argument("--lora")
     ap.add_argument("--lora-strength", type=float)
+    ap.add_argument("--image", help="source image for img2img (uploaded to the LoadImage node)")
+    ap.add_argument("--denoise", type=float)
     args = ap.parse_args()
 
     with open(args.workflow) as f:
@@ -62,6 +84,10 @@ def main() -> None:
             lora["strength_model"] = args.lora_strength
             if "strength_clip" in lora:
                 lora["strength_clip"] = args.lora_strength
+    if args.denoise is not None:
+        sampler["denoise"] = args.denoise
+    if args.image is not None:
+        wf[find_node(wf, "LoadImage")]["inputs"]["image"] = upload_image(os.path.expanduser(args.image))
     if args.prefix is not None:
         wf[find_node(wf, "SaveImage")]["inputs"]["filename_prefix"] = args.prefix
 
