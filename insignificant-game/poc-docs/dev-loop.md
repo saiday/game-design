@@ -1,7 +1,8 @@
 # Dev loop — verified commands & pitfalls (this project)
 
-> Everything here was verified on this machine (Godot 4.6.3, Apple M1 Pro / Metal, gdUnit4
-> v6.1.3, 2026-07-08). Generic loop rationale lives in the repo root's
+> Everything here was verified on both dev machines (Godot 4.6.3 at
+> `/Applications/Godot.app` on each, Apple Silicon / Metal, gdUnit4 v6.1.3: MacBook M1 Pro,
+> Mac Studio M2 Max). Generic loop rationale lives in the repo root's
 > `doc/agent-development-loop.md`; this file is only what you type and what bites.
 
 ## Part A — headless logic tests (run after EVERY core/ or test/ change)
@@ -47,7 +48,7 @@ Compare against `poc-docs/balance-report.md` before/after a knob change.
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   ~20 suites / 180+ cases. (Historical note: the repo root used to hold a second Godot project
+   21 suites / 188 cases (update this pin when suites are added). (Historical note: the repo root used to hold a second Godot project
    whose 6 stale tests produced a convincing false green; it was removed 2026-07-08, so a wrong
    cwd now fails loudly instead — keep the count check anyway.)
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
@@ -62,3 +63,6 @@ Compare against `poc-docs/balance-report.md` before/after a knob change.
 6. **Env vars don't persist between tool calls** — re-export `GODOT_BIN` etc. in every command.
 7. **iCloud corpus files** (`design/` upstream) can change between read and write — re-read
    immediately before editing an Obsidian file; escape `|` as `\|` inside table wikilinks.
+8. **`captures/` is not in git** — on a fresh clone, Part B prints `ERROR: Can't save PNG` for
+   every capture (asserts still pass, so the exit code lies about it). `mkdir -p captures`
+   before the first Part B run.

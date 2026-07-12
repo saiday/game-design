@@ -19,7 +19,8 @@ GLYPH_FILL = 0.78            # glyph height/width as a fraction of the disc
 
 REJECTS: dict[str, str] = {}
 
-CELL_W, CELL_H, LABEL_H, PAD, HDR = 340, 360, 34, 10, 48
+# CELL >= 640: the human zooms into sheet cells for detail review (cookbook §9)
+CELL_W, CELL_H, LABEL_H, PAD, HDR = 640, 660, 36, 10, 56
 
 
 def keyed_glyph(stem: str) -> Image.Image:

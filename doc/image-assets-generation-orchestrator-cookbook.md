@@ -198,18 +198,23 @@ and frozen into `assets/approved/ui/` with measured geometry (style bible §9); 
 frozen templates never regenerate.
 
 **Phase 3 — Class pipelines**, in this order (volume × risk):
-1. **UI icons** — glyphs on the frozen base plate; small, fast feedback; some icons may end up
-   hand-drawn/vector restyled to the style bible (the allowed exception in §0 operating rules).
+1. **UI icons** (**closed**: all 74 glyphs frozen in `assets/approved/icons/`) — glyphs on the
+   frozen base plate.
 2. **Buildings & units ×6 eras** — the volume class. Per building line: era N approved sprite
-   seeds era N+1 via img2img lineage (§6); cross-era coherence is an explicit contact-sheet check.
+   seeds era N+1 via img2img lineage (§6); **era-gated waves** (`phase3_buildings_wave.py` +
+   `phase3_building_chains.json`): each era is §8-reviewed before it seeds the next, because
+   artifacts propagate down chains (§14). Buildings status: food line frozen; the other 11 lines
+   generated through the era waves, line-pick gate pending. Units not started.
 3. **Card illustrations** — per card in `卡牌`, produced to the frozen content-window rect;
    highest quality bar, human reviews in smaller batches.
 4. **Backgrounds & portraits** — low volume, large canvas; generated under the style-bible recipe
    like everything else (~170 s/image on Krea 2 is fine at this volume).
 
-**Phase 4 — Godot integration**: §10. Target resolution: **Full HD 1920×1080** (§10). Approved
-assets composited and rendered in-engine, capture reviewed — same Part-B discipline as the code
-loop.
+**Phase 4 — Godot integration**: §10, runs per approved class. Target resolution: **Full HD
+1920×1080**. First pass is in (`core/data/asset_paths.gd` registry, Noto Sans TC subsets,
+runtime-composed chrome in `view/main.gd`, window 1920×1080; Part A + Part B green) — each later
+approved class wires in through the same registry, capture reviewed with the same Part-B
+discipline.
 
 ## 8. Objective self-checks (before an image reaches the human)
 
@@ -227,14 +232,16 @@ batch — that's the human's pick.
 ```
 insignificant-game/assets/
   pipeline/            # style-bible.md, inventory.md, style-refs/, workflows/*.json, manifest.jsonl, batch/sheet/freeze scripts
-  contact-sheets/      # committed review grids (ImageMagick montage / Pillow), small
+  contact-sheets/      # committed review grids (Pillow)
   approved/<class>/    # human-approved ship assets only — the ONLY dir Godot scenes reference
 ```
 
 Raw candidates stay on the Studio **outside the repo** (e.g. `~/imagegen/candidates/`) — never
 commit candidate piles. The review unit is the **contact sheet**: a labeled grid (manifest IDs
 under each cell) committed to `contact-sheets/`, human replies with picks/rejections, picks get
-post-processed into `approved/` with a manifest status flip.
+post-processed into `approved/` with a manifest status flip. **Sheet cells stay ≥ 640 px on the
+raw's long side (human rule): the human zooms into cells for detail review — a sheet too small
+to zoom is not reviewable.**
 
 **Manifest** (`manifest.jsonl`, one line per kept asset — an asset you can't regenerate is a dead
 end):
@@ -253,15 +260,19 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
 
 ## 10. Godot integration
 
-- **Render resolution: Full HD 1920×1080.** The PoC window stays 1280×720 until Phase 4 wiring;
-  core is resolution-blind (`poc-docs/architecture.md`). Assets are high-res illustrations —
-  default (linear) texture filtering, lossless PNG import. Templates record rects/margins
-  relative to the generated image, not screen pixels — scaling happens in-engine.
+- **Render resolution: Full HD 1920×1080** — the PoC window runs it (wired with the first
+  approved classes); core is resolution-blind (`poc-docs/architecture.md`). Assets are high-res
+  illustrations — default (linear) texture filtering, lossless PNG import. Templates record
+  rects/margins relative to the generated image, not screen pixels — scaling happens in-engine.
+- **The registry is `core/data/asset_paths.gd`** (pure id→path table + frozen-template geometry,
+  test-pinned to disk): new approved classes slot in by the same id scheme
+  (`icon_<id>` / `building_<line>_era<n>`); the view loads textures, core never does.
 - **Composite, don't bake** (§6): cards/panels are scene trees — frozen frame texture +
-  illustration texture + `Label` text (UI font, §6) — never single baked PNGs.
-- Wire assets data-driven where possible (path derived from id + era), matching the pure-core
-  architecture — read `insignificant-game/CLAUDE.md` and `poc-docs/architecture.md` before
-  touching scenes, and run **both loop parts** (headless tests + Part B capture) after wiring.
+  illustration texture + `Label` text (UI font, §6) — never single baked PNGs. `view/main.gd`
+  holds the working patterns (styleboxes from templates, glyph-on-plate badges, card widget).
+- Wire assets data-driven (path derived from id + era), matching the pure-core architecture —
+  read `insignificant-game/CLAUDE.md` and `poc-docs/architecture.md` before touching scenes, and
+  run **both loop parts** (headless tests + Part B capture) after wiring.
 - Keep the corpus `code:` frontmatter convention: if you add asset tables/modules, map them.
 
 ## 11. Apple-Silicon pitfalls (verify, don't assume)

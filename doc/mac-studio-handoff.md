@@ -7,8 +7,11 @@
 > is deliberately self-contained.
 
 Phases 0-2 are closed (locked recipe, frozen UI templates, and font in
-`insignificant-game/assets/pipeline/style-bible.md`); Prompts 0-2 below are kept for the
-record. Sessions start at Prompt 3 and move to Prompt 4 when the needed classes are approved.
+`insignificant-game/assets/pipeline/style-bible.md`); Prompts 0-2 below are kept for the record.
+Phase 3 progress: the icon class is closed (74 glyphs approved), the buildings food line is
+frozen, and the other 11 building lines are generated awaiting the line-pick gate; units, cards,
+and backgrounds/portraits remain (Prompt 3, one class per session). Prompt 4's first pass is in
+(registry + fonts + runtime chrome, both loop parts green) — it re-runs per newly approved class.
 
 ## Human checklist (before each session)
 

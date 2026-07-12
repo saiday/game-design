@@ -99,8 +99,8 @@ a torch upgrade, re-anchor any img2img lineage in progress.
 
 **The shipped game targets Full HD 1920×1080** (human decision). Assets ship at generation
 resolution and scale in-engine; templates record content-window rects and 9-slice margins
-relative to the generated image, never to screen pixels. The PoC window stays 1280×720 until
-Phase 4 wiring (cookbook §10).
+relative to the generated image, never to screen pixels. The PoC window runs 1920×1080 (wired
+at Phase 4, cookbook §10; `core/data/asset_paths.gd` is the id→path registry).
 
 ## 9. Frozen UI templates (Phase 2 picks)
 
