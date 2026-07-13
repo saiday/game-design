@@ -89,9 +89,9 @@ LINES = {
         "a storyteller's raised wooden platform with a cloth canopy and log benches",         # 說書人
         "a poetry society pavilion by a pond with hanging paper lanterns",                    # 詩社
         "a printing workshop with a wooden printing press and blank drying paper sheets",     # 印刷坊
-        "a press house with giant paper rolls and a loading dock",                            # 報社
-        "a signal tower platform with a giant round dish, a tall red and white striped mast and blinking signal lamps",  # 廣播電視
-        "a social network campus with a giant glowing speech-bubble sculpture at the entrance",  # 社群平台
+        "a brick workshop building, its whole front wall opened to show a giant rotary printing machine filling the interior, bundles of blank paper stacked at a loading dock",                            # 報社
+        "a broadcast tower building with a tall red and white antenna mast and blinking signal lamps",  # 廣播電視
+        "a colorful tech campus building, its facade covered edge to edge in hexagonal glass panels, a giant glowing speech-bubble sculpture with a smiling face at the entrance",  # 社群平台
     ],
     "commerce": [
         "an open market of wooden stalls with fruit baskets and striped cloth awnings",       # 市集
@@ -99,7 +99,7 @@ LINES = {
         "a merchant guild hall with a carved golden coin emblem above the door",              # 商會
         "a commercial arcade building with glass canopies and striped awnings",               # 商業中心
         "a grand glass-fronted building with tiered floors, striped awnings, window displays full of colorful goods and a golden sunburst emblem above the entrance",             # 百貨集團
-        "a logistics hub of conveyor ramps moving parcels, delivery drones lifting parcels from the rooftop",  # 電商平台
+        "a grand glass-fronted storefront building with striped awnings and a golden sunburst emblem above the entrance, topped by a rooftop logistics extension of conveyor ramps and delivery drones lifting parcels",  # 電商平台
     ],
     "bank": [
         "a money changer stall with strings of coins and a locked wooden chest",              # 錢莊
@@ -107,13 +107,13 @@ LINES = {
         "a private bank townhouse with barred windows and a golden coin emblem above the door",  # 私有銀行
         "a central bank with a grand columned facade and heavy bronze doors",                 # 中央銀行
         "a tower of dark glass and bronze with a golden bull statue at the entrance",   # 投資銀行
-        "a stern stone hall, its whole facade covered edge to edge by one giant glowing green rising line chart",  # 證券市場
+        "a gleaming metallic tower of polished chrome and dark steel with a golden bull statue at the entrance",  # 證券市場
     ],
     "debt_office": [
-        "a stern stone hall with tall ledger bookshelves, chained strongboxes and a heavy vault door",  # 國債司 (era 3)
-        "a columned stone hall with a large bronze ledger emblem and chained strongboxes at the entrance",  # 國債局
-        "a stern stone hall with filing cabinet wings, a bronze coin-stack monument and chained strongboxes at the entrance",    # 財政部公債署
-        "a sovereign wealth fund tower with a golden globe sculpture at its base",            # 主權基金
+        "a stone hall with its front wall open, robed clerks at ledger desks inside, chained strongboxes and a heavy vault door",  # 國債司 (era 3)
+        "a brick office building with tall open windows revealing clerks in dark suits at rows of ledger desks",  # 國債局
+        "an office building with a glass curtain wall revealing suited officials at filing desks, a bronze coin-stack monument at the entrance",    # 財政部公債署
+        "a glass office tower with visible floors of suited officials at desks and a golden globe sculpture in the lobby",            # 主權基金
     ],
     "core": [
         "a tribal center longhouse with a great carved totem and a gathering fire",           # 部落中心
