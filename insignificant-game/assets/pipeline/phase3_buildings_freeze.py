@@ -16,10 +16,27 @@ OUT = "../approved/buildings"
 MANIFEST = "manifest.jsonl"
 POST = {"key": "border-flood", "tolerance": 60, "cropped": True}
 
-# line -> picked chain stems by era (human gate pick; one whole lineage per line)
+# line -> picked wave chain (human gate pick; one whole lineage per line, stems resolved from
+# phase3_building_chains.json so re-rolled cells freeze under their bumped seeds)
+CHAIN_PICKS: dict[str, int] = {
+    "housing": 71,
+    "medical": 72,
+    "school": 72,
+    "astronomy": 73,
+    "barracks": 74,
+    "arsenal": 73,
+    "arts": 73,
+    "core": 73,
+}
+
+# line -> picked chain stems by era (pre-wave pilot pick; food has no state entry)
 PICKS: dict[str, dict[int, str]] = {
     "food": {era: f"p3_bld_food_e{era}_s71" for era in range(1, 7)},
 }
+with open("phase3_building_chains.json") as _f:
+    _state = json.load(_f)
+for _line, _chain in CHAIN_PICKS.items():
+    PICKS[_line] = {int(e): c["stem"] for e, c in _state[_line][str(_chain)].items()}
 
 
 def drop_specks(opaque: np.ndarray, min_px: int = 1200) -> np.ndarray:
