@@ -91,7 +91,7 @@ LINES = {
         "a printing workshop with a wooden printing press and blank drying paper sheets",     # 印刷坊
         "a brick workshop building, its whole front wall opened to show a giant rotary printing machine filling the interior, bundles of blank paper stacked at a loading dock",                            # 報社
         "a broadcast tower building with a tall red and white antenna mast and blinking signal lamps",  # 廣播電視
-        "a colorful tech campus building, its facade covered edge to edge in hexagonal glass panels, a giant glowing speech-bubble sculpture with a smiling face at the entrance",  # 社群平台
+        "a colorful tech campus building, its facade covered edge to edge in hexagonal glass panels, a giant polished chrome speech-bubble sculpture with a smiling face at the entrance, a colorful spiral slide winding down its side",  # 社群平台
     ],
     "commerce": [
         "an open market of wooden stalls with fruit baskets and striped cloth awnings",       # 市集

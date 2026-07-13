@@ -959,19 +959,21 @@
     "prompt": "a printing workshop with a wooden printing press and blank drying paper sheets, game building sprite, side view, centered, isolated on a plain light gray background"
    },
    "4": {
-    "stem": "p3_bld_media_e4_s372",
+    "stem": "p3_bld_media_e4_s372c",
     "seed": 372,
-    "prompt": "a brick workshop building, its whole front wall opened to show a giant rotary printing machine filling the interior, bundles of blank paper stacked at a loading dock, game building sprite, side view, centered, isolated on a plain light gray background"
+    "prompt": "a brick workshop building, its whole front wall opened to show a giant rotary printing machine filling the interior, bundles of blank paper stacked at a loading dock, game building sprite, side view, centered, isolated on a plain light gray background",
+    "post": "manual sign blanking (human-directed): G/M plaque"
    },
    "5": {
-    "stem": "p3_bld_media_e5_s572",
+    "stem": "p3_bld_media_e5_s572c",
     "seed": 572,
-    "prompt": "a broadcast tower building with a tall red and white antenna mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background"
+    "prompt": "a broadcast tower building with a tall red and white antenna mast and blinking signal lamps, game building sprite, side view, centered, isolated on a plain light gray background",
+    "post": "manual sign blanking (human-directed): GAWE board + wall G"
    },
    "6": {
-    "stem": "p3_bld_media_e6_s372",
-    "seed": 372,
-    "prompt": "a colorful tech campus building, its facade covered edge to edge in hexagonal glass panels, a giant glowing speech-bubble sculpture with a smiling face at the entrance, game building sprite, side view, centered, isolated on a plain light gray background"
+    "stem": "p3_bld_media_e6_s672",
+    "seed": 672,
+    "prompt": "a colorful tech campus building, its facade covered edge to edge in hexagonal glass panels, a giant polished chrome speech-bubble sculpture with a smiling face at the entrance, a colorful spiral slide winding down its side, game building sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "73": {
