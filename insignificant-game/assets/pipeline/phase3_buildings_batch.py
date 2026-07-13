@@ -102,18 +102,20 @@ LINES = {
         "a grand glass-fronted storefront building with striped awnings and a golden sunburst emblem above the entrance, topped by a rooftop logistics extension of conveyor ramps and delivery drones lifting parcels",  # 電商平台
     ],
     "bank": [
-        "a money changer stall with strings of coins and a locked wooden chest",              # 錢莊
-        "a stone vault house with a heavy barred iron door",                                  # 金庫
-        "a private bank townhouse with barred windows and a golden coin emblem above the door",  # 私有銀行
-        "a central bank with a grand columned facade and heavy bronze doors",                 # 中央銀行
-        "a tower of dark glass and bronze with a golden bull statue at the entrance",   # 投資銀行
-        "a gleaming metallic tower of polished chrome and dark steel with a golden bull statue at the entrance",  # 證券市場
+        # researched banking iconography (cookbook §14 2026-07-13: banca/thesauros/vault-door)
+        "a beehive-shaped clay granary house, a wooden table out front holding a large balance scale and chopped silver pieces, loops of shell beads hanging from the eaves",  # 錢莊
+        "a small columned stone treasury on a stepped podium with sealed bronze double doors and no windows, an iron-clad wooden chest bolted beside the entrance",  # 金庫
+        "a stone palazzo with a rusticated ground floor and an open corner loggia, a heavy trestle table draped in dark green cloth holding coin stacks and a two-pan balance",  # 私有銀行
+        "a neoclassical hall with giant columns above a windowless rusticated stone base, a massive circular steel vault door with radiating bolts visible through the entrance",  # 中央銀行
+        "a stone bank tower with rows of tall windows rising above a columned base, a brass ticker-tape machine on a pedestal visible in the lobby through the arched entrance window, plain golden pennants on the roof",  # 投資銀行
+        "a curved glass tower wrapped by a glowing band of abstract candlestick chart bars, server racks with blinking lights visible through the glass, a plain golden pennant on the roof, standing alone on a wide empty stone plaza",  # 證券市場
     ],
     "debt_office": [
-        "a stone hall with its front wall open, robed clerks at ledger desks inside, chained strongboxes and a heavy vault door",  # 國債司 (era 3)
-        "a brick office building with tall open windows revealing clerks in dark suits at rows of ledger desks",  # 國債局
-        "an office building with a glass curtain wall revealing suited officials at filing desks, a bronze coin-stack monument at the entrance",    # 財政部公債署
-        "a glass office tower with visible floors of suited officials at desks and a golden globe sculpture in the lobby",            # 主權基金
+        # researched public-debt iconography (Exchequer tallies/chequered table/red tape/bond window)
+        "a battlemented brick hall with a striped stone base, its front wall open showing a counting table covered in a chequered cloth with stacked counters, bundles of split tally sticks tied with cord on shelves",  # 國債司 (era 3)
+        "a brick government office with tall windows revealing pigeonhole shelves of document bundles tied in pink-red cloth tape, a clerk at a standing desk with a blank wax seal press",  # 國債局
+        "a stone office building with a queue of civilians at a brass-barred counter window, a tall glass tube of glowing red liquid rising up the facade in a plain dark wooden frame",  # 財政部公債署
+        "a glass office tower with a strict stone and copper grid facade, a golden tree emblem above the entrance, visible floors of suited officials at desks",  # 主權基金
     ],
     "core": [
         "a tribal center longhouse with a great carved totem and a gathering fire",           # 部落中心

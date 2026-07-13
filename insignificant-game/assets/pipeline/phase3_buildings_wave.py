@@ -16,7 +16,10 @@ from PIL import Image, ImageDraw, ImageFont
 from phase3_buildings_batch import DENOISE, I2I, LINES, LORA_ARGS, OUT, SEEDS, START_ERA, SUFFIX, T2I
 
 STATE = "phase3_building_chains.json"
-FROZEN = {"food"}  # lines already human-picked and frozen (pilot); waves skip them
+# lines already human-picked and frozen; waves skip them (bank/debt_office re-run per the
+# research-driven redesign, human gate 2026-07-13)
+FROZEN = {"food", "housing", "medical", "school", "astronomy", "barracks", "arsenal", "arts",
+          "media", "commerce", "core"}
 
 
 def load_state() -> dict:
