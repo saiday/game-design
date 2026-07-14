@@ -16,7 +16,7 @@ import sys
 
 SEEDS = [51, 52, 53]
 W, H = 1920, 1088
-DENOISE = 0.55
+DENOISE = 0.5   # lower than buildings' 0.55: the empty parent must constrain invented content
 T2I = "workflows/krea2_lora_txt2img.json"
 I2I = "workflows/krea2_lora_img2img.json"
 LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]
@@ -26,16 +26,21 @@ OUT = os.path.expanduser("~/ComfyUI-Shared/output/phase3-backgrounds")
 STATE = "phase3_background_chains.json"
 
 # City era plates (bg_city_era1..6): the SAME valley across all six eras — only the land
-# develops (wild -> tilled -> terraced -> plowed -> paved -> manicured); the middle ground
-# stays an empty meadow for the composited city strip, and time-of-day is an engine grade so
-# every plate is day-lit. No buildings in the plate (they are the sprites class).
+# develops, and the middle ground stays an empty meadow for the composited city strip
+# (time-of-day is an engine grade so every plate is day-lit). No buildings in the plate
+# (they are the sprites class). Farm plots are BANNED from these subjects: tilled/terraced
+# soil pulls invented farmsteads out of the img2img lineage (era-2: 3/3 dirty on the first
+# roll, 3/3 STILL dirty after "uninhabited" phrasing — the soil texture implies residents
+# harder than words deny them). Era development reads through infrastructure instead:
+# footpaths -> hedgerow lanes -> earth road -> paved road -> sleek parkland, with the
+# bridge upgrading alongside.
 CITY = {
     1: "a vast untamed grassland valley, wildflower meadows and scattered ancient trees, a thin winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky with drifting clouds",
-    2: "a vast grassland valley with small tilled plots and dirt footpaths on the far flanks, a thin winding river crossed by a wooden footbridge, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky",
-    3: "a vast valley with terraced crop fields and tended orchards on the far flanks, hedgerows and a stone footbridge over the winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky",
-    4: "a vast valley with broad plowed field strips and wooden fences on the far flanks, a packed earth road with cart ruts and a stone bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky",
-    5: "a vast valley with neat green cropland squares and trimmed hedges on the far flanks, a straight paved road and a steel bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains, clear bright sky",
-    6: "a vast valley with manicured parkland and geometric garden fields on the far flanks, a sleek white bridge over the clean winding river, a wide flat empty meadow across the middle ground, distant blue mountains, luminous clear sky",
+    2: "a vast uninhabited grassland valley, thin dirt footpaths and split-rail fences on the far flanks, a wooden footbridge over the thin winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky",
+    3: "a vast uninhabited green valley, hedgerow-lined lanes and neat rows of planted young trees on the far flanks, a stone footbridge over the winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky",
+    4: "a vast uninhabited valley, a packed earth road with cart ruts and long wooden fences on the far flanks, a stone arch bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky",
+    5: "a vast uninhabited countryside valley, a straight paved road and trimmed hedges on the far flanks, a steel truss bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains, clear bright sky",
+    6: "a vast uninhabited countryside valley, smooth curved pathways through manicured parkland on the far flanks, a sleek white bridge over the clean winding river, a wide flat empty meadow across the middle ground, distant blue mountains, luminous clear sky",
 }
 
 # Remaining plates (txt2img). Subject rules already §14-standing: battle plates keep a wide
@@ -55,11 +60,18 @@ PLATES = {
     "battle_hidden": (
         "an eerie scorched clearing under a pale green-tinted sky, tall alien monolith stones leaning at odd angles, faint glowing mist hugging the ground, twisted leafless trees at the edges, wide flat empty ground across the middle",
         STYLE),
+    # riot street v3: shopfronts are unfixable sign carriers at plate scale — v1 fascias
+    # printed gibberish even with occupied banners, and v2's "boarded up shopfronts" grew
+    # painted name boards ABOVE the boards. Remove the carrier: a residential street has no
+    # fascias at all (same move as banning farm plots from the city lineage).
     "battle_riot": (
-        "a city street blocked by makeshift barricades of overturned carts, crates and sandbags, cloth banners each painted with a single large red fist emblem, thin smoke rising, empty cobblestone ground in the foreground",
+        "a narrow city street of plain stone houses with closed wooden shutters, blocked by makeshift barricades of overturned carts, crates and sandbags, cloth banners each painted with a single large red fist emblem, thin smoke rising, empty cobblestone ground in the foreground",
         STYLE),
+    # democracy square v2: plaza subjects pull strolling pedestrians and street furniture
+    # (s51 first roll) — declare the square deserted; banners with the scales emblem were
+    # 5/5 clean from the start.
     "battle_democracy": (
-        "a grand public square with a marble fountain and stone colonnades, cloth banners each painted with a single large golden balance scale emblem, a toppled bronze statue lying by the fountain, wide flat empty paving across the middle ground, overcast sky",
+        "a grand public square completely deserted, a marble fountain and stone colonnades, cloth banners each painted with a single large golden balance scale emblem, a toppled bronze statue lying by the fountain, wide flat empty paving across the middle ground, overcast sky",
         STYLE),
     "battle_civwar": (
         "a vast open war plain scarred with trenches and earthworks, broken siege engines and scattered round shields, tall poles each bearing a single plain crossed-swords banner, wide flat empty ground across the middle, dramatic storm clouds",
@@ -99,9 +111,12 @@ def run(stem: str, cmd: list[str]) -> None:
     raise SystemExit(f"{stem} failed twice, aborting the batch")
 
 
-def gen_plate(plate_id: str, seed: int) -> None:
+def gen_plate(plate_id: str, seed: int, resume: bool = False) -> None:
     core, suffix = PLATES[plate_id]
     stem = f"p3_bg_{plate_id}_s{seed}"
+    if resume and os.path.exists(f"{OUT}/{stem}_00001_.png"):
+        print(f"=== {stem} (exists, skipped)", flush=True)
+        return
     run(stem, [sys.executable, "comfy_run.py", T2I,
                "--seed", str(seed), "--prompt", core + suffix,
                "--width", str(W), "--height", str(H),
@@ -131,10 +146,11 @@ def main() -> None:
     state = load_state()
     if mode == "plates":
         for seed in SEEDS:
-            gen_city_cell(state, seed, 1, seed)
+            if str(1) not in state.get("city", {}).get(str(seed), {}):
+                gen_city_cell(state, seed, 1, seed)
         for plate_id in PLATES:
             for seed in SEEDS:
-                gen_plate(plate_id, seed)
+                gen_plate(plate_id, seed, resume=True)
     elif mode == "city_era":
         era = int(sys.argv[2])
         if "--redo" in sys.argv:
