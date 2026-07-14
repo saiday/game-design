@@ -64,7 +64,7 @@ Numbers changed? Run the balance batch and diff against `poc-docs/balance-report
 | Where | What |
 |---|---|
 | `core/` (19 modules) + `core/data/` (7 tables) | all game logic; module↔doc map in architecture.md |
-| `test/` (21 suites, 188 cases green) | one suite per module; sim_test = full-run invariants |
+| `test/` (21 suites, 192 cases green) | one suite per module; sim_test = full-run invariants |
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
 | `doc/difficulty-design.md` | difficulty formula + rationale (synced into the corpus) |

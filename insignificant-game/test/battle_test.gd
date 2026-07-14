@@ -240,6 +240,56 @@ func test_riot_loss_consequences() -> void:
 	assert_int(s.regions.size()).is_equal(0)
 
 
+func test_riot_mechanical_suppression_costs_happiness_once() -> void:
+	var s := _state()
+	s.deck = []
+	s.deck.append(Cards.CardInstance.new(&"elite_forces", 1))
+	s.deck.append(Cards.CardInstance.new(&"artillery", 1))
+	var b := Battle.start(s, &"riot")
+	Battle.play_card(s, b, 0)
+	Battle.play_card(s, b, 0)   # second mechanical card: still one charge per battle
+	b.outcome = &"win"
+	var f := Battle.finish(s, b)
+	assert_int(int(f["suppression_happiness"])).is_equal(-15)
+	assert_int(s.happiness).is_equal(55)   # 70 − 15, 勝敗皆然
+
+
+func test_riot_mechanical_suppression_applies_on_loss_too() -> void:
+	var s := _state()
+	s.population = 20
+	s.deck = []
+	s.deck.append(Cards.CardInstance.new(&"elite_forces", 1))
+	var b := Battle.start(s, &"riot")
+	Battle.play_card(s, b, 0)
+	b.outcome = &"loss"
+	var f := Battle.finish(s, b)
+	assert_int(int(f["suppression_happiness"])).is_equal(-15)
+	assert_int(s.happiness).is_equal(55)
+	assert_bool(f.has("riot_loss")).is_true()   # loss consequences stack on top
+
+
+func test_riot_personnel_only_keeps_happiness() -> void:
+	var s := _state()
+	var b := Battle.start(s, &"riot")
+	Battle.play_card(s, b, 0)   # starting deck is all infantry (personnel)
+	b.outcome = &"win"
+	var f := Battle.finish(s, b)
+	assert_bool(f.has("suppression_happiness")).is_false()
+	assert_int(s.happiness).is_equal(70)
+
+
+func test_mechanical_outside_riot_has_no_suppression_cost() -> void:
+	var s := _state()
+	s.deck = []
+	s.deck.append(Cards.CardInstance.new(&"artillery", 1))
+	var b := Battle.start(s, &"field_battle")
+	Battle.play_card(s, b, 0)
+	b.outcome = &"win"
+	var f := Battle.finish(s, b)
+	assert_bool(f.has("suppression_happiness")).is_false()
+	assert_int(s.happiness).is_equal(70)
+
+
 func test_democracy_blood_loss_forces_democracy() -> void:
 	var s := _state()
 	var b := Battle.start(s, &"democracy_blood")

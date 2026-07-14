@@ -1,8 +1,9 @@
 class_name Happiness
 extends RefCounted
-# 幸福 (design/幸福.md): 0..100 indirect axis. Producers are building lines and one-shot
-# policy events; this module owns the clamp, the two thresholds, and the 建立國教
-# decaying bonus. Downstream consumers query good_draw_bonus / low_penalty.
+# 幸福 (design/幸福.md): 0..100 indirect axis. Producers are building lines, one-shot
+# policy events, and Battle's riot suppression cost (機械型部隊 −15, design/戰鬥.md);
+# this module owns the clamp, the two thresholds, and the 建立國教 decaying bonus.
+# Downstream consumers query good_draw_bonus / low_penalty.
 
 const MIN_VALUE: int = 0
 const MAX_VALUE: int = 100

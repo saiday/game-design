@@ -4,6 +4,8 @@ extends RefCounted
 # (fortification line / melee row / ranged row / air), per-round both sides play,
 # simultaneous resolution, symmetric win check (cleared side loses IF the other still
 # holds LAND units). Money is the only pressure: military cost may push treasury negative.
+# 鎮壓的手段有代價: a riot in which any 機械型部隊卡 was played ends with 幸福 −15,
+# win or lose, once per battle.
 #
 # Driver decisions (design gaps): opening hand 4 (+1 military region, −1 enemy psyops),
 # draw 1 per round, focus-fire targeting in deploy order, siege/air demolish enemy
@@ -13,6 +15,7 @@ const OPENING_HAND: int = 4
 const RETREAT_COST_BASE: int = 10
 const RETREAT_POP: int = 2
 const FORT_LIMIT: int = 2
+const RIOT_MECH_HAPPINESS: int = 15   # 鎮壓的手段有代價 (design/戰鬥.md)
 
 const GRADE_STATS: Dictionary = {&"weak": [1, 2], &"medium": [2, 4], &"hard": [3, 6]}
 
@@ -59,6 +62,7 @@ class BattleField:
 	var love_and_peace_armed: bool = false
 	var intel_visible: bool = false       # pre-battle enemy pool visible
 	var see_deployment: bool = false      # 衛星監控
+	var mechanical_played: bool = false   # any 機械型部隊卡 fielded (riot 幸福 cost)
 
 
 # --- setup ---
@@ -138,6 +142,8 @@ static func play_card(state: GameState, battle: BattleField, hand_index: int) ->
 	state.treasury -= cost   # 軍費可扣到負
 	battle.spent += cost
 	battle.hand.remove_at(hand_index)
+	if entry["class"] == &"mechanical":
+		battle.mechanical_played = true
 	match entry["class"]:
 		&"fortification":
 			battle.player_forts.append(_fort_from_card(instance))
@@ -206,6 +212,10 @@ static func finish(state: GameState, battle: BattleField) -> Dictionary:
 				if bool(TYPES[battle.battle_type]["card_reward"]):
 					report["reward_card"] = _roll_reward_card(state)
 		&"riot":
+			if battle.mechanical_played:
+				# 對自己人民出動戰爭機器，人民記得 — applies on every outcome.
+				Happiness.adjust(state, -RIOT_MECH_HAPPINESS)
+				report["suppression_happiness"] = -RIOT_MECH_HAPPINESS
 			if battle.outcome == &"loss" or battle.outcome == &"retreat":
 				report["riot_loss"] = Unrest.apply_riot_loss(state)
 		&"democracy_blood":
