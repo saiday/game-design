@@ -141,13 +141,19 @@ authority; this section is the build mapping):
    swap by id through the registry, scale in-engine only; the view computes nothing.
 2. **Route = a fog-of-war map scene** (own backdrop, not an overlay on the city): the
    generation's nodes drawn on a map, unknown nodes fog-covered per the 迷霧 rule, skip as a
-   standing map exit. The committed `presentation_mock_route.png` (cards over the dimmed city)
-   is superseded on composition; its HUD/chrome treatment still applies.
+   standing map exit; the 世界地圖 fog upgrade draws the 戰鬥面/機會面 on the node itself
+   (`icon_map_opportunity` is the opportunity face). Art-direction mock:
+   `contact-sheets/presentation_mock_route_map.png` (an earlier cards-over-city mock in this
+   folder is superseded).
 3. **Battle = a dedicated battlefield scene per battle type** (7 types in 戰鬥.md's table, each
    with its own backdrop identity; specific looks are human-picked at asset gates). In-scene
    structure per the auto-deployment rule: the two sides face each other, fortification line →
-   melee → ranged → air; spend-vs-reward stays on screen. `presentation_mock_battle.png` shows
-   the in-scene layout; its single generic backdrop is superseded.
+   melee → ranged → air; spend-vs-reward stays on screen; 內亂-type battles open with the 民怨
+   source banner and the 鎮壓／讓步 choice. Art-direction mocks:
+   `contact-sheets/presentation_mock_battle_field.png` (一般地圖戰, 野戰郊野) and
+   `presentation_mock_battle_riot.png` (內部暴動戰, 城內街壘) — the per-type backdrop is the
+   first thing that tells the player which battle this is (an earlier single-backdrop battle
+   mock in this folder is superseded).
 
 - **One generation = one day**: operate → morning, route → midday, settle → dusk/night
   (whole-scene evening grade + lamp glows), next generation dawns. Time-of-day is an in-engine
