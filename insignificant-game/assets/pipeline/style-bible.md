@@ -129,21 +129,36 @@ and subset the actual font binaries at Godot-integration time (static TC weights
 each). Runners-up Iansui / jf open 粉圓 (cookbook §14) were rejected for being single-script
 personalities that would fracture cross-locale consistency.
 
-## 11. Game-view composition (human-picked at the presentation gate)
+## 11. Game-view composition (human-picked at the presentation gates)
 
-- **The main view is the living city** (composition A, `contact-sheets/presentation_mock_a_*.png`):
-  a side-view panorama on the Moebius landscape; every built line stands in the scene at its own
-  tier era-form, the core center anchors mid-frame and follows the current era. Textures swap by
-  id through the registry, scale in-engine only; the view computes nothing.
-- **One generation = one day**: phase lighting maps operate → morning, route → midday,
-  settle → dusk/night (whole-scene evening grade + backdrop plate variants + lamp glows), and
-  the next generation dawns.
-- **Command dock bottom-right**, compact parchment panel; clicking the background (controller:
-  cancel button) toggles it. Phase overlays (route cards, battle band, settle ledger) replace
-  the dock rather than stacking on it.
+**Three main scenes, each with its own distinct background** (design source: the 場景呈現
+sections of `design/營運.md`, `design/地圖與機會.md`, `design/戰鬥.md` — the corpus is the
+authority; this section is the build mapping):
+
+1. **Operations = the living city** (composition A, `contact-sheets/presentation_mock_a_*.png`):
+   a side-view panorama on the Moebius landscape; every built line stands in the scene at its
+   own tier era-form, the core center anchors mid-frame and follows the current era. Textures
+   swap by id through the registry, scale in-engine only; the view computes nothing.
+2. **Route = a fog-of-war map scene** (own backdrop, not an overlay on the city): the
+   generation's nodes drawn on a map, unknown nodes fog-covered per the 迷霧 rule, skip as a
+   standing map exit. The committed `presentation_mock_route.png` (cards over the dimmed city)
+   is superseded on composition; its HUD/chrome treatment still applies.
+3. **Battle = a dedicated battlefield scene per battle type** (7 types in 戰鬥.md's table, each
+   with its own backdrop identity; specific looks are human-picked at asset gates). In-scene
+   structure per the auto-deployment rule: the two sides face each other, fortification line →
+   melee → ranged → air; spend-vs-reward stays on screen. `presentation_mock_battle.png` shows
+   the in-scene layout; its single generic backdrop is superseded.
+
+- **One generation = one day**: operate → morning, route → midday, settle → dusk/night
+  (whole-scene evening grade + lamp glows), next generation dawns. Time-of-day is an in-engine
+  grade over per-era plates, not separate art per time slot.
+- **Command dock bottom-right** in the city scene, compact parchment panel; clicking the
+  background (controller: cancel button) toggles it.
 - **HUD is icon + value only** — no text labels in the strip. Hovering or controller-focusing an
   icon section pops a parchment tooltip with the term and its explanation. **Controller support
   is a standing requirement**: every interactive element must be reachable by focus navigation.
-- Backdrop plates are a Phase 3 class of their own; their style-carrying prompt suffix is pinned
-  in cookbook §14. Route/battle overlay compositions are proposed in
-  `contact-sheets/presentation_mock_route.png` / `presentation_mock_battle.png` (gate pending).
+- Backdrop plates are a Phase 3 class (scope in `inventory.md` Backgrounds); their
+  style-carrying prompt suffix is pinned in cookbook §14.
+- **Static ComfyUI mocks are for art direction only** (composition, mood, asset look). From the
+  first in-engine scene onward, interface iteration happens in Godot and gates on Part B
+  captures — text layout, focus flow, and motion are engine concerns the mocks cannot answer.

@@ -13,7 +13,7 @@ index — display names are drawn per run from the 命名表, the class is the s
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
 cookbook §5). Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
-backgrounds 9 · portraits 15 → **328 assets**.
+backgrounds 17 · portraits 15 → **336 assets**.
 
 ## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
@@ -252,23 +252,28 @@ base plate (Phase 2, §6).
 
 (5 assets.)
 
-## Backgrounds (`bg_*`) — sources: 時代與回合 / 結局 / Insignificant.md
+## Backgrounds (`bg_*`) — sources: 營運/地圖與機會/戰鬥 場景呈現 / 結局 / style bible §11
 
-Era backdrops serve both the battle screen and the operations screen (UI panels over them).
+Three main scenes, each with its own distinct background (never shared): the operations city
+panorama, the route fog-of-war map, and per-battle-type battlefields. Time-of-day (one
+generation = one day) is an in-engine grade over the day plate, not separate art.
 
 | id | subject |
 |---|---|
-| bg_era1 | 部落 era backdrop |
-| bg_era2 | 古典 era backdrop |
-| bg_era3 | 信仰 era backdrop |
-| bg_era4 | 工業 era backdrop |
-| bg_era5 | 現代 era backdrop |
-| bg_era6 | 資訊 era backdrop |
+| bg_city_era1..6 | operations landscape plate per era (city sprites composite on it; 6 assets) |
+| bg_route_map | route scene map plate (nodes + 迷霧 rendered by the engine on top) |
+| bg_battle_tax | 保底收稅戰 battlefield (open farmland skirmish) |
+| bg_battle_field | 一般地圖戰 battlefield (wild frontier) |
+| bg_battle_hidden | 隱藏戰 battlefield (uncanny raider/alien ground) |
+| bg_battle_riot | 內部暴動戰 battlefield (city street barricades) |
+| bg_battle_democracy | 為民主而流血 battlefield (public square) |
+| bg_battle_civwar | 文明戰爭 battlefield (grand open war plain) |
+| bg_battle_worldwar | 世界大戰 battlefield (scorched world stage) |
 | bg_title | title screen |
 | bg_ending_survive | 走到最後/提前完全勝利 epilogue backdrop (ranked 結語 are text over it) |
 | bg_ending_collapse | 政權崩潰 game-over backdrop |
 
-(9 assets.)
+(17 assets; battle backdrop looks are v1 suggestions, human-picked at their asset gate.)
 
 ## Portraits (`portrait_civ_<class>` / `portrait_candidate_<id>`) — sources: 對手文明 / 民主
 
