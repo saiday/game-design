@@ -12,16 +12,17 @@ from PIL import Image, ImageDraw, ImageFont
 from phase3_icon_sheets import keyed_glyph
 
 # canonical icon name -> picked candidate stem (human gate picks; variant suffixes in the stem
-# collapse to the canonical name). All 74 icons picked.
+# collapse to the canonical name). All 75 icons picked (population/era3/bp re-picked at the 44px
+# expressiveness gate and map_opportunity added — see phase3_icons_refreeze.py).
 PICKS = {
     "legacy_religious_dogma": "p3_icon_legacy_religious_dogma2_s62",
     "legacy_democratic_spirit": "p3_icon_legacy_democratic_spirit2_s62",
-    "era3": "p3_icon_era3v2_s62",
+    "era3": "p3_icon_era3v3_s82",
     "era6": "p3_icon_era6v3_s61",
     "money": "p3_icon_money_s61",
-    "population": "p3_icon_population3_s62",
+    "population": "p3_icon_population4_s81",
     "unrest": "p3_icon_unrest2_s61",
-    "bp": "p3_icon_bp_s61",
+    "bp": "p3_icon_bp2_s83",
     "tech": "p3_icon_tech_s61",
     "culture": "p3_icon_culture_s61",
     "happiness": "p3_icon_happiness_s61",
@@ -76,6 +77,7 @@ PICKS = {
     "legacy_melting_pot": "p3_icon_legacy_melting_pot_s63",
     "legacy_martial_law": "p3_icon_legacy_martial_law_s62",
     "map_battle": "p3_icon_map_battle_s61",
+    "map_opportunity": "p3_icon_map_opportunity_s81",
     "map_unknown": "p3_icon_map_unknown_s61",
     "map_war": "p3_icon_map_war_s62",
     "map_skip": "p3_icon_map_skip_s61",

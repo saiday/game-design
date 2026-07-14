@@ -10,7 +10,7 @@ const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UI_DIR: String = "res://assets/approved/ui"
 
-# all 74 approved icon asset ids (inventory.md "UI icons", frozen 2026-07-12)
+# all 75 approved icon asset ids (inventory.md "UI icons")
 const ICONS: Array[StringName] = [
 	&"money", &"population", &"bp", &"tech", &"culture", &"happiness", &"debt", &"interest",
 	&"unrest", &"power",
@@ -31,7 +31,7 @@ const ICONS: Array[StringName] = [
 	&"legacy_religious_dogma", &"legacy_rational_spirit", &"legacy_critical_spirit",
 	&"legacy_rock_spirit", &"legacy_democratic_spirit", &"legacy_melting_pot",
 	&"legacy_martial_law",
-	&"map_battle", &"map_unknown", &"map_war", &"map_skip",
+	&"map_battle", &"map_unknown", &"map_war", &"map_skip", &"map_opportunity",
 	&"opp_merchant", &"opp_refugee", &"opp_disaster", &"opp_treasure",
 	&"era1", &"era2", &"era3", &"era4", &"era5", &"era6",
 	&"fund",

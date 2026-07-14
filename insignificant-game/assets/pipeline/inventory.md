@@ -12,8 +12,8 @@ index — display names are drawn per run from the 命名表, the class is the s
 `portrait_candidate_<id>` (democracy candidates), `ui_<template>` (Phase 2 frozen templates).
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
-cookbook §5). Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 74 · UI templates 5 ·
-backgrounds 17 · portraits 15 → **336 assets**.
+cookbook §5). Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 75 · UI templates 5 ·
+backgrounds 17 · portraits 15 → **337 assets**.
 
 ## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
@@ -233,12 +233,12 @@ base plate (Phase 2, §6).
 | Policy themes | icon_theme_power icon_theme_tech icon_theme_culture icon_theme_religion icon_theme_exploration icon_theme_recon | 6 |
 | Policy nodes | icon_policy_centralization icon_policy_bureaucracy icon_policy_secret_police icon_policy_cultural_revolution icon_policy_enlightened_absolutism icon_policy_writing_calendar icon_policy_secularization icon_policy_patent_system icon_policy_moon_race icon_policy_space_station icon_policy_ancestor_worship icon_policy_state_religion icon_policy_theocracy icon_policy_holy_war icon_policy_hundred_schools icon_policy_mass_media icon_policy_cultural_export icon_policy_great_voyage icon_policy_world_map icon_policy_world_expo icon_policy_scout_camp icon_policy_political_marriage icon_policy_intelligence_agency icon_policy_satellite_surveillance | 24 |
 | Legacies | icon_legacy_religious_dogma icon_legacy_rational_spirit icon_legacy_critical_spirit icon_legacy_rock_spirit icon_legacy_democratic_spirit icon_legacy_melting_pot icon_legacy_martial_law | 7 |
-| Map nodes | icon_map_battle icon_map_unknown icon_map_war icon_map_skip | 4 |
+| Map nodes | icon_map_battle icon_map_unknown icon_map_war icon_map_skip icon_map_opportunity | 5 |
 | Opportunities | icon_opp_merchant icon_opp_refugee icon_opp_disaster icon_opp_treasure | 4 |
 | Eras | icon_era1 icon_era2 icon_era3 icon_era4 icon_era5 icon_era6 | 6 |
 | Democracy | icon_fund | 1 |
 
-(74 assets.)
+(75 assets.)
 
 ## UI templates (`ui_<template>`) — Phase 2 frozen structure (§6), inventoried here for scope
 

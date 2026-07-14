@@ -12,7 +12,7 @@ func test_every_icon_asset_exists() -> void:
 
 
 func test_icon_inventory_is_complete() -> void:
-	assert_int(AssetPaths.ICONS.size()).is_equal(74)
+	assert_int(AssetPaths.ICONS.size()).is_equal(75)
 
 
 func test_canonical_id_helpers_resolve() -> void:
