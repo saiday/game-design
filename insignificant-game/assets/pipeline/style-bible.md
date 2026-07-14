@@ -128,3 +128,22 @@ unchanged (cookbook §6): real `Label` text over frozen chrome, never baked into
 and subset the actual font binaries at Godot-integration time (static TC weights are ~16 MB
 each). Runners-up Iansui / jf open 粉圓 (cookbook §14) were rejected for being single-script
 personalities that would fracture cross-locale consistency.
+
+## 11. Game-view composition (human-picked at the presentation gate)
+
+- **The main view is the living city** (composition A, `contact-sheets/presentation_mock_a_*.png`):
+  a side-view panorama on the Moebius landscape; every built line stands in the scene at its own
+  tier era-form, the core center anchors mid-frame and follows the current era. Textures swap by
+  id through the registry, scale in-engine only; the view computes nothing.
+- **One generation = one day**: phase lighting maps operate → morning, route → midday,
+  settle → dusk/night (whole-scene evening grade + backdrop plate variants + lamp glows), and
+  the next generation dawns.
+- **Command dock bottom-right**, compact parchment panel; clicking the background (controller:
+  cancel button) toggles it. Phase overlays (route cards, battle band, settle ledger) replace
+  the dock rather than stacking on it.
+- **HUD is icon + value only** — no text labels in the strip. Hovering or controller-focusing an
+  icon section pops a parchment tooltip with the term and its explanation. **Controller support
+  is a standing requirement**: every interactive element must be reachable by focus navigation.
+- Backdrop plates are a Phase 3 class of their own; their style-carrying prompt suffix is pinned
+  in cookbook §14. Route/battle overlay compositions are proposed in
+  `contact-sheets/presentation_mock_route.png` / `presentation_mock_battle.png` (gate pending).
