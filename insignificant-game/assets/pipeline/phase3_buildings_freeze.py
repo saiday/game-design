@@ -29,6 +29,8 @@ CHAIN_PICKS: dict[str, int] = {
     "core": 73,
     "commerce": 73,
     "media": 72,
+    "bank": 71,
+    "debt_office": 73,
 }
 
 # line -> picked chain stems by era (pre-wave pilot pick; food has no state entry)

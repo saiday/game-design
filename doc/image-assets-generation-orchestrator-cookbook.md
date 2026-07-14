@@ -203,9 +203,10 @@ frozen templates never regenerate.
 2. **Buildings & units ×6 eras** — the volume class. Per building line: era N approved sprite
    seeds era N+1 via img2img lineage (§6); **era-gated waves** (`phase3_buildings_wave.py` +
    `phase3_building_chains.json`): each era is §8-reviewed before it seeds the next, because
-   artifacts propagate down chains (§14). Buildings status: 11 lines frozen (66 sprites in
-   `assets/approved/buildings/`); bank + debt_office regenerated from scratch with researched
-   iconography (§14 2026-07-13), all 6 eras §8-clean, chain-pick gate pending. Units not started.
+   artifacts propagate down chains (§14). Buildings status: **closed** — every line frozen
+   (76 sprites in `assets/approved/buildings/`: the 12 building lines plus the core line; bank
+   and debt_office carry the researched iconography from §14 2026-07-13, human chain picks
+   bank 71 / debt_office 73). Units not started.
 3. **Card illustrations** — per card in `卡牌`, produced to the frozen content-window rect;
    highest quality bar, human reviews in smaller batches.
 4. **Backgrounds & portraits** — low volume, large canvas; generated under the style-bible recipe

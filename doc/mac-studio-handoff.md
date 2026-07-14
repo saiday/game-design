@@ -8,11 +8,11 @@
 
 Phases 0-2 are closed (locked recipe, frozen UI templates, and font in
 `insignificant-game/assets/pipeline/style-bible.md`); Prompts 0-2 below are kept for the record.
-Phase 3 progress: the icon class is closed (74 glyphs approved); 11 building lines are frozen
-(66 sprites in `assets/approved/buildings/`), and bank + debt_office are regenerated with
-researched iconography awaiting their chain-pick gate; units, cards, and backgrounds/portraits
-remain (Prompt 3, one class per session). Prompt 4's first pass is in (registry + fonts +
-runtime chrome, both loop parts green) — it re-runs per newly approved class.
+Phase 3 progress: the icon class is closed (74 glyphs approved) and the buildings class is
+closed (76 sprites frozen in `assets/approved/buildings/`); units, cards, and
+backgrounds/portraits remain (Prompt 3, one class per session). Prompt 4's first pass is in
+(registry + fonts + runtime chrome, both loop parts green) — it re-runs per newly approved
+class (buildings are next to wire in).
 
 ## Human checklist (before each session)
 
