@@ -17,9 +17,10 @@
     "prompt": "a vast uninhabited green valley, hedgerow-lined lanes and neat rows of planted young trees on the far flanks, a stone footbridge over the winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
    },
    "4": {
-    "stem": "p3_bg_city_era4_s51",
-    "seed": 51,
-    "prompt": "a vast uninhabited valley, a packed earth road with cart ruts and long wooden fences on the far flanks, a stone arch bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
+    "stem": "p3_bg_city_era4_s67",
+    "seed": 67,
+    "prompt": "a vast uninhabited valley, a packed earth road with cart ruts and long wooden fences on the far flanks, a stone arch bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view",
+    "denoise": 0.42
    }
   },
   "52": {
@@ -37,6 +38,11 @@
     "stem": "p3_bg_city_era3_s65",
     "seed": 65,
     "prompt": "a vast uninhabited green valley, hedgerow-lined lanes and neat rows of planted young trees on the far flanks, a stone footbridge over the winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
+   },
+   "4": {
+    "stem": "p3_bg_city_era4_s52",
+    "seed": 52,
+    "prompt": "a vast uninhabited valley, a packed earth road with cart ruts and long wooden fences on the far flanks, a stone arch bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
    }
   },
   "53": {
@@ -54,6 +60,11 @@
     "stem": "p3_bg_city_era3_s53",
     "seed": 53,
     "prompt": "a vast uninhabited green valley, hedgerow-lined lanes and neat rows of planted young trees on the far flanks, a stone footbridge over the winding river, a wide flat empty meadow across the middle ground, distant blue mountain ranges, soft morning sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
+   },
+   "4": {
+    "stem": "p3_bg_city_era4_s53",
+    "seed": 53,
+    "prompt": "a vast uninhabited valley, a packed earth road with cart ruts and long wooden fences on the far flanks, a stone arch bridge over the river, a wide flat empty meadow across the middle ground, distant blue mountains under a pale hazy sky, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, wide panoramic side view"
    }
   }
  }

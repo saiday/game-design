@@ -16,7 +16,10 @@ import sys
 
 SEEDS = [51, 52, 53]
 W, H = 1920, 1088
-DENOISE = 0.5   # lower than buildings' 0.55: the empty parent must constrain invented content
+# Lower than buildings' 0.55: the empty parent must constrain invented content. Env override
+# (P3BG_DENOISE) exists for per-cell re-rolls where a clean parent's composition keeps pulling
+# inventions at 0.5 (chain 51 era 4 drew a farmstead twice; 0.42 hugs the parent tighter).
+DENOISE = float(os.environ.get("P3BG_DENOISE", "0.5"))
 T2I = "workflows/krea2_lora_txt2img.json"
 I2I = "workflows/krea2_lora_img2img.json"
 LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]
@@ -67,14 +70,22 @@ PLATES = {
     "battle_riot": (
         "a narrow city street of plain stone houses with closed wooden shutters, blocked by makeshift barricades of overturned carts, crates and sandbags, cloth banners each painted with a single large red fist emblem, thin smoke rising, empty cobblestone ground in the foreground",
         STYLE),
-    # democracy square v2: plaza subjects pull strolling pedestrians and street furniture
-    # (s51 first roll) — declare the square deserted; banners with the scales emblem were
-    # 5/5 clean from the start.
+    # democracy square v3: plaza subjects pull pedestrians — v1 drew crowds 3/3, and v2's
+    # "completely deserted" only thinned them (3/3 still had figures at the colonnade). The
+    # venue noun is the carrier ("public square" invites the public): v3 renames the venue,
+    # adds an early-morning vacancy cue, and occupies the vacancy with drifting leaves. The
+    # open bottom-right pavement is also the class's signature magnet (4 fake signatures in
+    # 6 rolls landed there) — occupy that corner with a crumpled emblem-bearing banner.
+    # The scales-emblem banners themselves were clean on every seed from the start.
     "battle_democracy": (
-        "a grand public square completely deserted, a marble fountain and stone colonnades, cloth banners each painted with a single large golden balance scale emblem, a toppled bronze statue lying by the fountain, wide flat empty paving across the middle ground, overcast sky",
+        "a vast abandoned monumental plaza in the cold light of early morning, a marble fountain and stone colonnades, cloth banners each painted with a single large golden balance scale emblem, a toppled bronze statue lying by the fountain, a torn banner with the same golden scale emblem lying crumpled on the paving in the near right corner, scattered dead leaves drifting over the stones, wide flat empty paving across the middle ground, overcast sky",
         STYLE),
+    # civwar v2: "scattered round shields" invited decorated faces (a rising-sun flag pattern,
+    # §8 real-world emblem class) — occupy the shield surface with materials, same move as
+    # banner emblems. v1 also drew 2 fake signatures on the dirt foreground (no prompt lever;
+    # seed bump + corner zoom is the only control).
     "battle_civwar": (
-        "a vast open war plain scarred with trenches and earthworks, broken siege engines and scattered round shields, tall poles each bearing a single plain crossed-swords banner, wide flat empty ground across the middle, dramatic storm clouds",
+        "a vast open war plain scarred with trenches and earthworks, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, wide flat empty ground across the middle, dramatic storm clouds",
         STYLE),
     "battle_worldwar": (
         "a scorched world battlefield under a dark red sky, burning ruins and shattered walls on the far horizon, cratered black earth and drifting ash, wide flat empty ground across the middle",
@@ -137,7 +148,8 @@ def gen_city_cell(state: dict, chain: int, era: int, seed: int) -> None:
         cmd += ["--image", f"{OUT}/{src_stem}_00001_.png", "--denoise", str(DENOISE)]
     run(stem, cmd)
     state.setdefault("city", {}).setdefault(str(chain), {})[str(era)] = {
-        "stem": stem, "seed": seed, "prompt": CITY[era] + STYLE}
+        "stem": stem, "seed": seed, "prompt": CITY[era] + STYLE,
+        "denoise": DENOISE if era > 1 else None}
     save_state(state)
 
 
