@@ -261,11 +261,11 @@ generation = one day) is an in-engine grade over the day plate, not separate art
 | id | subject |
 |---|---|
 | bg_city_era1..6 | operations landscape plate per era (city sprites composite on it; 6 assets) |
-| bg_route_map | route scene map plate (nodes + 迷霧 rendered by the engine on top) |
+| bg_route_map | route scene map plate: the civilization's NEAR region (city hinterland, 地圖與機會 場景呈現), reused every generation; nodes + 迷霧 rendered by the engine on top; no compass rose or other meaningless cartouche decor |
 | bg_battle_tax | 保底收稅戰 battlefield (open farmland skirmish) |
 | bg_battle_field | 一般地圖戰 battlefield (wild frontier) |
 | bg_battle_hidden | 隱藏戰 battlefield (uncanny raider/alien ground) |
-| bg_battle_riot | 內部暴動戰 battlefield (city street barricades) |
+| bg_battle_riot | 內部暴動戰 battlefield (city street barricades; banner/sign surfaces carry image emblems only, never lettering) |
 | bg_battle_democracy | 為民主而流血 battlefield (public square) |
 | bg_battle_civwar | 文明戰爭 battlefield (grand open war plain) |
 | bg_battle_worldwar | 世界大戰 battlefield (scorched world stage) |

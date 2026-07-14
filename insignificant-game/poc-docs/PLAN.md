@@ -61,6 +61,14 @@ every green wave.
       and swapped by id (scale in-engine only); `test/asset_paths_test.gd` now sweeps every
       line's `min_tier..6` range plus core. Gate: Part A 188/188 (21 suites, exit 0) + Part B
       0 ASSERT FAIL incl. new `operate_city` capture, captures reviewed. *(done 2026-07-14)*
+- [ ] **W9 — Battle rule delta: 鎮壓的手段有代價.** `core/battle.gd` + `core/happiness.gd` + tests:
+      an 內亂型 battle in which any 機械型部隊卡 was played ends with 幸福 −15, win or lose, once
+      per battle (design source: 戰鬥.md / 內亂與失敗.md / 幸福.md). Gate: Part A green.
+- [ ] **W10 — Three-scene view revamp (style bible §11 + corpus 場景呈現).** Operations city
+      panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
+      focus navigation), route fog-map scene, per-battle-type battle scene. Needs the backgrounds
+      class plates (`bg_route_map`, `bg_battle_*`, `bg_city_era*` per inventory.md) approved
+      first; interface behavior iterates in-engine on Part B captures (no more interface mocks).
 
 ## Module status (agents/driver: flip these as suites go green)
 
@@ -77,7 +85,7 @@ every green wave.
 | cards (+data) | ✓ | ✓ | |
 | map_nodes (+data) | ✓ | ✓ | |
 | rivals (+data) | ✓ | ✓ | power-scalar mappings are driver decisions (data/rivals.gd) |
-| battle (+data) | ✓ | ✓ | hand system (open 4 / draw 1) is a driver decision |
+| battle (+data) | ✓ | ✓ | hand system (open 4 / draw 1) is a driver decision; OPEN: W9 riot suppression cost |
 | world_war | ✓ | ✓ | automated resolution (simplification) |
 | democracy (+data) | ✓ | ✓ | money deltas ×coeff; auto-explore 15×coeff/node |
 | legacy | ✓ | ✓ | passive magnitudes are driver v1 values |
