@@ -24,10 +24,15 @@ func test_canonical_id_helpers_resolve() -> void:
 
 
 func test_approved_building_lines_exist_per_era() -> void:
-	# grows as line-pick gates close; food froze 2026-07-12
+	# buildings class is closed: every line's era-form range (min_tier..6) plus the core
+	# civilization center is frozen on disk
+	for line_id: StringName in BuildingData.LINES:
+		for era: int in range(int(BuildingData.LINES[line_id]["min_tier"]), 7):
+			assert_bool(AssetPaths.has_building(line_id, era)) \
+				.override_failure_message("missing building_%s_era%d" % [line_id, era]).is_true()
 	for era: int in range(1, 7):
-		assert_bool(AssetPaths.has_building(&"food", era)) \
-			.override_failure_message("missing building_food_era%d" % era).is_true()
+		assert_bool(AssetPaths.has_building(&"core", era)) \
+			.override_failure_message("missing building_core_era%d" % era).is_true()
 
 
 func test_ui_templates_exist() -> void:

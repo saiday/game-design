@@ -12,7 +12,7 @@ Phase 3 progress: the icon class is closed (74 glyphs approved) and the building
 closed (76 sprites frozen in `assets/approved/buildings/`); units, cards, and
 backgrounds/portraits remain (Prompt 3, one class per session). Prompt 4's first pass is in
 (registry + fonts + runtime chrome, both loop parts green) — it re-runs per newly approved
-class (buildings are next to wire in).
+class; the buildings re-run is in (operate-panel city strip, both loop parts green).
 
 ## Human checklist (before each session)
 

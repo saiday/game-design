@@ -55,6 +55,12 @@ every green wave.
       (style bible §8). Gate: Part A 188/188 (21 suites, exit 0) + Part B 0 ASSERT FAIL,
       captures reviewed. *(done 2026-07-13. Part B caught a real defect again — panel body text
       unreadable on parchment chrome — fixed with ink-color overrides before the gate.)*
+- [x] **W8 — Buildings class wire-in (art pipeline Phase 4 re-run, buildings approved 76/76).**
+      `view/main.gd`: operate-panel city strip — 政權核心 at the current era plus each built
+      line's own tier era-form sprite, textures resolved by `AssetPaths.building(line, tier)`
+      and swapped by id (scale in-engine only); `test/asset_paths_test.gd` now sweeps every
+      line's `min_tier..6` range plus core. Gate: Part A 188/188 (21 suites, exit 0) + Part B
+      0 ASSERT FAIL incl. new `operate_city` capture, captures reviewed. *(done 2026-07-14)*
 
 ## Module status (agents/driver: flip these as suites go green)
 

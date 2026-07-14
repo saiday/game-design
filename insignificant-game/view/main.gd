@@ -12,6 +12,7 @@ const PANEL_COLOR := Color(0.18, 0.20, 0.24)
 const ACCENT_COLOR := Color(0.85, 0.72, 0.35)
 const CHROME_SCALE := 0.5   # frozen templates render at half source scale (in-engine scaling, §8)
 const STAT_ICON := 28       # inline stat glyph size (px)
+const CITY_SPRITE_HEIGHT := 100  # building sprite display height (px); width follows aspect
 const INK_COLOR := Color(0.20, 0.13, 0.08)         # body text on parchment chrome
 const INK_ACCENT_COLOR := Color(0.55, 0.16, 0.10)  # accent text on parchment chrome
 
@@ -28,6 +29,7 @@ var danger_label: RichTextLabel
 var phase_title: Label
 var event_label: Label
 var panels: Dictionary = {}
+var operate_city: HFlowContainer
 var operate_actions: VBoxContainer
 var route_actions: VBoxContainer
 var battle_info: Label
@@ -199,6 +201,7 @@ func _stat_img(path: String) -> String:
 func _refresh_operate() -> void:
 	_clear(operate_actions)
 	phase_title.text = "營運相位"
+	_refresh_city()
 	for step: Array in Sim.BUILD_ORDER:
 		if operate_actions.get_child_count() >= 6:
 			break
@@ -226,6 +229,37 @@ func _refresh_operate() -> void:
 				_refresh_operate()
 				_refresh_stats())
 	_add_button(operate_actions, "結束營運相位 → 選路", _end_operate)
+
+
+func _refresh_city() -> void:
+	# approved building sprites: 政權核心 follows the current era, each built line shows its own
+	# tier's era form — texture swaps by id, never restyled in code (style bible §10)
+	_clear(operate_city)
+	var era := Era.index(state.generation)
+	_city_cell(&"core", era, BuildingData.CORE_NAMES[era - 1])
+	for line_id: StringName in BuildingData.LINES:
+		if state.buildings.has(line_id):
+			var tier: int = int(state.buildings[line_id])
+			_city_cell(line_id, tier, String((BuildingData.LINES[line_id]["names"] as Array)[tier - 1]))
+
+
+func _city_cell(line_id: StringName, era_form: int, caption: String) -> void:
+	var cell := VBoxContainer.new()
+	var art := TextureRect.new()
+	var texture := load(AssetPaths.building(line_id, era_form)) as Texture2D
+	art.texture = texture
+	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	art.custom_minimum_size = Vector2(
+		float(CITY_SPRITE_HEIGHT) * texture.get_width() / texture.get_height(), CITY_SPRITE_HEIGHT)
+	cell.add_child(art)
+	var caption_label := Label.new()
+	caption_label.text = caption
+	caption_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	caption_label.add_theme_font_size_override("font_size", 13)
+	caption_label.add_theme_color_override("font_color", INK_COLOR)
+	cell.add_child(caption_label)
+	operate_city.add_child(cell)
 
 
 func _refresh_route() -> void:
@@ -338,7 +372,11 @@ func _build_ui() -> void:
 	phase_title.add_theme_font_override("font", load(AssetPaths.FONT_BOLD) as FontFile)
 	event_label = _label(root, 15)
 	panels[&"operate"] = _panel(root)
-	operate_actions = _vbox(panels[&"operate"])
+	var operate_box := _vbox(panels[&"operate"])
+	operate_city = HFlowContainer.new()
+	operate_city.add_theme_constant_override("h_separation", 18)
+	operate_box.add_child(operate_city)
+	operate_actions = _vbox(operate_box)
 	panels[&"route"] = _panel(root)
 	route_actions = _vbox(panels[&"route"])
 	panels[&"battle"] = _panel(root)
@@ -597,6 +635,13 @@ func _run_demo() -> void:
 		_finish_battle()
 	await _capture(&"settle", "settle panel")
 	_assert(settle_label.text.contains("結算"), "settle summary visible")
+	# city strip block: seed a spread of era-form tiers and re-enter operate
+	state.buildings = {&"housing": 1, &"school": 2, &"debt_office": 3, &"commerce": 4, &"bank": 5, &"media": 6}
+	_refresh_operate()
+	_show_panel(&"operate")
+	await _capture(&"operate_city", "operate panel with approved building sprites")
+	_assert(operate_city.get_child_count() == state.buildings.size() + 1, "city strip = core + every built line")
+	_assert((operate_city.get_child(0).get_child(0) as TextureRect).texture != null, "core sprite texture loaded")
 	# world war block (jump the clock)
 	state.generation = 15
 	_begin_generation()

@@ -216,7 +216,8 @@ frozen templates never regenerate.
 1920×1080**. First pass is in (`core/data/asset_paths.gd` registry, Noto Sans TC subsets,
 runtime-composed chrome in `view/main.gd`, window 1920×1080; Part A + Part B green) — each later
 approved class wires in through the same registry, capture reviewed with the same Part-B
-discipline.
+discipline. Buildings are wired: the operate panel renders a city strip (core center at the
+current era + each built line's tier era-form sprite, swapped by id).
 
 ## 8. Objective self-checks (before an image reaches the human)
 
