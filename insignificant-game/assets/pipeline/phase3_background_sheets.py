@@ -24,12 +24,12 @@ CANDIDATES = {
     "battle_field": [51, 52, 53],
     "battle_hidden": [51, 52, 53],
     "battle_riot": [56, 57, 58],       # v3 residential-street wording (v1/v2 fascia rejects)
-    "battle_democracy": [54, 55, 56],  # v2 "completely deserted" wording (v1 pedestrian rejects)
-    "battle_civwar": [51, 52, 53],
+    "battle_democracy": [57, 58, 59],  # v3 abandoned-plaza wording (v1/v2 pedestrian rejects)
+    "battle_civwar": [54, 55, 56],     # v2 occupied-shield wording (v1 emblem/signature rejects)
     "battle_worldwar": [51, 52, 53],
-    "title": [51, 52, 53],
-    "ending_survive": [51, 52, 53],
-    "ending_collapse": [51, 52, 53],
+    "title": [51, 75, 97],             # v4 corner-occupied wording (v2/v3 signature rejects)
+    "ending_survive": [52, 53, 92],    # v2 hilltop-meadow wording (v1 overlook-figure rejects)
+    "ending_collapse": [79, 80, 81],   # v2 obelisk/ivy wording (v1 cross, inscription, glyph rejects)
 }
 
 
