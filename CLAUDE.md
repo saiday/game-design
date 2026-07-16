@@ -7,17 +7,17 @@ The repo root is **documentation only**; all code lives in one place:
 eyes to read and follow. Never store log-style/changelog notes in them — no decision dates, no
 "was X / superseded / decided on <date> / kept for the record" narratives. That history belongs
 in **git commit messages**. The only exceptions are purpose-built logs (cookbook §14 findings
-log, `doc/prompts.md`, `poc-docs/PLAN.md`, `poc-docs/decision-*.md`) and license sign-off /
-verification records, which keep their dates.
+log, `doc/prompts.md`, `insignificant-game/doc/PLAN.md`, `insignificant-game/doc/decision-*.md`)
+and license sign-off / verification records, which keep their dates.
 
-- **`insignificant-game/` — the full-game PoC and the only Godot project.** Working on the game?
+- **`insignificant-game/` — the production game and the only Godot project.** Working on the game?
   **Read `insignificant-game/CLAUDE.md` and cd there** — it has the contract
-  (`poc-docs/architecture.md`), the verified dev-loop commands (`poc-docs/dev-loop.md`), and the
+  (`doc/architecture.md`), the verified dev-loop commands (`doc/dev-loop.md`), and the
   task board. Never run engine/test commands from the repo root; there is no project here.
 - **`doc/`** — project history and doctrine: `agent-development-loop.md` (the two-part
   self-correction loop, proven by the original repo-root loop PoC),
-  `poc-implementation-guidelines.md` (merged guide: Part 1 = the full-game PoC contract,
-  Part 2 = the archived loop-PoC guide), `prompts.md` (live prompt log),
+  `poc-implementation-guidelines.md` (closed PoC record; both PoCs are finished, never execute
+  it), `prompts.md` (human-only prompt log; agents don't read it),
   `image-assets-generation-orchestrator-cookbook.md` (art pipeline on the Mac Studio — the agent
   cookbook) with
   `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions),

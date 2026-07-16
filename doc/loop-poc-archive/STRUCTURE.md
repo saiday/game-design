@@ -1,3 +1,5 @@
+> **ARCHIVED: historical record of the closed repo-root loop PoC (project removed from the repo). Do not resume, execute, or update anything in this file.**
+
 # STRUCTURE.md — architecture + leaf-first build order
 
 ## Current files (M0–M2)

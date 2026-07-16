@@ -1,5 +1,9 @@
 # Balance report — v1 baseline knobs under simulation
 
+**Measured at:** 2026-07-16, post-W9 rules (includes 鎮壓的手段有代價, the −15 happiness cost for
+mechanical units in riot battles), 21 suites / 192 cases green. When rules or knobs change,
+re-run the batch and refresh this report (and this stamp) before comparing.
+
 Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), baseline bot
 (`core/sim.gd`: greedy builder, fights everything, concedes unrest when affordable, enters
 democracy at gen 38). Raw data: `reports/balance_batch.json`. These are **measurements and
@@ -11,10 +15,10 @@ surfaced questions — balance calls stay with the PM.**
 |---|---|---|---|
 | Endings | 20× survived | 20× survived | 20× survived |
 | Final rank distribution | mostly 1st | 1st–2nd | 2nd–4th |
-| Deepest debt touched | −128 | −180 | −344 |
-| Generations spent in debt | 5.7 | 7.3 | 9.6 |
-| Unrest battles triggered / run | 3.8 | 3.9 | 3.5 |
-| Final treasury (gen 50) | ~9060 | ~9080 | ~9270 |
+| Deepest debt touched | −140 | −180 | −330 |
+| Generations spent in debt | 5.8 | 7.4 | 9.3 |
+| Unrest battles triggered / run | 3.8 | 4.0 | 3.5 |
+| Final treasury (gen 50) | ~9060 | ~9080 | ~9290 |
 | Final happiness | 100 | 100 | 100 |
 | Buildings built (lifetime) | 10.9 | 10.9 | 12.2 |
 | Final escalation coefficient | 3.7 | 3.7 | 4.1 |
@@ -47,7 +51,10 @@ surfaced questions — balance calls stay with the PM.**
 - **Happiness pegs at 100 in every run.** Medical + arts + legacy passives yield +4–5/gen
   against almost no recurring drains (debt −5 pre-國債司, a few event hits). Above 70 the
   good-draw bonus compounds the snowball. The <60 unrest entrance is effectively
-  unreachable for any player who builds the two obvious lines.
+  unreachable for any player who builds the two obvious lines. W9's suppression cost does not
+  move the endpoint for the baseline bot (final happiness 100 in all 60 post-W9 runs): any −15
+  hits are transient and re-climbed. A happiness *time-series* (not just the endpoint) would
+  show whether the rule bites mid-run.
 - **Rival churn is high.** ~3 of 5 rivals die (two-defeat exit or annex) per run because
   every injected civil war is fought and usually won; WW at 15/35 then has thin camps.
   If the "five great powers" fantasy should hold to gen 50, exit conditions may be too easy

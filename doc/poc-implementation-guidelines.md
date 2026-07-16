@@ -1,15 +1,17 @@
 # PoC Implementation Guidelines
 
-This file merges the two PoC guides that used to live side by side (2026-07-08):
+> **CLOSED PoC RECORD: both PoCs below are finished and their gates passed. Nothing in this
+> file is a task list; do NOT execute it.** It is kept as the record of what each PoC was asked
+> to prove. The live operating contracts are `insignificant-game/CLAUDE.md` +
+> `insignificant-game/doc/architecture.md` (project) and
+> `insignificant-game/doc/dev-loop.md` (commands); the loop doctrine distilled from Part 2
+> lives in `doc/agent-development-loop.md`.
 
-- **Part 1 — Full-game PoC guidelines** (formerly `poc-implementation-gudielines.md`): the
-  contract for `insignificant-game/`, the active workstream. **Fulfilled 2026-07-08** — every
-  requirement below is implemented and green (181 tests / 20 suites, Part B captures, 60-run
-  balance batch). It remains the authoritative statement of what that project must keep true.
-- **Part 2 — Loop-PoC guide** (formerly `poc-implementation-guide.md`): the guide for the
-  original repo-root loop PoC, **closed 2026-06-17** with all gates passed. The root Godot
-  project was removed 2026-07-08 (recoverable via git history); this part is kept as the record
-  of what that PoC proved and how. Its distilled output lives in `doc/agent-development-loop.md`.
+- **Part 1 — Full-game PoC guidelines**: what `insignificant-game/` was required to implement.
+  Fulfilled; every requirement is in the codebase and green. Where this text and the live
+  contracts differ, the live contracts win.
+- **Part 2 — Loop-PoC guide**: the guide for the original repo-root loop PoC (project since
+  removed; recoverable via git history, state files in `doc/loop-poc-archive/`).
 
 ---
 

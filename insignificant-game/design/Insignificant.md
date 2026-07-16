@@ -1,9 +1,9 @@
 ---
 type: game-concept
 status: 定稿（主文件）；數值＝首版基準值
-date: 2026-07-07（視覺風格改為 Moebius 插畫、解析度定為 1920×1080：2026-07-09）
+date: 2026-07-09
 code:
-  - insignificant-game/poc-docs/architecture.md
+  - insignificant-game/doc/architecture.md
   - insignificant-game/assets/pipeline/style-bible.md
   - insignificant-game/core/game_state.gd
   - insignificant-game/core/turn.gd
@@ -51,7 +51,7 @@ code:
 
 ## 視覺與聽覺風格
 
-- **視覺：Moebius 風格插畫**（ligne claire 細線稿、水彩式平塗），由本地 AI 管線生成（Krea-2-Turbo + Moebius LoRA，配方鎖定於 repo `insignificant-game/assets/pipeline/style-bible.md`，流程見 repo `doc/image-assets-generation-orchestrator-cookbook.md`）。2026-07-09 定案，取代原本的像素風方向：Phase 1 風格板評比中三個像素配方全數落選，且不做像素化後處理；AI 管線同樣讓大量換皮的美術成本可控。**目標解析度 Full HD（1920×1080，2026-07-09 定案）**——640×360 低解析是像素風的配套決策，隨風格一併撤銷；核心邏輯不感知解析度，PoC 視窗維持 1280×720 至 Godot 整合（cookbook Phase 4）。建築與單位隨六個時代換形態名與外觀（演化表見[[卡牌]]、[[營運]]）。UI 扁平、資訊密度優先——債務深度、利息、內亂權重、人口距崩潰門檻全程可見是硬需求（[[內亂與失敗]]）。
+- **視覺：Moebius 風格插畫**（ligne claire 細線稿、水彩式平塗），不做像素化後處理，由本地 AI 管線生成（Krea-2-Turbo + Moebius LoRA，配方鎖定於 repo `insignificant-game/assets/pipeline/style-bible.md`，流程見 repo `doc/image-assets-generation-orchestrator-cookbook.md`）；AI 管線讓大量換皮的美術成本可控。**目標解析度 Full HD（1920×1080）**；核心邏輯不感知解析度，PoC 視窗即為 1920×1080（style bible §8）。建築與單位隨六個時代換形態名與外觀（演化表見[[卡牌]]、[[營運]]）。UI 扁平、資訊密度優先——債務深度、利息、內亂權重、人口距崩潰門檻全程可見是硬需求（[[內亂與失敗]]）。
 - **聽覺**：配樂隨時代段演進（部落打擊樂→古典弦樂→信仰聖詠→工業銅管→現代搖滾→資訊電子），一個時代一個主題的變奏；戰鬥動畫配輕量音效；無配音。
 
 ## 世界觀（Game World Fiction）

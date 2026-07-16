@@ -1,10 +1,10 @@
 # Agent Development Loop (canonical)
 
-> **Purpose:** the canonical reference for *how an AI agent develops, runs, observes, and self-corrects this game* — for the whole project, not just the PoC.  
+> **Purpose:** the canonical reference for *how an AI agent develops, runs, observes, and self-corrects this game*.
 > **Status:** **PoC closed (2026-06-17) — the two-part self-correction loop is proven on this machine** (Godot 4.6.3.stable.official, macOS 25.5, Apple M1 Pro · Metal/Forward+): a logic bug was caught headless and a visual bug at the screenshot layer in one broken change, both fixed, slice ended green. **This doc is now the standing loop for ongoing development.** The prior [Open Items](#11-open-items--verify-on-this-machine) are resolved; see the [Changelog](#changelog).  
 > **Verdict (see [§10](#10-long-term-suitability--scaling-the-poc-verdict)):** adopt this loop as the long-term backbone — but it verifies *correctness*, not *fun*, and Part B (visual) is blind to motion/feel. The two limits to plan around: **fun/balance can never be agent-verified** (human-owned, and the real throughput ceiling), and **Part B needs an upgrade when animation/interaction arrive.**  
 > **Maintain this doc:** when you complete a step, run a command that works/fails, or learn something that contradicts what's written here, **update the relevant section and add a line to the [Changelog](#changelog)**. Do not let this drift from reality.
-> **Where the artifacts went (2026-07-08):** the loop-PoC's Godot project (`game/`, `test/`, `tools/capture.gd`, `project.godot`) was removed from the repo root — recover via git history if needed. Its state files (`PLAN.md`, `STRUCTURE.md`, `MEMORY.md`, `agent-process.md`) are archived in `doc/loop-poc-archive/`; path references below are historical. The loop itself lives on in `insignificant-game/` (see its `poc-docs/dev-loop.md`).
+> **Where the artifacts went (2026-07-08):** the loop-PoC's Godot project (`game/`, `test/`, `tools/capture.gd`, `project.godot`) was removed from the repo root — recover via git history if needed. Its state files (`PLAN.md`, `STRUCTURE.md`, `MEMORY.md`, `agent-process.md`) are archived in `doc/loop-poc-archive/`; path references below are historical. The loop itself lives on in `insignificant-game/` (see its `doc/dev-loop.md`).
 
 Last updated: 2026-07-08.
 

@@ -1,6 +1,6 @@
 class_name Difficulty
 extends RefCounted
-# Difficulty algorithm (poc-docs/difficulty-design.md, synced to the design corpus).
+# Difficulty algorithm (doc/difficulty-design.md, synced to the design corpus).
 # One signed level d (easy −1 / normal 0 / hard +1) drives three channels with
 # per-channel slopes — no per-encounter special cases:
 #   enemy combat stats   ×(1 + 0.20·d)

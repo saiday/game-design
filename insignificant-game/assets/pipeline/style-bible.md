@@ -99,7 +99,7 @@ a torch upgrade, re-anchor any img2img lineage in progress.
 
 **The shipped game targets Full HD 1920×1080** (human decision). Assets ship at generation
 resolution and scale in-engine; templates record content-window rects and 9-slice margins
-relative to the generated image, never to screen pixels. The PoC window runs 1920×1080 (wired
+relative to the generated image, never to screen pixels. The game window runs 1920×1080 (wired
 at Phase 4, cookbook §10; `core/data/asset_paths.gd` is the id→path registry).
 
 ## 9. Frozen UI templates (Phase 2 picks)
@@ -126,8 +126,7 @@ script, so all locales share one visual voice. zh-TW uses **Noto Sans TC** (SIL 
 verified in the official repo LICENSE, `github.com/notofonts/noto-cjk`). Composition rule
 unchanged (cookbook §6): real `Label` text over frozen chrome, never baked into images. Fetch
 and subset the actual font binaries at Godot-integration time (static TC weights are ~16 MB
-each). Runners-up Iansui / jf open 粉圓 (cookbook §14) were rejected for being single-script
-personalities that would fracture cross-locale consistency.
+each).
 
 ## 11. Game-view composition (human-picked at the presentation gates)
 
@@ -142,18 +141,18 @@ authority; this section is the build mapping):
 2. **Route = a fog-of-war map scene** (own backdrop, not an overlay on the city): the
    generation's nodes drawn on a map, unknown nodes fog-covered per the 迷霧 rule, skip as a
    standing map exit; the 世界地圖 fog upgrade draws the 戰鬥面/機會面 on the node itself
-   (`icon_map_opportunity` is the opportunity face). Art-direction mock:
-   `contact-sheets/presentation_mock_route_map.png` (an earlier cards-over-city mock in this
-   folder is superseded).
+   (`icon_map_opportunity` is the opportunity face). Canonical art-direction mock:
+   `contact-sheets/presentation_mock_route_map.png` (no other route mock in the folder is
+   canonical).
 3. **Battle = a dedicated battlefield scene per battle type** (7 types in 戰鬥.md's table, each
    with its own backdrop identity; specific looks are human-picked at asset gates). In-scene
    structure per the auto-deployment rule: the two sides face each other, fortification line →
    melee → ranged → air; spend-vs-reward stays on screen; 內亂-type battles open with the 民怨
-   source banner and the 鎮壓／讓步 choice. Art-direction mocks:
+   source banner and the 鎮壓／讓步 choice. Canonical art-direction mocks:
    `contact-sheets/presentation_mock_battle_field.png` (一般地圖戰, 野戰郊野) and
    `presentation_mock_battle_riot.png` (內部暴動戰, 城內街壘) — the per-type backdrop is the
-   first thing that tells the player which battle this is (an earlier single-backdrop battle
-   mock in this folder is superseded).
+   first thing that tells the player which battle this is (no other battle mock in the folder
+   is canonical).
 
 - **One generation = one day**: operate → morning, route → midday, settle → dusk/night
   (whole-scene evening grade + lamp glows), next generation dawns. Time-of-day is an in-engine

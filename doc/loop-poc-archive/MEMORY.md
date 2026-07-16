@@ -1,3 +1,5 @@
+> **ARCHIVED: historical record of the closed repo-root loop PoC (project removed from the repo). Do not resume, execute, or update anything in this file.**
+
 # MEMORY.md — quirks & workarounds (append-only)
 
 Verified on this Mac (Apple M1 Pro, macOS 25.5, Godot 4.6.3) on 2026-06-17.

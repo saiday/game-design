@@ -1,6 +1,6 @@
 # Architecture contract (all implementation agents read this first)
 
-> **What this is:** the shared contract for the Insignificant PoC — module map, layering rules,
+> **What this is:** the shared contract for Insignificant — module map, layering rules,
 > GameState schema, naming glossary, determinism and test conventions. Design *content* (rules,
 > numbers, tables) lives in `design/` (snapshot of the Obsidian corpus, the single source of truth
 > for game rules). This doc only fixes *how the code is shaped* so parallel agents don't collide.
@@ -50,7 +50,7 @@
 | `democracy.gd` | `Democracy` | entry, candidate pool, funding, election, auto-run per generation (民主) |
 | `legacy.gd` | `Legacy` | legacy conditions + effect queries (Legacy) |
 | `ending.gd` | `Ending` | survival/collapse, ranking, epilogue pick (結局) |
-| `difficulty.gd` | `Difficulty` | difficulty formula: enemy scaling, event severity, rival params (poc-docs + design sync) |
+| `difficulty.gd` | `Difficulty` | difficulty formula: enemy scaling, event severity, rival params (doc + design sync) |
 | `turn.gd` | `Turn` | one-generation orchestrator: operate → route → node → settle; WW/democracy overrides |
 | `sim.gd` | `Sim` | scripted auto-player for full-run simulation/invariant tests |
 
@@ -105,7 +105,7 @@ var ww_results: Array                  # per-WW summary dicts
 var unrest_battles_this_gen: int
 var debt_unrest_mode: bool             # 國債司: debt consequence switches from -5 happiness to unrest weight
 var flags: Dictionary                  # misc one-shot flags (e.g. state_religion_decay ticks)
-# telemetry (balance calibration — the point of this PoC)
+# telemetry (balance calibration)
 var log: Array                         # per-generation snapshot dicts appended by Turn.settle
 ```
 
@@ -162,7 +162,7 @@ module — the Policy module owns tree structure/progression, not effect lookups
   ./addons/gdUnit4/runtest.sh -a res://test                     # exit 0 pass / 100 fail / 105 parse error
   ```
 
-## Key decisions log (each big one also gets a standalone file in poc-docs/)
+## Key decisions log (each big one also gets a standalone file in doc/)
 
 - **Nested Godot project** at `insignificant-game/` — the repo's only Godot project; the root is
   docs-only.

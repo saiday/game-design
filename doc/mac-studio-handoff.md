@@ -6,13 +6,10 @@
 > is only the ignition sequence. Session memory from the MacBook did NOT transfer; the cookbook
 > is deliberately self-contained.
 
-Phases 0-2 are closed (locked recipe, frozen UI templates, and font in
-`insignificant-game/assets/pipeline/style-bible.md`); Prompts 0-2 below are kept for the record.
-Phase 3 progress: the icon class is closed (74 glyphs approved) and the buildings class is
-closed (76 sprites frozen in `assets/approved/buildings/`); units, cards, and
-backgrounds/portraits remain (Prompt 3, one class per session). Prompt 4's first pass is in
-(registry + fonts + runtime chrome, both loop parts green) — it re-runs per newly approved
-class; the buildings re-run is in (operate-panel city strip, both loop parts green).
+Current phase status lives in the cookbook (§7 per-class status, details in the §14 findings
+log). Phases 0-2 are closed; their outcome is the locked recipe, frozen UI templates, and font
+in `insignificant-game/assets/pipeline/style-bible.md`. The live prompts below are Prompt 3
+(one Phase 3 class per session) and Prompt 4 (Godot integration, re-run per approved class).
 
 ## Human checklist (before each session)
 
@@ -57,46 +54,6 @@ launchctl print gui/$(id -u)/com.insignificant.comfyui | grep state
 curl -s 127.0.0.1:8188/system_stats >/dev/null && echo up || echo down
 ```
 
-## Prompt 0 — bring-up (done; kept for the record)
-
-```
-Read doc/image-assets-generation-orchestrator-cookbook.md in full, then run Phase 0 (bring-up):
-
-- ComfyUI is already installed on this machine and has Z-Image-Turbo installed. Find the installation, verify it serves the headless API per cookbook §3-§4 (adapt if it's the desktop app), and record the actual install layout in the findings log (§14).
-- Download the workhorse trio (SDXL base, fp16-fix VAE, pixel-art LoRA) and Z-Image-Turbo per the §3 model kit and download order. Verify each license page at download time; FLUX downloads are fallback-only per §3.
-- Prove the API round-trip: one SDXL image, fixed seed, workflow JSON saved under insignificant-game/assets/pipeline/workflows/. Then sanity-check Z-Image-Turbo the same way.
-- Never benchmark the first run after a model load (§11). Record real s/image timings, versions, and the Z-Image verdict in §14.
-- Create the assets/pipeline directory skeleton (§9) with pixelize.py from §5.
-- Commit and push when Phase 0's gate holds. If a step is blocked after honest effort, §12: stop
-  and report — a negative result is a valid result.
-```
-
-## Prompt 1 — style anchor (done; kept for the record — the outcome is the style bible)
-
-```
-Cookbook Phase 1 (style anchor), per §7:
-
-- Build assets/pipeline/inventory.md from the Obsidian corpus setting docs (see repo CLAUDE.md for the corpus path and doc list) — every needed asset, one line each, ids matching the corpus/core data tables.
-- Propose 3 master-palette candidates and per-class sprite grid sizes (§7 Phase 1 has a starting proposal — propose, don't decide).
-- Generate style boards: the same 3 subjects under 3 style recipes, pixelized per §5, assembled into labeled contact sheets (§9), committed and pushed.
-- Then STOP and present the boards to me. I pick the winner; you lock it into assets/pipeline/style-bible.md. The style bible only changes by my decision afterward.
-```
-
-## Prompt 2 — templates (done; kept for the record — the outcome is style bible §9-§10)
-
-```
-Cookbook Phase 2 (templates), per §6-§7: generate candidates for the five frozen structural
-assets in inventory.md "UI templates" — card frame (content-window rect recorded at freeze),
-panel 9-slice, button 9-slice, icon base plate, divider — under the locked style bible
-(assets/pipeline/style-bible.md): subject-only prompts, fixed seeds, §8 checks (watch for
-invented logo badges / fake signatures — tally this batch's rate and log it in §14). The
-target resolution is Full HD 1920×1080 (§10); still record the content-window rect and 9-slice
-margins relative to the generated image, never to screen pixels — scaling happens in-engine. Also propose 2-3 legible UI fonts with
-Traditional Chinese coverage (license-verified, OFL preferred) — the §6 font pick happens at
-this gate. Contact-sheet, commit, push, and STOP for my pick. Manual cleanup on chrome is
-allowed here (once). Frozen templates never regenerate after this gate (§12).
-```
-
 ## Prompt 3 — class pipelines (repeatable; one class per session is fine)
 
 ```
@@ -125,8 +82,8 @@ backgrounds/portraits). The batch contract, proven in Phases 1-2:
 
 ```
 Cookbook Phase 4 (Godot integration), per §10, target 1920×1080 (style bible §8). Read
-insignificant-game/CLAUDE.md, poc-docs/architecture.md and poc-docs/dev-loop.md before touching
-the project. Integrate ONLY manifest status=approved assets, per class:
+insignificant-game/CLAUDE.md, insignificant-game/doc/architecture.md and
+insignificant-game/doc/dev-loop.md before touching the project. Integrate ONLY manifest status=approved assets, per class:
 - Asset registry: one pure data-driven module maps asset id -> res:// texture path (icons
   icon_<id>, buildings building_<line>_era<n> derived from line id + current era; new classes
   slot in by the same id scheme). No node code computes paths; the view reads the registry.

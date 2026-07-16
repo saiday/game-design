@@ -3,7 +3,7 @@ extends RefCounted
 # 世界大戰 (design/世界大戰.md): generations 15/35, whole-generation override, two camps
 # from the relations ledger, reparations max(正國庫×50%, power×2) chargeable into negative.
 #
-# PoC simplification (documented in poc-docs): the common-table card battle is resolved as
+# PoC simplification (documented in doc): the common-table card battle is resolved as
 # an automated strength contest — camps/turn-order/merit/last-hit/reparations math is
 # faithful; individual card plays are not simulated. Player merit share uses player power.
 

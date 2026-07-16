@@ -31,8 +31,8 @@ export GODOT_DISABLE_LEAK_CHECKS=1 INSIG_DEMO=1 INSIG_SEED=1
 - Demo mode simulates the same click handlers a human uses, walks every phase panel, writes
   `captures/w5_*.png`, prints `ASSERT PASS/FAIL` lines, exits 0/1 (45 s watchdog).
 - Judge from the PNGs, not the exit code alone: hunt clipping / wrong scale / missing text /
-  stale labels (the taxonomy in root `doc/agent-development-loop.md` §3). Part B has already
-  caught a real defect once (stale phase titles) — take the review seriously.
+  stale labels (the taxonomy in root `doc/agent-development-loop.md` §3). Part B has caught
+  real defects that Part A passed, so take the review seriously.
 - Interactive play: same command without `INSIG_DEMO`.
 
 ## Balance batch (when tuning numbers)
@@ -42,15 +42,13 @@ cd /Users/saiday/projects/game-design/insignificant-game
 "$GODOT_BIN" --headless --path . -s tools/balance_batch.gd     # 60 runs → reports/balance_batch.json
 ```
 
-Compare against `poc-docs/balance-report.md` before/after a knob change.
+Compare against `doc/balance-report.md` before/after a knob change.
 
 ## Pitfalls (all hit for real in this repo)
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   21 suites / 188 cases (update this pin when suites are added). (Historical note: the repo root used to hold a second Godot project
-   whose 6 stale tests produced a convincing false green; it was removed 2026-07-08, so a wrong
-   cwd now fails loudly instead — keep the count check anyway.)
+   21 suites / 192 cases (update this pin when suites or cases are added).
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
 3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show

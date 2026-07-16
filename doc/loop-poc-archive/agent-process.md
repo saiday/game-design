@@ -1,3 +1,5 @@
+> **ARCHIVED: historical record of the closed repo-root loop PoC (project removed from the repo). Do not resume, execute, or update anything in this file.**
+
 # agent-process.md — setup recipe + journey log
 
 Concise, reproducible record so the environment can be ported to another machine.

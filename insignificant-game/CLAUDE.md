@@ -1,22 +1,23 @@
-# CLAUDE.md — insignificant-game (full-game PoC of "Insignificant")
+# CLAUDE.md — insignificant-game (the production game "Insignificant")
 
 Godot **4.6** / **GDScript** (never C#) / **2D**. A civilization-management × StS-style
 deckbuilder: 50 generations, survive to the end = win, pop<5 = the only game over. This is the
-**full-game simulation PoC** — every system implemented as pure logic under a two-part
-verification loop, built to calibrate the design's v1 baseline numbers. This directory is the
-repo's ONLY Godot project (the root is docs-only) — always `cd` here before running anything.
+**production codebase** (grown directly from the full-game PoC, not a rewrite): every system
+implemented as pure logic under a two-part verification loop; the v1 baseline numbers are
+calibrated by simulation and playtesting. This directory is the repo's ONLY Godot project (the
+root is docs-only) — always `cd` here before running anything.
 
 ## Read in this order (don't code before 1–2)
 
-1. `poc-docs/architecture.md` — **the contract.** Layering rules, module map, GameState schema,
+1. `doc/architecture.md` — **the contract.** Layering rules, module map, GameState schema,
    canonical StringName IDs (24 policy nodes / 12 building lines / regions / legacies / rival
    classes), 中→EN glossary, cross-module API pins, test conventions. Everything below is a
    summary of it or an exception to nothing in it.
-2. `poc-docs/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
+2. `doc/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
    that actually bit (cwd trap, exit-105 class_name cache, determinism rules…).
 3. `design/` — the 15 game-rule docs (snapshot; see "Design authority" below). The system you're
    touching, plus anything it feeds (each doc's intro lists 被誰餵/餵給誰).
-4. `poc-docs/PLAN.md` — task board & wave history; the recovery point after any interruption.
+4. `doc/PLAN.md` — task board & wave history; the recovery point after any interruption.
 
 ## Design authority chain
 
@@ -25,12 +26,12 @@ repo's ONLY Godot project (the root is docs-only) — always `cd` here before ru
   `design/` here is a read-only snapshot — after any corpus edit, re-copy the changed files in.
 - Corpus status is 定稿: structure/rules/links locked; **numbers are v1 baseline knobs** —
   calibration changes values, never structure. Fun/balance calls belong to the PM: measure with
-  the sim, surface findings (`poc-docs/balance-report.md`), don't decide.
+  the sim, surface findings (`doc/balance-report.md`), don't decide.
 - **Doc ↔ code metadata:** every corpus doc's frontmatter has a `code:` list naming its module /
   data table / test suite; every module's header comment cites its `design/*.md`. When you move
   or add files, update BOTH directions in the same change.
 - Where the design is silent, decide conservatively and log it — one row/file under
-  `poc-docs/decision-*.md` (see `decision-starting-values.md`, `decision-w2-gaps.md`,
+  `doc/decision-*.md` (see `decision-starting-values.md`, `decision-w2-gaps.md`,
   `decision-w3-w5-gaps.md` for the format and everything already decided). Never invent mechanics.
 
 ## Non-negotiables
@@ -54,10 +55,10 @@ repo's ONLY Godot project (the root is docs-only) — always `cd` here before ru
 
 ## Working loop
 
-edit → Part A → (view touched? Part B) → update `poc-docs/PLAN.md` + relevant decision doc →
+edit → Part A → (view touched? Part B) → update `doc/PLAN.md` + relevant decision doc →
 commit with a gate-stating message (`git log --oneline` shows the house style: what went green,
 counts, exit code). Stage specific paths — the repo root's `doc/prompts.md` churns every turn.
-Numbers changed? Run the balance batch and diff against `poc-docs/balance-report.md`.
+Numbers changed? Run the balance batch and diff against `doc/balance-report.md`.
 
 ## Map
 
@@ -68,5 +69,5 @@ Numbers changed? Run the balance batch and diff against `poc-docs/balance-report
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
 | `doc/difficulty-design.md` | difficulty formula + rationale (synced into the corpus) |
-| `poc-docs/` | contract, dev loop, task board, decision log, balance report |
+| `doc/` | contract, dev loop, task board, decision log, balance report |
 | root `doc/agent-development-loop.md` | the generic two-part-loop doctrine this project rides on |

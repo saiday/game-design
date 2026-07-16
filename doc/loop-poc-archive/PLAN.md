@@ -1,3 +1,5 @@
+> **ARCHIVED: historical record of the closed repo-root loop PoC (project removed from the repo). Do not resume, execute, or update anything in this file.**
+
 # PLAN.md — PoC task list + verification gates + status
 
 > Existence of this file = **resume, skip scaffold** (companion §6b).

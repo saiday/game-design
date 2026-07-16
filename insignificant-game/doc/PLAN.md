@@ -1,9 +1,9 @@
-# PoC build plan & task board (durable recovery state)
+# Build plan & task board (durable recovery state)
 
-> **If you are resuming after an interruption:** this file + git log is the truth. Find the first
-> unchecked gate below, verify the previous gate actually holds (run Part A; run Part B if past W5),
-> and continue from there. Guideline: `doc/poc-implementation-guidelines.md` Part 1 (repo root).
-> Contract: `poc-docs/architecture.md`. Design: `design/` (snapshot; Obsidian corpus is upstream).
+> **If you are resuming after an interruption:** this file + git log is the truth. Find the
+> first unchecked task below, verify the previous gate actually holds (run Part A; run Part B if
+> the view is involved), and continue from there. Contract: `doc/architecture.md`.
+> Dev loop: `doc/dev-loop.md`. Design: `design/` (snapshot; Obsidian corpus is upstream).
 
 ## Method
 
@@ -13,7 +13,20 @@ runs race on `.godot/`). After each wave the driver runs the import warm-up + fu
 fixers if red, and only checks the wave off when **exit 0 with all suites executed**. Commit after
 every green wave.
 
-## Waves
+## Production board
+
+- [ ] **W10 — Three-scene view revamp (style bible §11 + corpus 場景呈現).** Operations city
+      panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
+      focus navigation), route fog-map scene, per-battle-type battle scene. Needs the backgrounds
+      class plates (`bg_route_map`, `bg_battle_*`, `bg_city_era*` per inventory.md) approved
+      first; interface behavior iterates in-engine on Part B captures (no more interface mocks).
+
+## Closed: PoC waves W0–W9 (record; all gates passed)
+
+The full-game PoC closed with W9: 19 core modules + 7 data tables + view/capture all green,
+192/192 cases over 21 suites, exit 0. The codebase continued into production without a rewrite.
+Per-module status lives in the suite names (one suite per module); the old module table is
+retired.
 
 - [x] **W0 — Scaffold.** Nested project + gdUnit4 + `.gdignore` isolation + design snapshot +
       architecture contract + this board. Gate: smoke test 2/2, exit 0. *(done 2026-07-07)*
@@ -23,9 +36,8 @@ every green wave.
 - [x] **W2 — Inner systems (workflow, 6 agents; economy owns happiness too).** `economy.gd` +
       `happiness.gd`, `operations.gd` (+ `data/buildings.gd`), `policy.gd` (+ `data/policy_nodes.gd`),
       `unrest.gd`, `cards.gd` (+ `data/cards.gd`), `map_nodes.gd` (+ `data/opportunities.gd`).
-      Gate: Part A green. *(done 2026-07-08: 99/99, 11 suites, exit 0. First workflow attempt
-      died on usage limits; data tables salvaged from it, logic+tests finished inline by the
-      driver one module at a time. Gap decisions: decision-w2-gaps.md.)*
+      Gate: Part A green. *(done 2026-07-08: 99/99, 11 suites, exit 0. Gap decisions:
+      decision-w2-gaps.md.)*
 - [x] **W3 — Outer systems.** `rivals.gd` (+ `data/rivals.gd`), `battle.gd` (enemy specs inline),
       `world_war.gd`, `democracy.gd` (+ `data/candidates.gd`), `legacy.gd`,
       `ending.gd` (+ `data/epilogues.gd`). Gate: Part A green. *(done 2026-07-08 inline by the
@@ -42,7 +54,7 @@ every green wave.
       Gate: all 8 phase captures written, 0 ASSERT FAIL, exit 0, taxonomy review clean.
       *(done 2026-07-08. Part B caught a real defect — stale phase titles on WW/ending — fixed.)*
 - [x] **W6 — Balance instrumentation + wrap.** `tools/balance_batch.gd` (60 seeded runs ×3
-      difficulties) -> `poc-docs/balance-report.md` (three knobs measured; surfaced: no late-game
+      difficulties) -> `doc/balance-report.md` (three knobs measured; surfaced: no late-game
       money sink, happiness pegs at 100, rival churn high, zero collapses in 60 runs);
       `decision-w3-w5-gaps.md` completes the decision log. *(done 2026-07-08; final Part A
       181/181 exit 0.)*
@@ -65,41 +77,12 @@ every green wave.
       an 內亂型 battle in which any 機械型部隊卡 was played ends with 幸福 −15, win or lose, once
       per battle (design source: 戰鬥.md / 內亂與失敗.md / 幸福.md). Gate: Part A green.
       *(done 2026-07-15: 192/192, 21 suites, exit 0)*
-- [ ] **W10 — Three-scene view revamp (style bible §11 + corpus 場景呈現).** Operations city
-      panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
-      focus navigation), route fog-map scene, per-battle-type battle scene. Needs the backgrounds
-      class plates (`bg_route_map`, `bg_battle_*`, `bg_city_era*` per inventory.md) approved
-      first; interface behavior iterates in-engine on Part B captures (no more interface mocks).
-
-## Module status (agents/driver: flip these as suites go green)
-
-| Module | Written | Tests green | Notes |
-|---|---|---|---|
-| rng | ✓ | ✓ | |
-| era | ✓ | ✓ | |
-| game_state | ✓ | ✓ | schema may gain fields via module reports |
-| economy | ✓ | ✓ | |
-| operations | ✓ | ✓ | |
-| policy (+data) | ✓ | ✓ | per-node progress banking (換節點保留進度) |
-| happiness | ✓ | ✓ | |
-| unrest | ✓ | ✓ | |
-| cards (+data) | ✓ | ✓ | |
-| map_nodes (+data) | ✓ | ✓ | |
-| rivals (+data) | ✓ | ✓ | power-scalar mappings are driver decisions (data/rivals.gd) |
-| battle (+data) | ✓ | ✓ | hand system (open 4 / draw 1) is a driver decision |
-| world_war | ✓ | ✓ | automated resolution (simplification) |
-| democracy (+data) | ✓ | ✓ | money deltas ×coeff; auto-explore 15×coeff/node |
-| legacy | ✓ | ✓ | passive magnitudes are driver v1 values |
-| ending (+data) | ✓ | ✓ | collapse epilogue text is a driver addition |
-| difficulty | ✓ | ✓ | |
-| turn | ✓ | ✓ | |
-| sim | ✓ | ✓ | |
-| view/main + capture | ✓ | ✓ | demo mode = embedded capture script (Part B) |
 
 ## Standing rules
 
-- Both loop parts before "done" (headless green ≠ done; W5 gate is mandatory).
+- Both loop parts before "done" (headless green ≠ done; the Part B gate discipline from W5
+  onward is mandatory for anything the view touches).
 - Static typing; pure core; view computes nothing.
 - Commit after each green gate; stage specific paths (`doc/prompts.md` churns every turn).
 - Balance/fun questions → surface to PM, don't decide (numbers in design/ are v1 baselines;
-  the sim exists to *measure* them, recommendations go in the W6 report).
+  the sim exists to *measure* them, recommendations go in `doc/balance-report.md`).
