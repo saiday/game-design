@@ -181,7 +181,9 @@ review contact sheets.
 ## 7. Phase plan
 
 Phases are gate-ordered: **never claim a later gate before an earlier one holds.** A dynamic
-workflow may interleave work, but gates close in order.
+workflow may interleave work, but gates close in order. **This section is the single
+current-state status surface**: one status phrase per phase/class here; dates, pick numbers,
+and evidence live in §14 and git history. Update the status phrase whenever a gate moves.
 
 **Phase 0 — Bring-up** (**closed**): ComfyUI serving the JSON API with reproducible seeded
 workflows; install layout and timings in §14.
@@ -198,25 +200,24 @@ and frozen into `assets/approved/ui/` with measured geometry (style bible §9); 
 frozen templates never regenerate.
 
 **Phase 3 — Class pipelines**, in this order (volume × risk):
-1. **UI icons** (**closed**: all 75 glyphs frozen in `assets/approved/icons/`; population /
-   era3 / bp re-picked at the 44px expressiveness gate and map_opportunity added, human picks
-   2026-07-14, `phase3_icons_refreeze.py`) — glyphs on the frozen base plate. Judge icon
-   expressiveness at 44px HUD size, never at sheet size (§14).
+1. **UI icons** (**closed**: all 75 glyphs frozen in `assets/approved/icons/`) — glyphs on the
+   frozen base plate. Judge icon expressiveness at 44px HUD size, never at sheet size (§14).
 2. **Buildings & units ×6 eras** — the volume class. Per building line: era N approved sprite
    seeds era N+1 via img2img lineage (§6); **era-gated waves** (`phase3_buildings_wave.py` +
    `phase3_building_chains.json`): each era is §8-reviewed before it seeds the next, because
-   artifacts propagate down chains (§14). Buildings status: **closed** — every line frozen
-   (76 sprites in `assets/approved/buildings/`: the 12 building lines plus the core line; bank
-   and debt_office carry the researched iconography from §14 2026-07-13, human chain picks
-   bank 71 / debt_office 73). Units not started.
-3. **Card illustrations** — per card in `卡牌`, produced to the frozen content-window rect;
-   highest quality bar, human reviews in smaller batches.
+   artifacts propagate down chains (§14). Buildings: **closed** (76 sprites frozen in
+   `assets/approved/buildings/`: the 12 building lines plus the core line). Units:
+   **not started**.
+3. **Card illustrations** (**not started**) — per card in `卡牌`, produced to the frozen
+   content-window rect; highest quality bar, human reviews in smaller batches.
 4. **Backgrounds & portraits** — low volume, large canvas; generated under the style-bible recipe
    like everything else (~170 s/image on Krea 2 is fine at this volume). Scope follows the
    three-scene model (style bible §11, corpus 場景呈現 sections): per-era city plates, the route
    fog-map plate, one battlefield per battle type, title + endings — 17 plates in
-   `inventory.md` Backgrounds. Landscape subjects REQUIRE the style-carrying suffix (§14
-   2026-07-14) or they render photoreal.
+   `inventory.md` Backgrounds. Landscape subjects REQUIRE the style-carrying suffix (§14)
+   or they render photoreal. Backgrounds: **generation complete, pick gate OPEN** (human picks
+   one city era chain and one seed per plate row from the committed contact sheets). Portraits:
+   **not started**.
 
 **Phase 4 — Godot integration**: §10, runs per approved class. Target resolution: **Full HD
 1920×1080**. First pass is in (`core/data/asset_paths.gd` registry, Noto Sans TC subsets,
@@ -270,7 +271,7 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
 ## 10. Godot integration
 
 - **Render resolution: Full HD 1920×1080** — the PoC window runs it (wired with the first
-  approved classes); core is resolution-blind (`poc-docs/architecture.md`). Assets are high-res
+  approved classes); core is resolution-blind (`doc/architecture.md`). Assets are high-res
   illustrations — default (linear) texture filtering, lossless PNG import. Templates record
   rects/margins relative to the generated image, not screen pixels — scaling happens in-engine.
 - **The registry is `core/data/asset_paths.gd`** (pure id→path table + frozen-template geometry,
@@ -280,7 +281,7 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
   illustration texture + `Label` text (UI font, §6) — never single baked PNGs. `view/main.gd`
   holds the working patterns (styleboxes from templates, glyph-on-plate badges, card widget).
 - Wire assets data-driven (path derived from id + era), matching the pure-core architecture —
-  read `insignificant-game/CLAUDE.md` and `poc-docs/architecture.md` before touching scenes, and
+  read `insignificant-game/CLAUDE.md` and `doc/architecture.md` before touching scenes, and
   run **both loop parts** (headless tests + Part B capture) after wiring.
 - Keep the corpus `code:` frontmatter convention: if you add asset tables/modules, map them.
 
@@ -352,3 +353,4 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
 | 2026-07-15 | **Backgrounds review round 2 — the micro-sweep rule, and two carrier classes that survive carrier-removal wording.** (1) **Micro-scale dirty-parent propagation**: chain 51's era-1 root passed its original review carrying ~30px inventions (a frog, a hanging banded object, a smiley-face boulder); era-2 amplified them into white blobs, era-3 into tents and a micro-house — each child re-amplifies differently, so whack-a-mole re-rolling mid-chain never converges. Standing rule: **6-8 zoom crops (3-9x) over the path/mid-band and all corners before ANY parent is locked; a dirty lineage rebuilds from the root.** (2) **Empty terrain bands are object magnets**: era-1's open flanks drew formed roads 2/2 (one with a smoke plume) — occupied flanks ("unbroken drifts of tall wild grass") fixed the roads on the next roll, but the same roll invented a sky blob-cascade (two blobs glyph-shaped) and tent-like domes across the "wide flat empty meadow" — the meadow is the next empty carrier; sky artifacts are a new low-rate class worth a dedicated zoom. (3) **Real-world traffic signage rides the "paved road" prior, not the seed**: era-5 drew hazard boards / warning triangles / striped discs 3/3 across two denoise levels — 0.42 (the "hug the clean parent" lever) killed the invented cottages/cars/villages but NOT the signage; fix attempt = rename the surface ("cobbled stone road"), since cobble predates signage. (4) **Blank ruin stone is an inscription magnet and "monument" carries a gravestone prior**: ending_collapse rejected 3/3 on a gravestone cross, a carved pseudo-inscription, and corner doodle-glyphs (heart + curls in signature position); v2 renames monument → stone obelisk and occupies the faces with thick ivy/moss. (5) Letterform rejects this round: title wall "LLHE/DE" rows, ending_survive white-band rows — both at 8-9x zoom; **the zoom-before-verdict rule flips readings in BOTH directions** (cap letterforms → stitch creases, boat → shoreline bush; but wall marks → crisp letter rows). |
 | 2026-07-15 | **Detached drivers look dead when they aren't — verify liveness with `pgrep -fl`, and verify the queue with `/queue`, before ever resubmitting.** False alarm anatomy from today: (1) python stdout to a redirected log is block-buffered, so a driver's log can sit at a bare job-gate line ("=== <stem>") for 20+ minutes while the driver is healthy and mid-poll — the `submitted prompt_id=` line only flushes later; (2) a `ps aux | grep` returned a false empty (rtk-hook interaction) and "confirmed" the death; (3) resubmitting the "lost" jobs then DOUBLE-QUEUED them against the still-alive drivers. Correct diagnosis order: `pgrep -fl runner\|backgrounds_batch` for liveness, decode `/queue` (SaveImage `filename_prefix` per item) for what is actually queued, and only then resubmit what is truly missing. Dedup recovery: kill the redundant drivers FIRST (a poller whose job is deleted retries once and resubmits), then POST `/queue {"delete": [prompt_ids]}` for the surplus copies, keeping one copy per stem and preferring the driver that writes chain state. Also true: queue `done in` times include queue WAIT, not just render (a 1365s line is a busy queue, not a slow GPU); and fire-and-forget single-job submissions remain fine for independent txt2img plates where no state write is needed. |
 | 2026-07-16 | **Backgrounds generation COMPLETE, pick gate OPEN: 18-cell city era grid (3 chains × 6 eras) + all 11 txt2img plate rows §8-clean** (`contact-sheets/phase3_backgrounds_city.png`, `..._plates.png`; the human picks ONE city chain and one seed per plate row). Chain 51 was rebuilt from its s89 root and consumed ~30 rolls for 6 cells; the fight distilled four standing rules. (1) **Denoise doctrine for era transitions: 0.42 is the sweet spot, 0.35 is below the useful floor** (at 0.35 the parent's rock/bush blobs get REINTERPRETED as whimsy objects: crates, toy creatures, trestle tables, and large marker transforms stall, e.g. truss-to-white-arch regressed; 0.5 is only safe over clean-composition parents). (2) **"Name the slot's desire in benign form" is the universal slot-closer**: empty verticals and band-ends attract inventions, and occupying them with a named benign object of the same family killed every recurring class (bridge ends → capped stone pillars, pillar tops → plain stone balls, path edges → pale curbstones, path verges → low plain stone waymark pillars, lane vanishing points → plain wooden field gates, horizon band → unbroken dense wild forest treeline, meadow surface → "completely deserted meadow of plain unbroken short grass"). Denial-only pins ("empty", "deserted") leave the surface unnamed and keep breeding occupants. (3) **Parent composition can outweigh wording**: chain 51's first era-2 parent (s103) bred era-3 occupants 0/5 across three wordings while sibling chains passed the same wording first-roll; retiring the parent fixed what rewording could not. Same signature cross-chain: the era-6 sign generator rode chain 52's s95 parent (4 straight sign rejects) while chain 53's parent rolled zero signs on identical wording. Diagnose parent-vs-wording by comparing chains before burning wording versions. (4) **Token-level carriers found this class**: "cart ruts" implies the horses that cut them (livestock 3/5 until removed), "hazy" sky carries floaters (balloons 2/3), fence lines reading as paddocks demand grazers ("lined with" binds fences to the road), roads/lanes demand destinations at their vanishing points. Adjudication line pinned: readable-surface objects (sign panels, plaques, inset roundels, lettering) are hard rejects; blunt panel-less posts/pillars/gates pass with a note; ambiguous-at-9-14x is not a confident defect. Ops hardening: the chain-state JSON is clobber-prone (every driver exit dumps its stale full dict, observed reverting sibling cells repeatedly), so verify the parent cell in the JSON immediately before EVERY dependent launch and run one authoritative re-pin pass before building sheets; a queued render's true parent is verifiable by decoding `/queue` workflow JSON (LoadImage `image` + SaveImage `filename_prefix`). |
+| 2026-07-16 | **Backgrounds gate picks executed, class CLOSED: all 17 plates frozen in `assets/approved/backgrounds/`** (city = chain 52 whole row s63/s63/s65/s52/s95/s120; plate picks route_map s51, battle_tax s53, battle_field s53, battle_hidden s52, battle_riot s57, battle_democracy s57, battle_civwar s54, battle_worldwar s52, title s51, ending_survive s52, ending_collapse s79). Backgrounds freeze = straight full-frame copy (no keying); `phase3_backgrounds_freeze.py` reads each pick's prompt/seed/denoise/lineage from the PNG's EMBEDDED workflow metadata, the render-time truth, so manifest rows stay honest even after the batch wording iterates past what a picked seed rendered with. W10 (three-scene view revamp) unblocked; remaining art classes: units, cards, portraits. |
