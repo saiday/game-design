@@ -1,0 +1,302 @@
+{
+ "infantry": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_infantry_e1_s181",
+    "seed": 181,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_infantry_e1_s82",
+    "seed": 82,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_infantry_e1_s83",
+    "seed": 83,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_infantry_e1_s84",
+    "seed": 84,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "archers": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_archers_e1_s281",
+    "seed": 281,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a Y-shaped wooden slingshot forward at arm's length, two thick leather bands stretched from the fork tips back to a small leather pouch pulled at the cheek, a round gray stone bulging in the pouch, a small hide pouch of stones on each belt, red feathers tied in their hair, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_archers_e1_s282",
+    "seed": 282,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a Y-shaped wooden slingshot forward at arm's length, two thick leather bands stretched from the fork tips back to a small leather pouch pulled at the cheek, a round gray stone bulging in the pouch, a small hide pouch of stones on each belt, red feathers tied in their hair, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_archers_e1_s283",
+    "seed": 283,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a Y-shaped wooden slingshot forward at arm's length, two thick leather bands stretched from the fork tips back to a small leather pouch pulled at the cheek, a round gray stone bulging in the pouch, a small hide pouch of stones on each belt, red feathers tied in their hair, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_archers_e1_s284",
+    "seed": 284,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a Y-shaped wooden slingshot forward at arm's length, two thick leather bands stretched from the fork tips back to a small leather pouch pulled at the cheek, a round gray stone bulging in the pouch, a small hide pouch of stones on each belt, red feathers tied in their hair, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "cavalry": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_cavalry_e1_s81",
+    "seed": 81,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_cavalry_e1_s82",
+    "seed": 82,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_cavalry_e1_s183",
+    "seed": 183,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_cavalry_e1_s84",
+    "seed": 84,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "engineers": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_engineers_e1_s81",
+    "seed": 81,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_engineers_e1_s82",
+    "seed": 82,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_engineers_e1_s83",
+    "seed": 83,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_engineers_e1_s184",
+    "seed": 184,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "shield_wall": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_shield_wall_e1_s81",
+    "seed": 81,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_shield_wall_e1_s82",
+    "seed": 82,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_shield_wall_e1_s83",
+    "seed": 83,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_shield_wall_e1_s84",
+    "seed": 84,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "trench": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_trench_e1_s281",
+    "seed": 281,
+    "prompt": "a single freestanding rounded mound of dug brown earth, a wide dark pit opening in its top with rows of sharpened wooden stakes pointing up from inside, a thin lattice of branches and leaves half covering the opening, loose dirt crumbs around the mound base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_trench_e1_s282",
+    "seed": 282,
+    "prompt": "a single freestanding rounded mound of dug brown earth, a wide dark pit opening in its top with rows of sharpened wooden stakes pointing up from inside, a thin lattice of branches and leaves half covering the opening, loose dirt crumbs around the mound base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_trench_e1_s283",
+    "seed": 283,
+    "prompt": "a single freestanding rounded mound of dug brown earth, a wide dark pit opening in its top with rows of sharpened wooden stakes pointing up from inside, a thin lattice of branches and leaves half covering the opening, loose dirt crumbs around the mound base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_trench_e1_s284",
+    "seed": 284,
+    "prompt": "a single freestanding rounded mound of dug brown earth, a wide dark pit opening in its top with rows of sharpened wooden stakes pointing up from inside, a thin lattice of branches and leaves half covering the opening, loose dirt crumbs around the mound base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "anti_air": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_anti_air_e1_s181",
+    "seed": 181,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_anti_air_e1_s182",
+    "seed": 182,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_anti_air_e1_s283",
+    "seed": 283,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_anti_air_e1_s284",
+    "seed": 284,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "enemy_weak": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_enemy_weak_e1_s81",
+    "seed": 81,
+    "prompt": "a lone ragged raider in patchy furs swinging a crude stone axe, bone charms on a cord, charcoal war paint stripes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_enemy_weak_e1_s82",
+    "seed": 82,
+    "prompt": "a lone ragged raider in patchy furs swinging a crude stone axe, bone charms on a cord, charcoal war paint stripes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_enemy_weak_e1_s83",
+    "seed": 83,
+    "prompt": "a lone ragged raider in patchy furs swinging a crude stone axe, bone charms on a cord, charcoal war paint stripes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_enemy_weak_e1_s84",
+    "seed": 84,
+    "prompt": "a lone ragged raider in patchy furs swinging a crude stone axe, bone charms on a cord, charcoal war paint stripes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "enemy_mid": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_enemy_mid_e1_s81",
+    "seed": 81,
+    "prompt": "two identical fierce raiders in dark hides and bone-plate armor with jagged obsidian-edged clubs and hide shields, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_enemy_mid_e1_s82",
+    "seed": 82,
+    "prompt": "two identical fierce raiders in dark hides and bone-plate armor with jagged obsidian-edged clubs and hide shields, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_enemy_mid_e1_s83",
+    "seed": 83,
+    "prompt": "two identical fierce raiders in dark hides and bone-plate armor with jagged obsidian-edged clubs and hide shields, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_enemy_mid_e1_s84",
+    "seed": 84,
+    "prompt": "two identical fierce raiders in dark hides and bone-plate armor with jagged obsidian-edged clubs and hide shields, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ },
+ "enemy_hard": {
+  "81": {
+   "1": {
+    "stem": "p3_unit_enemy_hard_e1_s81",
+    "seed": 81,
+    "prompt": "a hulking brute chieftain in heavy bone-and-hide armor swinging a massive stone maul, trophy horns mounted on his shoulders, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "1": {
+    "stem": "p3_unit_enemy_hard_e1_s82",
+    "seed": 82,
+    "prompt": "a hulking brute chieftain in heavy bone-and-hide armor swinging a massive stone maul, trophy horns mounted on his shoulders, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "1": {
+    "stem": "p3_unit_enemy_hard_e1_s83",
+    "seed": 83,
+    "prompt": "a hulking brute chieftain in heavy bone-and-hide armor swinging a massive stone maul, trophy horns mounted on his shoulders, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "1": {
+    "stem": "p3_unit_enemy_hard_e1_s84",
+    "seed": 84,
+    "prompt": "a hulking brute chieftain in heavy bone-and-hide armor swinging a massive stone maul, trophy horns mounted on his shoulders, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  }
+ }
+}
