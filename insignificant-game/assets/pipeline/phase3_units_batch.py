@@ -59,7 +59,7 @@ LINES = {
     ],
     "engineers": [
         "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands",              # 修路隊
-        "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam, one swinging a big wooden mallet, a plain red cloth strip tied to a survey stake",  # 築城匠
+        "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam with a plain red cloth strip tied around its end, one swinging a big wooden mallet",  # 築城匠 (v2: "survey stake" rendered as a striped range-pole/rocket with a glowing tip on all 4 seeds — remove the freestanding-pole slot, move the red carrier onto the beam)
         "three identical sappers in iron helmets pushing a wheeled wooden mantlet shed of rough planks, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes",  # 攻城工兵
         "three identical soldiers in plain gray uniforms with red collar trim, one carrying a wooden plank bridge section, one a shovel, one a coil of wire",        # 工兵營
         "a yellow armored engineering vehicle with a bulldozer blade and a crane arm, two identical soldiers in olive uniforms and steel helmets walking beside it", # 機械化工兵
