@@ -20,12 +20,16 @@ every green wave.
 > replaced: no hand, enemy waves, tick timelines, cards as rolled instances that grow. Do not
 > reopen those decisions while executing; surface a design question instead.
 
-- [ ] **W10 — Corpus rewrite (design truth first; no code).** `卡牌.md`, `戰鬥.md`, `營運.md`,
+- [x] **W10 — Corpus rewrite (design truth first; no code).** `卡牌.md`, `戰鬥.md`, `營運.md`,
       `對手文明.md` in the Obsidian corpus, then re-copy into `design/`, then fix `code:`
       frontmatter both directions. Gate: human reads and accepts the four docs; 手牌 / 部隊位 /
       同時結算 appear **only as explicit negations** (「沒有手牌、沒有抽牌」), never as live rules.
       **Corpus before code is not negotiable** — every mechanic this rewrite removes was built by
-      an agent resolving a doc contradiction alone.
+      an agent resolving a doc contradiction alone. *(done 2026-07-17: four docs rewritten,
+      `design/` snapshot re-copied byte-identical, human accepted. `code:` frontmatter unchanged —
+      no modules moved yet; W11–W14 own the reverse direction. Carries 3 open items into W11:
+      ~30 agent-authored v1 baselines, 老兵 / 兵營 勳章 don't name which stat they raise, no
+      adversarial validation pass.)*
 - [ ] **W11 — Card model.** `cards.gd` instances (innate accuracy/dodge/speed rolled at
       acquisition), `data/cards.gd` distributions, `game_state.gd` deck of instances. 攻/血 stay
       fixed per type+era. Gate: Part A green on `cards_test`; rolls deterministic under a seed.
