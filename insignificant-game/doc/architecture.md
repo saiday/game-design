@@ -121,6 +121,20 @@ Derived values are functions, not stored fields: `Operations.bp_income(state)`,
 (democracy rename of treasury, same pool) · 資本利得 capital gains · 國寶 national treasure
 · 工事 fortification · 人數型/機械型/技能 personnel/mechanical/skill cards.
 
+### Battle model terms (see `doc/plan-battle-model-rewrite.md` for the locked design)
+
+攻 `attack` (**= power**; one concept, fixed per card type+era, never rolls) · 血 `hp` (fixed per
+type+era; "how many men") · **innate three** `accuracy` / `dodge` / `speed` (rolled per card
+*instance* at acquisition; "how good these particular men are") · 勳章 `medal` (a growth award,
+never called a card) · 老兵 `veterancy` (軍事區's 基礎被動) · **wave** (one scheduled enemy
+commitment inside a battle) · **tick** (atomic time unit inside a 回合) · **timeline** (the
+complete tick-stamped event list core emits per round; the view replays it and decides nothing) ·
+**exhaustion** (the defeat condition: field empty AND nothing left to commit) · 回合 `round` (a
+fixed tick window; deployment, 軍費, and wave arrival all happen at its boundary).
+
+**Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots), 同時結算 (simultaneous resolution).
+If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003.
+
 ## Canonical IDs (StringName; use these exactly — never invent variants)
 
 **Regions (5):** `livelihood` 民生 · `academic` 學術 · `military` 軍事 · `culture` 文化 · `finance` 金融

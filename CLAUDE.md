@@ -71,3 +71,17 @@ A sibling clone (`../Slay-The-Robot/`, MIT, **same stack: Godot 4.6 / GDScript /
 - **Save / mod:** `SerializableData` + `autoload/FileLoader.gd`.
 
 **Reference only — never lift code.** It has **no automated tests** and its logic is coupled to ~13 autoload singletons (`Global`, `Signals`, `ActionHandler`, `HandManager`…). Copying it imports that coupling and breaks our non-negotiable (pure, GUI-free, headless-testable). So: borrow the **design + data shapes**, re-express them as pure `RefCounted`/static fns under our two-part loop. (Cosmetic: it renders `gl_compatibility` @1200×700 vs our Forward+/Metal — don't expect pixel-identical behavior; our shipped resolution is Full HD 1920×1080.)
+
+## Agent skills
+
+### Issue tracker
+
+Issues and PRDs live as GitHub issues in `saiday/game-design`, via the `gh` CLI. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The five canonical triage roles, each label string equal to its name. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.

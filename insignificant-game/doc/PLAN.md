@@ -15,11 +15,37 @@ every green wave.
 
 ## Production board
 
-- [ ] **W10 — Three-scene view revamp (style bible §11 + corpus 場景呈現).** Operations city
-      panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
-      focus navigation), route fog-map scene, per-battle-type battle scene. Needs the backgrounds
-      class plates (`bg_route_map`, `bg_battle_*`, `bg_city_era*` per inventory.md) approved
-      first; interface behavior iterates in-engine on Part B captures (no more interface mocks).
+> **Read `doc/plan-battle-model-rewrite.md` before starting W10–W15.** It holds the locked design
+> (D1–D16), the glossary, the retired-terms list, and the blast radius. The battle model is being
+> replaced: no hand, enemy waves, tick timelines, cards as rolled instances that grow. Do not
+> reopen those decisions while executing; surface a design question instead.
+
+- [ ] **W10 — Corpus rewrite (design truth first; no code).** `卡牌.md`, `戰鬥.md`, `營運.md`,
+      `對手文明.md` in the Obsidian corpus, then re-copy into `design/`, then fix `code:`
+      frontmatter both directions. Gate: human reads and accepts the four docs; 手牌 / 部隊位 /
+      同時結算 appear **only as explicit negations** (「沒有手牌、沒有抽牌」), never as live rules.
+      **Corpus before code is not negotiable** — every mechanic this rewrite removes was built by
+      an agent resolving a doc contradiction alone.
+- [ ] **W11 — Card model.** `cards.gd` instances (innate accuracy/dodge/speed rolled at
+      acquisition), `data/cards.gd` distributions, `game_state.gd` deck of instances. 攻/血 stay
+      fixed per type+era. Gate: Part A green on `cards_test`; rolls deterministic under a seed.
+- [ ] **W12 — Battle model.** Wave schedule roll, tick loop, event timeline emission, exhaustion
+      win check, survivor persistence. Delete the hand (`OPENING_HAND`, draw/discard piles,
+      `play_card(hand_index)`) and the simultaneous resolver. Gate: Part A green on `battle_test`;
+      timeline deterministic and replayable from a seed.
+- [ ] **W13 — Growth.** Per-stat XP, 勳章 from both sources (battle-automatic, 兵營-assigned),
+      軍事區 老兵 veterancy, 文化國 accuracy debuff. Rewires `operations.gd` + `rivals.gd`.
+      Gate: Part A green on `cards_test`, `operations_test`, `rivals_test`.
+- [ ] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
+      back to exit 0, balance batch recalibrated. Gate: Part A exit 0 all suites executed;
+      `test_determinism_same_seed_same_run` green; findings surfaced to PM in
+      `doc/balance-report.md` (measure, don't tune to taste).
+- [ ] **W15 — Three-scene view revamp (style bible §11 + corpus 場景呈現; was W10).** Operations
+      city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
+      focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route fog-map
+      scene, per-battle-type battle scene replaying the core's tick timeline. Backgrounds class
+      plates are already approved (`9b45ed8`); the blocker is W11–W14, not art. Interface behavior
+      iterates in-engine on Part B captures (no more interface mocks).
 
 ## Closed: PoC waves W0–W9 (record; all gates passed)
 
