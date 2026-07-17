@@ -42,7 +42,7 @@ LINES = {
         "three identical soldiers in bulky powered armor suits with glowing blue visor slits and oversized metal gauntlets",                                         # 動力裝甲兵
     ],
     "archers": [
-        "three identical tribal hunters in hide tunics, each holding a Y-shaped wooden slingshot forward at arm's length, two thick leather bands stretched from the fork tips back to a small leather pouch pulled at the cheek, a round gray stone bulging in the pouch, a small hide pouch of stones on each belt, red feathers tied in their hair",  # 投石手 (v3: v2 operated the Y-frame like a bow with fletched darts — describe band-and-pouch mechanics, no bow verbs; human call)
+        "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair",  # 投石手 (v4: v3 kept hanging the stone from the fork tips on a cord — anchor the pouch+stone at the rear hand/cheek and run the bands forward from it)
         "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips",                                        # 弓箭團
         "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers",                          # 弩手連
         "three identical skirmisher soldiers in plain green jackets kneeling and aiming long muskets, powder horns on red shoulder straps",                          # 火槍散兵
@@ -113,7 +113,7 @@ LINES = {
         "a segment of automated defense line, a low armored wall with pop-up sentry gun turrets with glowing red sensor eyes and folding metal barrier plates",      # 自動化防線
     ],
     "anti_air": [
-        "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below",  # 擋箭棚 (v2: v1's blank hide surfaces bred whimsy creatures/glyphs on every seed — name the hides plain, the earth bare)
+        "a slanted shelter roof of plain overlapping brown and tan dry raw hides on stout timber posts, several old spent arrows stuck upright in the hides, bare trampled earth below",  # 擋箭棚 (v3: v2's "arrows stuck in" kept splashing orange impact liquid on chain 84 (3 of that chain's 4 fails) — drain the energy: dry hides, old spent arrows. v2: v1's blank hide surfaces bred whimsy creatures/glyphs on every seed — name the hides plain, the earth bare)
         "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post",                                   # 箭樓
         "a round stone defense tower with machicolations and a mounted ballista aimed skyward on top",                                                               # 城防塔
         "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped mount, a ring gunsight, stacked shell crates beside it, painted plain olive drab",  # 高射砲
