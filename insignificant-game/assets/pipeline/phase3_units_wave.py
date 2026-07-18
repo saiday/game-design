@@ -20,6 +20,12 @@ STATE = "phase3_unit_chains.json"
 # lines already human-picked and frozen; waves skip them
 FROZEN: set[str] = set()
 
+# Lines forced to txt2img at ANY era for this run (P3U_T2I_LINES="cavalry,foo"). Deliberately
+# breaks the img2img lineage: use only when a parent artifact survives every wording and denoise
+# lever (§14 2026-07-18, cavalry era 3 — 16 cells, 3 wordings, 0 clean). Cells generated this way
+# are tagged "root": true in chain state so the seam stays visible to the sheets and the manifest.
+T2I_FORCE: set[str] = {s.strip() for s in os.environ.get("P3U_T2I_LINES", "").split(",") if s.strip()}
+
 
 def load_state() -> dict:
     if os.path.exists(STATE):
@@ -46,7 +52,8 @@ def gen_cell(state: dict, line: str, chain: int, era: int, seed: int) -> None:
     cmd = [sys.executable, "comfy_run.py",
            "--seed", str(seed), "--prompt", prompt,
            "--prefix", f"phase3-units/{stem}", *LORA_ARGS]
-    if era == start:
+    forced = line in T2I_FORCE and era != start
+    if era == start or forced:
         cmd[2:2] = [T2I]
         cmd += ["--width", "1024", "--height", "1024"]
     else:
@@ -59,8 +66,10 @@ def gen_cell(state: dict, line: str, chain: int, era: int, seed: int) -> None:
             break
     else:
         raise SystemExit(f"{stem} failed twice, aborting the wave")
-    state.setdefault(line, {}).setdefault(str(chain), {})[str(era)] = {
-        "stem": stem, "seed": seed, "prompt": prompt}
+    cell = {"stem": stem, "seed": seed, "prompt": prompt}
+    if forced:
+        cell["root"] = True  # lineage seam: this era does not descend from era-1
+    state.setdefault(line, {}).setdefault(str(chain), {})[str(era)] = cell
     save_state(state)
 
 

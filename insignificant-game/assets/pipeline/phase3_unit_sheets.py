@@ -30,14 +30,28 @@ def main() -> None:
             fill=(255, 255, 255), font=title_font)
         for row, chain in enumerate(SEEDS):
             for col, era in enumerate(eras):
-                stem = state[line][str(chain)][str(era)]["stem"]
+                entry = state[line][str(chain)].get(str(era))
                 cell = Image.new("RGB", (CELL, CELL + LABEL_H), (24, 24, 24))
-                img = Image.open(f"{SRC}/{stem}_00001_.png")
-                img.thumbnail((CELL - 2 * PAD, CELL - 2 * PAD), Image.LANCZOS)
-                cell.paste(img, ((CELL - img.width) // 2, (CELL - img.height) // 2))
                 d = ImageDraw.Draw(cell)
-                tw = d.textlength(stem, font=font)
-                d.text(((CELL - tw) / 2, CELL + 2), stem, fill=(220, 220, 220), font=font)
+                if entry is None:
+                    label, colour = f"(no era {era} cell)", (150, 150, 150)
+                else:
+                    stem, label = entry["stem"], entry["stem"]
+                    img = Image.open(f"{SRC}/{stem}_00001_.png")
+                    img.thumbnail((CELL - 2 * PAD, CELL - 2 * PAD), Image.LANCZOS)
+                    cell.paste(img, ((CELL - img.width) // 2, (CELL - img.height) // 2))
+                    colour = (220, 220, 220)
+                    if entry.get("rejected"):
+                        # never let a §8-rejected cell read as a pickable candidate
+                        cell.paste(Image.blend(cell.crop((0, 0, CELL, CELL)),
+                                               Image.new("RGB", (CELL, CELL), (90, 20, 20)), 0.45), (0, 0))
+                        d.rectangle((1, 1, CELL - 2, CELL - 2), outline=(220, 60, 60), width=3)
+                        rw = d.textlength("REJECTED — not a candidate", font=font)
+                        d.text(((CELL - rw) / 2, CELL / 2), "REJECTED — not a candidate",
+                               fill=(255, 190, 190), font=font)
+                        label, colour = f"{stem}  [REJECTED]", (255, 120, 120)
+                tw = d.textlength(label, font=font)
+                d.text(((CELL - tw) / 2, CELL + 2), label, fill=colour, font=font)
                 sheet.paste(cell, (CELL * col, HDR + (CELL + LABEL_H) * row))
         out = f"../contact-sheets/phase3_units_{line}.png"
         sheet.save(out)
