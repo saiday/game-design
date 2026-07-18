@@ -19,6 +19,13 @@ c.resize((c.width*6, c.height*6), Image.LANCZOS).save("/tmp/zoom.png")
 
 Record the zoom factor you used in your verdict row.
 
+**Write every crop into the private directory your dispatcher gives you, and name it after the
+full stem** (e.g. `<your-dir>/p3_unit_archers_e4_s84_top.png`). Reviewers run CONCURRENTLY over
+different lines; a crop named `s84_top.png` in a shared directory WILL be overwritten by another
+reviewer's cell of the same seed, and you will then read their image and report defects that are
+not in your cell. This has already happened once and invalidated a whole review round. Never
+write a crop to a path that does not contain your line name.
+
 When a cell has several ambiguous spots, paste the crops side by side into one montage and look
 at that once, rather than opening each crop separately:
 
@@ -48,6 +55,14 @@ Reject and re-roll without asking if:
 human's pick at the gate. You are a defect detector, not a taste judge. A plain, boring, correct
 cell is a PASS.
 
+**Costume-detail deviation is NOT subject mismatch.** "Subject mismatch with the inventory line"
+means the cell depicts the wrong *unit*: a cavalryman where the line says artillery, a modern
+soldier in a pre-modern era, a fortification where the line says figures. A figure wearing a
+bicorne where the subject said shako, or carrying a sabre where it said sword, still reads as the
+same unit — report that as `PASS (note: bicorne, subject says shako)`, never as a REJECT. Rejecting
+these burns a whole re-roll round to change a hat. When a cell has BOTH a costume deviation and a
+real defect, report the real defect: the deviation is the least interesting thing on the page.
+
 ## Cross-line failure modes (check these on EVERY cell, whatever the line)
 
 These four accounted for most era-3 rejects. They are not line-specific.
@@ -67,6 +82,19 @@ These four accounted for most era-3 rejects. They are not line-specific.
 4. **Count drift.** The subject names a number ("three identical", "two identical"). Count the
    bodies, the heads, the mounts, and the limbs. Three horse heads under two riders is a reject;
    so is nine hooves on two horses.
+5. **Duplicate weapon per figure — but ONLY when it is physically broken.** The previous era's
+   weapon can persist as a spare copy. Judge it by attachment and coherence, NOT by presence:
+
+   | REJECT | PASS (note it) |
+   |---|---|
+   | a second stock/barrel floating in mid-air, gripped by nothing and resting on nothing | a spare weapon **slung on a visible strap** across the back or shoulder |
+   | two weapons fused or stacked at one hand cluster | a weapon in a belt frog, scabbard, or saddle bucket |
+   | one long barrel spanning several figures so nobody holds his own | a bayonet/sword sheathed at the hip alongside the held weapon |
+   | a weapon overlapping the held one at an impossible angle, sharing its silhouette | a stacked/grounded arms pile that rests on the ground |
+
+   Soldiers carrying kit is normal and correct. Trace each figure's two hands to exactly one
+   ACTIVE weapon; then ask of any second weapon: what holds it up? If the answer is "a strap, a
+   sheath, or the ground", that is equipment and it PASSES.
 
 ## Known failure modes by line
 
