@@ -81,8 +81,12 @@ def grid(state: dict, era: int) -> None:
     d = ImageDraw.Draw(sheet)
     for r, line in enumerate(lines):
         for c, chain in enumerate(SEEDS):
-            stem = state[line][str(chain)][str(era)]["stem"]
-            img = Image.open(f"{OUT}/{stem}_00001_.png")
+            entry = state[line][str(chain)].get(str(era))
+            if entry is None:  # chain closed short at the previous era gate
+                d.text((c * cell + 12, r * (cell + 26) + cell // 2),
+                       f"chain {chain}: no era {era}", fill=(160, 120, 120), font=font)
+                continue
+            img = Image.open(f"{OUT}/{entry['stem']}_00001_.png")
             img.thumbnail((cell - 8, cell - 8), Image.LANCZOS)
             sheet.paste(img, (c * cell + 4, r * (cell + 26) + 4))
         d.text((4, r * (cell + 26) + cell + 4),
@@ -103,6 +107,13 @@ def main() -> None:
         for line in active(era):
             for chain in SEEDS:
                 if str(era) in state.get(line, {}).get(str(chain), {}):
+                    continue
+                # never seed a new era from a §8-rejected parent — that is the whole point of
+                # the era gate. A chain closed short (cookbook §14 2026-07-18) stays short.
+                parent = state.get(line, {}).get(str(chain), {}).get(str(era - 1))
+                if parent and parent.get("rejected"):
+                    print(f"--- skip {line} chain {chain}: era {era - 1} parent is §8-rejected",
+                          flush=True)
                     continue
                 gen_cell(state, line, chain, era, chain)
     grid(state, era)
