@@ -111,6 +111,12 @@ def main() -> None:
                 # never seed a new era from a §8-rejected parent — that is the whole point of
                 # the era gate. A chain closed short (cookbook §14 2026-07-18) stays short.
                 parent = state.get(line, {}).get(str(chain), {}).get(str(era - 1))
+                if era > START_ERA.get(line, 1) and parent is None:
+                    # the chain was already closed short at an EARLIER gate, so it has no parent
+                    # to img2img from; stay short rather than KeyError in gen_cell
+                    print(f"--- skip {line} chain {chain}: no era {era - 1} cell (closed short "
+                          f"earlier)", flush=True)
+                    continue
                 if parent and parent.get("rejected"):
                     print(f"--- skip {line} chain {chain}: era {era - 1} parent is §8-rejected",
                           flush=True)
