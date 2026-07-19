@@ -15,6 +15,11 @@
     "stem": "p3_unit_infantry_e3_s81",
     "seed": 81,
     "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, kite shields each painted with a plain red ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_infantry_e4_s381",
+    "seed": 381,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each with both hands on his own musket held upright against his own shoulder with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -32,6 +37,11 @@
     "stem": "p3_unit_infantry_e3_s182",
     "seed": 182,
     "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, kite shields each painted with a plain red ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_infantry_e4_s282",
+    "seed": 282,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each with both hands on his own musket held upright against his own shoulder with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -49,6 +59,11 @@
     "stem": "p3_unit_infantry_e3_s83",
     "seed": 83,
     "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, kite shields each painted with a plain red ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_infantry_e4_s283",
+    "seed": 283,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each with both hands on his own musket held upright against his own shoulder with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -66,6 +81,11 @@
     "stem": "p3_unit_infantry_e3_s484",
     "seed": 484,
     "prompt": "three identical foot soldiers in chainmail and plain rounded open helmets, each raising one straight sword in the fist and gripping a kite shield in the other hand, the kite shields each painted with a plain red ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_infantry_e4_s284",
+    "seed": 284,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each with both hands on his own musket held upright against his own shoulder with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -85,6 +105,11 @@
     "stem": "p3_unit_archers_e3_s81",
     "seed": 81,
     "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_archers_e4_s181",
+    "seed": 181,
+    "prompt": "three identical skirmisher soldiers in plain green jackets and soft black peaked caps, kneeling with both hands on long straight muskets aimed forward, powder horns on red shoulder straps, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -102,6 +127,11 @@
     "stem": "p3_unit_archers_e3_s82",
     "seed": 82,
     "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_archers_e4_s82",
+    "seed": 82,
+    "prompt": "three identical skirmisher soldiers in plain green jackets and soft black peaked caps, kneeling with both hands on long straight muskets aimed forward, powder horns on red shoulder straps, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -119,6 +149,11 @@
     "stem": "p3_unit_archers_e3_s83",
     "seed": 83,
     "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_archers_e4_s83",
+    "seed": 83,
+    "prompt": "three identical skirmisher soldiers in plain green jackets and soft black peaked caps, kneeling with both hands on long straight muskets aimed forward, powder horns on red shoulder straps, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -136,6 +171,11 @@
     "stem": "p3_unit_archers_e3_s84",
     "seed": 84,
     "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_archers_e4_s84",
+    "seed": 84,
+    "prompt": "three identical skirmisher soldiers in plain green jackets and soft black peaked caps, kneeling with both hands on long straight muskets aimed forward, powder horns on red shoulder straps, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -156,6 +196,11 @@
     "seed": 381,
     "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "4": {
+    "stem": "p3_unit_cavalry_e4_s181",
+    "seed": 181,
+    "prompt": "two identical hussar cavalrymen on galloping horses with bare heads and plain leather bridles, each swinging one curved saber, plain red jackets with rows of brass braid cords, black fur busby hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -174,6 +219,11 @@
     "seed": 382,
     "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "4": {
+    "stem": "p3_unit_cavalry_e4_s82",
+    "seed": 82,
+    "prompt": "two identical hussar cavalrymen on galloping horses with bare heads and plain leather bridles, each swinging one curved saber, plain red jackets with rows of brass braid cords, black fur busby hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -192,6 +242,11 @@
     "seed": 483,
     "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "4": {
+    "stem": "p3_unit_cavalry_e4_s83",
+    "seed": 83,
+    "prompt": "two identical hussar cavalrymen on galloping horses with bare heads and plain leather bridles, each swinging one curved saber, plain red jackets with rows of brass braid cords, black fur busby hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -210,6 +265,11 @@
     "seed": 484,
     "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "4": {
+    "stem": "p3_unit_cavalry_e4_s84",
+    "seed": 84,
+    "prompt": "two identical hussar cavalrymen on galloping horses with bare heads and plain leather bridles, each swinging one curved saber, plain red jackets with rows of brass braid cords, black fur busby hats, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -229,6 +289,11 @@
     "stem": "p3_unit_engineers_e3_s481",
     "seed": 481,
     "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on two cart wheels fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_engineers_e4_s481",
+    "seed": 481,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -246,6 +311,11 @@
     "stem": "p3_unit_engineers_e3_s182",
     "seed": 182,
     "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks mounted on two cart wheels, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_engineers_e4_s182",
+    "seed": 182,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a flat wooden plank bridge section on his shoulder, one a shovel, one a coil of wire, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -263,6 +333,11 @@
     "stem": "p3_unit_engineers_e3_s183",
     "seed": 183,
     "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks mounted on two cart wheels, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_engineers_e4_s383",
+    "seed": 383,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -280,6 +355,11 @@
     "stem": "p3_unit_engineers_e3_s284",
     "seed": 284,
     "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on two cart wheels fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_engineers_e4_s184",
+    "seed": 184,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a flat wooden plank bridge section on his shoulder, one a shovel, one a coil of wire, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -299,6 +379,11 @@
     "stem": "p3_unit_shield_wall_e3_s381",
     "seed": 381,
     "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a plain red pennant on a corner pole, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_shield_wall_e4_s81",
+    "seed": 81,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a rifle resting on the top edge, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -316,6 +401,11 @@
     "stem": "p3_unit_shield_wall_e3_s82",
     "seed": 82,
     "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, a plain red pennant on a corner pole, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_shield_wall_e4_s82",
+    "seed": 82,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a rifle resting on the top edge, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -333,6 +423,11 @@
     "stem": "p3_unit_shield_wall_e3_s483",
     "seed": 483,
     "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a plain red pennant on a corner pole, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_shield_wall_e4_s83",
+    "seed": 83,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a rifle resting on the top edge, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -350,6 +445,11 @@
     "stem": "p3_unit_shield_wall_e3_s84",
     "seed": 84,
     "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, a plain red pennant on a corner pole, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_shield_wall_e4_s184",
+    "seed": 184,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a rifle resting on the top edge, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -369,6 +469,11 @@
     "stem": "p3_unit_trench_e3_s81",
     "seed": 81,
     "prompt": "a water-filled moat segment with stone-lined banks, wooden stakes angled outward from the far bank, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_trench_e4_s81",
+    "seed": 81,
+    "prompt": "a deep trench segment cut in dry packed earth with a sandbag parapet and dry wooden duckboards along its floor, coils of barbed wire strung on angled iron pickets in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -386,6 +491,11 @@
     "stem": "p3_unit_trench_e3_s82",
     "seed": 82,
     "prompt": "a water-filled moat segment with stone-lined banks, wooden stakes angled outward from the far bank, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_trench_e4_s82",
+    "seed": 82,
+    "prompt": "a deep trench segment cut in dry packed earth with a sandbag parapet and dry wooden duckboards along its floor, coils of barbed wire strung on angled iron pickets in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -403,6 +513,11 @@
     "stem": "p3_unit_trench_e3_s83",
     "seed": 83,
     "prompt": "a water-filled moat segment with stone-lined banks, wooden stakes angled outward from the far bank, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_trench_e4_s83",
+    "seed": 83,
+    "prompt": "a deep trench segment cut in dry packed earth with a sandbag parapet and dry wooden duckboards along its floor, coils of barbed wire strung on angled iron pickets in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -420,6 +535,11 @@
     "stem": "p3_unit_trench_e3_s284",
     "seed": 284,
     "prompt": "a water-filled moat segment with stone-lined banks, the water a flat calm horizontal surface seen from above at ground level, bare empty banks with no buildings and no animals, wooden stakes angled outward from the far bank, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_trench_e4_s84",
+    "seed": 84,
+    "prompt": "a deep trench segment cut in dry packed earth with a sandbag parapet and dry wooden duckboards along its floor, coils of barbed wire strung on angled iron pickets in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -439,6 +559,11 @@
     "stem": "p3_unit_anti_air_e3_s81",
     "seed": 81,
     "prompt": "a round stone defense tower with machicolations and a mounted ballista aimed skyward on top, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_anti_air_e4_s81",
+    "seed": 81,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -456,6 +581,11 @@
     "stem": "p3_unit_anti_air_e3_s82",
     "seed": 82,
     "prompt": "a round stone defense tower with machicolations and a mounted ballista aimed skyward on top, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_anti_air_e4_s282",
+    "seed": 282,
+    "prompt": "an anti-aircraft flak cannon with exactly one single long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -473,6 +603,11 @@
     "stem": "p3_unit_anti_air_e3_s283",
     "seed": 283,
     "prompt": "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_anti_air_e4_s183",
+    "seed": 183,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -511,6 +646,11 @@
     "stem": "p3_unit_enemy_weak_e3_s81",
     "seed": 81,
     "prompt": "a lone highwayman in a dark hood and patched leather jerkin aiming a light crossbow, a rusty dagger at his belt, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_weak_e4_s81",
+    "seed": 81,
+    "prompt": "a lone ruffian in a ragged dark coat and a crumpled hat holding a worn flintlock pistol and a rusty knife, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -528,6 +668,11 @@
     "stem": "p3_unit_enemy_weak_e3_s82",
     "seed": 82,
     "prompt": "a lone highwayman in a dark hood and patched leather jerkin aiming a light crossbow, a rusty dagger at his belt, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_weak_e4_s182",
+    "seed": 182,
+    "prompt": "a lone ruffian in a ragged dark coat and a crumpled hat, one hand holding a worn flintlock pistol with a plain straight barrel and a curved wooden grip, the other hand holding a rusty knife, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -545,6 +690,11 @@
     "stem": "p3_unit_enemy_weak_e3_s83",
     "seed": 83,
     "prompt": "a lone highwayman in a dark hood and patched leather jerkin aiming a light crossbow, a rusty dagger at his belt, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_weak_e4_s283",
+    "seed": 283,
+    "prompt": "a lone ruffian in a ragged dark coat and a crumpled hat, one hand holding a worn flintlock pistol with a plain straight barrel and a curved wooden grip, the other hand holding a rusty knife, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -562,6 +712,11 @@
     "stem": "p3_unit_enemy_weak_e3_s84",
     "seed": 84,
     "prompt": "a lone highwayman in a dark hood and patched leather jerkin aiming a light crossbow, a rusty dagger at his belt, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_weak_e4_s84",
+    "seed": 84,
+    "prompt": "a lone ruffian in a ragged dark coat and a crumpled hat holding a worn flintlock pistol and a rusty knife, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -581,6 +736,11 @@
     "stem": "p3_unit_enemy_mid_e3_s81",
     "seed": 81,
     "prompt": "two identical brigand men-at-arms in blackened chainmail and dark kettle helmets with battleaxes, battered kite shields each painted with a plain orange ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_mid_e4_s181",
+    "seed": 181,
+    "prompt": "two identical renegade soldiers in ragged dark gray uniforms and battered peaked caps, each with both hands on a bayoneted musket, mismatched armor plates strapped over their chests, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -598,6 +758,11 @@
     "stem": "p3_unit_enemy_mid_e3_s182",
     "seed": 182,
     "prompt": "two identical brigand men-at-arms in blackened chainmail and dark kettle helmets with battleaxes, battered kite shields each painted with a plain orange ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_mid_e4_s82",
+    "seed": 82,
+    "prompt": "two identical renegade soldiers in ragged dark gray uniforms and battered peaked caps, each with both hands on a bayoneted musket, mismatched armor plates strapped over their chests, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -615,6 +780,11 @@
     "stem": "p3_unit_enemy_mid_e3_s83",
     "seed": 83,
     "prompt": "two identical brigand men-at-arms in blackened chainmail and dark kettle helmets with battleaxes, battered kite shields each painted with a plain orange ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_mid_e4_s83",
+    "seed": 83,
+    "prompt": "two identical renegade soldiers in ragged dark gray uniforms and battered peaked caps, each with both hands on a bayoneted musket, mismatched armor plates strapped over their chests, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -632,6 +802,13 @@
     "stem": "p3_unit_enemy_mid_e3_s84",
     "seed": 84,
     "prompt": "two identical brigand men-at-arms in blackened chainmail and dark kettle helmets with battleaxes, battered kite shields each painted with a plain orange ring, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_mid_e4_s384",
+    "seed": 384,
+    "prompt": "two identical renegade soldiers in ragged dark gray uniforms and battered peaked caps standing close together, each with both hands on his own bayoneted musket held upright against his shoulder, mismatched armor plates strapped over their chests, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "3 attempts at denoise 0.70 all breached the canvas edge (horizontal musket cut at right mid-height twice, upright bayonet cut at upper right once); chains 82/83/181 clean, closed short per the artillery:83 / anti_air:84 precedent"
    }
   }
  },
@@ -651,6 +828,11 @@
     "stem": "p3_unit_enemy_hard_e3_s81",
     "seed": 81,
     "prompt": "a hulking black-armored knight with a spiked greathelm, a massive two-handed flail and a tattered dark cape, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_hard_e4_s81",
+    "seed": 81,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -668,6 +850,11 @@
     "stem": "p3_unit_enemy_hard_e3_s82",
     "seed": 82,
     "prompt": "a hulking black-armored knight with a spiked greathelm, a massive two-handed flail and a tattered dark cape, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_hard_e4_s82",
+    "seed": 82,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -685,6 +872,11 @@
     "stem": "p3_unit_enemy_hard_e3_s83",
     "seed": 83,
     "prompt": "a hulking black-armored knight with a spiked greathelm, a massive two-handed flail and a tattered dark cape, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_hard_e4_s283",
+    "seed": 283,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass painted with a single plain white circle and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -702,6 +894,11 @@
     "stem": "p3_unit_enemy_hard_e3_s84",
     "seed": 84,
     "prompt": "a hulking black-armored knight with a spiked greathelm, a massive two-handed flail and a tattered dark cape, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_enemy_hard_e4_s184",
+    "seed": 184,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -716,6 +913,11 @@
     "stem": "p3_unit_elite_forces_e3_s81",
     "seed": 81,
     "prompt": "two identical temple knights in white surcoats over chainmail holding greatswords, each surcoat bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_elite_forces_e4_s281",
+    "seed": 281,
+    "prompt": "two identical grenadier soldiers in plain dark blue coats and tall black bearskin caps with red cords, each cap front bearing a plain white cloth cockade, each with a plain musket slung on a strap across his back, one holding a round black grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -728,6 +930,11 @@
     "stem": "p3_unit_elite_forces_e3_s82",
     "seed": 82,
     "prompt": "two identical temple knights in white surcoats over chainmail holding greatswords, each surcoat bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_elite_forces_e4_s182",
+    "seed": 182,
+    "prompt": "two identical grenadier soldiers in plain dark blue coats and tall black bearskin caps with red cords, each cap front bearing a plain white cloth cockade, each with a plain musket slung on a strap across his back, one holding a round black grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -740,6 +947,11 @@
     "stem": "p3_unit_elite_forces_e3_s83",
     "seed": 83,
     "prompt": "two identical temple knights in white surcoats over chainmail holding greatswords, each surcoat bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_elite_forces_e4_s283",
+    "seed": 283,
+    "prompt": "two identical grenadier soldiers in plain dark blue coats and tall black bearskin caps with red cords, each cap front bearing a plain white cloth cockade, each with a plain musket slung on a strap across his back, one holding a round black grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -752,6 +964,11 @@
     "stem": "p3_unit_elite_forces_e3_s84",
     "seed": 84,
     "prompt": "two identical temple knights in white surcoats over chainmail holding greatswords, each surcoat bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_elite_forces_e4_s184",
+    "seed": 184,
+    "prompt": "two identical grenadier soldiers in plain dark blue coats and tall black bearskin caps with red cords, each cap front bearing a plain white cloth cockade, each with a plain musket slung on a strap across his back, one holding a round black grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -766,6 +983,11 @@
     "stem": "p3_unit_artillery_e3_s81",
     "seed": 81,
     "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_artillery_e4_s81",
+    "seed": 81,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -778,6 +1000,11 @@
     "stem": "p3_unit_artillery_e3_s82",
     "seed": 82,
     "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_artillery_e4_s82",
+    "seed": 82,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -804,6 +1031,11 @@
     "stem": "p3_unit_artillery_e3_s84",
     "seed": 84,
     "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_artillery_e4_s84",
+    "seed": 84,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -813,6 +1045,11 @@
     "stem": "p3_unit_holy_warriors_e3_s81",
     "seed": 81,
     "prompt": "three identical zealot warriors in hooded white robes over scale armor swinging flanged maces, each robe bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_holy_warriors_e4_s481",
+    "seed": 481,
+    "prompt": "two identical musketeers in white coats standing close together, each with both hands on his own musket held upright against his own shoulder with the barrel pointing straight up, a single golden tree emblem on each chest, beside a standard bearer gripping the pole of a white banner showing a single large golden tree on one face of the cloth, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -820,6 +1057,13 @@
     "stem": "p3_unit_holy_warriors_e3_s82",
     "seed": 82,
     "prompt": "three identical zealot warriors in hooded white robes over scale armor swinging flanged maces, each robe bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_holy_warriors_e4_s582",
+    "seed": 582,
+    "prompt": "two identical musketeers in white coats standing close together, each with both hands on his own musket held upright against his own shoulder with the barrel pointing straight up, a single golden tree emblem on each chest, beside a standard bearer gripping the pole of a white banner showing a single large golden tree on one face of the cloth, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "two consecutive seeds rendered the standard bearer with no head (chain-specific, not seed luck); chains 81/83/84 clean, closed short per precedent"
    }
   },
   "83": {
@@ -827,6 +1071,11 @@
     "stem": "p3_unit_holy_warriors_e3_s83",
     "seed": 83,
     "prompt": "three identical zealot warriors in hooded white robes over scale armor swinging flanged maces, each robe bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_holy_warriors_e4_s483",
+    "seed": 483,
+    "prompt": "two identical musketeers in white coats standing close together, each with both hands on his own musket held upright against his own shoulder with the barrel pointing straight up, a single golden tree emblem on each chest, beside a standard bearer gripping the pole of a white banner showing a single large golden tree on one face of the cloth, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -834,6 +1083,11 @@
     "stem": "p3_unit_holy_warriors_e3_s84",
     "seed": 84,
     "prompt": "three identical zealot warriors in hooded white robes over scale armor swinging flanged maces, each robe bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_holy_warriors_e4_s384",
+    "seed": 384,
+    "prompt": "two identical musketeers in white coats standing close together, each with both hands on his own musket held upright against his own shoulder with the barrel pointing straight up, a single golden tree emblem on each chest, beside a standard bearer gripping the pole of a white banner showing a single large golden tree on one face of the cloth, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -843,6 +1097,13 @@
     "stem": "p3_unit_privateers_e3_s81",
     "seed": 81,
     "prompt": "three identical pirate mercenaries in weathered leather coats and head scarves with cutlasses and a boarding hook, one carrying a small chest overflowing with gold coins, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_privateers_e4_s581",
+    "seed": 581,
+    "prompt": "three identical expedition soldiers in khaki uniforms and pith helmets, a plain red cloth armband of unbroken solid colour on each upper sleeve, with rifles and machetes, one carrying a closed brass-cornered wooden chest with its lid strapped shut, a plain red pennant of unbroken solid cloth on a backpack pole, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "5 rounds chased a migrating insignia prior across two surfaces: blank sleeve->rank chevrons, painted white circle->red roundel, painted white disc->chevrons, leather strap->armband with device, named plain armband FIXED the armband 3/3 but the prior then jumped to the pennant (saltire / Swiss flag / red star). Closed short at chain 82 by human decision rather than chase it to a third surface."
    }
   },
   "82": {
@@ -850,6 +1111,11 @@
     "stem": "p3_unit_privateers_e3_s82",
     "seed": 82,
     "prompt": "three identical pirate mercenaries in weathered leather coats and head scarves with cutlasses and a boarding hook, one carrying a small chest overflowing with gold coins, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_privateers_e4_s82",
+    "seed": 82,
+    "prompt": "three identical expedition soldiers in khaki uniforms and pith helmets with rifles and machetes, one carrying a brass-cornered chest, a plain red pennant on a backpack pole, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -857,6 +1123,13 @@
     "stem": "p3_unit_privateers_e3_s83",
     "seed": 83,
     "prompt": "three identical pirate mercenaries in weathered leather coats and head scarves with cutlasses and a boarding hook, one carrying a small chest overflowing with gold coins, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_privateers_e4_s583",
+    "seed": 583,
+    "prompt": "three identical expedition soldiers in khaki uniforms and pith helmets, a plain red cloth armband of unbroken solid colour on each upper sleeve, with rifles and machetes, one carrying a closed brass-cornered wooden chest with its lid strapped shut, a plain red pennant of unbroken solid cloth on a backpack pole, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "5 rounds chased a migrating insignia prior across two surfaces: blank sleeve->rank chevrons, painted white circle->red roundel, painted white disc->chevrons, leather strap->armband with device, named plain armband FIXED the armband 3/3 but the prior then jumped to the pennant (saltire / Swiss flag / red star). Closed short at chain 82 by human decision rather than chase it to a third surface."
    }
   },
   "84": {
@@ -864,6 +1137,43 @@
     "stem": "p3_unit_privateers_e3_s84",
     "seed": 84,
     "prompt": "three identical pirate mercenaries in weathered leather coats and head scarves with cutlasses and a boarding hook, one carrying a small chest overflowing with gold coins, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "4": {
+    "stem": "p3_unit_privateers_e4_s584",
+    "seed": 584,
+    "prompt": "three identical expedition soldiers in khaki uniforms and pith helmets, a plain red cloth armband of unbroken solid colour on each upper sleeve, with rifles and machetes, one carrying a closed brass-cornered wooden chest with its lid strapped shut, a plain red pennant of unbroken solid cloth on a backpack pole, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "5 rounds chased a migrating insignia prior across two surfaces: blank sleeve->rank chevrons, painted white circle->red roundel, painted white disc->chevrons, leather strap->armband with device, named plain armband FIXED the armband 3/3 but the prior then jumped to the pennant (saltire / Swiss flag / red star). Closed short at chain 82 by human decision rather than chase it to a third surface."
+   }
+  }
+ },
+ "bomber": {
+  "81": {
+   "4": {
+    "stem": "p3_unit_bomber_e4_s181",
+    "seed": 181,
+    "prompt": "a red and white striped hot air balloon with a wicker basket, exactly two identical crew standing side by side in the basket, each dropping one small round black bomb over the side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "82": {
+   "4": {
+    "stem": "p3_unit_bomber_e4_s182",
+    "seed": 182,
+    "prompt": "a red and white striped hot air balloon with a wicker basket, exactly two identical crew standing side by side in the basket, each dropping one small round black bomb over the side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "83": {
+   "4": {
+    "stem": "p3_unit_bomber_e4_s183",
+    "seed": 183,
+    "prompt": "a red and white striped hot air balloon with a wicker basket, exactly two identical crew standing side by side in the basket, each dropping one small round black bomb over the side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   }
+  },
+  "84": {
+   "4": {
+    "stem": "p3_unit_bomber_e4_s84",
+    "seed": 84,
+    "prompt": "a red and white striped hot air balloon with a wicker basket, two identical crew dropping small round black bombs over the side, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  }
