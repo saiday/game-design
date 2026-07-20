@@ -25,6 +25,11 @@
     "stem": "p3_unit_infantry_e5_s81",
     "seed": 81,
     "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, seated together inside an open-topped armored truck with a single white circle painted on its door, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_infantry_e6_s81",
+    "seed": 81,
+    "prompt": "three identical soldiers in bulky powered armor suits with glowing blue visor slits and oversized metal gauntlets, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -52,6 +57,11 @@
     "stem": "p3_unit_infantry_e5_s82",
     "seed": 82,
     "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, seated together inside an open-topped armored truck with a single white circle painted on its door, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_infantry_e6_s82",
+    "seed": 82,
+    "prompt": "three identical soldiers in bulky powered armor suits with glowing blue visor slits and oversized metal gauntlets, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -108,6 +118,11 @@
     "stem": "p3_unit_infantry_e5_s84",
     "seed": 84,
     "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, seated together inside an open-topped armored truck with a single white circle painted on its door, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_infantry_e6_s84",
+    "seed": 84,
+    "prompt": "three identical soldiers in bulky powered armor suits with glowing blue visor slits and oversized metal gauntlets, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -138,6 +153,11 @@
     "seed": 281,
     "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_archers_e6_s81",
+    "seed": 81,
+    "prompt": "two identical soldiers in gray armored suits, one shouldering a boxy missile launcher with a glowing red targeting lens, the other carrying a folded tripod radar dish, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -166,6 +186,11 @@
     "seed": 282,
     "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_archers_e6_s82",
+    "seed": 82,
+    "prompt": "two identical soldiers in gray armored suits, one shouldering a boxy missile launcher with a glowing red targeting lens, the other carrying a folded tripod radar dish, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -193,6 +218,11 @@
     "stem": "p3_unit_archers_e5_s183",
     "seed": 183,
     "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_archers_e6_s83",
+    "seed": 83,
+    "prompt": "two identical soldiers in gray armored suits, one shouldering a boxy missile launcher with a glowing red targeting lens, the other carrying a folded tripod radar dish, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -221,6 +251,11 @@
     "seed": 284,
     "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_archers_e6_s84",
+    "seed": 84,
+    "prompt": "two identical soldiers in gray armored suits, one shouldering a boxy missile launcher with a glowing red targeting lens, the other carrying a folded tripod radar dish, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -251,6 +286,12 @@
     "stem": "p3_unit_cavalry_e5_s81",
     "seed": 81,
     "prompt": "a heavy battle tank standing alone on open bare ground with a long cannon barrel and riveted armor plates, painted plain olive drab with a single white circle on the turret side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_cavalry_e6_s81",
+    "seed": 81,
+    "prompt": "three identical sleek unmanned tracked combat vehicles with sensor domes and glowing blue lens eyes, gunmetal hulls each with a single white circle on the side, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "82": {
@@ -279,6 +320,12 @@
     "stem": "p3_unit_cavalry_e5_s182",
     "seed": 182,
     "prompt": "a heavy battle tank standing alone on open bare ground with a long cannon barrel and riveted armor plates, painted plain olive drab with a single white circle on the turret side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_cavalry_e6_s82",
+    "seed": 82,
+    "prompt": "three identical sleek unmanned tracked combat vehicles with sensor domes and glowing blue lens eyes, gunmetal hulls each with a single white circle on the side, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "83": {
@@ -307,6 +354,12 @@
     "stem": "p3_unit_cavalry_e5_s183",
     "seed": 183,
     "prompt": "a heavy battle tank standing alone on open bare ground with a long cannon barrel and riveted armor plates, painted plain olive drab with a single white circle on the turret side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_cavalry_e6_s83",
+    "seed": 83,
+    "prompt": "three identical sleek unmanned tracked combat vehicles with sensor domes and glowing blue lens eyes, gunmetal hulls each with a single white circle on the side, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "84": {
@@ -335,6 +388,12 @@
     "stem": "p3_unit_cavalry_e5_s184",
     "seed": 184,
     "prompt": "a heavy battle tank standing alone on open bare ground with a long cannon barrel and riveted armor plates, painted plain olive drab with a single white circle on the turret side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_cavalry_e6_s84",
+    "seed": 84,
+    "prompt": "three identical sleek unmanned tracked combat vehicles with sensor domes and glowing blue lens eyes, gunmetal hulls each with a single white circle on the side, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   }
  },
@@ -364,6 +423,11 @@
     "stem": "p3_unit_engineers_e5_s181",
     "seed": 181,
     "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers in olive uniforms and steel helmets walking beside it, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_engineers_e6_s81",
+    "seed": 81,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -391,6 +455,11 @@
     "stem": "p3_unit_engineers_e5_s182",
     "seed": 182,
     "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers in olive uniforms and steel helmets walking beside it, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_engineers_e6_s82",
+    "seed": 82,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -418,6 +487,11 @@
     "stem": "p3_unit_engineers_e5_s183",
     "seed": 183,
     "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers in olive uniforms and steel helmets walking beside it, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_engineers_e6_s83",
+    "seed": 83,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -476,6 +550,11 @@
     "stem": "p3_unit_shield_wall_e5_s81",
     "seed": 81,
     "prompt": "a squat gray concrete bunker with a narrow horizontal firing slit, plain gray concrete showing form-board plank texture across its face, iron rebar showing at the edges, sandbags piled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_shield_wall_e6_s81",
+    "seed": 81,
+    "prompt": "a segment of sleek composite armor barrier wall with hexagonal plating and glowing blue seam lights, deployable metal struts at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -503,6 +582,11 @@
     "stem": "p3_unit_shield_wall_e5_s82",
     "seed": 82,
     "prompt": "a squat gray concrete bunker with a narrow horizontal firing slit, plain gray concrete showing form-board plank texture across its face, iron rebar showing at the edges, sandbags piled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_shield_wall_e6_s82",
+    "seed": 82,
+    "prompt": "a segment of sleek composite armor barrier wall with hexagonal plating and glowing blue seam lights, deployable metal struts at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -530,6 +614,11 @@
     "stem": "p3_unit_shield_wall_e5_s83",
     "seed": 83,
     "prompt": "a squat gray concrete bunker with a narrow horizontal firing slit, plain gray concrete showing form-board plank texture across its face, iron rebar showing at the edges, sandbags piled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_shield_wall_e6_s83",
+    "seed": 83,
+    "prompt": "a segment of sleek composite armor barrier wall with hexagonal plating and glowing blue seam lights, deployable metal struts at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -557,6 +646,11 @@
     "stem": "p3_unit_shield_wall_e5_s84",
     "seed": 84,
     "prompt": "a squat gray concrete bunker with a narrow horizontal firing slit, plain gray concrete showing form-board plank texture across its face, iron rebar showing at the edges, sandbags piled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_shield_wall_e6_s84",
+    "seed": 84,
+    "prompt": "a segment of sleek composite armor barrier wall with hexagonal plating and glowing blue seam lights, deployable metal struts at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -586,6 +680,11 @@
     "stem": "p3_unit_trench_e5_s81",
     "seed": 81,
     "prompt": "a wide deep anti-tank ditch with sloped concrete walls showing form-board plank texture, rows of gray concrete pyramid blocks lined up in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_trench_e6_s81",
+    "seed": 81,
+    "prompt": "a segment of automated defense line, a low armored wall with pop-up sentry gun turrets with glowing red sensor eyes and folding metal barrier plates, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -613,6 +712,11 @@
     "stem": "p3_unit_trench_e5_s82",
     "seed": 82,
     "prompt": "a wide deep anti-tank ditch with sloped concrete walls showing form-board plank texture, rows of gray concrete pyramid blocks lined up in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_trench_e6_s82",
+    "seed": 82,
+    "prompt": "a segment of automated defense line, a low armored wall with pop-up sentry gun turrets with glowing red sensor eyes and folding metal barrier plates, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -640,6 +744,11 @@
     "stem": "p3_unit_trench_e5_s183",
     "seed": 183,
     "prompt": "a wide deep anti-tank ditch with sloped concrete walls showing form-board plank texture, rows of gray concrete pyramid blocks lined up in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_trench_e6_s83",
+    "seed": 83,
+    "prompt": "a segment of automated defense line, a low armored wall with pop-up sentry gun turrets with glowing red sensor eyes and folding metal barrier plates, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -667,6 +776,11 @@
     "stem": "p3_unit_trench_e5_s184",
     "seed": 184,
     "prompt": "a wide deep anti-tank ditch with sloped concrete walls showing form-board plank texture, rows of gray concrete pyramid blocks lined up in front, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_trench_e6_s84",
+    "seed": 84,
+    "prompt": "a segment of automated defense line, a low armored wall with pop-up sentry gun turrets with glowing red sensor eyes and folding metal barrier plates, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -696,6 +810,11 @@
     "stem": "p3_unit_anti_air_e5_s181",
     "seed": 181,
     "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_anti_air_e6_s81",
+    "seed": 81,
+    "prompt": "a futuristic laser interception turret, a cluster of lens barrels glowing blue on a rotating mount, a spinning radar dish on top, energy cables coiled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -723,6 +842,11 @@
     "stem": "p3_unit_anti_air_e5_s182",
     "seed": 182,
     "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_anti_air_e6_s82",
+    "seed": 82,
+    "prompt": "a futuristic laser interception turret, a cluster of lens barrels glowing blue on a rotating mount, a spinning radar dish on top, energy cables coiled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -750,6 +874,11 @@
     "stem": "p3_unit_anti_air_e5_s83",
     "seed": 83,
     "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, game fortification sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_anti_air_e6_s83",
+    "seed": 83,
+    "prompt": "a futuristic laser interception turret, a cluster of lens barrels glowing blue on a rotating mount, a spinning radar dish on top, energy cables coiled at its base, game fortification sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -798,6 +927,11 @@
     "stem": "p3_unit_enemy_weak_e5_s81",
     "seed": 81,
     "prompt": "a lone thug in a ragged dark jacket and knit cap holding a crude submachine gun with a plain straight barrel and a taped box magazine, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_enemy_weak_e6_s181",
+    "seed": 181,
+    "prompt": "a lone looter in a ragged dark coat and a cracked orange visor holding a sparking makeshift energy pistol, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -825,6 +959,13 @@
     "stem": "p3_unit_enemy_weak_e5_s82",
     "seed": 82,
     "prompt": "a lone thug in a ragged dark jacket and knit cap holding a crude submachine gun with a plain straight barrel and a taped box magazine, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_enemy_weak_e6_s282",
+    "seed": 282,
+    "prompt": "a lone looter in a ragged dark coat with a few plain dull metal studs on the chest and a cracked orange visor, holding a sparking makeshift energy pistol, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "invented glyph prior migrated to a red shoulder-armband letterform (chest studs clean)"
    }
   },
   "83": {
@@ -852,6 +993,11 @@
     "stem": "p3_unit_enemy_weak_e5_s83",
     "seed": 83,
     "prompt": "a lone thug in a ragged dark jacket and knit cap holding a crude submachine gun with a plain straight barrel and a taped box magazine, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_enemy_weak_e6_s83",
+    "seed": 83,
+    "prompt": "a lone looter in a ragged dark coat and a cracked orange visor holding a sparking makeshift energy pistol, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -911,6 +1057,11 @@
     "seed": 281,
     "prompt": "two identical militia gunmen standing one behind the other in dark body armor and balaclavas, each with both hands on his own rifle held angled down, orange bandanas tied on their arms, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_enemy_mid_e6_s281",
+    "seed": 281,
+    "prompt": "two identical rogue soldiers in matte black powered vests with glowing orange visor slits, a single plain orange band painted across each shoulder pad, standing one behind the other, each with both hands on his own heavy energy rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -939,6 +1090,11 @@
     "seed": 282,
     "prompt": "two identical militia gunmen standing one behind the other in dark body armor and balaclavas, each with both hands on his own rifle held angled down, orange bandanas tied on their arms, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_enemy_mid_e6_s282",
+    "seed": 282,
+    "prompt": "two identical rogue soldiers in matte black powered vests with glowing orange visor slits, a single plain orange band painted across each shoulder pad, standing one behind the other, each with both hands on his own heavy energy rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -966,6 +1122,11 @@
     "stem": "p3_unit_enemy_mid_e5_s183",
     "seed": 183,
     "prompt": "two identical militia gunmen standing one behind the other in dark body armor and balaclavas, each with both hands on his own rifle held angled down, orange bandanas tied on their arms, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_enemy_mid_e6_s283",
+    "seed": 283,
+    "prompt": "two identical rogue soldiers in matte black powered vests with glowing orange visor slits, a single plain orange band painted across each shoulder pad, standing one behind the other, each with both hands on his own heavy energy rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -1020,6 +1181,12 @@
     "seed": 281,
     "prompt": "a heavy dark battle tank standing alone on open bare ground with a rusted hull, welded scrap armor plates and a single orange stripe painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_enemy_hard_e6_s81",
+    "seed": 81,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "82": {
@@ -1047,6 +1214,12 @@
     "stem": "p3_unit_enemy_hard_e5_s182",
     "seed": 182,
     "prompt": "a heavy dark battle tank standing alone on open bare ground with a rusted hull, welded scrap armor plates and a single orange stripe painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_enemy_hard_e6_s82",
+    "seed": 82,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "83": {
@@ -1074,6 +1247,12 @@
     "stem": "p3_unit_enemy_hard_e5_s283",
     "seed": 283,
     "prompt": "a heavy dark battle tank standing alone on open bare ground with a rusted hull, welded scrap armor plates and a single orange stripe painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "6": {
+    "stem": "p3_unit_enemy_hard_e6_s83",
+    "seed": 83,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
    }
   },
@@ -1103,6 +1282,12 @@
     "seed": 284,
     "prompt": "a heavy dark battle tank standing alone on open bare ground with a rusted hull, welded scrap armor plates and a single orange stripe painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_enemy_hard_e6_s84",
+    "seed": 84,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   }
  },
@@ -1127,6 +1312,12 @@
     "stem": "p3_unit_elite_forces_e5_s81",
     "seed": 81,
     "prompt": "two identical commandos standing one behind the other in black tactical armor with a single plain white circle on each chest plate, night-vision goggles with glowing green lenses, each with both hands on his own compact rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_elite_forces_e6_s81",
+    "seed": 81,
+    "prompt": "two identical heavy assault mechs with cockpit visors glowing red, oversized shoulder plates and rotary arm cannons, gunmetal and orange armor, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "82": {
@@ -1149,6 +1340,12 @@
     "stem": "p3_unit_elite_forces_e5_s82",
     "seed": 82,
     "prompt": "two identical commandos standing one behind the other in black tactical armor with a single plain white circle on each chest plate, night-vision goggles with glowing green lenses, each with both hands on his own compact rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_elite_forces_e6_s182",
+    "seed": 182,
+    "prompt": "two identical heavy assault mechs with cockpit visors glowing red, oversized shoulder plates and rotary arm cannons, gunmetal and orange armor, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "83": {
@@ -1171,6 +1368,12 @@
     "stem": "p3_unit_elite_forces_e5_s83",
     "seed": 83,
     "prompt": "two identical commandos standing one behind the other in black tactical armor with a single plain white circle on each chest plate, night-vision goggles with glowing green lenses, each with both hands on his own compact rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_elite_forces_e6_s83",
+    "seed": 83,
+    "prompt": "two identical heavy assault mechs with cockpit visors glowing red, oversized shoulder plates and rotary arm cannons, gunmetal and orange armor, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "84": {
@@ -1219,6 +1422,11 @@
     "stem": "p3_unit_artillery_e5_s81",
     "seed": 81,
     "prompt": "a tracked self-propelled howitzer standing alone on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_artillery_e6_s181",
+    "seed": 181,
+    "prompt": "a futuristic tracked railgun platform with twin glowing blue magnetic rails and thick power cables, gunmetal armor with glowing blue conduits, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -1241,6 +1449,11 @@
     "stem": "p3_unit_artillery_e5_s182",
     "seed": 182,
     "prompt": "a tracked self-propelled howitzer standing alone on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_artillery_e6_s82",
+    "seed": 82,
+    "prompt": "a futuristic tracked railgun platform with twin glowing blue magnetic rails and thick power cables, gunmetal armor with glowing blue conduits, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -1277,6 +1490,11 @@
     "stem": "p3_unit_artillery_e5_s84",
     "seed": 84,
     "prompt": "a tracked self-propelled howitzer standing alone on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_artillery_e6_s84",
+    "seed": 84,
+    "prompt": "a futuristic tracked railgun platform with twin glowing blue magnetic rails and thick power cables, gunmetal armor with glowing blue conduits, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  },
@@ -1296,6 +1514,12 @@
     "stem": "p3_unit_holy_warriors_e5_s81",
     "seed": 81,
     "prompt": "a battle tank standing alone on open bare ground painted bone white with a single large golden tree emblem on the turret, golden tassels and votive ribbons hanging from the barrel, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_holy_warriors_e6_s81",
+    "seed": 81,
+    "prompt": "three identical hooded figures in white techno-robes with glowing golden circuit patterns, each holding up a tablet glowing with a single large golden tree symbol filling the screen, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "82": {
@@ -1327,6 +1551,12 @@
     "stem": "p3_unit_holy_warriors_e5_s283",
     "seed": 283,
     "prompt": "a battle tank standing alone on open bare ground painted bone white with a single large golden tree emblem on the turret, golden tassels and small golden tree-shaped charms hanging from the barrel, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_holy_warriors_e6_s83",
+    "seed": 83,
+    "prompt": "three identical hooded figures in white techno-robes with glowing golden circuit patterns, each holding up a tablet glowing with a single large golden tree symbol filling the screen, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "84": {
@@ -1344,6 +1574,12 @@
     "stem": "p3_unit_holy_warriors_e5_s84",
     "seed": 84,
     "prompt": "a battle tank standing alone on open bare ground painted bone white with a single large golden tree emblem on the turret, golden tassels and votive ribbons hanging from the barrel, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_holy_warriors_e6_s84",
+    "seed": 84,
+    "prompt": "three identical hooded figures in white techno-robes with glowing golden circuit patterns, each holding up a tablet glowing with a single large golden tree symbol filling the screen, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "root": true
    }
   }
  },
@@ -1377,6 +1613,11 @@
     "stem": "p3_unit_privateers_e5_s182",
     "seed": 182,
     "prompt": "three identical mercenary contractors standing in a staggered line in tan body armor with a single plain white circle on each chest plate, wraparound sunglasses, each with both hands on his own compact rifle held angled down, one holding a plain metal briefcase, game unit sprite, side view, centered, isolated on a plain light gray background"
+   },
+   "6": {
+    "stem": "p3_unit_privateers_e6_s82",
+    "seed": 82,
+    "prompt": "three identical figures in dark hooded jackets with glowing cyan visor glasses, gloved hands on glowing cyan holographic panels each showing a single large coin symbol, projected from wrist devices, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "83": {
@@ -1420,6 +1661,11 @@
     "seed": 281,
     "prompt": "a heavy four-engine propeller bomber aircraft seen alone from the side with four propeller engines along its wings, painted plain olive drab with a single white circle on the fuselage, bomb bay doors open with falling bombs, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_bomber_e6_s181",
+    "seed": 181,
+    "prompt": "a black angular flying-wing stealth bomber with faint blue engine glow, bomb bay open with a single guided bomb dropping, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "82": {
@@ -1433,6 +1679,13 @@
     "seed": 282,
     "prompt": "a heavy four-engine propeller bomber aircraft seen alone from the side with four propeller engines along its wings, painted plain olive drab with a single white circle on the fuselage, bomb bay doors open with falling bombs, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_bomber_e6_s182",
+    "seed": 182,
+    "prompt": "a black angular flying-wing stealth bomber with faint blue engine glow, bomb bay open with a single guided bomb dropping, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "rejected": true,
+    "reject_reason": "unattached small aircraft silhouette floating in empty canvas beside the bomb bay"
    }
   },
   "83": {
@@ -1446,6 +1699,11 @@
     "seed": 183,
     "prompt": "a heavy four-engine propeller bomber aircraft seen alone from the side with four propeller engines along its wings, painted plain olive drab with a single white circle on the fuselage, bomb bay doors open with falling bombs, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_bomber_e6_s83",
+    "seed": 83,
+    "prompt": "a black angular flying-wing stealth bomber with faint blue engine glow, bomb bay open with a single guided bomb dropping, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   },
   "84": {
@@ -1459,6 +1717,11 @@
     "seed": 184,
     "prompt": "a heavy four-engine propeller bomber aircraft seen alone from the side with four propeller engines along its wings, painted plain olive drab with a single white circle on the fuselage, bomb bay doors open with falling bombs, game unit sprite, side view, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "6": {
+    "stem": "p3_unit_bomber_e6_s84",
+    "seed": 84,
+    "prompt": "a black angular flying-wing stealth bomber with faint blue engine glow, bomb bay open with a single guided bomb dropping, game unit sprite, side view, centered, isolated on a plain light gray background"
    }
   }
  }
