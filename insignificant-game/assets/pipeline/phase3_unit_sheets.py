@@ -9,7 +9,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from phase3_units_batch import LINES, SEEDS, START_ERA
+from phase3_units_batch import LINES, START_ERA
 
 SRC = os.path.expanduser("~/ComfyUI-Shared/output/phase3-units")
 # CELL >= 640: the human zooms into sheet cells for detail review (cookbook §9)
@@ -24,11 +24,13 @@ def main() -> None:
     for line in (sys.argv[1:] or list(state)):
         start = START_ERA.get(line, 1)
         eras = list(range(start, start + len(LINES[line])))
-        sheet = Image.new("RGB", (CELL * len(eras), HDR + (CELL + LABEL_H) * len(SEEDS)), (24, 24, 24))
+        # rows are the chains the line actually carries (picked lines keep one, re-rolls run three)
+        chains = sorted(state[line], key=int)
+        sheet = Image.new("RGB", (CELL * len(eras), HDR + (CELL + LABEL_H) * len(chains)), (24, 24, 24))
         ImageDraw.Draw(sheet).text(
             (PAD, 12), f"Phase 3 units [{line}] — era lineage chains, era {eras[0]}..{eras[-1]} left to right",
             fill=(255, 255, 255), font=title_font)
-        for row, chain in enumerate(SEEDS):
+        for row, chain in enumerate(chains):
             for col, era in enumerate(eras):
                 entry = state[line][str(chain)].get(str(era))
                 cell = Image.new("RGB", (CELL, CELL + LABEL_H), (24, 24, 24))

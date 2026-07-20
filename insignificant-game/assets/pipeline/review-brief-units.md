@@ -78,11 +78,17 @@ These four accounted for most era-3 rejects. They are not line-specific.
    supposed to replace, reject. Ask: what did this era change, and did it actually change?
 3. **Glowing energetic objects.** Glowing red/cyan/orange tubes, cones, bolts, sparks, or impact
    splashes on anything pre-modern. Some late-era subjects *want* glow (commandos' night-vision
-   lenses, holo panels, sensor eyes) — check the subject before rejecting.
+   lenses, holo panels, sensor eyes) — check the subject before rejecting. On ERA-6 subjects the
+   rule is: visor/lens/eye/screen glows are sanctioned, but glowing WIRES, CABLES, CONDUITS,
+   SEAM LIGHTS or glowing structural material are a REJECT (human ruling: unreal).
 4. **Count drift.** The subject names a number ("three identical", "two identical"). Count the
    bodies, the heads, the mounts, and the limbs. Three horse heads under two riders is a reject;
    so is nine hooves on two horses.
-5. **Duplicate weapon per figure — but ONLY when it is physically broken.** The previous era's
+5. **Facing direction.** When the subject line names a direction ("facing toward the right",
+   "flying toward the right", "pointing toward the right"), the subject must actually face,
+   fly or point RIGHT; a mirrored/left-facing render of such a cell is a REJECT. Cells whose
+   subject names no direction pass either way.
+6. **Duplicate weapon per figure — but ONLY when it is physically broken.** The previous era's
    weapon can persist as a spare copy. Judge it by attachment and coherence, NOT by presence:
 
    | REJECT | PASS (note it) |
@@ -108,14 +114,16 @@ specifically, then sweep for anything else.
 | cavalry | fantasy horned or spiked horse face plates (must be smooth and plain); chariot regression in later eras; **worst line for unattached objects and count drift — check every hoof and every held item**; flame-like tufts on helmets |
 | engineers | freestanding vertical objects mutating into striped range-poles or rockets with glowing tips; supply carts appearing in place of the named object; WW1-era costume bleeding into pre-modern eras; the wheeled plank wall disassembling — wheel floating unattached, wheel threaded onto a carried beam, or the plank panel splitting into two with one hovering |
 | artillery | duplicate floating cannon beside the real one; glowing red tubes in the gunners' hands (inherited from the era-2 linstock); an era-2 timber sled under a cannon specified as wheeled; shearling flight jackets instead of the specified uniform |
-| shield_wall | floating-pile composition (elements not resting on anything); weapon heads embedded in the wall face; **arrows or blades projecting from stone masonry, sometimes head-outward (physically backwards)**; the wall base fraying into a ragged fabric-like edge |
-| trench | invented micro-architecture on the trench rim; water rendered as an impossible suspended vertical column in cutaway rather than a flat horizontal surface. Mushrooms, moss and small berries on the banks are flora and PASS — do not confuse them with the whimsy-creature mode |
+| shield_wall | floating-pile composition (elements not resting on anything); weapon heads embedded in the wall face; **arrows or blades projecting from stone masonry, sometimes head-outward (physically backwards)**; the wall base fraying into a ragged fabric-like edge; spears or blades popping out of the shield wall (era 2 must be shields only) |
 | anti_air | orange impact splash on struck surfaces; whimsy creatures, spiked organic masses, or folded paper-crest shapes breeding on the tower's blank surfaces and side platforms; roofs mutating into tiled houses or well-houses; glowing cyan ballista bolts (the bolt must read as plain wood or metal) |
-| enemy_mid | invented rune-glyphs on mail and armour |
+| bomber | lettering, numbers or national roundels on hulls, fins or wings — only the single plain white circle is sanctioned; direction (must fly toward the right) |
+| enemy_mid | invented rune-glyphs on mail and armour; glyphs breeding inside or beside the sanctioned orange marks |
 | holy_warriors | the golden-tree motif is correct and expected. Real-world religious insignia is a reject |
-| privateers | bandana markings often resolve as painterly slashes at 8x — that is a PASS, not a glyph |
+| privateers | bandana/scarf markings often resolve as painterly slashes at 8x — that is a PASS, not a glyph; era-5 laptop screens must show only the single large plain coin symbol, any text or extra glyphs on a screen is a reject |
 
-Cross-line: insignia must be a single plain white circle, never a real-world emblem.
+Cross-line: insignia must be the sanctioned mark the subject names — player lines a single plain
+white circle, enemy lines a plain orange band/stripe/ring, holy_warriors the golden tree — never
+a real-world emblem, flag, roundel or lettering.
 
 ## Output format
 

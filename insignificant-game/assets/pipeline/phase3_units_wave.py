@@ -81,7 +81,8 @@ def grid(state: dict, era: int) -> None:
     d = ImageDraw.Draw(sheet)
     for r, line in enumerate(lines):
         for c, chain in enumerate(SEEDS):
-            entry = state[line][str(chain)].get(str(era))
+            # lines no longer carry uniform chains (picked lines keep one, re-rolls run three)
+            entry = state.get(line, {}).get(str(chain), {}).get(str(era))
             if entry is None:  # chain closed short at the previous era gate
                 d.text((c * cell + 12, r * (cell + 26) + cell // 2),
                        f"chain {chain}: no era {era}", fill=(160, 120, 120), font=font)

@@ -1,6 +1,6 @@
 # Asset inventory — Insignificant (v1 scope, cookbook §7 Phase 1)
 
-Built from the Obsidian corpus setting docs (營運 / 卡牌 / 戰鬥 / 時代與回合 /
+Built from the `insignificant-game/design/` setting docs (營運 / 卡牌 / 戰鬥 / 時代與回合 /
 對手文明 / 國策 / Legacy / 經濟與債務 / 幸福 / 內亂與失敗 / 地圖與機會 / 民主 / 世界大戰 / 結局 /
 Insignificant.md). Ids follow cookbook §9 naming and the canonical StringName ids in
 `insignificant-game/doc/architecture.md`; era numbers are 1=部落 2=古典 3=信仰 4=工業
@@ -12,8 +12,8 @@ index — display names are drawn per run from the 命名表, the class is the s
 `portrait_candidate_<id>` (democracy candidates), `ui_<template>` (Phase 2 frozen templates).
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
-cookbook §5). Counts: buildings 76 · units 63 + enemy 18 · card art 68 · icons 75 · UI templates 5 ·
-backgrounds 17 · portraits 15 → **337 assets**.
+cookbook §5). Counts: buildings 76 · units 52 + enemy 18 · card art 57 · icons 75 · UI templates 5 ·
+backgrounds 17 · portraits 15 → **315 assets**.
 
 ## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
@@ -122,7 +122,7 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | unit_cavalry_era1 | 馭獸騎手 |
 | unit_cavalry_era2 | 戰車騎兵 |
 | unit_cavalry_era3 | 重裝騎士團 |
-| unit_cavalry_era4 | 驃騎兵 |
+| unit_cavalry_era4 | 龍騎兵 |
 | unit_cavalry_era5 | 坦克營 |
 | unit_cavalry_era6 | 無人戰車群 |
 | unit_engineers_era1 | 修路隊 |
@@ -135,23 +135,18 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | unit_elite_forces_era3 | 聖殿武士 |
 | unit_elite_forces_era4 | 擲彈兵 |
 | unit_elite_forces_era5 | 特種部隊 |
-| unit_elite_forces_era6 | 機甲突擊隊 |
-| unit_artillery_era2 | 弩砲 |
+| unit_elite_forces_era6 | 生化超級士兵 |
 | unit_artillery_era3 | 射石砲 |
 | unit_artillery_era4 | 野戰砲 |
 | unit_artillery_era5 | 自走砲 |
 | unit_artillery_era6 | 電磁砲 |
-| unit_bomber_era4 | 熱氣球轟炸隊 |
+| unit_bomber_era4 | 飛船轟炸隊 |
 | unit_bomber_era5 | 轟炸機聯隊 |
 | unit_bomber_era6 | 匿蹤轟炸機 |
-| unit_holy_warriors_era3 | 聖戰士團 |
 | unit_holy_warriors_era4 | 神權火槍旅 |
-| unit_holy_warriors_era5 | 狂信裝甲師 |
-| unit_holy_warriors_era6 | 聖戰網軍 |
-| unit_privateers_era3 | 私掠傭兵團 |
-| unit_privateers_era4 | 殖民遠征軍 |
-| unit_privateers_era5 | 戰地承包商 |
-| unit_privateers_era6 | 網路傭兵團 |
+| unit_privateers_era3 | 盜匪團 |
+| unit_privateers_era4 | 竊賊團 |
+| unit_privateers_era5 | 網路駭客 |
 
 ### Fortifications (`fort_<type>_era<n>`) — source: 卡牌 工事卡的時代演化表
 
@@ -161,14 +156,8 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | fort_shield_wall_era2 | 盾陣 |
 | fort_shield_wall_era3 | 城垛 |
 | fort_shield_wall_era4 | 沙包工事 |
-| fort_shield_wall_era5 | 混凝土碉堡 |
+| fort_shield_wall_era5 | 電網 |
 | fort_shield_wall_era6 | 複合裝甲牆 |
-| fort_trench_era1 | 陷坑 |
-| fort_trench_era2 | 壕溝 |
-| fort_trench_era3 | 護城壕 |
-| fort_trench_era4 | 鐵絲網塹壕 |
-| fort_trench_era5 | 反戰車壕 |
-| fort_trench_era6 | 自動化防線 |
 | fort_anti_air_era1 | 擋箭棚 |
 | fort_anti_air_era2 | 箭樓 |
 | fort_anti_air_era3 | 城防塔 |
@@ -202,13 +191,12 @@ coherence — same subject, larger canvas.
 | card_archers_era1..6 | 6 | 投石手→精準飛彈組 |
 | card_cavalry_era1..6 | 6 | 馭獸騎手→無人戰車群 |
 | card_engineers_era1..6 | 6 | 修路隊→戰鬥工程隊 |
-| card_elite_forces_era2..6 | 5 | 禁衛軍→機甲突擊隊 |
-| card_artillery_era2..6 | 5 | 弩砲→電磁砲 |
-| card_bomber_era4..6 | 3 | 熱氣球轟炸隊→匿蹤轟炸機 |
-| card_holy_warriors_era3..6 | 4 | 聖戰士團→聖戰網軍 |
-| card_privateers_era3..6 | 4 | 私掠傭兵團→網路傭兵團 |
+| card_elite_forces_era2..6 | 5 | 禁衛軍→生化超級士兵 |
+| card_artillery_era3..6 | 4 | 射石砲→電磁砲 |
+| card_bomber_era4..6 | 3 | 飛船轟炸隊→匿蹤轟炸機 |
+| card_holy_warriors_era4 | 1 | 神權火槍旅 |
+| card_privateers_era3..5 | 3 | 盜匪團→網路駭客 |
 | card_shield_wall_era1..6 | 6 | 木盾牆→複合裝甲牆 |
-| card_trench_era1..6 | 6 | 陷坑→自動化防線 |
 | card_anti_air_era1..6 | 6 | 擋箭棚→雷射攔截網 |
 | card_war_song | 1 | 軍歌 (era-neutral skill) |
 | card_holes_dont_matter | 1 | 這些破洞不影響功能 (era-neutral skill) |
@@ -216,7 +204,7 @@ coherence — same subject, larger canvas.
 | card_persuasion_broadcast | 1 | 勸降廣播 (policy-limited skill) |
 | card_orbital_strike | 1 | 軌道打擊 (policy-limited skill) |
 
-(68 assets.)
+(57 assets.)
 
 ## UI icons (`icon_<id>`) — sources: 經濟與債務 / 幸福 / 內亂與失敗 / 營運 / 國策 / Legacy / 地圖與機會 / 戰鬥 / 民主 / 時代與回合
 
