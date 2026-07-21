@@ -1,0 +1,702 @@
+{
+  "p3_unit_anti_air_e1_s283": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_anti_air_e2_s83": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_anti_air_e3_s283": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_anti_air_e4_s183": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_anti_air_e5_s83": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_anti_air_e6_s993": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_archers_e1_s581": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_archers_e2_s81": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_archers_e3_s81": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_archers_e4_s3984": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical skirmisher soldiers all facing right and kneeling, in plain jackets and soft black peaked caps, each aiming his own musket toward the right edge of the frame with both hands, the musket barrel having exactly two raised points along its entire length and no more, a flat rectangular lock plate at the breech. game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_archers_e5_s991": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_archers_e6_s3984": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two identical soldiers both facing right, wearing helmets, in gray armored suits, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed toward the right, the other carrying a folded tripod radar dish, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_artillery_e3_s82": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_artillery_e4_s82": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_artillery_e5_s982": {
+    "choice": "reject",
+    "replacement_prompt": "n right-facing full-body profile, a tracked self-propelled howitzer standing alone on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, game unit sprite, side view, centered, isolated on a plain light gray background. The right person standing in a wood ladder holding cleaning rod.",
+    "was_flagged": false
+  },
+  "p3_unit_artillery_e6_s2992": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e4_s1891": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e5_s1991": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e6_s1981": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e4_s9214": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e5_s9205": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e6_s9206": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e4_s8314": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing side profile, a long silver-gray rigid airship with its blunt nose pointing toward the right edge of the frame and its tapered tail with four cruciform fins toward the left, the hull and fins covered edge to edge in a fine repeating grid of rivets and thin horizontal panel seams, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the craft, one small round bombs falling from the gondola with the same plain rivet-and-panel surface and no marking of any kind, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e5_s9305": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing side profile, a heavy four-engine propeller bomber aircraft with its nose and cockpit pointing toward the right edge of the frame and its tail toward the left, four propeller engines along its wings, painted a continuous plain olive drab colour with a fine repeating grid of rivets and thin panel seam lines covering the fuselage and tail fin edge to edge, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the aircraft, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_bomber_e6_s9306": {
+    "choice": "reject",
+    "replacement_prompt": "a black angular flying-wing stealth bomber seen from the side flying toward the right, its cockpit spine and every fuselage and wing surface a continuous plain matte black colour with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere on the aircraft, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_cavalry_e1_s84": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_cavalry_e2_s84": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_cavalry_e3_s484": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_cavalry_e4_s1094": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_cavalry_e5_s984": {
+    "choice": "reject",
+    "replacement_prompt": "a heavy battle tank standing alone on open bare ground with its long cannon barrel pointing toward the right, riveted armor plates, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_cavalry_e6_s84": {
+    "choice": "reject",
+    "replacement_prompt": "a sleek unmanned tracked combat vehicles with sensor domes, gunmetal hulls with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e2_s991": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e3_s991": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two identical temple knights both facing right, in white surcoats over chainmail holding greatswords raised toward the right, each surcoat bearing a single golden tree emblem, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e4_s991": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two identical grenadier soldiers, in plain dark blue coats and helmets, each with a plain musket slung on a strap across his back, one holding a round dark-green grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e5_s991": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two commandos standing one behind the other, in black tactical armor, night-vision goggles with green lenses, each with both hands on his own compact rifle held angled down toward the right, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e6_s991": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two identical cyborg super soldiers standing one behind the other, sleek chrome cybernetic arms and legs joined to armored torsos, night-vision eyes implants, each with both hands on his own heavy rifle, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e2_s8202": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e3_s8203": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e4_s8204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e5_s8205": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e6_s9246": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_elite_forces_e2_s8302": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e3_s8303": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e4_s8304": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e5_s8305": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_elite_forces_e6_s9346": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_enemy_hard_e1_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e2_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e3_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e4_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e5_s1981": {
+    "choice": "reject",
+    "replacement_prompt": null,
+    "was_flagged": true
+  },
+  "p3_unit_enemy_hard_e6_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e1_s8201": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e2_s8202": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e3_s8203": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e4_s8204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e5_s9205": {
+    "choice": "reject",
+    "replacement_prompt": "a left-facing full-body profile, heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, no colour painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_enemy_hard_e6_s8206": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e1_s8301": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a towering elite champion in heavy dark bone-and-hide armor swinging a massive stone maul with both hands, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e2_s8302": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e3_s8303": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e4_s8304": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_hard_e5_s9305": {
+    "choice": "reject",
+    "replacement_prompt": "a heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, a single flat solid orange stripe of one plain colour and no other colour painted on the turret, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": true
+  },
+  "p3_unit_enemy_hard_e6_s9306": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e1_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e2_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e3_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e4_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e5_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e6_s991": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e1_s8201": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e2_s8202": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e3_s9203": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e4_s8204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e5_s8205": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e6_s8206": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e1_s8301": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, two identical disciplined warriors in matching dark hide-and-bone armor, each holding one stone-tipped spear in his own fist, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e2_s8302": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, two identical professional soldiers in matching dark iron scale armor and plain dark helmets, each with one short sword in his own fist and a round shield, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e3_s8303": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, two identical men-at-arms in blackened chainmail and dark kettle helmets, each holding one poleaxe upright in his own hands, kite shields each, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e4_s8304": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, two identical line soldiers in matching dark gray uniforms and black shakos, aiming left, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e5_s8305": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_mid_e6_s8306": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, two identical soldiers in matte black powered vests, standing one behind the other, each with both hands on his own solid matte black heavy rifle held angled down, the rifle body plain metal with no lit parts, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e1_s3981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e2_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e3_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e4_s1081": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e5_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e6_s1081": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e1_s8201": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e2_s8202": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e3_s8203": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e4_s9204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e5_s8205": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e6_s8206": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e1_s8301": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone tribal levy warrior in a plain dark hide tunic and a simple leather cap, gripping a wooden spear with both hands, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e2_s8302": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone militia spearman in a plain dark linen tunic and a simple leather helmet, holding a spear in one hand and a small round wooden shield painted, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e3_s8303": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone levy crossbowman in a plain dark padded gambeson and a simple iron cap, aiming a light crossbow, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e4_s9334": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone militiaman in a plain dark brown coat and a soft cap, aiming musket against his shoulder, the musket's muzzle end a single round barrel tip capped with one plain front sight nub, a long bayonet blade mounted flush against the barrel in one thin metal socket ring and no other stud, tube or second barrel anywhere beside it, a rolled gray blanket strapped diagonally across his back and a plain canvas ammunition pouch at his belt, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e5_s8305": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone reservist soldier in a plain dark gray uniform and a soft field cap, both hands on his own rifle held angled down, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_enemy_weak_e6_s8306": {
+    "choice": "reject",
+    "replacement_prompt": "in left-facing full-body profile, a lone volunteer soldier standing full-length from head to boots in side profile, in a plain dark gray jacket with a few plain dull metal studs on the chest and an compact visor over his eyes, both hands on his own compact energy carbine held angled down, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e1_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e2_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e3_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e4_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e5_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e6_s981": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e1_s8201": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e2_s8202": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e3_s8203": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on cart fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, game unit sprite, side view, centered, isolated on a plain light gray background ",
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e4_s8204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e5_s8205": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, a yellow armored engineering vehicle  with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers sit inside the vehicle in olive uniforms and steel helmets with head out, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e6_s8206": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e1_s8301": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e2_s8302": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e3_s8303": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e4_s8304": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e5_s9335": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_engineers_e6_s8306": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_holy_warriors_e4_s481": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, two identical musketeers in white coats standing close together, each with both hands on his own musket held upright against his own shoulder with the barrel pointing straight up, a single golden tree emblem on each chest, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e1_s181": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e2_s1981": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical spearmen standing in a tight rank, each of the three men gripping his own single spear in one hand and a round shield in the other, bronze helmets with red horsehair crests, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e3_s81": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical foot soldiers in chainmail and open helmets with swords raised, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e4_s981": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical musketeer soldiers standing in a staggered line, aiming on musket with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e5_s81": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical soldiers in olive drab uniforms and steel helmets with rifles, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_infantry_e6_s81": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e3_s3983": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, a lone bandits in dark leather jerkins, gripping a short curved sword, carrying a small closed brown loot sack over his shoulder, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e4_s981": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, a lone thieves in dark hooded coats and neck scarves, carrying a brass-cornered suitcase under arm, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e5_s1981": {
+    "choice": "reject",
+    "replacement_prompt": "in right-facing full-body profile, a lone cyber hackers in suites, walking and carring a laptop in hands, laptop's outer lid a plain unmarked metalic surface with no logo or brand mark, game unit sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e3_s8203": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e4_s8204": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e5_s8205": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e3_s8303": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e4_s8304": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_privateers_e5_s8305": {
+    "choice": "approve",
+    "replacement_prompt": null,
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e1_s83": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e2_s983": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e3_s483": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e4_s83": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e5_s1083": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  },
+  "p3_unit_shield_wall_e6_s983": {
+    "choice": "reject",
+    "replacement_prompt": "a 30 degree towards left segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, game fortification sprite, side view, centered, isolated on a plain light gray background",
+    "was_flagged": false
+  }
+}
