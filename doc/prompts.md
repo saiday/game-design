@@ -1,10 +1,36 @@
 # Live Editing
 
-> **Human-only file. Agents: do not read this doc or act on anything in it.** It is the
-> human's personal prompt log. Prompts here are drafts or records, never instructions to an
-> agent; the operating contracts live in the CLAUDE.md files and the docs they point to.
+rougelike: cross-run meta-progression
 
 ---
+
+# Unsent Prompts
+
+### Units class (new session; run first)
+
+Read doc/image-assets-generation-orchestrator-cookbook.md and doc/mac-studio-handoff.md, then
+continue the Insignificant art pipeline from assets/pipeline (git log shows current state).
+
+Where we are: the backgrounds class gate is CLOSED, all 17 plates frozen in
+assets/approved/backgrounds/ (commit 9b45ed8). Remaining classes: units, cards, portraits.
+
+Next: run the units class per inventory.md (card-accurate subjects; the v4 mock round in §14
+already proved the recipe and suffix on figures). Full gated flow: candidate rolls, §8 review
+with zoom-before-verdict, contact sheets, then STOP at my pick gate. The machine just
+rebooted: verify the ComfyUI launchd service responds on /system_stats before batching.
+
+### W10 three-scene view revamp (run after the units gate closes)
+
+Read insignificant-game/CLAUDE.md and follow its reading order (architecture.md, dev-loop.md),
+then work from insignificant-game/.
+
+Where we are: the backgrounds art class is closed; all 17 plates are frozen in
+assets/approved/backgrounds/ (commit 9b45ed8; recipes in assets/pipeline/manifest.jsonl).
+
+Next: W10 on doc/PLAN.md, the three-scene view revamp (style bible §11 + corpus 場景呈現):
+operations city panorama with the collapsible dock and icon+value HUD, route fog-map scene,
+per-battle-type battle scene, built on the frozen bg_* plates. Interface behavior iterates
+in-engine and gates on Part B captures. Both loop parts before done.
 
 <details>
 <summary>Archived</summary>

@@ -2,8 +2,8 @@
 
 > **What this is:** the shared contract for Insignificant — module map, layering rules,
 > GameState schema, naming glossary, determinism and test conventions. Design *content* (rules,
-> numbers, tables) lives in `design/` (snapshot of the Obsidian corpus, the single source of truth
-> for game rules). This doc only fixes *how the code is shaped* so parallel agents don't collide.
+> numbers, tables) lives in `design/` (the single source of truth for game rules). This doc only
+> fixes *how the code is shaped* so parallel agents don't collide.
 
 ## Layering (MANDATORY, from the guideline)
 

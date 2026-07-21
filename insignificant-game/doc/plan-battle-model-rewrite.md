@@ -41,9 +41,8 @@ Copied from `insignificant-game/CLAUDE.md`. Every wave's requirements implicitly
   `core/data/x_*.gd`, `test/x_test.gd`.
 - **Doc ↔ code metadata both directions** in the same change: each corpus doc's `code:`
   frontmatter, and each module's header comment citing its `design/*.md`.
-- **Design authority chain.** The Obsidian corpus at
-  `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` is upstream
-  truth. `design/` here is a read-only snapshot; re-copy changed files after any corpus edit.
+- **Design authority chain.** `design/` in this repo is upstream truth — git-tracked, edited
+  directly, no external corpus to re-sync from.
 - **Numbers are v1 baseline knobs.** Calibration changes values, never structure. Fun and balance
   calls belong to the human: measure with the sim, surface findings in `doc/balance-report.md`,
   do not decide.

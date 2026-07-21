@@ -1,5 +1,5 @@
 ; Godot 4.6 project — Insignificant PoC.
-; Full game simulation with placeholder visuals; design source: design/ (snapshot of the Obsidian corpus).
+; Full game simulation with placeholder visuals; design source: design/ (single source of truth).
 
 config_version=5
 

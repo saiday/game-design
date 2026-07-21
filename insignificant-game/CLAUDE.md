@@ -15,19 +15,18 @@ root is docs-only) — always `cd` here before running anything.
    summary of it or an exception to nothing in it.
 2. `doc/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
    that actually bit (cwd trap, exit-105 class_name cache, determinism rules…).
-3. `design/` — the 15 game-rule docs (snapshot; see "Design authority" below). The system you're
-   touching, plus anything it feeds (each doc's intro lists 被誰餵/餵給誰).
+3. `design/` — the 15 game-rule docs (single source of truth; see "Design authority" below). The
+   system you're touching, plus anything it feeds (each doc's intro lists 被誰餵/餵給誰).
 4. `doc/PLAN.md` — task board & wave history; the recovery point after any interruption.
 
 ## Design authority chain
 
-- **Upstream truth** = the Obsidian corpus
-  `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/`.
-  `design/` here is a read-only snapshot — after any corpus edit, re-copy the changed files in.
-- Corpus status is 定稿: structure/rules/links locked; **numbers are v1 baseline knobs** —
+- **Upstream truth** = `design/` in this repo. It's git-tracked and edited directly — no external
+  corpus to re-sync from, no re-copy step.
+- Design status is 定稿: structure/rules/links locked; **numbers are v1 baseline knobs** —
   calibration changes values, never structure. Fun/balance calls belong to the PM: measure with
   the sim, surface findings (`doc/balance-report.md`), don't decide.
-- **Doc ↔ code metadata:** every corpus doc's frontmatter has a `code:` list naming its module /
+- **Doc ↔ code metadata:** every design doc's frontmatter has a `code:` list naming its module /
   data table / test suite; every module's header comment cites its `design/*.md`. When you move
   or add files, update BOTH directions in the same change.
 - Where the design is silent, decide conservatively and log it — one row/file under
@@ -68,6 +67,6 @@ Numbers changed? Run the balance batch and diff against `doc/balance-report.md`.
 | `test/` (21 suites, 192 cases green) | one suite per module; sim_test = full-run invariants |
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
-| `doc/difficulty-design.md` | difficulty formula + rationale (synced into the corpus) |
+| `doc/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |
 | `doc/` | contract, dev loop, task board, decision log, balance report |
 | root `doc/agent-development-loop.md` | the generic two-part-loop doctrine this project rides on |

@@ -17,10 +17,8 @@ in `insignificant-game/assets/pipeline/style-bible.md`. The live prompts below a
    `127.0.0.1:8188` (it survives reboots; don't open the dormant Comfy Desktop app — both want
    the port).
 2. **This repo** up to date with push access (the agent commits contact sheets and approved
-   assets).
-3. **Obsidian corpus synced** at
-   `~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/`
-   (asset inventory and subjects come from it).
+   assets; asset inventory and subjects come from `insignificant-game/design/`, which ships with
+   the clone — no separate corpus sync needed).
 
 ## ComfyUI launch agents settings
 

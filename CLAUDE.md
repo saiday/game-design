@@ -23,12 +23,15 @@ and license sign-off / verification records, which keep their dates.
   `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions),
   `doc/loop-poc-archive/` (the loop PoC's PLAN/STRUCTURE/MEMORY/process snapshots). The loop
   PoC's code lives only in git history.
+- **`doc/progress-dashboard.html`** — a static, self-contained development-progress dashboard
+  (core build waves, test counts, art pipeline gate status). Open it locally in a browser; no
+  build step. **Agents: update it whenever a wave/gate closes or a test/asset count changes** —
+  edit the numbers/table rows directly and bump the "Last updated" line in the footer.
 
-## Game-design corpus (Obsidian — *what* we're building; the design source of truth)
-The game design lives in an Obsidian corpus at
-`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/obsidian/game-design/` (**the current
-planning home**; game title: **Insignificant**). That corpus is the **design**;
-this repo is the **build**. Don't duplicate game-design detail into this file — link to it.
+## Game-design corpus (`insignificant-game/design/` — *what* we're building; the single source of truth)
+The game design lives in `insignificant-game/design/` (game title: **Insignificant**). That folder
+is the **design**; the rest of `insignificant-game/` is the **build**. Don't duplicate game-design
+detail into this file — link to it.
 - Entry point: `Insignificant.md` — the concept/pitch main page (concept statement, USP, core
   loops, systems table). Every game term wikilinks to its dedicated setting doc.
 - **Doc ↔ code relation:** every setting doc's frontmatter carries a `code:` list mapping it to
@@ -43,16 +46,13 @@ this repo is the **build**. Don't duplicate game-design detail into this file �
   `對手文明` (5 fixed power-curve automa), `世界大戰` (rounds 15/35; reparations
   `max(正國庫×50%, power×2)`, can go negative), `民主` (candidate truth table), `結局`
   (survive to round 50 = win; ranking gives narrative epilogue only, never a loss).
-- **The corpus is 定稿 / development-ready**: all history annotations and open-question
+- **The design is 定稿 / development-ready**: all history annotations and open-question
   quote blocks were resolved and removed. The only remaining `>` blocks are each doc's intro summary
   (keep that format). Structure/rules/links are locked; numeric values are v1 baselines calibrated by
   playtesting — calibration changes values, never structure. New open questions go back in as `>`
   quote blocks when a future design round reopens something.
-- The old corpus `.../obsidian/game ideas/agent plans/` is **archived** (7 Q&A rounds, decision
-  history in its `archive/`; `constitution.md` there still holds the timeless invariants and the
-  design-iteration method). Consult it for rationale/history, don't update it.
 
-**Design-iteration loop** (how the game design advances; canonical copy in `constitution.md` §5):
+**Design-iteration loop** (how the game design advances):
 `answer (human) → converge into a CONNECTED model (every system names what it feeds / is fed by) → multi-round adversarial validation (skeptics hunt "outputs without inputs" disconnects) → archive this round's questions → pose the next, deeper round`. Run each round as a dynamic workflow. The human's standing rule: questions must come from connected understanding, never surface plausibility.
 
 ## Non-negotiables (full versions in `insignificant-game/CLAUDE.md`)

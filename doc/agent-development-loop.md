@@ -12,7 +12,7 @@ Last updated: 2026-07-08.
 
 ## 1. What this game is (one paragraph)
 
-A roguelike, turn-based, deckbuilding card game — Civilization (hex overworld + fog of war + exploration/events) crossed with Slay the Spire (build a card pool from room/event rewards), era/legacy progression, and a soft 3-hour run cap. Target platforms: **desktop and mobile**. Developer is a general programmer new to game development; art is **AI-generated — a self-generated, style-unified pack** (see [`image-assets-generation-orchestrator-cookbook.md`](./image-assets-generation-orchestrator-cookbook.md), which absorbed the original art-pipeline-poc-guide), with third-party packs reserved only for asset types AI handles poorly. Full design lives in the Obsidian note `game ideas/遊戲靈感.md`; the engine decision audit lives in `game ideas/agent loops/2026-06-17-game-engine-tech-stack-audit.md`.
+A roguelike, turn-based, deckbuilding card game — Civilization (hex overworld + fog of war + exploration/events) crossed with Slay the Spire (build a card pool from room/event rewards), era/legacy progression, and a soft 3-hour run cap. Target platforms: **desktop and mobile**. Developer is a general programmer new to game development; art is **AI-generated — a self-generated, style-unified pack** (see [`image-assets-generation-orchestrator-cookbook.md`](./image-assets-generation-orchestrator-cookbook.md), which absorbed the original art-pipeline-poc-guide), with third-party packs reserved only for asset types AI handles poorly. Full design lives in `insignificant-game/design/`; the engine decision audit lives in `game ideas/agent loops/2026-06-17-game-engine-tech-stack-audit.md`.
 
 ## 2. Locked decisions
 

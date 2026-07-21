@@ -3,7 +3,7 @@
 > **If you are resuming after an interruption:** this file + git log is the truth. Find the
 > first unchecked task below, verify the previous gate actually holds (run Part A; run Part B if
 > the view is involved), and continue from there. Contract: `doc/architecture.md`.
-> Dev loop: `doc/dev-loop.md`. Design: `design/` (snapshot; Obsidian corpus is upstream).
+> Dev loop: `doc/dev-loop.md`. Design: `design/` (single source of truth).
 
 ## Method
 
@@ -21,8 +21,8 @@ every green wave.
 > reopen those decisions while executing; surface a design question instead.
 
 - [x] **W10 — Corpus rewrite (design truth first; no code).** `卡牌.md`, `戰鬥.md`, `營運.md`,
-      `對手文明.md` in the Obsidian corpus, then re-copy into `design/`, then fix `code:`
-      frontmatter both directions. Gate: human reads and accepts the four docs; 手牌 / 部隊位 /
+      `對手文明.md` in `design/`, then fix `code:` frontmatter both directions. Gate: human reads
+      and accepts the four docs; 手牌 / 部隊位 /
       同時結算 appear **only as explicit negations** (「沒有手牌、沒有抽牌」), never as live rules.
       **Corpus before code is not negotiable** — every mechanic this rewrite removes was built by
       an agent resolving a doc contradiction alone. *(done 2026-07-17: four docs rewritten,
@@ -75,9 +75,9 @@ retired.
       — faithful camps/merit/reparations math, no per-card play [documented simplification].
       slow_burner g_late calibrated 1.24: design's stated 1.11 can't reach its own 230@35 target.)*
 - [x] **W4 — Difficulty + orchestrator + simulation.** `difficulty.gd`, `turn.gd`, `sim.gd`;
-      full-run seeded simulation tests; `doc/difficulty-design.md`; formula synced into the
-      Obsidian corpus (對手文明 + pointers in 戰鬥/地圖與機會; snapshot refreshed; also fixed
-      slow_burner g_late 1.11→1.24 there — value calibration to its own 230@35 target).
+      full-run seeded simulation tests; `doc/difficulty-design.md`; formula synced into
+      `design/` (對手文明 + pointers in 戰鬥/地圖與機會; also fixed slow_burner g_late 1.11→1.24
+      there — value calibration to its own 230@35 target).
       Gate: Part A green incl. sim suite. *(done 2026-07-08: 181/181, 20 suites, exit 0)*
 - [x] **W5 — View layer (Part B).** `view/main.tscn` + `view/main.gd` (UI built programmatically;
       demo mode INSIG_DEMO=1 simulates clicks, captures per-phase PNGs, prints ASSERTs).
