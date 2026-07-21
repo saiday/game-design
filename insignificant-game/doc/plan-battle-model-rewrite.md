@@ -134,8 +134,8 @@ lines keyed to card identity × era) is **not invalidated**. Nothing generated n
 | # | Decision |
 |---|---|
 | **D13** | **Battle medals are automatic.** When a unit's XP completes, the medal lands at that precomputed tick. No input, fully inside the round's block, shown live. |
-| **D14** | **Building medals are assigned.** 軍事·兵營 produces a 勳章; the player chooses **which card receives it**, in the operation scene. This replaces 兵營's 「戰鬥開場部隊位 +1」. |
-| **D15** | **軍事區 基礎被動 = 老兵 (veterancy):** your units start one growth level up. This replaces 「戰鬥開場手牌 +1」. It is pure 純戰力, cannot be bought with money, and preserves 軍事區's 無軸 identity. |
+| **D14** | **Building medals are assigned.** 軍事·兵營 produces a 勳章; the player chooses **which card receives it**, in the operation scene. The **stat is fixed by the recipient's lane, not chosen**: 近戰列 → 攻速, 遠程列/空域 (轟炸機) → 命中率, 工兵團 (support, never swings) → 閃避率. **No per-card medal cap** — 攻速 has no value ceiling, so a single melee carry can stack 攻速 without bound; that runaway is bounded by 兵營 production rate + growth step (calibration), not by structure. This replaces 兵營's 「戰鬥開場部隊位 +1」. |
+| **D15** | **軍事區 基礎被動 = 老兵 (veterancy):** your units start one growth level up, on the **same lane-routed stat as the 兵營 medal** (近戰 → 攻速, 遠程/空域 → 命中率, 工兵團 → 閃避率). As a passive it is an **always-on floor**: a unit that dies and returns at level 0 still gets the +1 while 軍事區 stands; lose 軍事區 (內亂戰) and it's gone. This replaces 「戰鬥開場手牌 +1」. It is pure 純戰力, cannot be bought with money, and preserves 軍事區's 無軸 identity. |
 | **D16** | **文化國 心戰 → your units start the next battle with reduced accuracy.** This replaces 「你的下場戰開場手牌 −1」. 傳播線's existing 「心戰效果增強」 upgrade keeps working on both directions unchanged. |
 
 **Naming:** the award is 勳章 (medal). It is **not** a 卡. 卡 already means a deck card, and the
@@ -153,11 +153,11 @@ Terms are load-bearing. Use exactly these; do not drift to synonyms.
 | **攻 / power / `attack`** | One concept, three spellings, all the same thing. Fixed per card type and era, from 卡牌總表, scaled by 時代係數. Never rolls. |
 | **血 / HP** | Fixed per card type and era. "How many men the regiment has." Never rolls. |
 | **innate three** | accuracy, dodge, speed. Rolled per card **instance** at acquisition, within a per-type distribution. "How good these particular men are." |
-| **勳章 (medal)** | A growth award. Two sources: battle (automatic on XP completion, D13) and 兵營 (assigned in the operation scene, D14). Never called a card. |
+| **勳章 (medal)** | A growth award of +1 level on **one stat**. Two sources: battle (automatic; lands on the stat whose XP filled, D13) and 兵營 (assigned to a card in the operation scene; the stat is fixed by that card's lane — 近戰→攻速, 遠程/空域→命中率, 工兵團→閃避率 — D14). No per-card cap. Never called a card. |
 | **wave** | One scheduled enemy commitment inside a battle. Rolled per battle (D5). |
 | **tick** | The atomic time unit inside a 回合. Units act on their own attack speed. |
 | **timeline** | The complete, ordered, tick-stamped event list core emits for one round. The view replays it and decides nothing. |
-| **老兵 / veterancy** | 軍事區's 基礎被動 (D15): units start one growth level up. |
+| **老兵 / veterancy** | 軍事區's 基礎被動 (D15): units start one growth level up, on the same lane-routed stat as the 兵營 medal; an always-on floor that re-applies after death while 軍事區 stands. |
 | **exhaustion** | The defeat condition (D3): field empty **and** nothing left to commit. |
 | **回合 (round)** | A fixed tick window. The atomic unit of play: deployment, 軍費, and wave arrival all happen at its boundary. |
 
