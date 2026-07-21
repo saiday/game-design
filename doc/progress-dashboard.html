@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Insignificant — Development Dashboard</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8eb; --muted:#9aa3af;
+    --accent:#5fb3ff; --green:#4caf82; --amber:#e0a83e; --red:#e0665f; --grid:#1d2128;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f5f6f8; --panel:#ffffff; --border:#dfe3e8; --text:#1b1f24; --muted:#5b6470;
+           --accent:#1c6fd0; --green:#1f8f5f; --amber:#a86a10; --red:#c23b33; --grid:#eceff2; }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8eb; --muted:#9aa3af;
+    --accent:#5fb3ff; --green:#4caf82; --amber:#e0a83e; --red:#e0665f; --grid:#1d2128;
+  }
+  :root[data-theme="light"]{
+    --bg:#f5f6f8; --panel:#ffffff; --border:#dfe3e8; --text:#1b1f24; --muted:#5b6470;
+    --accent:#1c6fd0; --green:#1f8f5f; --amber:#a86a10; --red:#c23b33; --grid:#eceff2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    margin:0; padding:32px 24px 64px; line-height:1.5;
+  }
+  .wrap{max-width:1080px; margin:0 auto;}
+  h1{font-size:1.5rem; margin:0 0 4px;}
+  .sub{color:var(--muted); font-size:.9rem; margin:0 0 28px;}
+  .note{
+    background:var(--panel); border:1px solid var(--border); border-left:3px solid var(--accent);
+    border-radius:6px; padding:12px 16px; font-size:.85rem; color:var(--muted); margin-bottom:32px;
+  }
+  .note b{color:var(--text);}
+  h2{font-size:1.05rem; margin:36px 0 12px; color:var(--text); border-bottom:1px solid var(--border); padding-bottom:8px;}
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:8px;}
+  .tile{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:14px 16px;}
+  .tile .n{font-size:1.6rem; font-weight:600;}
+  .tile .l{font-size:.78rem; color:var(--muted); margin-top:2px;}
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--border); border-radius:8px; overflow:hidden; font-size:.88rem;}
+  th,td{text-align:left; padding:9px 14px; border-bottom:1px solid var(--border);}
+  th{color:var(--muted); font-weight:500; font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; background:var(--grid);}
+  tr:last-child td{border-bottom:none;}
+  .status{display:inline-flex; align-items:center; gap:6px; font-size:.82rem; font-weight:600;}
+  .dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .dot.done{background:var(--green);} .dot.wip{background:var(--amber);} .dot.todo{background:var(--muted);}
+  .status.done{color:var(--green);} .status.wip{color:var(--amber);} .status.todo{color:var(--muted);}
+  .bar-outer{background:var(--grid); border-radius:4px; height:6px; width:100%; overflow:hidden; margin-top:4px;}
+  .bar-inner{background:var(--accent); height:100%;}
+  footer{margin-top:40px; color:var(--muted); font-size:.78rem; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Insignificant — Development Dashboard</h1>
+  <p class="sub">Godot 4.6 / GDScript civ-management deckbuilder — snapshot of core build, test suite, and art pipeline state.</p>
+
+  <div class="note">
+    <b>Agents:</b> update this file whenever a wave/gate closes, a test count changes, or an art
+    pipeline phase moves — see the pointer in the repo root <code>CLAUDE.md</code>. Edit the
+    numbers/rows directly; this is a static snapshot, not a live feed. Keep <code>Last updated</code>
+    in the footer current.
+  </div>
+
+  <h2>Core build (production waves)</h2>
+  <div class="tiles">
+    <div class="tile"><div class="n">11 / 15</div><div class="l">waves closed (W0–W10)</div></div>
+    <div class="tile"><div class="n">194 / 194</div><div class="l">test cases green</div></div>
+    <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
+    <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
+  </div>
+
+  <table>
+    <tr><th>Wave</th><th>What</th><th>Status</th></tr>
+    <tr><td>W0–W9</td><td>Full-game PoC (all core systems, view layer, balance instrumentation)</td>
+        <td><span class="status done"><span class="dot done"></span>closed</span></td></tr>
+    <tr><td>W10</td><td>Battle-model corpus rewrite (卡牌/戰鬥/營運/對手文明 — design truth first)</td>
+        <td><span class="status done"><span class="dot done"></span>closed</span></td></tr>
+    <tr><td>W11</td><td>Card model — rolled instance stats, deck of instances</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+    <tr><td>W12</td><td>Battle model — wave schedule, tick loop, timeline emission (hand removed)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+    <tr><td>W13</td><td>Growth — per-stat XP, 勳章, veterancy rewire</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+    <tr><td>W14</td><td>Sim + balance recalibration</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+    <tr><td>W15</td><td>Three-scene view revamp (operations panorama / fog-map / battle scene)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+  </table>
+
+  <h2>Art pipeline (Phase 3 class gates)</h2>
+  <div class="tiles">
+    <div class="tile"><div class="n">315</div><div class="l">total assets in scope (inventory.md)</div></div>
+    <div class="tile"><div class="n">4</div><div class="l">classes fully frozen</div></div>
+    <div class="tile"><div class="n">0</div><div class="l">classes at human pick gate</div></div>
+  </div>
+
+  <table>
+    <tr><th>Class</th><th>Scope</th><th>Status</th></tr>
+    <tr><td>UI icons</td><td>75 glyphs</td>
+        <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/icons/</span></td></tr>
+    <tr><td>Buildings</td><td>76 sprites (12 lines + core, ×6 eras)</td>
+        <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/buildings/</span></td></tr>
+    <tr><td>Backgrounds</td><td>17 plates</td>
+        <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/backgrounds/</span></td></tr>
+    <tr><td>Units / forts / enemy tiers</td><td>52 unit sprites + 18 enemy-tier sprites, 15 lineage lines</td>
+        <td><span class="status done"><span class="dot done"></span>closed, frozen in assets/approved/units/ (69 sprites; infantry_era4 gap)</span></td></tr>
+    <tr><td>Card illustrations</td><td>57 pieces</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+    <tr><td>Portraits</td><td>15 pieces (civs + candidates)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+  </table>
+
+  <h2>Design docs</h2>
+  <table>
+    <tr><th>Area</th><th>Status</th></tr>
+    <tr><td>insignificant-game/design/ (single source of truth)</td>
+        <td><span class="status done"><span class="dot done"></span>定稿 — structure/rules locked, numbers are v1 baselines</span></td></tr>
+    <tr><td>Battle model rewrite (D1–D16, plan-battle-model-rewrite.md)</td>
+        <td><span class="status wip"><span class="dot wip"></span>design docs done (W10); code rewrite pending (W11–W14)</span></td></tr>
+  </table>
+
+  <footer>Last updated: 2026-07-22 · edit this file directly to update — no build step</footer>
+</div>
+</body>
+</html>

@@ -35,6 +35,23 @@ func test_approved_building_lines_exist_per_era() -> void:
 			.override_failure_message("missing building_core_era%d" % era).is_true()
 
 
+func test_approved_units_exist_per_coverage() -> void:
+	# units class line-pick gate closed: every (line, era) in UNIT_COVERAGE is frozen on disk
+	var total := 0
+	for line_id: StringName in AssetPaths.UNIT_COVERAGE:
+		for era: int in AssetPaths.UNIT_COVERAGE[line_id]:
+			assert_bool(AssetPaths.has_unit(line_id, era)) \
+				.override_failure_message("missing unit_%s_era%d" % [line_id, era]).is_true()
+			total += 1
+	assert_int(total).is_equal(69)
+
+
+func test_infantry_era4_is_the_known_gap() -> void:
+	# era-4 infantry render was §8-rejected with no sibling chain; the slot is intentionally unfrozen
+	assert_bool(AssetPaths.has_unit(&"infantry", 4)).is_false()
+	assert_bool(AssetPaths.UNIT_COVERAGE[&"infantry"].has(4)).is_false()
+
+
 func test_ui_templates_exist() -> void:
 	for tpl: Dictionary in [AssetPaths.UI_PANEL, AssetPaths.UI_BUTTON, AssetPaths.UI_CARD_FRAME,
 			AssetPaths.UI_ICON_PLATE, AssetPaths.UI_DIVIDER]:

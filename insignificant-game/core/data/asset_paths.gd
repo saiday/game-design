@@ -8,6 +8,7 @@ extends RefCounted
 
 const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
+const UNIT_DIR: String = "res://assets/approved/units"
 const UI_DIR: String = "res://assets/approved/ui"
 
 # all 75 approved icon asset ids (inventory.md "UI icons")
@@ -36,6 +37,26 @@ const ICONS: Array[StringName] = [
 	&"era1", &"era2", &"era3", &"era4", &"era5", &"era6",
 	&"fund",
 ]
+
+# Approved unit / enemy sprites: line -> eras frozen (line-pick gate 2026-07-21; the lineage
+# picks live in assets/pipeline/phase3_units_freeze.py). infantry omits era 4 — a known gap: the
+# era-4 render was §8-rejected with no sibling chain, so the view placeholders that one slot.
+const UNIT_COVERAGE: Dictionary = {
+	&"anti_air": [1, 2, 3, 4, 5, 6],
+	&"archers": [1, 2, 3, 4, 5, 6],
+	&"artillery": [3, 4, 5, 6],
+	&"bomber": [4, 5, 6],
+	&"cavalry": [1, 2, 3, 4, 5, 6],
+	&"elite_forces": [2, 3, 4, 5, 6],
+	&"enemy_hard": [1, 2, 3, 4, 5, 6],
+	&"enemy_mid": [1, 2, 3, 4, 5, 6],
+	&"enemy_weak": [1, 2, 3, 4, 5, 6],
+	&"engineers": [1, 2, 3, 4, 5, 6],
+	&"holy_warriors": [4],
+	&"infantry": [1, 2, 3, 5, 6],
+	&"privateers": [3, 4, 5],
+	&"shield_wall": [1, 2, 3, 4, 5, 6],
+}
 
 # frozen UI templates (style bible §9): geometry is in each PNG's own pixels; scale in-engine.
 const UI_PANEL: Dictionary = {
@@ -102,3 +123,11 @@ static func building(line: StringName, era: int) -> String:
 
 static func has_building(line: StringName, era: int) -> bool:
 	return FileAccess.file_exists(building(line, era))
+
+
+static func unit(line: StringName, era: int) -> String:
+	return "%s/unit_%s_era%d.png" % [UNIT_DIR, line, era]
+
+
+static func has_unit(line: StringName, era: int) -> bool:
+	return FileAccess.file_exists(unit(line, era))

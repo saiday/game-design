@@ -48,7 +48,7 @@ Compare against `doc/balance-report.md` before/after a knob change.
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   21 suites / 192 cases (update this pin when suites or cases are added).
+   21 suites / 194 cases (update this pin when suites or cases are added).
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
 3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show
@@ -59,8 +59,8 @@ Compare against `doc/balance-report.md` before/after a knob change.
 5. **Untyped-for-loop warnings:** iterate with typed loop vars (`for x: StringName in ...`);
    integer division needs `@warning_ignore("integer_division")` to stay warning-clean.
 6. **Env vars don't persist between tool calls** — re-export `GODOT_BIN` etc. in every command.
-7. **iCloud corpus files** (`design/` upstream) can change between read and write — re-read
-   immediately before editing an Obsidian file; escape `|` as `\|` inside table wikilinks.
+7. **Design docs are big markdown tables with `[[wikilinks]]`** — escape `|` as `\|` inside table
+   cells, or the row silently splits into extra columns.
 8. **`captures/` is not in git** — on a fresh clone, Part B prints `ERROR: Can't save PNG` for
    every capture (asserts still pass, so the exit code lies about it). `mkdir -p captures`
    before the first Part B run.
