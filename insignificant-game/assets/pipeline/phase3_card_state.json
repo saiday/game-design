@@ -1,0 +1,138 @@
+{
+ "card_infantry_era2": {
+  "42": {
+   "stem": "p3_card_infantry_era2_s42",
+   "seed": 42,
+   "prompt": "a spearman in a bronze helmet with a red horsehair crest leading a tight phalanx, round shields locked and long spears levelled forward, a plain crimson war banner raised behind them, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "41": {
+   "stem": "p3_card_infantry_era2_s41",
+   "seed": 41,
+   "prompt": "a spearman in a bronze helmet with a red horsehair crest leading a tight phalanx, round shields locked and long spears levelled forward, a plain crimson war banner raised behind them, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era2_s43",
+   "seed": 43,
+   "prompt": "a spearman in a bronze helmet with a red horsehair crest leading a tight phalanx, round shields locked and long spears levelled forward, a plain crimson war banner raised behind them, a dramatic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_infantry_era1": {
+  "41": {
+   "stem": "p3_card_infantry_era1_s41",
+   "seed": 41,
+   "prompt": "a tribal warrior in fur and hide charging forward swinging a heavy wooden club, red war-paint stripes on his arms, more club-warriors surging in a loose pack behind him, a windswept open steppe under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_infantry_era1_s42",
+   "seed": 42,
+   "prompt": "a tribal warrior in fur and hide charging forward swinging a heavy wooden club, red war-paint stripes on his arms, more club-warriors surging in a loose pack behind him, a windswept open steppe under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era1_s43",
+   "seed": 43,
+   "prompt": "a tribal warrior in fur and hide charging forward swinging a heavy wooden club, red war-paint stripes on his arms, more club-warriors surging in a loose pack behind him, a windswept open steppe under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_infantry_era3": {
+  "41": {
+   "stem": "p3_card_infantry_era3_s41",
+   "seed": 41,
+   "prompt": "a foot soldier in chainmail and an open helmet raising his sword mid-stride, a pressing wall of shielded swordsmen behind him, dust and a dramatic overcast sky over a medieval battlefield, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_infantry_era3_s42",
+   "seed": 42,
+   "prompt": "a foot soldier in chainmail and an open helmet raising his sword mid-stride, a pressing wall of shielded swordsmen behind him, dust and a dramatic overcast sky over a medieval battlefield, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era3_s43",
+   "seed": 43,
+   "prompt": "a foot soldier in chainmail and an open helmet raising his sword mid-stride, a pressing wall of shielded swordsmen behind him, dust and a dramatic overcast sky over a medieval battlefield, game card illustration, dramatic composition"
+  }
+ },
+ "card_infantry_era4": {
+  "41": {
+   "stem": "p3_card_infantry_era4_s41",
+   "seed": 41,
+   "prompt": "a line-infantry soldier in a tall shako and a long buttoned coat levelling his musket with a fixed bayonet, a firing line of identically uniformed musketeers behind him, drifting powder smoke under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_infantry_era4_s42",
+   "seed": 42,
+   "prompt": "a line-infantry soldier in a tall shako and a long buttoned coat levelling his musket with a fixed bayonet, a firing line of identically uniformed musketeers behind him, drifting powder smoke under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era4_s43",
+   "seed": 43,
+   "prompt": "a line-infantry soldier in a tall shako and a long buttoned coat levelling his musket with a fixed bayonet, a firing line of identically uniformed musketeers behind him, drifting powder smoke under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_infantry_era5": {
+  "41": {
+   "stem": "p3_card_infantry_era5_s41",
+   "seed": 41,
+   "prompt": "a soldier in an olive-drab uniform and a steel helmet advancing with his rifle raised, more helmeted riflemen pushing forward behind him, a war-torn field under a dramatic smoky sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_infantry_era5_s42",
+   "seed": 42,
+   "prompt": "a soldier in an olive-drab uniform and a steel helmet advancing with his rifle raised, more helmeted riflemen pushing forward behind him, a war-torn field under a dramatic smoky sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era5_s43",
+   "seed": 43,
+   "prompt": "a soldier in an olive-drab uniform and a steel helmet advancing with his rifle raised, more helmeted riflemen pushing forward behind him, a war-torn field under a dramatic smoky sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_infantry_era6": {
+  "41": {
+   "stem": "p3_card_infantry_era6_s41",
+   "seed": 41,
+   "prompt": "a soldier in a bulky powered-armour suit with glowing infrared visor slits and oversized metal gauntlets striding forward, more armoured troopers advancing behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_infantry_era6_s42",
+   "seed": 42,
+   "prompt": "a soldier in a bulky powered-armour suit with glowing infrared visor slits and oversized metal gauntlets striding forward, more armoured troopers advancing behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_infantry_era6_s43",
+   "seed": 43,
+   "prompt": "a soldier in a bulky powered-armour suit with glowing infrared visor slits and oversized metal gauntlets striding forward, more armoured troopers advancing behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_war_song": {
+  "41": {
+   "stem": "p3_card_war_song_s41",
+   "seed": 41,
+   "prompt": "ranks of soldiers marching shoulder to shoulder singing with mouths open and fists raised, one of them blowing a great brass war horn, plain crimson banners without any lettering held high, a triumphant dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_war_song_s42",
+   "seed": 42,
+   "prompt": "ranks of soldiers marching shoulder to shoulder singing with mouths open and fists raised, one of them blowing a great brass war horn, plain crimson banners without any lettering held high, a triumphant dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_war_song_s43",
+   "seed": 43,
+   "prompt": "ranks of soldiers marching shoulder to shoulder singing with mouths open and fists raised, one of them blowing a great brass war horn, plain crimson banners without any lettering held high, a triumphant dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_holes_dont_matter": {
+  "41": {
+   "stem": "p3_card_holes_dont_matter_s41",
+   "seed": 41,
+   "prompt": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_holes_dont_matter_s42",
+   "seed": 42,
+   "prompt": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_holes_dont_matter_s43",
+   "seed": 43,
+   "prompt": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him, game card illustration, dramatic composition"
+  }
+ }
+}
