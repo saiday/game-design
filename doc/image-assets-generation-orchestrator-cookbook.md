@@ -225,8 +225,8 @@ frozen templates never regenerate.
    three-scene model (style bible §11, corpus 場景呈現 sections): per-era city plates, the route
    fog-map plate, one battlefield per battle type, title + endings — 17 plates in
    `inventory.md` Backgrounds. Landscape subjects REQUIRE the style-carrying suffix (§14)
-   or they render photoreal. Backgrounds: **generation complete, pick gate OPEN** (human picks
-   one city era chain and one seed per plate row from the committed contact sheets). Portraits:
+   or they render photoreal. Backgrounds: **closed** (all 17 plates frozen in
+   `assets/approved/backgrounds/`; picks and freeze recorded §14 2026-07-16). Portraits:
    **not started**.
 
 **Phase 4 — Godot integration**: §10, runs per approved class. Target resolution: **Full HD
