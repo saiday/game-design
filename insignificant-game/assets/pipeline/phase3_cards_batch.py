@@ -9,11 +9,12 @@
 # §8-clean) and reframed from "three identical figures isolated on gray" to a dramatic hero-forward
 # scene; the 5 era-neutral skill cards are fresh conceptual subjects.
 #
-# PILOT-FIRST (cookbook discipline; Prompt 3 "cards go to review in smaller batches"): this file
-# ships the pilot slice populated — one full evolving line (infantry era1-6, directly comparable to
-# the anchor) + two skill cards (a conceptual/humorous test). The remaining 49 subjects get authored
-# after the human's composition/direction pick on the pilot contact sheet, then the full sweep runs
-# via mode `all`.
+# PILOT-FIRST (cookbook discipline; Prompt 3 "cards go to review in smaller batches"): the pilot
+# slice (infantry era1-6 + war_song + holes_dont_matter) validated the direction — human approved the
+# dramatic-scene composition, chose "prefer clean seeds" as the signature countermeasure (the frame
+# crop is the backstop, §14 2026-07-22), and picked seed 42 for the pilot (holes_dont_matter=43;
+# see PICKS). All 57 subjects are now authored; the full sweep runs via mode `all` (resume-guarded,
+# so the 24 pilot cells are not regenerated).
 #
 # Usage (ComfyUI venv python, from assets/pipeline/):
 #   phase3_cards_batch.py one <id> <seed>     # single probe (style-carry check)
@@ -54,20 +55,91 @@ CARDS = {
     "card_infantry_era4": "a line-infantry soldier in a tall shako and a long buttoned coat levelling his musket with a fixed bayonet, a firing line of identically uniformed musketeers behind him, drifting powder smoke under a dramatic sky",
     "card_infantry_era5": "a soldier in an olive-drab uniform and a steel helmet advancing with his rifle raised, more helmeted riflemen pushing forward behind him, a war-torn field under a dramatic smoky sky",
     "card_infantry_era6": "a soldier in a bulky powered-armour suit with glowing infrared visor slits and oversized metal gauntlets striding forward, more armoured troopers advancing behind him, a futuristic battlefield under a dramatic sky",
-    # --- pilot: skill cards (technicolour conceptual subjects, no unit parent, era-neutral) ---
+    # --- archers (弓箭團, remote row) — slinger mechanism named to hold the sling, not a bow (§14) ---
+    "card_archers_era1": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky",
+    "card_archers_era2": "an archer in a green tunic drawing a tall wooden longbow to full draw, a rank of longbowmen loosing red-fletched arrows behind him, a dramatic battlefield sky",
+    "card_archers_era3": "a crossbowman in a padded jacket and iron kettle helmet leveling a heavy crossbow, more crossbowmen behind him, red-fletched bolts at their belts, a dramatic overcast battle sky",
+    "card_archers_era4": "a skirmisher in a soft black peaked cap firing his musket, a loose line of musket skirmishers behind him, drifting powder smoke, a dramatic sky",
+    "card_archers_era5": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield",
+    "card_archers_era6": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky",
+    # --- cavalry (騎兵團, melee mobile; late eras are tanks) ---
+    "card_cavalry_era1": "a tribal rider in furs charging on a shaggy horned beast with a red cloth harness, more beast-riders thundering behind him, a dramatic steppe sky",
+    "card_cavalry_era2": "a wooden war chariot pulled by two galloping horses, a driver and a spearman aboard, a plain red pennant streaming from the rail, dust and a dramatic battle sky",
+    "card_cavalry_era3": "an armored knight in a plain steel helm couching a raised lance at the charge, his horse in a red caparison and a smooth steel face plate, a wedge of knights behind, a dramatic sky",
+    "card_cavalry_era4": "a dragoon in a brass comb-crested helmet with a black horsehair mane galloping and firing a short flintlock carbine, a green coat with red cuffs, more dragoons charging behind, a dramatic sky",
+    "card_cavalry_era5": "a heavy battle tank with riveted armor advancing with its long cannon leveled, more tanks looming behind through drifting smoke, a dramatic war sky",
+    "card_cavalry_era6": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky",
+    # --- engineers (工兵團, melee support) ---
+    "card_engineers_era1": "a tribal laborer in a hide tunic hefting a heavy log beam and a stone hammer, coils of rope over his shoulders, a red headband, more laborers working behind him, a dramatic sky",
+    "card_engineers_era2": "a builder in a leather apron swinging a great wooden mallet, others laying stone blocks and carrying a beam with a red cloth strip tied at its end, a dramatic construction sky",
+    "card_engineers_era3": "a sapper in an iron kettle helmet and a leather jerkin pushing a tall wheeled wooden plank shield, others carrying a pickaxe and a bundle of sticks, plain red shoulder sashes, a dramatic siege sky",
+    "card_engineers_era4": "a soldier in a gray uniform with red collar trim carrying a wooden plank bridge section tucked under one arm, others shouldering a shovel and a coil of wire, a dramatic battlefield sky",
+    "card_engineers_era5": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm plowing forward, soldiers in olive uniforms and steel helmets riding in it, a dramatic war-torn sky",
+    "card_engineers_era6": "a soldier in a powered exo-frame suit with hydraulic arms hauling a folded bridge girder, another wielding a heavy cutting torch with a glowing orange tip, a futuristic battlefield sky",
+    # --- elite_forces (菁英特種部隊, melee elite) ---
+    "card_elite_forces_era2": "a royal guard in gilded bronze armor and a tall red-plumed helmet leveling an ornate halberd, a purple cloak, a rank of guards behind him, a dramatic sky",
+    "card_elite_forces_era3": "a temple knight in a white surcoat over chainmail raising a greatsword, a single golden tree emblem on the surcoat, more knights behind him, a dramatic sky",
+    "card_elite_forces_era4": "a grenadier in a dark blue coat hurling a round grenade with a sputtering fuse, a musket slung across his back, more grenadiers behind him, drifting smoke, a dramatic sky",
+    "card_elite_forces_era5": "a commando in black tactical armor and green-lensed night-vision goggles advancing with a compact rifle, his team stacked close behind him, a tense dramatic night battlefield",
+    "card_elite_forces_era6": "a cyborg super-soldier with sleek chrome cybernetic limbs and glowing blue eye implants striding forward gripping a heavy rifle, more cyborg soldiers behind him, a futuristic battlefield under a dramatic sky",
+    # --- artillery (火砲, remote siege) ---
+    "card_artillery_era3": "a squat bronze bombard cannon on a timber sled firing skyward in a burst of smoke, a crewman brandishing a glowing linstock, stone cannonballs stacked beside it, a dramatic siege sky",
+    "card_artillery_era4": "a field cannon with a bronze barrel on a spoked-wheel carriage firing, gunners in dark blue uniforms ramming and aiming, a pyramid of iron cannonballs, drifting smoke under a dramatic sky",
+    "card_artillery_era5": "a tracked self-propelled howitzer in olive drab firing its long elevated barrel with a great muzzle flash, crew working at the hull, a dramatic battlefield sky",
+    "card_artillery_era6": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield",
+    # --- bomber (轟炸機, air) — plain unmarked hulls (no real-world national markings, lore) ---
+    "card_bomber_era4": "a long silver-gray rigid airship droning low over a battlefield, small bombs falling from its gondola, searchlight beams crossing a dramatic night sky, a plain unmarked hull",
+    "card_bomber_era5": "a heavy four-engine propeller bomber banking through a flak-filled sky, its bomb bay open with bombs falling, a plain olive-drab unmarked fuselage, a dramatic cloudscape",
+    "card_bomber_era6": "a black angular flying-wing stealth bomber cutting across a dramatic dusk sky, its bomb bay open with a single guided bomb dropping, matte-black unmarked surfaces",
+    # --- holy_warriors (聖戰士團, 國策限定, era 4 only) ---
+    "card_holy_warriors_era4": "a musketeer in a white coat holding his musket upright against his shoulder, a single golden tree emblem on his chest, a rank of white-coated musketeers behind him, a dramatic sky",
+    # --- privateers (私掠傭兵團, 國策限定) ---
+    "card_privateers_era3": "a bandit in a dark leather jerkin brandishing a short curved sword, a closed brown loot sack over his shoulder, a rough band of raiders behind him, a dramatic frontier sky",
+    "card_privateers_era4": "a thief in a dark hooded coat and neck scarf clutching a brass-cornered suitcase under his arm, glancing back over his shoulder, a shadowy street opening to a dramatic sky",
+    "card_privateers_era5": "a cyber hacker in a suit walking with an open laptop, its lid a plain unmarked metallic surface, cascading data-light around him and a dramatic city-night sky behind",
+    # --- shield_wall (盾陣, fortification; blocks melee) — the wall manned in action ---
+    "card_shield_wall_era1": "a standing wall of tall rough wooden plank shields lashed with rope, spear tips poking over the top, warriors braced behind it, red cloth strips at the joints, a dramatic battle sky",
+    "card_shield_wall_era2": "a tight wall of overlapping kite shields each embossed with a plain raised ring, warriors locked shoulder to shoulder behind it, a dramatic battle sky",
+    "card_shield_wall_era3": "a stone battlement wall with crenellations and arrow slits, defenders manning the parapet, a dramatic besieged sky",
+    "card_shield_wall_era4": "a chest-high wall of stacked burlap sandbags with wooden support posts, soldiers hunkered down behind it, drifting smoke and a dramatic war sky",
+    "card_shield_wall_era5": "a tall fence of taut electrified steel wire mesh on low concrete blocks, white ceramic insulators on the dark posts, sparks arcing along it, a dramatic dusk battlefield",
+    "card_shield_wall_era6": "a modular barrier wall of smooth matte-gray polymer panels bolted to a steel frame with deployable struts at its base, troops sheltering behind it, a futuristic battlefield sky",
+    # --- anti_air (防空飛彈, fortification; blocks ranged/air) — the emplacement firing skyward ---
+    "card_anti_air_era1": "a slanted hide-roofed timber arrow shelter, warriors crouched beneath it as arrows thud into the raw hides overhead, a windswept battlefield under a dramatic sky",
+    "card_anti_air_era2": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, defenders loosing arrows from it, a plain red cloth strip at a corner post, a dramatic battle sky",
+    "card_anti_air_era3": "a round stone defense tower with machicolations, a crew working a skyward-aimed ballista on its open top, dramatic clouds over a besieged wall",
+    "card_anti_air_era4": "an anti-aircraft flak cannon with a long barrel angled skyward firing, a crew feeding shells, plain olive-drab paint, tracer streaks across a dramatic smoky sky",
+    "card_anti_air_era5": "a tracked missile vehicle in olive drab launching a white surface-to-air missile skyward on a trail of smoke, a dramatic dusk battlefield sky",
+    "card_anti_air_era6": "a boxy laser interception turret on a gimbal mount firing a brilliant beam skyward through its optical aperture, matte olive-drab housing, a futuristic battlefield under a dramatic sky",
+    # --- skill cards (era-neutral conceptual subjects) ---
     # 軍歌: two-turn +1 attack morale buff -> a martial anthem / morale surge.
     "card_war_song": "ranks of soldiers marching shoulder to shoulder singing with mouths open and fists raised, one of them blowing a great brass war horn, plain crimson banners without any lettering held high, a triumphant dramatic sky",
     # 這些破洞不影響功能: the joke card (out-turn card-cost -1) -> battered gear that "still works".
     "card_holes_dont_matter": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him",
+    # 爛仗時候才宣揚愛與和平: rock-spirit Legacy card (destroy a non-boss enemy after battle round 5)
+    # -> ironic countercultural peace gesture amid war.
+    "card_love_and_peace": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky",
+    # 勸降廣播: culture-export policy card (flip a weak enemy unit) -> a battlefield surrender broadcast.
+    "card_persuasion_broadcast": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky",
+    # 軌道打擊: space-station policy card (destroy a non-boss enemy) -> a strike from orbit.
+    "card_orbital_strike": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky",
 }
 
-# The pilot slice actually run this session (mode `pilot`). The rest of CARDS is populated after
-# the direction gate.
+# Pilot slice (mode `pilot`) — the 8 subjects run to validate the direction. mode `all` runs CARDS.
 PILOT = [
     "card_infantry_era1", "card_infantry_era2", "card_infantry_era3",
     "card_infantry_era4", "card_infantry_era5", "card_infantry_era6",
     "card_war_song", "card_holes_dont_matter",
 ]
+
+# Human picks from the pilot contact sheet (2026-07-22): composition direction approved, "prefer
+# clean seeds", seed 42 for every pilot subject except holes_dont_matter=43 (42's knee-area material
+# was off). Consumed by the future phase3_cards_freeze.py; the full class adds its picks here.
+PICKS = {
+    "card_infantry_era1": 42, "card_infantry_era2": 42, "card_infantry_era3": 42,
+    "card_infantry_era4": 42, "card_infantry_era5": 42, "card_infantry_era6": 42,
+    "card_war_song": 42, "card_holes_dont_matter": 43,
+}
 
 
 def load_state() -> dict:
