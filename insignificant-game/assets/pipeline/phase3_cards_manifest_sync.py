@@ -11,7 +11,7 @@ from phase3_cards_batch import STATE
 
 SRC = "~/ComfyUI-Shared/output/phase3-cards"
 MANIFEST = "manifest.jsonl"
-DATE = "2026-07-22"
+DATE = "2026-07-23"
 
 
 def existing_ids() -> set[str]:

@@ -150,6 +150,21 @@
    "stem": "p3_card_archers_era1_s43",
    "seed": 43,
    "prompt": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_archers_era1_s44",
+   "seed": 44,
+   "prompt": "a tribal slinger in a ragged hide tunic aiming a Y-shaped forked wooden slingshot held out at arm's length, its two stretched leather bands pulled back to a small pouch at his cheek, round stones in a belt pouch, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_archers_era1_s45",
+   "seed": 45,
+   "prompt": "a tribal slinger in a ragged hide tunic aiming a Y-shaped forked wooden slingshot held out at arm's length, its two stretched leather bands pulled back to a small pouch at his cheek, round stones in a belt pouch, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_archers_era1_s46",
+   "seed": 46,
+   "prompt": "a tribal slinger in a ragged hide tunic aiming a Y-shaped forked wooden slingshot held out at arm's length, its two stretched leather bands pulled back to a small pouch at his cheek, round stones in a belt pouch, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
   }
  },
  "card_archers_era2": {
@@ -218,6 +233,21 @@
    "stem": "p3_card_archers_era5_s43",
    "seed": 43,
    "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_archers_era5_s44",
+   "seed": 44,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a bolt-action rifle with a long black tube telescopic sight and a folding bipod under the barrel, a spotter crouched beside him peering through a yellow brass spotting scope on a monopod, a tense dramatic battlefield, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_archers_era5_s45",
+   "seed": 45,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a bolt-action rifle with a long black tube telescopic sight and a folding bipod under the barrel, a spotter crouched beside him peering through a yellow brass spotting scope on a monopod, a tense dramatic battlefield, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_archers_era5_s46",
+   "seed": 46,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a bolt-action rifle with a long black tube telescopic sight and a folding bipod under the barrel, a spotter crouched beside him peering through a yellow brass spotting scope on a monopod, a tense dramatic battlefield, game card illustration, dramatic composition"
   }
  },
  "card_archers_era6": {
@@ -235,6 +265,21 @@
    "stem": "p3_card_archers_era6_s43",
    "seed": 43,
    "prompt": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_archers_era6_s44",
+   "seed": 44,
+   "prompt": "a soldier in a gray military uniform and a steel helmet shouldering a boxy tube missile launcher with a large round white optical sight disc on its side and a thin antenna on top, a teammate carrying a folded green radar dish on a tripod frame on his back, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_archers_era6_s45",
+   "seed": 45,
+   "prompt": "a soldier in a gray military uniform and a steel helmet shouldering a boxy tube missile launcher with a large round white optical sight disc on its side and a thin antenna on top, a teammate carrying a folded green radar dish on a tripod frame on his back, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_archers_era6_s46",
+   "seed": 46,
+   "prompt": "a soldier in a gray military uniform and a steel helmet shouldering a boxy tube missile launcher with a large round white optical sight disc on its side and a thin antenna on top, a teammate carrying a folded green radar dish on a tripod frame on his back, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
   }
  },
  "card_cavalry_era1": {
@@ -337,6 +382,36 @@
    "stem": "p3_card_cavalry_era6_s43",
    "seed": 43,
    "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_cavalry_era6_s44",
+   "seed": 44,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_cavalry_era6_s45",
+   "seed": 45,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_cavalry_era6_s46",
+   "seed": 46,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "47": {
+   "stem": "p3_card_cavalry_era6_s47",
+   "seed": 47,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a column of more unmanned tanks rolling on the ground behind it with their tracks in the dirt, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "48": {
+   "stem": "p3_card_cavalry_era6_s48",
+   "seed": 48,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a column of more unmanned tanks rolling on the ground behind it with their tracks in the dirt, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "49": {
+   "stem": "p3_card_cavalry_era6_s49",
+   "seed": 49,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a column of more unmanned tanks rolling on the ground behind it with their tracks in the dirt, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
   }
  },
  "card_engineers_era1": {
@@ -592,6 +667,21 @@
    "stem": "p3_card_artillery_era6_s43",
    "seed": 43,
    "prompt": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_artillery_era6_s44",
+   "seed": 44,
+   "prompt": "a futuristic tracked railgun platform firing a searing projectile along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, drifting smoke and a dramatic overcast sky over a battlefield, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_artillery_era6_s45",
+   "seed": 45,
+   "prompt": "a futuristic tracked railgun platform firing a searing projectile along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, drifting smoke and a dramatic overcast sky over a battlefield, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_artillery_era6_s46",
+   "seed": 46,
+   "prompt": "a futuristic tracked railgun platform firing a searing projectile along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, drifting smoke and a dramatic overcast sky over a battlefield, game card illustration, dramatic composition"
   }
  },
  "card_bomber_era4": {
@@ -932,6 +1022,21 @@
    "stem": "p3_card_love_and_peace_s43",
    "seed": 43,
    "prompt": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_love_and_peace_s44",
+   "seed": 44,
+   "prompt": "a defiant long-haired figure raising a two-finger peace sign, standing in a war-torn urban city street of shattered concrete buildings and rubble, plain banners without any lettering, a dramatic overcast sky, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_love_and_peace_s45",
+   "seed": 45,
+   "prompt": "a defiant long-haired figure raising a two-finger peace sign, standing in a war-torn urban city street of shattered concrete buildings and rubble, plain banners without any lettering, a dramatic overcast sky, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_love_and_peace_s46",
+   "seed": 46,
+   "prompt": "a defiant long-haired figure raising a two-finger peace sign, standing in a war-torn urban city street of shattered concrete buildings and rubble, plain banners without any lettering, a dramatic overcast sky, game card illustration, dramatic composition"
   }
  },
  "card_persuasion_broadcast": {
@@ -949,6 +1054,36 @@
    "stem": "p3_card_persuasion_broadcast_s43",
    "seed": 43,
    "prompt": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_persuasion_broadcast_s44",
+   "seed": 44,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_persuasion_broadcast_s45",
+   "seed": 45,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_persuasion_broadcast_s46",
+   "seed": 46,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "47": {
+   "stem": "p3_card_persuasion_broadcast_s47",
+   "seed": 47,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof and a plain unmarked canvas canopy, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "48": {
+   "stem": "p3_card_persuasion_broadcast_s48",
+   "seed": 48,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof and a plain unmarked canvas canopy, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "49": {
+   "stem": "p3_card_persuasion_broadcast_s49",
+   "seed": 49,
+   "prompt": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof and a plain unmarked canvas canopy, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, a dramatic sky, game card illustration, dramatic composition"
   }
  },
  "card_orbital_strike": {
@@ -966,6 +1101,21 @@
    "stem": "p3_card_orbital_strike_s43",
    "seed": 43,
    "prompt": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky, game card illustration, dramatic composition"
+  },
+  "44": {
+   "stem": "p3_card_orbital_strike_s44",
+   "seed": 44,
+   "prompt": "a high orbital bird's-eye view looking down at the curved blue earth far below, a satellite in the foreground firing a thin brilliant energy beam down toward the planet surface, a small burst of light where the beam strikes, a star-field of deep space around, a dramatic cosmic scene, game card illustration, dramatic composition"
+  },
+  "45": {
+   "stem": "p3_card_orbital_strike_s45",
+   "seed": 45,
+   "prompt": "a high orbital bird's-eye view looking down at the curved blue earth far below, a satellite in the foreground firing a thin brilliant energy beam down toward the planet surface, a small burst of light where the beam strikes, a star-field of deep space around, a dramatic cosmic scene, game card illustration, dramatic composition"
+  },
+  "46": {
+   "stem": "p3_card_orbital_strike_s46",
+   "seed": 46,
+   "prompt": "a high orbital bird's-eye view looking down at the curved blue earth far below, a satellite in the foreground firing a thin brilliant energy beam down toward the planet surface, a small burst of light where the beam strikes, a star-field of deep space around, a dramatic cosmic scene, game card illustration, dramatic composition"
   }
  }
 }

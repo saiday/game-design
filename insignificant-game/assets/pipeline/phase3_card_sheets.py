@@ -11,7 +11,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-from phase3_cards_batch import PILOT, CARDS, STATE
+from phase3_cards_batch import PILOT, CARDS, STATE, REROLLS, REROLL_SEEDS, REROLL2_SEEDS
 
 SRC = os.path.expanduser("~/ComfyUI-Shared/output/phase3-cards")
 CELL_W, CELL_H, LABEL_H, PAD, HDR, ROWLBL = 680, 900, 34, 10, 56, 220
@@ -34,13 +34,18 @@ LINES = ["infantry", "archers", "cavalry", "engineers", "elite_forces", "artille
          "bomber", "holy_warriors", "privateers", "shield_wall", "anti_air"]
 
 
-def build_sheet(state: dict, ids: list, title: str, out: str) -> None:
-    """One row per subject id, one column per generated seed. Cells >= 640px long side (§9)."""
-    ids = [c for c in ids if c in state]
+def build_sheet(state: dict, ids: list, title: str, out: str, only_seeds: set | None = None) -> None:
+    """One row per subject id, one column per generated seed. Cells >= 640px long side (§9).
+    only_seeds (a set of ints) restricts the columns to those seeds — used by the re-roll sheet so
+    the fix round shows only the new candidates, not the rejected originals."""
+    def seeds_for(card_id: str) -> list:
+        return [s for s in sorted(state[card_id], key=int)
+                if only_seeds is None or int(s) in only_seeds]
+    ids = [c for c in ids if c in state and seeds_for(c)]
     if not ids:
         print(f"skip {out} (no cells in state)")
         return
-    cols = max(len(state[c]) for c in ids)
+    cols = max(len(seeds_for(c)) for c in ids)
     font = ImageFont.load_default(size=15)
     row_font = ImageFont.load_default(size=17)
     title_font = ImageFont.load_default(size=24)
@@ -52,7 +57,7 @@ def build_sheet(state: dict, ids: list, title: str, out: str) -> None:
     for row, card_id in enumerate(ids):
         y = HDR + (CELL_H + LABEL_H) * row
         d.text((PAD, y + 12), card_id[len("card_"):], fill=(240, 240, 240), font=row_font)
-        for col, seed in enumerate(sorted(state[card_id], key=int)):
+        for col, seed in enumerate(seeds_for(card_id)):
             sheet.paste(cell_image(state[card_id][seed]["stem"], font), (ROWLBL + CELL_W * col, y))
     sheet.save(out)
     print(f"wrote {out}  ({W}x{Hpx}, {len(ids)} rows x {cols} cols)")
@@ -62,7 +67,14 @@ def main() -> None:
     mode = sys.argv[1] if len(sys.argv) > 1 else "pilot"
     with open(STATE) as f:
         state = json.load(f)
-    if mode == "lines":
+    if mode == "rerolls":
+        # focused re-roll sheet: the 8 sent-back subjects, only their new seeds (44-46), one row
+        # each — the single artifact the human picks the fix round from.
+        build_sheet(state, REROLLS,
+                    "Phase 3 cards — re-roll round (pick one new seed per row)",
+                    "../contact-sheets/phase3_cards_rerolls.png",
+                    only_seeds=set(REROLL_SEEDS) | set(REROLL2_SEEDS))
+    elif mode == "lines":
         # per-line review sheets (like the units lineage sheets) — one committed sheet per line,
         # plus one for the era-neutral skill cards. More reviewable than a single 57-row sheet.
         for line in LINES:

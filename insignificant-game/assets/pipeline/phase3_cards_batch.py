@@ -20,6 +20,8 @@
 #   phase3_cards_batch.py one <id> <seed>     # single probe (style-carry check)
 #   phase3_cards_batch.py pilot               # the pilot slice (PILOT ids) × SEEDS, resume-guarded
 #   phase3_cards_batch.py all                 # every subject in CARDS × SEEDS (post-pilot full sweep)
+#   phase3_cards_batch.py rerolls             # REROLLS × REROLL_SEEDS (post-pick fix round, resume-guarded)
+#   phase3_cards_batch.py rerolls2            # REROLL2 × REROLL2_SEEDS (round-2 fix for 2 residual subjects)
 #   phase3_cards_batch.py redo <id> <seed>    # re-roll one card with a new (bumped) seed
 import json
 import os
@@ -55,20 +57,22 @@ CARDS = {
     "card_infantry_era4": "a line-infantry soldier in a tall shako and a long buttoned coat levelling his musket with a fixed bayonet, a firing line of identically uniformed musketeers behind him, drifting powder smoke under a dramatic sky",
     "card_infantry_era5": "a soldier in an olive-drab uniform and a steel helmet advancing with his rifle raised, more helmeted riflemen pushing forward behind him, a war-torn field under a dramatic smoky sky",
     "card_infantry_era6": "a soldier in a bulky powered-armour suit with glowing infrared visor slits and oversized metal gauntlets striding forward, more armoured troopers advancing behind him, a futuristic battlefield under a dramatic sky",
-    # --- archers (弓箭團, remote row) — slinger mechanism named to hold the sling, not a bow (§14) ---
-    "card_archers_era1": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky",
+    # --- archers (弓箭團, remote row) — era1/5/6 re-cut to the approved unit sprites: era1 is a
+    # Y-forked slingshot held out horizontally (kept from reading as a bow), era5 a tube-scoped
+    # bolt-action + brass spotting scope, era6 a boxy launcher with a round white sight disc (§14) ---
+    "card_archers_era1": "a tribal slinger in a ragged hide tunic aiming a Y-shaped forked wooden slingshot held out at arm's length, its two stretched leather bands pulled back to a small pouch at his cheek, round stones in a belt pouch, more slingers behind him, red feathers in their hair, a dramatic steppe sky",
     "card_archers_era2": "an archer in a green tunic drawing a tall wooden longbow to full draw, a rank of longbowmen loosing red-fletched arrows behind him, a dramatic battlefield sky",
     "card_archers_era3": "a crossbowman in a padded jacket and iron kettle helmet leveling a heavy crossbow, more crossbowmen behind him, red-fletched bolts at their belts, a dramatic overcast battle sky",
     "card_archers_era4": "a skirmisher in a soft black peaked cap firing his musket, a loose line of musket skirmishers behind him, drifting powder smoke, a dramatic sky",
-    "card_archers_era5": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield",
-    "card_archers_era6": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky",
+    "card_archers_era5": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a bolt-action rifle with a long black tube telescopic sight and a folding bipod under the barrel, a spotter crouched beside him peering through a yellow brass spotting scope on a monopod, a tense dramatic battlefield",
+    "card_archers_era6": "a soldier in a gray military uniform and a steel helmet shouldering a boxy tube missile launcher with a large round white optical sight disc on its side and a thin antenna on top, a teammate carrying a folded green radar dish on a tripod frame on his back, a futuristic battlefield under a dramatic sky",
     # --- cavalry (騎兵團, melee mobile; late eras are tanks) ---
     "card_cavalry_era1": "a tribal rider in furs charging on a shaggy horned beast with a red cloth harness, more beast-riders thundering behind him, a dramatic steppe sky",
     "card_cavalry_era2": "a wooden war chariot pulled by two galloping horses, a driver and a spearman aboard, a plain red pennant streaming from the rail, dust and a dramatic battle sky",
     "card_cavalry_era3": "an armored knight in a plain steel helm couching a raised lance at the charge, his horse in a red caparison and a smooth steel face plate, a wedge of knights behind, a dramatic sky",
     "card_cavalry_era4": "a dragoon in a brass comb-crested helmet with a black horsehair mane galloping and firing a short flintlock carbine, a green coat with red cuffs, more dragoons charging behind, a dramatic sky",
     "card_cavalry_era5": "a heavy battle tank with riveted armor advancing with its long cannon leveled, more tanks looming behind through drifting smoke, a dramatic war sky",
-    "card_cavalry_era6": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky",
+    "card_cavalry_era6": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward low over churned ground, its tracks biting into the dirt and kicking up dust, a column of more unmanned tanks rolling on the ground behind it with their tracks in the dirt, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky",
     # --- engineers (工兵團, melee support) ---
     "card_engineers_era1": "a tribal laborer in a hide tunic hefting a heavy log beam and a stone hammer, coils of rope over his shoulders, a red headband, more laborers working behind him, a dramatic sky",
     "card_engineers_era2": "a builder in a leather apron swinging a great wooden mallet, others laying stone blocks and carrying a beam with a red cloth strip tied at its end, a dramatic construction sky",
@@ -86,7 +90,7 @@ CARDS = {
     "card_artillery_era3": "a squat bronze bombard cannon on a timber sled firing skyward in a burst of smoke, a crewman brandishing a glowing linstock, stone cannonballs stacked beside it, a dramatic siege sky",
     "card_artillery_era4": "a field cannon with a bronze barrel on a spoked-wheel carriage firing, gunners in dark blue uniforms ramming and aiming, a pyramid of iron cannonballs, drifting smoke under a dramatic sky",
     "card_artillery_era5": "a tracked self-propelled howitzer in olive drab firing its long elevated barrel with a great muzzle flash, crew working at the hull, a dramatic battlefield sky",
-    "card_artillery_era6": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield",
+    "card_artillery_era6": "a futuristic tracked railgun platform firing a searing projectile along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, drifting smoke and a dramatic overcast sky over a battlefield",
     # --- bomber (轟炸機, air) — plain unmarked hulls (no real-world national markings, lore) ---
     "card_bomber_era4": "a long silver-gray rigid airship droning low over a battlefield, small bombs falling from its gondola, searchlight beams crossing a dramatic night sky, a plain unmarked hull",
     "card_bomber_era5": "a heavy four-engine propeller bomber banking through a flak-filled sky, its bomb bay open with bombs falling, a plain olive-drab unmarked fuselage, a dramatic cloudscape",
@@ -118,11 +122,11 @@ CARDS = {
     "card_holes_dont_matter": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him",
     # 爛仗時候才宣揚愛與和平: rock-spirit Legacy card (destroy a non-boss enemy after battle round 5)
     # -> ironic countercultural peace gesture amid war.
-    "card_love_and_peace": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky",
+    "card_love_and_peace": "a defiant long-haired figure raising a two-finger peace sign, standing in a war-torn urban city street of shattered concrete buildings and rubble, plain banners without any lettering, a dramatic overcast sky",
     # 勸降廣播: culture-export policy card (flip a weak enemy unit) -> a battlefield surrender broadcast.
-    "card_persuasion_broadcast": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky",
+    "card_persuasion_broadcast": "a military loudspeaker truck with a tall broadcast horn array mounted on its roof and a plain unmarked canvas canopy, parked on a grassy riverbank beside a wide calm river, distant enemy troops across the water lowering their weapons, a dramatic sky",
     # 軌道打擊: space-station policy card (destroy a non-boss enemy) -> a strike from orbit.
-    "card_orbital_strike": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky",
+    "card_orbital_strike": "a high orbital bird's-eye view looking down at the curved blue earth far below, a satellite in the foreground firing a thin brilliant energy beam down toward the planet surface, a small burst of light where the beam strikes, a star-field of deep space around, a dramatic cosmic scene",
 }
 
 # Pilot slice (mode `pilot`) — the 8 subjects run to validate the direction. mode `all` runs CARDS.
@@ -132,14 +136,54 @@ PILOT = [
     "card_war_song", "card_holes_dont_matter",
 ]
 
-# Human picks from the pilot contact sheet (2026-07-22): composition direction approved, "prefer
-# clean seeds", seed 42 for every pilot subject except holes_dont_matter=43 (42's knee-area material
-# was off). Consumed by the future phase3_cards_freeze.py; the full class adds its picks here.
+# Human full pick pass over the 12 per-line contact sheets (2026-07-22): one seed per subject.
+# Supersedes the pilot picks (war_song 42->41, infantry era2/era4 42->41). Consumed by the future
+# phase3_cards_freeze.py. 49 subjects are picked here; the 8 in REROLLS were sent back for a new
+# round (below) and get their picks appended once the human picks the re-rolled seeds.
 PICKS = {
-    "card_infantry_era1": 42, "card_infantry_era2": 42, "card_infantry_era3": 42,
-    "card_infantry_era4": 42, "card_infantry_era5": 42, "card_infantry_era6": 42,
-    "card_war_song": 42, "card_holes_dont_matter": 43,
+    "card_infantry_era1": 42, "card_infantry_era2": 41, "card_infantry_era3": 42,
+    "card_infantry_era4": 41, "card_infantry_era5": 42, "card_infantry_era6": 42,
+    "card_archers_era2": 42, "card_archers_era3": 42, "card_archers_era4": 41,
+    "card_cavalry_era1": 43, "card_cavalry_era2": 43, "card_cavalry_era3": 43,
+    "card_cavalry_era4": 43, "card_cavalry_era5": 43,
+    "card_engineers_era1": 41, "card_engineers_era2": 41, "card_engineers_era3": 42,
+    "card_engineers_era4": 41, "card_engineers_era5": 42, "card_engineers_era6": 42,
+    "card_elite_forces_era2": 42, "card_elite_forces_era3": 42, "card_elite_forces_era4": 42,
+    "card_elite_forces_era5": 43, "card_elite_forces_era6": 42,
+    "card_artillery_era3": 41, "card_artillery_era4": 41, "card_artillery_era5": 41,
+    "card_bomber_era4": 42, "card_bomber_era5": 42, "card_bomber_era6": 42,
+    "card_holy_warriors_era4": 43,
+    "card_privateers_era3": 42, "card_privateers_era4": 43, "card_privateers_era5": 41,
+    "card_shield_wall_era1": 41, "card_shield_wall_era2": 41, "card_shield_wall_era3": 42,
+    "card_shield_wall_era4": 41, "card_shield_wall_era5": 41, "card_shield_wall_era6": 43,
+    "card_anti_air_era1": 43, "card_anti_air_era2": 41, "card_anti_air_era3": 42,
+    "card_anti_air_era4": 42, "card_anti_air_era5": 42, "card_anti_air_era6": 43,
+    "card_war_song": 41, "card_holes_dont_matter": 43,
 }
+
+# Re-roll round (2026-07-22): subjects the human sent back with a fix, re-cut in CARDS above and
+# regenerated on fresh seeds so the originals (41-43) stay for reference. Human notes:
+#   archers_era1  -> slingshot was reading as a bow; re-cut to the Y-forked sprite
+#   archers_era5  -> scope/sight didn't match the unit sprite; re-cut to tube scope + brass spotter
+#   archers_era6  -> launcher sight didn't match the unit sprite; re-cut to the round sight disc
+#   cavalry_era6  -> drone tank was floating; grounded on churned dirt
+#   artillery_era6-> sky read as thunder/lightning; overcast + smoke instead
+#   love_and_peace-> drop the flower; background is an urban city street
+#   persuasion_broadcast -> nothing emanating from the horns; background is a riverside
+#   orbital_strike-> top-down orbital bird's-eye view with the earth and a satellite
+REROLL_SEEDS = [44, 45, 46]
+REROLLS = [
+    "card_archers_era1", "card_archers_era5", "card_archers_era6",
+    "card_cavalry_era6", "card_artillery_era6",
+    "card_love_and_peace", "card_persuasion_broadcast", "card_orbital_strike",
+]
+
+# Round-2 fix (2026-07-23): two subjects whose round-1 re-cut left a residual defect, re-cut again
+# on seeds 47-49. cavalry_era6: the "swarm of drone tanks" backdrop still floated -> a ground column;
+# persuasion_broadcast: "plain banners" pulled in national flags + canopy emblems -> banners dropped,
+# an explicit plain unmarked canopy. Round-1 cells (44-46) stay on disk for reference.
+REROLL2_SEEDS = [47, 48, 49]
+REROLL2 = ["card_cavalry_era6", "card_persuasion_broadcast"]
 
 
 def load_state() -> dict:
@@ -184,6 +228,14 @@ def main() -> None:
         gen_card(state, sys.argv[2], int(sys.argv[3]))
     elif mode == "redo":
         gen_card(state, sys.argv[2], int(sys.argv[3]))
+    elif mode == "rerolls":
+        for card_id in REROLLS:
+            for seed in REROLL_SEEDS:
+                gen_card(state, card_id, seed, resume=True)
+    elif mode == "rerolls2":
+        for card_id in REROLL2:
+            for seed in REROLL2_SEEDS:
+                gen_card(state, card_id, seed, resume=True)
     elif mode in ("pilot", "all"):
         ids = PILOT if mode == "pilot" else list(CARDS)
         for card_id in ids:
