@@ -134,5 +134,838 @@
    "seed": 43,
    "prompt": "a grinning ragged soldier proudly holding up a battle-tattered shield riddled with holes, his patched dented armour full of gaps, a confident carefree shrug, a dramatic battlefield sky behind him, game card illustration, dramatic composition"
   }
+ },
+ "card_archers_era1": {
+  "41": {
+   "stem": "p3_card_archers_era1_s41",
+   "seed": 41,
+   "prompt": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era1_s42",
+   "seed": 42,
+   "prompt": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era1_s43",
+   "seed": 43,
+   "prompt": "a tribal slinger in a hide tunic loosing a stone from a Y-shaped wooden sling, two leather bands drawn taut back to a pouch pinched at his cheek, more slingers behind him, red feathers in their hair, a dramatic steppe sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_archers_era2": {
+  "41": {
+   "stem": "p3_card_archers_era2_s41",
+   "seed": 41,
+   "prompt": "an archer in a green tunic drawing a tall wooden longbow to full draw, a rank of longbowmen loosing red-fletched arrows behind him, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era2_s42",
+   "seed": 42,
+   "prompt": "an archer in a green tunic drawing a tall wooden longbow to full draw, a rank of longbowmen loosing red-fletched arrows behind him, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era2_s43",
+   "seed": 43,
+   "prompt": "an archer in a green tunic drawing a tall wooden longbow to full draw, a rank of longbowmen loosing red-fletched arrows behind him, a dramatic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_archers_era3": {
+  "41": {
+   "stem": "p3_card_archers_era3_s41",
+   "seed": 41,
+   "prompt": "a crossbowman in a padded jacket and iron kettle helmet leveling a heavy crossbow, more crossbowmen behind him, red-fletched bolts at their belts, a dramatic overcast battle sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era3_s42",
+   "seed": 42,
+   "prompt": "a crossbowman in a padded jacket and iron kettle helmet leveling a heavy crossbow, more crossbowmen behind him, red-fletched bolts at their belts, a dramatic overcast battle sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era3_s43",
+   "seed": 43,
+   "prompt": "a crossbowman in a padded jacket and iron kettle helmet leveling a heavy crossbow, more crossbowmen behind him, red-fletched bolts at their belts, a dramatic overcast battle sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_archers_era4": {
+  "41": {
+   "stem": "p3_card_archers_era4_s41",
+   "seed": 41,
+   "prompt": "a skirmisher in a soft black peaked cap firing his musket, a loose line of musket skirmishers behind him, drifting powder smoke, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era4_s42",
+   "seed": 42,
+   "prompt": "a skirmisher in a soft black peaked cap firing his musket, a loose line of musket skirmishers behind him, drifting powder smoke, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era4_s43",
+   "seed": 43,
+   "prompt": "a skirmisher in a soft black peaked cap firing his musket, a loose line of musket skirmishers behind him, drifting powder smoke, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_archers_era5": {
+  "41": {
+   "stem": "p3_card_archers_era5_s41",
+   "seed": 41,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era5_s42",
+   "seed": 42,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era5_s43",
+   "seed": 43,
+   "prompt": "a sniper in a hooded leaf-camouflage cloak kneeling and aiming a long scoped rifle on a bipod, a spotter crouched beside him with a brass scope, a tense dramatic battlefield, game card illustration, dramatic composition"
+  }
+ },
+ "card_archers_era6": {
+  "41": {
+   "stem": "p3_card_archers_era6_s41",
+   "seed": 41,
+   "prompt": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_archers_era6_s42",
+   "seed": 42,
+   "prompt": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_archers_era6_s43",
+   "seed": 43,
+   "prompt": "a soldier in a gray armored suit shouldering a boxy guided-missile launcher with a glowing red targeting lens, a teammate carrying a folded radar dish beside him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era1": {
+  "41": {
+   "stem": "p3_card_cavalry_era1_s41",
+   "seed": 41,
+   "prompt": "a tribal rider in furs charging on a shaggy horned beast with a red cloth harness, more beast-riders thundering behind him, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era1_s42",
+   "seed": 42,
+   "prompt": "a tribal rider in furs charging on a shaggy horned beast with a red cloth harness, more beast-riders thundering behind him, a dramatic steppe sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era1_s43",
+   "seed": 43,
+   "prompt": "a tribal rider in furs charging on a shaggy horned beast with a red cloth harness, more beast-riders thundering behind him, a dramatic steppe sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era2": {
+  "41": {
+   "stem": "p3_card_cavalry_era2_s41",
+   "seed": 41,
+   "prompt": "a wooden war chariot pulled by two galloping horses, a driver and a spearman aboard, a plain red pennant streaming from the rail, dust and a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era2_s42",
+   "seed": 42,
+   "prompt": "a wooden war chariot pulled by two galloping horses, a driver and a spearman aboard, a plain red pennant streaming from the rail, dust and a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era2_s43",
+   "seed": 43,
+   "prompt": "a wooden war chariot pulled by two galloping horses, a driver and a spearman aboard, a plain red pennant streaming from the rail, dust and a dramatic battle sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era3": {
+  "41": {
+   "stem": "p3_card_cavalry_era3_s41",
+   "seed": 41,
+   "prompt": "an armored knight in a plain steel helm couching a raised lance at the charge, his horse in a red caparison and a smooth steel face plate, a wedge of knights behind, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era3_s42",
+   "seed": 42,
+   "prompt": "an armored knight in a plain steel helm couching a raised lance at the charge, his horse in a red caparison and a smooth steel face plate, a wedge of knights behind, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era3_s43",
+   "seed": 43,
+   "prompt": "an armored knight in a plain steel helm couching a raised lance at the charge, his horse in a red caparison and a smooth steel face plate, a wedge of knights behind, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era4": {
+  "41": {
+   "stem": "p3_card_cavalry_era4_s41",
+   "seed": 41,
+   "prompt": "a dragoon in a brass comb-crested helmet with a black horsehair mane galloping and firing a short flintlock carbine, a green coat with red cuffs, more dragoons charging behind, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era4_s42",
+   "seed": 42,
+   "prompt": "a dragoon in a brass comb-crested helmet with a black horsehair mane galloping and firing a short flintlock carbine, a green coat with red cuffs, more dragoons charging behind, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era4_s43",
+   "seed": 43,
+   "prompt": "a dragoon in a brass comb-crested helmet with a black horsehair mane galloping and firing a short flintlock carbine, a green coat with red cuffs, more dragoons charging behind, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era5": {
+  "41": {
+   "stem": "p3_card_cavalry_era5_s41",
+   "seed": 41,
+   "prompt": "a heavy battle tank with riveted armor advancing with its long cannon leveled, more tanks looming behind through drifting smoke, a dramatic war sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era5_s42",
+   "seed": 42,
+   "prompt": "a heavy battle tank with riveted armor advancing with its long cannon leveled, more tanks looming behind through drifting smoke, a dramatic war sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era5_s43",
+   "seed": 43,
+   "prompt": "a heavy battle tank with riveted armor advancing with its long cannon leveled, more tanks looming behind through drifting smoke, a dramatic war sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_cavalry_era6": {
+  "41": {
+   "stem": "p3_card_cavalry_era6_s41",
+   "seed": 41,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_cavalry_era6_s42",
+   "seed": 42,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_cavalry_era6_s43",
+   "seed": 43,
+   "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome rolling forward, a swarm of drone tanks behind it, a plain unmarked gunmetal hull of fine panel seams, a futuristic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era1": {
+  "41": {
+   "stem": "p3_card_engineers_era1_s41",
+   "seed": 41,
+   "prompt": "a tribal laborer in a hide tunic hefting a heavy log beam and a stone hammer, coils of rope over his shoulders, a red headband, more laborers working behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era1_s42",
+   "seed": 42,
+   "prompt": "a tribal laborer in a hide tunic hefting a heavy log beam and a stone hammer, coils of rope over his shoulders, a red headband, more laborers working behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era1_s43",
+   "seed": 43,
+   "prompt": "a tribal laborer in a hide tunic hefting a heavy log beam and a stone hammer, coils of rope over his shoulders, a red headband, more laborers working behind him, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era2": {
+  "41": {
+   "stem": "p3_card_engineers_era2_s41",
+   "seed": 41,
+   "prompt": "a builder in a leather apron swinging a great wooden mallet, others laying stone blocks and carrying a beam with a red cloth strip tied at its end, a dramatic construction sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era2_s42",
+   "seed": 42,
+   "prompt": "a builder in a leather apron swinging a great wooden mallet, others laying stone blocks and carrying a beam with a red cloth strip tied at its end, a dramatic construction sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era2_s43",
+   "seed": 43,
+   "prompt": "a builder in a leather apron swinging a great wooden mallet, others laying stone blocks and carrying a beam with a red cloth strip tied at its end, a dramatic construction sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era3": {
+  "41": {
+   "stem": "p3_card_engineers_era3_s41",
+   "seed": 41,
+   "prompt": "a sapper in an iron kettle helmet and a leather jerkin pushing a tall wheeled wooden plank shield, others carrying a pickaxe and a bundle of sticks, plain red shoulder sashes, a dramatic siege sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era3_s42",
+   "seed": 42,
+   "prompt": "a sapper in an iron kettle helmet and a leather jerkin pushing a tall wheeled wooden plank shield, others carrying a pickaxe and a bundle of sticks, plain red shoulder sashes, a dramatic siege sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era3_s43",
+   "seed": 43,
+   "prompt": "a sapper in an iron kettle helmet and a leather jerkin pushing a tall wheeled wooden plank shield, others carrying a pickaxe and a bundle of sticks, plain red shoulder sashes, a dramatic siege sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era4": {
+  "41": {
+   "stem": "p3_card_engineers_era4_s41",
+   "seed": 41,
+   "prompt": "a soldier in a gray uniform with red collar trim carrying a wooden plank bridge section tucked under one arm, others shouldering a shovel and a coil of wire, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era4_s42",
+   "seed": 42,
+   "prompt": "a soldier in a gray uniform with red collar trim carrying a wooden plank bridge section tucked under one arm, others shouldering a shovel and a coil of wire, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era4_s43",
+   "seed": 43,
+   "prompt": "a soldier in a gray uniform with red collar trim carrying a wooden plank bridge section tucked under one arm, others shouldering a shovel and a coil of wire, a dramatic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era5": {
+  "41": {
+   "stem": "p3_card_engineers_era5_s41",
+   "seed": 41,
+   "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm plowing forward, soldiers in olive uniforms and steel helmets riding in it, a dramatic war-torn sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era5_s42",
+   "seed": 42,
+   "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm plowing forward, soldiers in olive uniforms and steel helmets riding in it, a dramatic war-torn sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era5_s43",
+   "seed": 43,
+   "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm plowing forward, soldiers in olive uniforms and steel helmets riding in it, a dramatic war-torn sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_engineers_era6": {
+  "41": {
+   "stem": "p3_card_engineers_era6_s41",
+   "seed": 41,
+   "prompt": "a soldier in a powered exo-frame suit with hydraulic arms hauling a folded bridge girder, another wielding a heavy cutting torch with a glowing orange tip, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_engineers_era6_s42",
+   "seed": 42,
+   "prompt": "a soldier in a powered exo-frame suit with hydraulic arms hauling a folded bridge girder, another wielding a heavy cutting torch with a glowing orange tip, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_engineers_era6_s43",
+   "seed": 43,
+   "prompt": "a soldier in a powered exo-frame suit with hydraulic arms hauling a folded bridge girder, another wielding a heavy cutting torch with a glowing orange tip, a futuristic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_elite_forces_era2": {
+  "41": {
+   "stem": "p3_card_elite_forces_era2_s41",
+   "seed": 41,
+   "prompt": "a royal guard in gilded bronze armor and a tall red-plumed helmet leveling an ornate halberd, a purple cloak, a rank of guards behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_elite_forces_era2_s42",
+   "seed": 42,
+   "prompt": "a royal guard in gilded bronze armor and a tall red-plumed helmet leveling an ornate halberd, a purple cloak, a rank of guards behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_elite_forces_era2_s43",
+   "seed": 43,
+   "prompt": "a royal guard in gilded bronze armor and a tall red-plumed helmet leveling an ornate halberd, a purple cloak, a rank of guards behind him, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_elite_forces_era3": {
+  "41": {
+   "stem": "p3_card_elite_forces_era3_s41",
+   "seed": 41,
+   "prompt": "a temple knight in a white surcoat over chainmail raising a greatsword, a single golden tree emblem on the surcoat, more knights behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_elite_forces_era3_s42",
+   "seed": 42,
+   "prompt": "a temple knight in a white surcoat over chainmail raising a greatsword, a single golden tree emblem on the surcoat, more knights behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_elite_forces_era3_s43",
+   "seed": 43,
+   "prompt": "a temple knight in a white surcoat over chainmail raising a greatsword, a single golden tree emblem on the surcoat, more knights behind him, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_elite_forces_era4": {
+  "41": {
+   "stem": "p3_card_elite_forces_era4_s41",
+   "seed": 41,
+   "prompt": "a grenadier in a dark blue coat hurling a round grenade with a sputtering fuse, a musket slung across his back, more grenadiers behind him, drifting smoke, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_elite_forces_era4_s42",
+   "seed": 42,
+   "prompt": "a grenadier in a dark blue coat hurling a round grenade with a sputtering fuse, a musket slung across his back, more grenadiers behind him, drifting smoke, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_elite_forces_era4_s43",
+   "seed": 43,
+   "prompt": "a grenadier in a dark blue coat hurling a round grenade with a sputtering fuse, a musket slung across his back, more grenadiers behind him, drifting smoke, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_elite_forces_era5": {
+  "41": {
+   "stem": "p3_card_elite_forces_era5_s41",
+   "seed": 41,
+   "prompt": "a commando in black tactical armor and green-lensed night-vision goggles advancing with a compact rifle, his team stacked close behind him, a tense dramatic night battlefield, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_elite_forces_era5_s42",
+   "seed": 42,
+   "prompt": "a commando in black tactical armor and green-lensed night-vision goggles advancing with a compact rifle, his team stacked close behind him, a tense dramatic night battlefield, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_elite_forces_era5_s43",
+   "seed": 43,
+   "prompt": "a commando in black tactical armor and green-lensed night-vision goggles advancing with a compact rifle, his team stacked close behind him, a tense dramatic night battlefield, game card illustration, dramatic composition"
+  }
+ },
+ "card_elite_forces_era6": {
+  "41": {
+   "stem": "p3_card_elite_forces_era6_s41",
+   "seed": 41,
+   "prompt": "a cyborg super-soldier with sleek chrome cybernetic limbs and glowing blue eye implants striding forward gripping a heavy rifle, more cyborg soldiers behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_elite_forces_era6_s42",
+   "seed": 42,
+   "prompt": "a cyborg super-soldier with sleek chrome cybernetic limbs and glowing blue eye implants striding forward gripping a heavy rifle, more cyborg soldiers behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_elite_forces_era6_s43",
+   "seed": 43,
+   "prompt": "a cyborg super-soldier with sleek chrome cybernetic limbs and glowing blue eye implants striding forward gripping a heavy rifle, more cyborg soldiers behind him, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_artillery_era3": {
+  "41": {
+   "stem": "p3_card_artillery_era3_s41",
+   "seed": 41,
+   "prompt": "a squat bronze bombard cannon on a timber sled firing skyward in a burst of smoke, a crewman brandishing a glowing linstock, stone cannonballs stacked beside it, a dramatic siege sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_artillery_era3_s42",
+   "seed": 42,
+   "prompt": "a squat bronze bombard cannon on a timber sled firing skyward in a burst of smoke, a crewman brandishing a glowing linstock, stone cannonballs stacked beside it, a dramatic siege sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_artillery_era3_s43",
+   "seed": 43,
+   "prompt": "a squat bronze bombard cannon on a timber sled firing skyward in a burst of smoke, a crewman brandishing a glowing linstock, stone cannonballs stacked beside it, a dramatic siege sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_artillery_era4": {
+  "41": {
+   "stem": "p3_card_artillery_era4_s41",
+   "seed": 41,
+   "prompt": "a field cannon with a bronze barrel on a spoked-wheel carriage firing, gunners in dark blue uniforms ramming and aiming, a pyramid of iron cannonballs, drifting smoke under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_artillery_era4_s42",
+   "seed": 42,
+   "prompt": "a field cannon with a bronze barrel on a spoked-wheel carriage firing, gunners in dark blue uniforms ramming and aiming, a pyramid of iron cannonballs, drifting smoke under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_artillery_era4_s43",
+   "seed": 43,
+   "prompt": "a field cannon with a bronze barrel on a spoked-wheel carriage firing, gunners in dark blue uniforms ramming and aiming, a pyramid of iron cannonballs, drifting smoke under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_artillery_era5": {
+  "41": {
+   "stem": "p3_card_artillery_era5_s41",
+   "seed": 41,
+   "prompt": "a tracked self-propelled howitzer in olive drab firing its long elevated barrel with a great muzzle flash, crew working at the hull, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_artillery_era5_s42",
+   "seed": 42,
+   "prompt": "a tracked self-propelled howitzer in olive drab firing its long elevated barrel with a great muzzle flash, crew working at the hull, a dramatic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_artillery_era5_s43",
+   "seed": 43,
+   "prompt": "a tracked self-propelled howitzer in olive drab firing its long elevated barrel with a great muzzle flash, crew working at the hull, a dramatic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_artillery_era6": {
+  "41": {
+   "stem": "p3_card_artillery_era6_s41",
+   "seed": 41,
+   "prompt": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_artillery_era6_s42",
+   "seed": 42,
+   "prompt": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_artillery_era6_s43",
+   "seed": 43,
+   "prompt": "a futuristic tracked railgun platform firing a searing bolt along its twin parallel magnetic rails, matte gunmetal armor of fine panel seams, a dramatic charged sky over a battlefield, game card illustration, dramatic composition"
+  }
+ },
+ "card_bomber_era4": {
+  "41": {
+   "stem": "p3_card_bomber_era4_s41",
+   "seed": 41,
+   "prompt": "a long silver-gray rigid airship droning low over a battlefield, small bombs falling from its gondola, searchlight beams crossing a dramatic night sky, a plain unmarked hull, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_bomber_era4_s42",
+   "seed": 42,
+   "prompt": "a long silver-gray rigid airship droning low over a battlefield, small bombs falling from its gondola, searchlight beams crossing a dramatic night sky, a plain unmarked hull, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_bomber_era4_s43",
+   "seed": 43,
+   "prompt": "a long silver-gray rigid airship droning low over a battlefield, small bombs falling from its gondola, searchlight beams crossing a dramatic night sky, a plain unmarked hull, game card illustration, dramatic composition"
+  }
+ },
+ "card_bomber_era5": {
+  "41": {
+   "stem": "p3_card_bomber_era5_s41",
+   "seed": 41,
+   "prompt": "a heavy four-engine propeller bomber banking through a flak-filled sky, its bomb bay open with bombs falling, a plain olive-drab unmarked fuselage, a dramatic cloudscape, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_bomber_era5_s42",
+   "seed": 42,
+   "prompt": "a heavy four-engine propeller bomber banking through a flak-filled sky, its bomb bay open with bombs falling, a plain olive-drab unmarked fuselage, a dramatic cloudscape, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_bomber_era5_s43",
+   "seed": 43,
+   "prompt": "a heavy four-engine propeller bomber banking through a flak-filled sky, its bomb bay open with bombs falling, a plain olive-drab unmarked fuselage, a dramatic cloudscape, game card illustration, dramatic composition"
+  }
+ },
+ "card_bomber_era6": {
+  "41": {
+   "stem": "p3_card_bomber_era6_s41",
+   "seed": 41,
+   "prompt": "a black angular flying-wing stealth bomber cutting across a dramatic dusk sky, its bomb bay open with a single guided bomb dropping, matte-black unmarked surfaces, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_bomber_era6_s42",
+   "seed": 42,
+   "prompt": "a black angular flying-wing stealth bomber cutting across a dramatic dusk sky, its bomb bay open with a single guided bomb dropping, matte-black unmarked surfaces, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_bomber_era6_s43",
+   "seed": 43,
+   "prompt": "a black angular flying-wing stealth bomber cutting across a dramatic dusk sky, its bomb bay open with a single guided bomb dropping, matte-black unmarked surfaces, game card illustration, dramatic composition"
+  }
+ },
+ "card_holy_warriors_era4": {
+  "41": {
+   "stem": "p3_card_holy_warriors_era4_s41",
+   "seed": 41,
+   "prompt": "a musketeer in a white coat holding his musket upright against his shoulder, a single golden tree emblem on his chest, a rank of white-coated musketeers behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_holy_warriors_era4_s42",
+   "seed": 42,
+   "prompt": "a musketeer in a white coat holding his musket upright against his shoulder, a single golden tree emblem on his chest, a rank of white-coated musketeers behind him, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_holy_warriors_era4_s43",
+   "seed": 43,
+   "prompt": "a musketeer in a white coat holding his musket upright against his shoulder, a single golden tree emblem on his chest, a rank of white-coated musketeers behind him, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_privateers_era3": {
+  "41": {
+   "stem": "p3_card_privateers_era3_s41",
+   "seed": 41,
+   "prompt": "a bandit in a dark leather jerkin brandishing a short curved sword, a closed brown loot sack over his shoulder, a rough band of raiders behind him, a dramatic frontier sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_privateers_era3_s42",
+   "seed": 42,
+   "prompt": "a bandit in a dark leather jerkin brandishing a short curved sword, a closed brown loot sack over his shoulder, a rough band of raiders behind him, a dramatic frontier sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_privateers_era3_s43",
+   "seed": 43,
+   "prompt": "a bandit in a dark leather jerkin brandishing a short curved sword, a closed brown loot sack over his shoulder, a rough band of raiders behind him, a dramatic frontier sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_privateers_era4": {
+  "41": {
+   "stem": "p3_card_privateers_era4_s41",
+   "seed": 41,
+   "prompt": "a thief in a dark hooded coat and neck scarf clutching a brass-cornered suitcase under his arm, glancing back over his shoulder, a shadowy street opening to a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_privateers_era4_s42",
+   "seed": 42,
+   "prompt": "a thief in a dark hooded coat and neck scarf clutching a brass-cornered suitcase under his arm, glancing back over his shoulder, a shadowy street opening to a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_privateers_era4_s43",
+   "seed": 43,
+   "prompt": "a thief in a dark hooded coat and neck scarf clutching a brass-cornered suitcase under his arm, glancing back over his shoulder, a shadowy street opening to a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_privateers_era5": {
+  "41": {
+   "stem": "p3_card_privateers_era5_s41",
+   "seed": 41,
+   "prompt": "a cyber hacker in a suit walking with an open laptop, its lid a plain unmarked metallic surface, cascading data-light around him and a dramatic city-night sky behind, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_privateers_era5_s42",
+   "seed": 42,
+   "prompt": "a cyber hacker in a suit walking with an open laptop, its lid a plain unmarked metallic surface, cascading data-light around him and a dramatic city-night sky behind, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_privateers_era5_s43",
+   "seed": 43,
+   "prompt": "a cyber hacker in a suit walking with an open laptop, its lid a plain unmarked metallic surface, cascading data-light around him and a dramatic city-night sky behind, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era1": {
+  "41": {
+   "stem": "p3_card_shield_wall_era1_s41",
+   "seed": 41,
+   "prompt": "a standing wall of tall rough wooden plank shields lashed with rope, spear tips poking over the top, warriors braced behind it, red cloth strips at the joints, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era1_s42",
+   "seed": 42,
+   "prompt": "a standing wall of tall rough wooden plank shields lashed with rope, spear tips poking over the top, warriors braced behind it, red cloth strips at the joints, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era1_s43",
+   "seed": 43,
+   "prompt": "a standing wall of tall rough wooden plank shields lashed with rope, spear tips poking over the top, warriors braced behind it, red cloth strips at the joints, a dramatic battle sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era2": {
+  "41": {
+   "stem": "p3_card_shield_wall_era2_s41",
+   "seed": 41,
+   "prompt": "a tight wall of overlapping kite shields each embossed with a plain raised ring, warriors locked shoulder to shoulder behind it, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era2_s42",
+   "seed": 42,
+   "prompt": "a tight wall of overlapping kite shields each embossed with a plain raised ring, warriors locked shoulder to shoulder behind it, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era2_s43",
+   "seed": 43,
+   "prompt": "a tight wall of overlapping kite shields each embossed with a plain raised ring, warriors locked shoulder to shoulder behind it, a dramatic battle sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era3": {
+  "41": {
+   "stem": "p3_card_shield_wall_era3_s41",
+   "seed": 41,
+   "prompt": "a stone battlement wall with crenellations and arrow slits, defenders manning the parapet, a dramatic besieged sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era3_s42",
+   "seed": 42,
+   "prompt": "a stone battlement wall with crenellations and arrow slits, defenders manning the parapet, a dramatic besieged sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era3_s43",
+   "seed": 43,
+   "prompt": "a stone battlement wall with crenellations and arrow slits, defenders manning the parapet, a dramatic besieged sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era4": {
+  "41": {
+   "stem": "p3_card_shield_wall_era4_s41",
+   "seed": 41,
+   "prompt": "a chest-high wall of stacked burlap sandbags with wooden support posts, soldiers hunkered down behind it, drifting smoke and a dramatic war sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era4_s42",
+   "seed": 42,
+   "prompt": "a chest-high wall of stacked burlap sandbags with wooden support posts, soldiers hunkered down behind it, drifting smoke and a dramatic war sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era4_s43",
+   "seed": 43,
+   "prompt": "a chest-high wall of stacked burlap sandbags with wooden support posts, soldiers hunkered down behind it, drifting smoke and a dramatic war sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era5": {
+  "41": {
+   "stem": "p3_card_shield_wall_era5_s41",
+   "seed": 41,
+   "prompt": "a tall fence of taut electrified steel wire mesh on low concrete blocks, white ceramic insulators on the dark posts, sparks arcing along it, a dramatic dusk battlefield, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era5_s42",
+   "seed": 42,
+   "prompt": "a tall fence of taut electrified steel wire mesh on low concrete blocks, white ceramic insulators on the dark posts, sparks arcing along it, a dramatic dusk battlefield, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era5_s43",
+   "seed": 43,
+   "prompt": "a tall fence of taut electrified steel wire mesh on low concrete blocks, white ceramic insulators on the dark posts, sparks arcing along it, a dramatic dusk battlefield, game card illustration, dramatic composition"
+  }
+ },
+ "card_shield_wall_era6": {
+  "41": {
+   "stem": "p3_card_shield_wall_era6_s41",
+   "seed": 41,
+   "prompt": "a modular barrier wall of smooth matte-gray polymer panels bolted to a steel frame with deployable struts at its base, troops sheltering behind it, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_shield_wall_era6_s42",
+   "seed": 42,
+   "prompt": "a modular barrier wall of smooth matte-gray polymer panels bolted to a steel frame with deployable struts at its base, troops sheltering behind it, a futuristic battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_shield_wall_era6_s43",
+   "seed": 43,
+   "prompt": "a modular barrier wall of smooth matte-gray polymer panels bolted to a steel frame with deployable struts at its base, troops sheltering behind it, a futuristic battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era1": {
+  "41": {
+   "stem": "p3_card_anti_air_era1_s41",
+   "seed": 41,
+   "prompt": "a slanted hide-roofed timber arrow shelter, warriors crouched beneath it as arrows thud into the raw hides overhead, a windswept battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era1_s42",
+   "seed": 42,
+   "prompt": "a slanted hide-roofed timber arrow shelter, warriors crouched beneath it as arrows thud into the raw hides overhead, a windswept battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era1_s43",
+   "seed": 43,
+   "prompt": "a slanted hide-roofed timber arrow shelter, warriors crouched beneath it as arrows thud into the raw hides overhead, a windswept battlefield under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era2": {
+  "41": {
+   "stem": "p3_card_anti_air_era2_s41",
+   "seed": 41,
+   "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, defenders loosing arrows from it, a plain red cloth strip at a corner post, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era2_s42",
+   "seed": 42,
+   "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, defenders loosing arrows from it, a plain red cloth strip at a corner post, a dramatic battle sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era2_s43",
+   "seed": 43,
+   "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, defenders loosing arrows from it, a plain red cloth strip at a corner post, a dramatic battle sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era3": {
+  "41": {
+   "stem": "p3_card_anti_air_era3_s41",
+   "seed": 41,
+   "prompt": "a round stone defense tower with machicolations, a crew working a skyward-aimed ballista on its open top, dramatic clouds over a besieged wall, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era3_s42",
+   "seed": 42,
+   "prompt": "a round stone defense tower with machicolations, a crew working a skyward-aimed ballista on its open top, dramatic clouds over a besieged wall, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era3_s43",
+   "seed": 43,
+   "prompt": "a round stone defense tower with machicolations, a crew working a skyward-aimed ballista on its open top, dramatic clouds over a besieged wall, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era4": {
+  "41": {
+   "stem": "p3_card_anti_air_era4_s41",
+   "seed": 41,
+   "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward firing, a crew feeding shells, plain olive-drab paint, tracer streaks across a dramatic smoky sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era4_s42",
+   "seed": 42,
+   "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward firing, a crew feeding shells, plain olive-drab paint, tracer streaks across a dramatic smoky sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era4_s43",
+   "seed": 43,
+   "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward firing, a crew feeding shells, plain olive-drab paint, tracer streaks across a dramatic smoky sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era5": {
+  "41": {
+   "stem": "p3_card_anti_air_era5_s41",
+   "seed": 41,
+   "prompt": "a tracked missile vehicle in olive drab launching a white surface-to-air missile skyward on a trail of smoke, a dramatic dusk battlefield sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era5_s42",
+   "seed": 42,
+   "prompt": "a tracked missile vehicle in olive drab launching a white surface-to-air missile skyward on a trail of smoke, a dramatic dusk battlefield sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era5_s43",
+   "seed": 43,
+   "prompt": "a tracked missile vehicle in olive drab launching a white surface-to-air missile skyward on a trail of smoke, a dramatic dusk battlefield sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_anti_air_era6": {
+  "41": {
+   "stem": "p3_card_anti_air_era6_s41",
+   "seed": 41,
+   "prompt": "a boxy laser interception turret on a gimbal mount firing a brilliant beam skyward through its optical aperture, matte olive-drab housing, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_anti_air_era6_s42",
+   "seed": 42,
+   "prompt": "a boxy laser interception turret on a gimbal mount firing a brilliant beam skyward through its optical aperture, matte olive-drab housing, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_anti_air_era6_s43",
+   "seed": 43,
+   "prompt": "a boxy laser interception turret on a gimbal mount firing a brilliant beam skyward through its optical aperture, matte olive-drab housing, a futuristic battlefield under a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_love_and_peace": {
+  "41": {
+   "stem": "p3_card_love_and_peace_s41",
+   "seed": 41,
+   "prompt": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_love_and_peace_s42",
+   "seed": 42,
+   "prompt": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_love_and_peace_s43",
+   "seed": 43,
+   "prompt": "a defiant long-haired figure standing amid a smoking battlefield raising a two-finger peace sign, a single flower tucked into a rifle barrel beside him, plain banners without any lettering, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_persuasion_broadcast": {
+  "41": {
+   "stem": "p3_card_persuasion_broadcast_s41",
+   "seed": 41,
+   "prompt": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_persuasion_broadcast_s42",
+   "seed": 42,
+   "prompt": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_persuasion_broadcast_s43",
+   "seed": 43,
+   "prompt": "a battlefield loudspeaker truck with a tall broadcast horn array blaring toward distant enemy troops who lower their weapons, blank leaflets fluttering through the air, plain banners, a dramatic sky, game card illustration, dramatic composition"
+  }
+ },
+ "card_orbital_strike": {
+  "41": {
+   "stem": "p3_card_orbital_strike_s41",
+   "seed": 41,
+   "prompt": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky, game card illustration, dramatic composition"
+  },
+  "42": {
+   "stem": "p3_card_orbital_strike_s42",
+   "seed": 42,
+   "prompt": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky, game card illustration, dramatic composition"
+  },
+  "43": {
+   "stem": "p3_card_orbital_strike_s43",
+   "seed": 43,
+   "prompt": "a blinding column of orbital energy beaming straight down from a distant satellite onto a battlefield, a shockwave of dust and debris blasting outward from the impact, a dramatic apocalyptic sky, game card illustration, dramatic composition"
+  }
  }
 }
