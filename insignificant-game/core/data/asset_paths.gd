@@ -10,6 +10,7 @@ const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UNIT_DIR: String = "res://assets/approved/units"
 const CARD_DIR: String = "res://assets/approved/cards"
+const PORTRAIT_DIR: String = "res://assets/approved/portraits"
 const UI_DIR: String = "res://assets/approved/ui"
 
 # all 75 approved icon asset ids (inventory.md "UI icons")
@@ -81,6 +82,19 @@ const CARD_COVERAGE: Dictionary = {
 # Era-neutral skill-card illustrations (assets/approved/cards/card_<id>.png).
 const CARD_SKILLS: Array[StringName] = [
 	&"war_song", &"holes_dont_matter", &"love_and_peace", &"persuasion_broadcast", &"orbital_strike",
+]
+
+# Approved portraits (pick gate 2026-07-23; per-subject seeds in phase3_portraits_freeze.py PICKS).
+# One portrait per rival class (ids match RivalData.CLASSES) and per democracy candidate (ids match
+# CandidateData.CANDIDATES) — the stable identity while per-run civ display names rotate. Portraits
+# are full-frame 1024×1024 watercolor illustrations (no keying — the wash reads as a painted-portrait
+# background); the view composites each into a portrait frame at runtime.
+const PORTRAIT_CIVS: Array[StringName] = [
+	&"science_state", &"culture_state", &"iron_tribe", &"vast_state", &"slow_burner",
+]
+const PORTRAIT_CANDIDATES: Array[StringName] = [
+	&"technocrat", &"culture_revival", &"iron_expansion", &"populist", &"free_market",
+	&"theocratic", &"military_industrial", &"green_pastoral", &"centrist", &"revolutionary",
 ]
 
 # frozen UI templates (style bible §9): geometry is in each PNG's own pixels; scale in-engine.
@@ -172,3 +186,19 @@ static func card_skill(skill_id: StringName) -> String:
 
 static func has_card_skill(skill_id: StringName) -> bool:
 	return FileAccess.file_exists(card_skill(skill_id))
+
+
+static func portrait_civ(rival_class: StringName) -> String:
+	return "%s/portrait_civ_%s.png" % [PORTRAIT_DIR, rival_class]
+
+
+static func has_portrait_civ(rival_class: StringName) -> bool:
+	return FileAccess.file_exists(portrait_civ(rival_class))
+
+
+static func portrait_candidate(candidate_id: StringName) -> String:
+	return "%s/portrait_candidate_%s.png" % [PORTRAIT_DIR, candidate_id]
+
+
+static func has_portrait_candidate(candidate_id: StringName) -> bool:
+	return FileAccess.file_exists(portrait_candidate(candidate_id))

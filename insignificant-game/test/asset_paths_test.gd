@@ -75,6 +75,28 @@ func test_card_infantry_era4_exists_unlike_the_unit_gap() -> void:
 	assert_bool(AssetPaths.has_card(&"infantry", 4)).is_true()
 
 
+func test_approved_portrait_civs_exist_and_cover_every_rival_class() -> void:
+	# portraits class closed: one full-frame portrait per rival class, registry list == RivalData.CLASSES
+	for rival_class: StringName in AssetPaths.PORTRAIT_CIVS:
+		assert_bool(FileAccess.file_exists(AssetPaths.portrait_civ(rival_class))) \
+			.override_failure_message("missing portrait_civ_%s" % rival_class).is_true()
+	assert_int(AssetPaths.PORTRAIT_CIVS.size()).is_equal(5)
+	for rival_class: StringName in RivalData.CLASSES:
+		assert_bool(AssetPaths.has_portrait_civ(rival_class)) \
+			.override_failure_message("rival class %s has no portrait" % rival_class).is_true()
+
+
+func test_approved_portrait_candidates_exist_and_cover_every_candidate() -> void:
+	# one full-frame portrait per democracy candidate, registry list == CandidateData.CANDIDATES
+	for candidate_id: StringName in AssetPaths.PORTRAIT_CANDIDATES:
+		assert_bool(FileAccess.file_exists(AssetPaths.portrait_candidate(candidate_id))) \
+			.override_failure_message("missing portrait_candidate_%s" % candidate_id).is_true()
+	assert_int(AssetPaths.PORTRAIT_CANDIDATES.size()).is_equal(10)
+	for candidate_id: StringName in CandidateData.CANDIDATES:
+		assert_bool(AssetPaths.has_portrait_candidate(candidate_id)) \
+			.override_failure_message("candidate %s has no portrait" % candidate_id).is_true()
+
+
 func test_ui_templates_exist() -> void:
 	for tpl: Dictionary in [AssetPaths.UI_PANEL, AssetPaths.UI_BUTTON, AssetPaths.UI_CARD_FRAME,
 			AssetPaths.UI_ICON_PLATE, AssetPaths.UI_DIVIDER]:

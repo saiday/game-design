@@ -1,0 +1,21 @@
+{
+ "civs": [
+  "portrait_civ_culture_state",
+  "portrait_civ_iron_tribe",
+  "portrait_civ_science_state",
+  "portrait_civ_slow_burner",
+  "portrait_civ_vast_state"
+ ],
+ "candidates": [
+  "portrait_candidate_centrist",
+  "portrait_candidate_culture_revival",
+  "portrait_candidate_free_market",
+  "portrait_candidate_green_pastoral",
+  "portrait_candidate_iron_expansion",
+  "portrait_candidate_military_industrial",
+  "portrait_candidate_populist",
+  "portrait_candidate_revolutionary",
+  "portrait_candidate_technocrat",
+  "portrait_candidate_theocratic"
+ ]
+}
