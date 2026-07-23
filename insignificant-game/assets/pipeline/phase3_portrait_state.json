@@ -1,0 +1,302 @@
+{
+ "portrait_civ_science_state": {
+  "51": {
+   "stem": "p3_civ_science_state_s51",
+   "seed": 51,
+   "prompt": "an elderly scholar-inventor in a high-collared indigo robe, round wire-rimmed spectacles pushed up his nose, a neatly trimmed white beard, holding up a small brass mechanical orrery of interlocking gears and tiny orbiting spheres, a rolled schematic tucked under one arm, a keen precise thoughtful gaze, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_civ_science_state_s52",
+   "seed": 52,
+   "prompt": "an elderly scholar-inventor in a high-collared indigo robe, round wire-rimmed spectacles pushed up his nose, a neatly trimmed white beard, holding up a small brass mechanical orrery of interlocking gears and tiny orbiting spheres, a rolled schematic tucked under one arm, a keen precise thoughtful gaze, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_civ_science_state_s53",
+   "seed": 53,
+   "prompt": "an elderly scholar-inventor in a high-collared indigo robe, round wire-rimmed spectacles pushed up his nose, a neatly trimmed white beard, holding up a small brass mechanical orrery of interlocking gears and tiny orbiting spheres, a rolled schematic tucked under one arm, a keen precise thoughtful gaze, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_civ_culture_state": {
+  "51": {
+   "stem": "p3_civ_culture_state_s51",
+   "seed": 51,
+   "prompt": "an elegant muse-like patron of the arts in flowing pastel silk robes and a golden laurel wreath crowning loose curls, holding a delicate theatrical comedy mask in one hand and a small curved lyre in the other, an ornate embroidered sash across the chest, a serene refined half-smile, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_civ_culture_state_s52",
+   "seed": 52,
+   "prompt": "an elegant muse-like patron of the arts in flowing pastel silk robes and a golden laurel wreath crowning loose curls, holding a delicate theatrical comedy mask in one hand and a small curved lyre in the other, an ornate embroidered sash across the chest, a serene refined half-smile, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_civ_culture_state_s53",
+   "seed": 53,
+   "prompt": "an elegant muse-like patron of the arts in flowing pastel silk robes and a golden laurel wreath crowning loose curls, holding a delicate theatrical comedy mask in one hand and a small curved lyre in the other, an ornate embroidered sash across the chest, a serene refined half-smile, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_civ_iron_tribe": {
+  "51": {
+   "stem": "p3_civ_iron_tribe_s51",
+   "seed": 51,
+   "prompt": "a fierce steppe warlord in fur-trimmed lamellar iron armour and a wolf-pelt helmet with the wolf's head over the brow, a scarred weathered face and a thick black moustache, a heavy fur cloak clasped at one shoulder, a gauntleted fist gripping the hilt of a curved sabre, a hard defiant glare, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_civ_iron_tribe_s52",
+   "seed": 52,
+   "prompt": "a fierce steppe warlord in fur-trimmed lamellar iron armour and a wolf-pelt helmet with the wolf's head over the brow, a scarred weathered face and a thick black moustache, a heavy fur cloak clasped at one shoulder, a gauntleted fist gripping the hilt of a curved sabre, a hard defiant glare, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_civ_iron_tribe_s53",
+   "seed": 53,
+   "prompt": "a fierce steppe warlord in fur-trimmed lamellar iron armour and a wolf-pelt helmet with the wolf's head over the brow, a scarred weathered face and a thick black moustache, a heavy fur cloak clasped at one shoulder, a gauntleted fist gripping the hilt of a curved sabre, a hard defiant glare, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_civ_vast_state": {
+  "51": {
+   "stem": "p3_civ_vast_state_s51",
+   "seed": 51,
+   "prompt": "a broad heavyset emperor in many layers of richly embroidered river-blue and gold robes, a wide calm benevolent moon face with a long thin drooping moustache, a tall jewelled headdress, both hands folded serenely over a rounded belly, an air of vast unhurried abundance, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_civ_vast_state_s52",
+   "seed": 52,
+   "prompt": "a broad heavyset emperor in many layers of richly embroidered river-blue and gold robes, a wide calm benevolent moon face with a long thin drooping moustache, a tall jewelled headdress, both hands folded serenely over a rounded belly, an air of vast unhurried abundance, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_civ_vast_state_s53",
+   "seed": 53,
+   "prompt": "a broad heavyset emperor in many layers of richly embroidered river-blue and gold robes, a wide calm benevolent moon face with a long thin drooping moustache, a tall jewelled headdress, both hands folded serenely over a rounded belly, an air of vast unhurried abundance, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_civ_slow_burner": {
+  "51": {
+   "stem": "p3_civ_slow_burner_s51",
+   "seed": 51,
+   "prompt": "a drowsy long-bearded sage in plain earth-toned robes, heavy-lidded half-closed eyes mid-yawn, shoulders slouched and relaxed, a faint coiled dragon embroidered on one shoulder, a sleepy unbothered expression that hides banked power, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_civ_slow_burner_s52",
+   "seed": 52,
+   "prompt": "a drowsy long-bearded sage in plain earth-toned robes, heavy-lidded half-closed eyes mid-yawn, shoulders slouched and relaxed, a faint coiled dragon embroidered on one shoulder, a sleepy unbothered expression that hides banked power, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_civ_slow_burner_s53",
+   "seed": 53,
+   "prompt": "a drowsy long-bearded sage in plain earth-toned robes, heavy-lidded half-closed eyes mid-yawn, shoulders slouched and relaxed, a faint coiled dragon embroidered on one shoulder, a sleepy unbothered expression that hides banked power, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_technocrat": {
+  "51": {
+   "stem": "p3_candidate_technocrat_s51",
+   "seed": 51,
+   "prompt": "a stern bureaucrat-engineer in a white lab coat over a buttoned grey shirt, thick square black spectacles, a row of coloured pens in the chest pocket, holding a clipboard flat against his chest, a humourless efficient expression, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_technocrat_s52",
+   "seed": 52,
+   "prompt": "a stern bureaucrat-engineer in a white lab coat over a buttoned grey shirt, thick square black spectacles, a row of coloured pens in the chest pocket, holding a clipboard flat against his chest, a humourless efficient expression, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_technocrat_s53",
+   "seed": 53,
+   "prompt": "a stern bureaucrat-engineer in a white lab coat over a buttoned grey shirt, thick square black spectacles, a row of coloured pens in the chest pocket, holding a clipboard flat against his chest, a humourless efficient expression, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_culture_revival": {
+  "51": {
+   "stem": "p3_candidate_culture_revival_s51",
+   "seed": 51,
+   "prompt": "a flamboyant arts patron in a plum velvet jacket and a loosely tied silk cravat, a soft beret tilted over flowing hair, one hand raised in a theatrical flourish holding a slim paintbrush, an expressive romantic look, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_culture_revival_s52",
+   "seed": 52,
+   "prompt": "a flamboyant arts patron in a plum velvet jacket and a loosely tied silk cravat, a soft beret tilted over flowing hair, one hand raised in a theatrical flourish holding a slim paintbrush, an expressive romantic look, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_culture_revival_s53",
+   "seed": 53,
+   "prompt": "a flamboyant arts patron in a plum velvet jacket and a loosely tied silk cravat, a soft beret tilted over flowing hair, one hand raised in a theatrical flourish holding a slim paintbrush, an expressive romantic look, character portrait, bust, centered, plain light gray background"
+  },
+  "54": {
+   "stem": "p3_candidate_culture_revival_s54",
+   "seed": 54,
+   "prompt": "an arts-advocate politician in a colourful modern blazer over a bright patterned open-collar shirt, a silk pocket square, one hand raised in an expressive theatrical flourish holding a slim paintbrush, wavy hair, a warm cultured enthusiastic smile, character portrait, bust, centered, plain light gray background"
+  },
+  "55": {
+   "stem": "p3_candidate_culture_revival_s55",
+   "seed": 55,
+   "prompt": "an arts-advocate politician in a colourful modern blazer over a bright patterned open-collar shirt, a silk pocket square, one hand raised in an expressive theatrical flourish holding a slim paintbrush, wavy hair, a warm cultured enthusiastic smile, character portrait, bust, centered, plain light gray background"
+  },
+  "56": {
+   "stem": "p3_candidate_culture_revival_s56",
+   "seed": 56,
+   "prompt": "an arts-advocate politician in a colourful modern blazer over a bright patterned open-collar shirt, a silk pocket square, one hand raised in an expressive theatrical flourish holding a slim paintbrush, wavy hair, a warm cultured enthusiastic smile, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_iron_expansion": {
+  "51": {
+   "stem": "p3_candidate_iron_expansion_s51",
+   "seed": 51,
+   "prompt": "a hard-jawed militarist leader in a dark decorated dress uniform with a stiff high collar and rows of plain unmarked medals, a peaked officer's cap, a clenched aggressive glare, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_iron_expansion_s52",
+   "seed": 52,
+   "prompt": "a hard-jawed militarist leader in a dark decorated dress uniform with a stiff high collar and rows of plain unmarked medals, a peaked officer's cap, a clenched aggressive glare, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_iron_expansion_s53",
+   "seed": 53,
+   "prompt": "a hard-jawed militarist leader in a dark decorated dress uniform with a stiff high collar and rows of plain unmarked medals, a peaked officer's cap, a clenched aggressive glare, character portrait, bust, centered, plain light gray background"
+  },
+  "54": {
+   "stem": "p3_candidate_iron_expansion_s54",
+   "seed": 54,
+   "prompt": "a hard-jawed militarist politician in a plain dark high-collared uniform jacket with plain gold shoulder boards and a single plain diagonal sash, a peaked cap with a small plain round badge, both arms folded across the chest, a hard aggressive glare, character portrait, bust, centered, plain light gray background"
+  },
+  "55": {
+   "stem": "p3_candidate_iron_expansion_s55",
+   "seed": 55,
+   "prompt": "a hard-jawed militarist politician in a plain dark high-collared uniform jacket with plain gold shoulder boards and a single plain diagonal sash, a peaked cap with a small plain round badge, both arms folded across the chest, a hard aggressive glare, character portrait, bust, centered, plain light gray background"
+  },
+  "56": {
+   "stem": "p3_candidate_iron_expansion_s56",
+   "seed": 56,
+   "prompt": "a hard-jawed militarist politician in a plain dark high-collared uniform jacket with plain gold shoulder boards and a single plain diagonal sash, a peaked cap with a small plain round badge, both arms folded across the chest, a hard aggressive glare, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_populist": {
+  "51": {
+   "stem": "p3_candidate_populist_s51",
+   "seed": 51,
+   "prompt": "a beaming crowd-pleasing populist with rolled-up shirtsleeves and an open collar, arms spread wide in a welcoming gesture, a huge warm grin, a bright festive rosette pinned to the chest, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_populist_s52",
+   "seed": 52,
+   "prompt": "a beaming crowd-pleasing populist with rolled-up shirtsleeves and an open collar, arms spread wide in a welcoming gesture, a huge warm grin, a bright festive rosette pinned to the chest, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_populist_s53",
+   "seed": 53,
+   "prompt": "a beaming crowd-pleasing populist with rolled-up shirtsleeves and an open collar, arms spread wide in a welcoming gesture, a huge warm grin, a bright festive rosette pinned to the chest, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_free_market": {
+  "51": {
+   "stem": "p3_candidate_free_market_s51",
+   "seed": 51,
+   "prompt": "a slick businessman in a sharp pinstriped suit with slicked-back hair, a confident salesman's smile, one hand extended forward for a handshake, a single gold coin balanced on the other open palm, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_free_market_s52",
+   "seed": 52,
+   "prompt": "a slick businessman in a sharp pinstriped suit with slicked-back hair, a confident salesman's smile, one hand extended forward for a handshake, a single gold coin balanced on the other open palm, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_free_market_s53",
+   "seed": 53,
+   "prompt": "a slick businessman in a sharp pinstriped suit with slicked-back hair, a confident salesman's smile, one hand extended forward for a handshake, a single gold coin balanced on the other open palm, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_theocratic": {
+  "51": {
+   "stem": "p3_candidate_theocratic_s51",
+   "seed": 51,
+   "prompt": "a solemn high priest in ornate gold-trimmed ceremonial robes and a tall ceremonial headdress, hands clasped in devotion at the chest, a plain radiant-sun emblem embroidered on the vestment, a stern pious severity, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_theocratic_s52",
+   "seed": 52,
+   "prompt": "a solemn high priest in ornate gold-trimmed ceremonial robes and a tall ceremonial headdress, hands clasped in devotion at the chest, a plain radiant-sun emblem embroidered on the vestment, a stern pious severity, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_theocratic_s53",
+   "seed": 53,
+   "prompt": "a solemn high priest in ornate gold-trimmed ceremonial robes and a tall ceremonial headdress, hands clasped in devotion at the chest, a plain radiant-sun emblem embroidered on the vestment, a stern pious severity, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_military_industrial": {
+  "51": {
+   "stem": "p3_candidate_military_industrial_s51",
+   "seed": 51,
+   "prompt": "a shrewd arms-industry magnate in a business suit with military epaulettes on the shoulders, holding up a small grey scale model of a rocket, an industrial hard hat tucked under one arm, a calculating grin, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_military_industrial_s52",
+   "seed": 52,
+   "prompt": "a shrewd arms-industry magnate in a business suit with military epaulettes on the shoulders, holding up a small grey scale model of a rocket, an industrial hard hat tucked under one arm, a calculating grin, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_military_industrial_s53",
+   "seed": 53,
+   "prompt": "a shrewd arms-industry magnate in a business suit with military epaulettes on the shoulders, holding up a small grey scale model of a rocket, an industrial hard hat tucked under one arm, a calculating grin, character portrait, bust, centered, plain light gray background"
+  },
+  "54": {
+   "stem": "p3_candidate_military_industrial_s54",
+   "seed": 54,
+   "prompt": "a shrewd arms-industry magnate in a plain dark business suit and tie, holding up a small grey scale model of a rocket in one hand, a yellow industrial hard hat tucked under the other arm, slicked hair, a calculating grin, character portrait, bust, centered, plain light gray background"
+  },
+  "55": {
+   "stem": "p3_candidate_military_industrial_s55",
+   "seed": 55,
+   "prompt": "a shrewd arms-industry magnate in a plain dark business suit and tie, holding up a small grey scale model of a rocket in one hand, a yellow industrial hard hat tucked under the other arm, slicked hair, a calculating grin, character portrait, bust, centered, plain light gray background"
+  },
+  "56": {
+   "stem": "p3_candidate_military_industrial_s56",
+   "seed": 56,
+   "prompt": "a shrewd arms-industry magnate in a plain dark business suit and tie, holding up a small grey scale model of a rocket in one hand, a yellow industrial hard hat tucked under the other arm, slicked hair, a calculating grin, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_green_pastoral": {
+  "51": {
+   "stem": "p3_candidate_green_pastoral_s51",
+   "seed": 51,
+   "prompt": "a gentle eco-idealist in homespun earth-toned linen clothes and a wide straw hat, cradling a small potted green sapling in both hands, a few leaves tucked at the collar, a calm wholesome smile, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_green_pastoral_s52",
+   "seed": 52,
+   "prompt": "a gentle eco-idealist in homespun earth-toned linen clothes and a wide straw hat, cradling a small potted green sapling in both hands, a few leaves tucked at the collar, a calm wholesome smile, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_green_pastoral_s53",
+   "seed": 53,
+   "prompt": "a gentle eco-idealist in homespun earth-toned linen clothes and a wide straw hat, cradling a small potted green sapling in both hands, a few leaves tucked at the collar, a calm wholesome smile, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_centrist": {
+  "51": {
+   "stem": "p3_candidate_centrist_s51",
+   "seed": 51,
+   "prompt": "a moderate mild-mannered official in a plain neutral-grey suit and a neatly combed side part, a balanced measured expression, holding a small set of balance scales perfectly level in one hand, utterly composed and unremarkable, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_centrist_s52",
+   "seed": 52,
+   "prompt": "a moderate mild-mannered official in a plain neutral-grey suit and a neatly combed side part, a balanced measured expression, holding a small set of balance scales perfectly level in one hand, utterly composed and unremarkable, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_centrist_s53",
+   "seed": 53,
+   "prompt": "a moderate mild-mannered official in a plain neutral-grey suit and a neatly combed side part, a balanced measured expression, holding a small set of balance scales perfectly level in one hand, utterly composed and unremarkable, character portrait, bust, centered, plain light gray background"
+  }
+ },
+ "portrait_candidate_revolutionary": {
+  "51": {
+   "stem": "p3_candidate_revolutionary_s51",
+   "seed": 51,
+   "prompt": "a fiery revolutionary agitator in a rough worker's jacket and a flat cap, a bandana knotted at the neck, one clenched fist thrust upward, wild intense eyes and an open shouting mouth, a plain red banner hanging behind, character portrait, bust, centered, plain light gray background"
+  },
+  "52": {
+   "stem": "p3_candidate_revolutionary_s52",
+   "seed": 52,
+   "prompt": "a fiery revolutionary agitator in a rough worker's jacket and a flat cap, a bandana knotted at the neck, one clenched fist thrust upward, wild intense eyes and an open shouting mouth, a plain red banner hanging behind, character portrait, bust, centered, plain light gray background"
+  },
+  "53": {
+   "stem": "p3_candidate_revolutionary_s53",
+   "seed": 53,
+   "prompt": "a fiery revolutionary agitator in a rough worker's jacket and a flat cap, a bandana knotted at the neck, one clenched fist thrust upward, wild intense eyes and an open shouting mouth, a plain red banner hanging behind, character portrait, bust, centered, plain light gray background"
+  }
+ }
+}
