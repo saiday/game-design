@@ -87,7 +87,7 @@ Surface a design question instead.
 |---|---|
 | **D1** | **No hand.** 手牌 is retired entirely. Any unplayed card may be deployed on any round. 軍費 is the only gate. `戰鬥.md`'s existing rule becomes literally true. |
 | **D2** | **The enemy arrives in scheduled waves.** Waves are what meter a battle across rounds. |
-| **D3** | **Defeat is exhaustion, symmetric.** A side loses when its field is empty **and** it has nothing left to commit (enemy: no waves remain; player: no unplayed affordable card). 陸軍 rule, 回合上限 判輸, and 撤軍 all unchanged. |
+| **D3** | **Defeat is exhaustion, symmetric.** A side loses when its field is empty **and** it has nothing left to commit (enemy: no waves remain; player: **all unplayed cards played, or chosen not to play**). The "出得起／affordable" predicate is retired — 軍費 may go negative and never blocks a play, so holding cards to save 軍費 is a legal voluntary concession. 陸軍 rule and 回合上限 判輸 fold into one **敗北後果** (判輸＝耗盡, same consequence). 撤軍 disabled in 內部暴動戰／為民主而流血／世界大戰; unchanged elsewhere. |
 | **D4** | **Survivors persist.** Units that live through a wave stay on the field into the next, **both sides**. An uncleared wave means the next wave stacks on its remnant. |
 | **D5** | **Wave schedules are authored per battle type and rolled per battle** via a `state.rng` track. The six fixed types get authored wave tables (敵方開場單位 becomes wave 1). 文明戰爭 and 世界大戰 spread their existing strength budget (總實力 ≈ P×0.5) across a schedule. 開戰前情報 reveals **the roll**. |
 
