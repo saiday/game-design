@@ -71,6 +71,13 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 > W9; the battle-model rewrite (`docs/plan-battle-model-rewrite.md`, ADR-0001/0002) retires the
 > hand and re-specifies 文化國. Update these rows when W12–W13 land.
 
+## W11 gaps: card model
+
+| Gap | Decision | Where |
+|---|---|---|
+| Evolution auto-disband vs 牌組下限 5 (卡牌.md pins 自動解散 at form end but not its interaction with the minimum) | Forced disband proceeds even below 5; the minimum guards **voluntary** 解散 only — a formless ghost card would contradict the evolution table | cards.gd |
+| Reward-card pick's rng track (卡牌.md pins the quality roll on `cards`; the pick itself names no track) | Same `cards` track: pick → grade → stats is one reproducible acquisition stream | cards.gd |
+
 > 2026-07-24, wayfinder #12: the corpus now pins what two rows above decided or assumed — 起始牌組
 > 5×步兵團 is promoted into 卡牌.md §起始牌組, and the W1 note's 「corpus pins start population
 > (12)」 is superseded by 起始人口 0 (營運.md; collapse check arms at first 人口 ≥ 5, 內亂與失敗.md).

@@ -4,6 +4,7 @@
 > first unchecked task below, verify the previous gate actually holds (run Part A; run Part B if
 > the view is involved), and continue from there. Contract: `docs/architecture.md`.
 > Dev loop: `docs/dev-loop.md`. Design: `design/` (single source of truth).
+> Code conventions + deviations of the W11+ rewrite: `docs/implementation-notes.md`.
 
 ## Method
 
@@ -30,9 +31,17 @@ every green wave.
       no modules moved yet; W11–W14 own the reverse direction. Carries 3 open items into W11:
       ~30 agent-authored v1 baselines, 老兵 / 兵營 勳章 don't name which stat they raise, no
       adversarial validation pass.)*
-- [ ] **W11 — Card model.** `cards.gd` instances (innate accuracy/dodge/speed rolled at
+- [x] **W11 — Card model.** `cards.gd` instances (innate accuracy/dodge/speed rolled at
       acquisition), `data/cards.gd` distributions, `game_state.gd` deck of instances. 攻/血 stay
       fixed per type+era. Gate: Part A green on `cards_test`; rolls deterministic under a seed.
+      *(done 2026-07-24: cards_test 29/29 green, same-seed double-run determinism asserted.
+      Scope grew to a full catalog sync — the W10+wayfinder corpus changed more than the
+      rewrite plan's blast radius predicted: 16 cards (壕溝 retired, engineers become the
+      fortification repairer), era-name fixes, 聖戰士團/私掠傭兵團 top-end form cutoffs with
+      free auto-disband, unified paid 解散 (free removal is gone), reward roll/accept API
+      (`add_reward_card` kept as a deprecated shim for sim/view until W14/W15). battle_test
+      red on retired trench mechanics as planned — W12 rewrites that suite. Conventions +
+      deviations: `docs/implementation-notes.md`.)*
 - [ ] **W12 — Battle model.** Wave schedule roll, tick loop, event timeline emission, exhaustion
       win check, survivor persistence. Delete the hand (`OPENING_HAND`, draw/discard piles,
       `play_card(hand_index)`) and the simultaneous resolver. Gate: Part A green on `battle_test`;
@@ -40,6 +49,12 @@ every green wave.
 - [ ] **W13 — Growth.** Per-stat XP, 勳章 from both sources (battle-automatic, 兵營-assigned),
       軍事區 老兵 veterancy, 文化國 accuracy debuff. Rewires `operations.gd` + `rivals.gd`.
       Gate: Part A green on `cards_test`, `operations_test`, `rivals_test`.
+- [ ] **W13.5 — Starting-state sync (new task, raised in W11).** The corpus (wayfinder #12)
+      now pins 起始人口 0 (營運.md) with the 政權崩潰 check arming only after 人口 first
+      reaches 5 (內亂與失敗.md); code still starts at 12 with an always-armed check.
+      `game_state.gd` defaults, `unrest.gd` arming flag, decisions.md W1 table update; the sim
+      auto-player must learn the 解散-for-population opening or W14 runs starve. Gate: Part A
+      green on `unrest_test` + defaults asserted; full-suite green folds into W14's gate.
 - [ ] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
       back to exit 0, balance batch recalibrated. Gate: Part A exit 0 all suites executed;
       `test_determinism_same_seed_same_run` green; findings surfaced to PM in

@@ -48,7 +48,10 @@ Compare against `docs/balance-report.md` before/after a knob change.
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   21 suites / 199 cases (update this pin when suites or cases are added).
+   21 suites (update this pin when suites or cases are added). Case-count pin is SUSPENDED
+   during the battle-model rewrite: battle_test is expected red until W12 and gdUnit's
+   first-failure abort masks its tail cases, so totals fluctuate. Per-wave pins instead:
+   cards_test 29/29 (W11). The full-suite exit-0 pin returns at the W14 gate.
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
 3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show

@@ -31,7 +31,8 @@ var policy_progress: Dictionary = {}    # node id -> BP invested (switching paus
 var policy_bp_this_gen: int = 0         # locked this generation (cap 2), reset each generation
 
 # deck
-var deck: Array = []                   # Array of CardInstance (cards.gd)
+var deck: Array = []                   # Array of CardInstance (cards.gd): each carries its
+                                       # rolled grade + innate three and earned levels/xp
 var unlocked_cards: Array[StringName] = []
 
 # legacies
