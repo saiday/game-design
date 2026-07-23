@@ -125,7 +125,8 @@ standard autobattler trap. Measure it before shipping v1 numbers.
 
 **Why D12 is not optional:** if death re-rolled the innate three, deliberate suicide would be the
 cheapest re-roll in the game. Deploying a bad 弓箭團 to die costs 2×時代係數 軍費 and soaks enemy
-hits on the way out; the legitimate 解散 → 解卡費 loop costs 10×時代係數. The exploit is 5× cheaper
+hits on the way out; the legitimate 解散 → 解卡費 loop costs 18×時代係數 (8× 解散 + 10× 解卡費;
+解散 is never free — 卡牌.md 卡牌經濟). The exploit is ~9× cheaper
 and does you a favour. D12 kills it. Read the innate three as the regiment's **doctrine** (how it
 recruits, drills, and shoots): experience dies with the veterans, the training tradition does not.
 
@@ -217,8 +218,8 @@ and come back.
 | `core/world_war.gd` | Currently a pure power-sum auto-resolve (its own header calls it a PoC simplification). **WW1/WW2:** every world war is now a played shared-table battle (no neutral path) resolved by `battle.gd`; the ±15% `side_a*roll>=side_b` contest and `player_neutral` are removed. **WW5:** 戰功 becomes real per-civ battlefield clears (not the power-share proxy in `_strongest`/merit split); reparations/pool math stays. |
 | `core/rivals.gd` / `core/data/rivals.gd` | New: 正規軍 generation (a civ's power → a real-roster force at baseline stats), used by both 文明戰爭 and 世界大戰 (WW3). The scalar model itself (`P=P0·gʳ`, `card_count`) is unchanged. |
 | `test/world_war_test.gd` | Rewrite: camp-exhaustion outcome, no-neutral camp assignment, real-clear 戰功, 正規軍 rosters. |
-| `core/cards.gd` | `CardInstance` is currently `id` + `tier`. Add innate three, per-stat XP, medals. Cards become instances with history. `attack_of()` / `hp_of()` stay as they are (D8). |
-| `core/data/cards.gd` | Add per-type distributions for the innate three. `attack` / `hp` / `era_names` untouched. |
+| `core/cards.gd` | `CardInstance` is currently `id` + `tier`. Add quality grade (Bad 10%／Medium 80%／Good 10%, name prefix 糟糕的／可靠的), innate three, per-stat XP, medals. Cards become instances with history. `attack_of()` / `hp_of()` stay as they are (D8). Post-battle reward-card flow (every battle, win or lose; free if not in deck, 5×係數 duplicate) per 卡牌.md 卡牌經濟. |
+| `core/data/cards.gd` | Add per-type distributions for the innate three (table = Medium band; Bad/Good bands extend one band-width out, clamped). `attack` / `hp` / `era_names` untouched. |
 | `core/sim.gd` | `_fight()` (line 158) loops over `battle.hand`. Full rewrite. Must auto-resolve headless and stay deterministic. |
 | `core/operations.gd` | `opening_hand_bonus()` (line 138) dies → 老兵 veterancy (D15). `opening_slots_bonus()` (line 143) dies → 兵營 medal production (D14). |
 | `core/rivals.gd` | 文化國 psyops rewires from `enemy_psyops_next_battle` hand −1 to an accuracy debuff (D16). `attack_multiplier()` / `psyops_discount` (player → rival direction) unchanged. |
@@ -272,6 +273,8 @@ Numbers are the human's, per the design authority chain. Measure and surface; do
 - Tick count per 回合 (proposal: 100).
 - Innate three distribution ranges per card type. Must be a "reasonable range" (human's words);
   a golden roll should be exciting and rare, a bad roll should sting without being unplayable.
+  The quality grade (Bad 10%／Medium 80%／Good 10%) widens this: grade probabilities and the
+  Bad/Good band-width multiplier are knobs (卡牌.md §品質等級).
 - Growth step per 勳章. Note +1 accuracy over a 100-tick round is a rounding error while +1 speed
   may be a large damage swing; steps likely differ per stat.
 - Wave schedules per battle type, and how the 總實力 ≈ P×0.5 budget spreads for 文明戰爭.

@@ -7,8 +7,9 @@ unchanged.** This looks thematically wrong at first glance, and a future reader 
 
 If death re-rolled the innate three, deliberate suicide would be the cheapest re-roll in the game.
 Deploying a bad 弓箭團 to die costs 2×時代係數 軍費 and soaks enemy hits on the way out, while the
-legitimate 解散 → 解卡費 loop costs 10×時代係數. The exploit is 5× cheaper and does the player a
-favour on the way through, and it destroys 解散 as a meaningful operational decision.
+legitimate 解散 → 解卡費 loop costs 18×時代係數 (8× 解散 + 10× 解卡費; 解散 is never free). The
+exploit is ~9× cheaper and does the player a favour on the way through, and it destroys 解散 as a
+meaningful operational decision.
 
 The theme survives if the innate three are read as the regiment's **doctrine** rather than its
 individual men: how this outfit recruits, drills, and shoots. Experience dies with the veterans.

@@ -70,3 +70,10 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 > The 「Battle hand system」 and 「文化國 psyops cadence」 rows describe the code as built through
 > W9; the battle-model rewrite (`docs/plan-battle-model-rewrite.md`, ADR-0001/0002) retires the
 > hand and re-specifies 文化國. Update these rows when W12–W13 land.
+
+> 2026-07-24, wayfinder #12: the corpus now pins what two rows above decided or assumed — 起始牌組
+> 5×步兵團 is promoted into 卡牌.md §起始牌組, and the W1 note's 「corpus pins start population
+> (12)」 is superseded by 起始人口 0 (營運.md; collapse check arms at first 人口 ≥ 5, 內亂與失敗.md).
+> Same pass: post-battle reward card every battle (first-seen free / duplicate 5×係數), 解散 unified
+> as the single paid removal (8×係數), and quality grades Bad/Medium/Good. Code follows with the
+> #14 fix wave and W11+.
