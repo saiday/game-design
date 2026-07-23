@@ -159,6 +159,11 @@ PICKS = {
     "card_anti_air_era1": 43, "card_anti_air_era2": 41, "card_anti_air_era3": 42,
     "card_anti_air_era4": 42, "card_anti_air_era5": 42, "card_anti_air_era6": 43,
     "card_war_song": 41, "card_holes_dont_matter": 43,
+    # re-roll picks (2026-07-23, from phase3_cards_rerolls.png): cavalry_era6 + persuasion_broadcast
+    # picked from their round-2 seeds (47-49), the other six from round-1 (44-46). Now 57/57 picked.
+    "card_archers_era1": 45, "card_archers_era5": 46, "card_archers_era6": 46,
+    "card_cavalry_era6": 48, "card_artillery_era6": 44,
+    "card_love_and_peace": 45, "card_persuasion_broadcast": 47, "card_orbital_strike": 45,
 }
 
 # Re-roll round (2026-07-22): subjects the human sent back with a fix, re-cut in CARDS above and
