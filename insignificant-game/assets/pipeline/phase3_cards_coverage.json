@@ -1,0 +1,85 @@
+{
+ "lines": {
+  "anti_air": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "archers": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "artillery": [
+   3,
+   4,
+   5,
+   6
+  ],
+  "bomber": [
+   4,
+   5,
+   6
+  ],
+  "cavalry": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "elite_forces": [
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "engineers": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "holy_warriors": [
+   4
+  ],
+  "infantry": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "privateers": [
+   3,
+   4,
+   5
+  ],
+  "shield_wall": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ]
+ },
+ "skills": [
+  "holes_dont_matter",
+  "love_and_peace",
+  "orbital_strike",
+  "persuasion_broadcast",
+  "war_song"
+ ]
+}

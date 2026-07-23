@@ -9,6 +9,7 @@ extends RefCounted
 const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UNIT_DIR: String = "res://assets/approved/units"
+const CARD_DIR: String = "res://assets/approved/cards"
 const UI_DIR: String = "res://assets/approved/ui"
 
 # all 75 approved icon asset ids (inventory.md "UI icons")
@@ -57,6 +58,30 @@ const UNIT_COVERAGE: Dictionary = {
 	&"privateers": [3, 4, 5],
 	&"shield_wall": [1, 2, 3, 4, 5, 6],
 }
+
+# Approved card illustrations: line -> eras frozen (pick gate 2026-07-23; the per-subject seed
+# picks live in assets/pipeline/phase3_cards_batch.py PICKS, the freeze in phase3_cards_freeze.py).
+# Cards mirror the unit lines MINUS the enemy tiers (cards are player-side only) and, unlike units,
+# INCLUDE infantry era 4 (the card was authored fresh as a musket line, no img2img gap). Cards are
+# full-frame 768×1024 illustrations composited UNDER UI_CARD_FRAME's window at runtime.
+const CARD_COVERAGE: Dictionary = {
+	&"anti_air": [1, 2, 3, 4, 5, 6],
+	&"archers": [1, 2, 3, 4, 5, 6],
+	&"artillery": [3, 4, 5, 6],
+	&"bomber": [4, 5, 6],
+	&"cavalry": [1, 2, 3, 4, 5, 6],
+	&"elite_forces": [2, 3, 4, 5, 6],
+	&"engineers": [1, 2, 3, 4, 5, 6],
+	&"holy_warriors": [4],
+	&"infantry": [1, 2, 3, 4, 5, 6],
+	&"privateers": [3, 4, 5],
+	&"shield_wall": [1, 2, 3, 4, 5, 6],
+}
+
+# Era-neutral skill-card illustrations (assets/approved/cards/card_<id>.png).
+const CARD_SKILLS: Array[StringName] = [
+	&"war_song", &"holes_dont_matter", &"love_and_peace", &"persuasion_broadcast", &"orbital_strike",
+]
 
 # frozen UI templates (style bible §9): geometry is in each PNG's own pixels; scale in-engine.
 const UI_PANEL: Dictionary = {
@@ -131,3 +156,19 @@ static func unit(line: StringName, era: int) -> String:
 
 static func has_unit(line: StringName, era: int) -> bool:
 	return FileAccess.file_exists(unit(line, era))
+
+
+static func card(line: StringName, era: int) -> String:
+	return "%s/card_%s_era%d.png" % [CARD_DIR, line, era]
+
+
+static func has_card(line: StringName, era: int) -> bool:
+	return FileAccess.file_exists(card(line, era))
+
+
+static func card_skill(skill_id: StringName) -> String:
+	return "%s/card_%s.png" % [CARD_DIR, skill_id]
+
+
+static func has_card_skill(skill_id: StringName) -> bool:
+	return FileAccess.file_exists(card_skill(skill_id))

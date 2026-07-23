@@ -157,7 +157,10 @@ PICKS = {
     "card_shield_wall_era1": 41, "card_shield_wall_era2": 41, "card_shield_wall_era3": 42,
     "card_shield_wall_era4": 41, "card_shield_wall_era5": 41, "card_shield_wall_era6": 43,
     "card_anti_air_era1": 43, "card_anti_air_era2": 41, "card_anti_air_era3": 42,
-    "card_anti_air_era4": 42, "card_anti_air_era5": 42, "card_anti_air_era6": 43,
+    # anti_air_era5: human swapped 42->41 at the freeze gate (42 carried an invented red/yellow hull
+    # chevron; 41 is the clean seed, same composition). bomber era4/5/6 accepted at 42 as-is (the
+    # checkpoint insignia prior has no clean seed — units-class precedent, 2026-07-23).
+    "card_anti_air_era4": 42, "card_anti_air_era5": 41, "card_anti_air_era6": 43,
     "card_war_song": 41, "card_holes_dont_matter": 43,
     # re-roll picks (2026-07-23, from phase3_cards_rerolls.png): cavalry_era6 + persuasion_broadcast
     # picked from their round-2 seeds (47-49), the other six from round-1 (44-46). Now 57/57 picked.
