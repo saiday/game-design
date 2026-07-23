@@ -9,15 +9,15 @@ root is docs-only) — always `cd` here before running anything.
 
 ## Read in this order (don't code before 1–2)
 
-1. `doc/architecture.md` — **the contract.** Layering rules, module map, GameState schema,
+1. `docs/architecture.md` — **the contract.** Layering rules, module map, GameState schema,
    canonical StringName IDs (24 policy nodes / 12 building lines / regions / legacies / rival
    classes), 中→EN glossary, cross-module API pins, test conventions. Everything below is a
    summary of it or an exception to nothing in it.
-2. `doc/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
+2. `docs/dev-loop.md` — verified Part A / Part B / balance-batch commands + the 7 pitfalls
    that actually bit (cwd trap, exit-105 class_name cache, determinism rules…).
 3. `design/` — the 15 game-rule docs (single source of truth; see "Design authority" below). The
    system you're touching, plus anything it feeds (each doc's intro lists 被誰餵/餵給誰).
-4. `doc/PLAN.md` — task board & wave history; the recovery point after any interruption.
+4. `docs/PLAN.md` — task board & wave history; the recovery point after any interruption.
 
 ## Design authority chain
 
@@ -25,13 +25,14 @@ root is docs-only) — always `cd` here before running anything.
   corpus to re-sync from, no re-copy step.
 - Design status is 定稿: structure/rules/links locked; **numbers are v1 baseline knobs** —
   calibration changes values, never structure. Fun/balance calls belong to the PM: measure with
-  the sim, surface findings (`doc/balance-report.md`), don't decide.
+  the sim, surface findings (`docs/balance-report.md`), don't decide.
 - **Doc ↔ code metadata:** every design doc's frontmatter has a `code:` list naming its module /
   data table / test suite; every module's header comment cites its `design/*.md`. When you move
   or add files, update BOTH directions in the same change.
-- Where the design is silent, decide conservatively and log it — one row/file under
-  `doc/decision-*.md` (see `decision-starting-values.md`, `decision-w2-gaps.md`,
-  `decision-w3-w5-gaps.md` for the format and everything already decided). Never invent mechanics.
+- Where the design is silent, decide conservatively and log it as one row in
+  `docs/decisions.md` (which holds the format plus everything already decided). Decisions with
+  lasting architectural consequences also get an ADR in the repo root's `docs/adr/`. Never
+  invent mechanics.
 
 ## Non-negotiables
 
@@ -54,10 +55,11 @@ root is docs-only) — always `cd` here before running anything.
 
 ## Working loop
 
-edit → Part A → (view touched? Part B) → update `doc/PLAN.md` + relevant decision doc →
+edit → Part A → (view touched? Part B) → update `docs/PLAN.md` (+ `docs/decisions.md` if you
+decided a design gap) →
 commit with a gate-stating message (`git log --oneline` shows the house style: what went green,
-counts, exit code). Stage specific paths — the repo root's `doc/prompts.md` churns every turn.
-Numbers changed? Run the balance batch and diff against `doc/balance-report.md`.
+counts, exit code). Stage specific paths — the repo root's `docs/prompts.md` churns every turn.
+Numbers changed? Run the balance batch and diff against `docs/balance-report.md`.
 
 ## Map
 
@@ -67,6 +69,6 @@ Numbers changed? Run the balance batch and diff against `doc/balance-report.md`.
 | `test/` (21 suites, 199 cases green) | one suite per module; sim_test = full-run invariants |
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
-| `doc/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |
-| `doc/` | contract, dev loop, task board, decision log, balance report |
-| root `doc/agent-development-loop.md` | the generic two-part-loop doctrine this project rides on |
+| `docs/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |
+| `docs/` | contract, dev loop, task board, decision log, balance report |
+| root `docs/agent-development-loop.md` | the generic two-part-loop doctrine this project rides on |

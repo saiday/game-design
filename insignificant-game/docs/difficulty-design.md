@@ -2,7 +2,9 @@
 
 > Implementation: `core/difficulty.gd`.
 > The same formula is copied into the design corpus (對手文明 difficulty section, with
-> pointers from 戰鬥 and 地圖與機會).
+> pointers from 戰鬥 and 地圖與機會). **The design corpus is authoritative for the values**;
+> this file owns the rationale. If they diverge, fix this file to match 對手文明 and treat
+> the divergence as a sync bug.
 
 ## The formula
 

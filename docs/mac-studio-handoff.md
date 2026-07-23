@@ -2,7 +2,7 @@
 
 > **For the human:** what to paste to start an asset session on the Mac Studio. **For the agent
 > reading this on the Studio:** your contract is
-> `doc/image-assets-generation-orchestrator-cookbook.md` — read it fully before acting; this file
+> `docs/image-assets-generation-orchestrator-cookbook.md` — read it fully before acting; this file
 > is only the ignition sequence. Session memory from the MacBook did NOT transfer; the cookbook
 > is deliberately self-contained.
 
@@ -80,8 +80,8 @@ backgrounds/portraits). The batch contract, proven in Phases 1-2:
 
 ```
 Cookbook Phase 4 (Godot integration), per §10, target 1920×1080 (style bible §8). Read
-insignificant-game/CLAUDE.md, insignificant-game/doc/architecture.md and
-insignificant-game/doc/dev-loop.md before touching the project. Integrate ONLY manifest status=approved assets, per class:
+insignificant-game/CLAUDE.md, insignificant-game/docs/architecture.md and
+insignificant-game/docs/dev-loop.md before touching the project. Integrate ONLY manifest status=approved assets, per class:
 - Asset registry: one pure data-driven module maps asset id -> res:// texture path (icons
   icon_<id>, buildings building_<line>_era<n> derived from line id + current era; new classes
   slot in by the same id scheme). No node code computes paths; the view reads the registry.

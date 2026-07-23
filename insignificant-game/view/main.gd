@@ -692,7 +692,7 @@ func _assert(condition: bool, message: String) -> void:
 
 
 func _assert_pixels() -> void:
-	# Gamma-tolerant classification (MEMORY.md): sample corners vs panel area.
+	# Gamma-tolerant classification: sample corners vs panel area.
 	var image := get_viewport().get_texture().get_image()
 	var corner := image.get_pixel(4, image.get_height() - 4)
 	_assert(_closer_to(corner, BG_COLOR, PANEL_COLOR), "background pixel classifies as BG")

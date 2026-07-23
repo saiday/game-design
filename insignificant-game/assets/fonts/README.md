@@ -5,7 +5,7 @@
 - `LICENSE` — SIL Open Font License 1.1, copied verbatim from the official repo
   (`Sans/LICENSE`), verified at download time 2026-07-13.
 - `charset.txt` — the subset's character inventory: every character appearing in `design/*.md`,
-  `core/**`, `view/*.gd`, `tools/*.gd`, `doc/*.md`, plus full printable ASCII and common
+  `core/**`, `view/*.gd`, `tools/*.gd`, `docs/*.md`, plus full printable ASCII and common
   zh-TW punctuation (regenerate + re-subset when UI strings gain new characters; missing glyphs
   render as tofu in the Part B captures).
 

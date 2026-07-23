@@ -121,7 +121,7 @@ Derived values are functions, not stored fields: `Operations.bp_income(state)`,
 (democracy rename of treasury, same pool) · 資本利得 capital gains · 國寶 national treasure
 · 工事 fortification · 人數型/機械型/技能 personnel/mechanical/skill cards.
 
-### Battle model terms (see `doc/plan-battle-model-rewrite.md` for the locked design)
+### Battle model terms (see `docs/plan-battle-model-rewrite.md` for the locked design)
 
 攻 `attack` (**= power**; one concept, fixed per card type+era, never rolls) · 血 `hp` (fixed per
 type+era; "how many men") · **innate three** `accuracy` / `dodge` / `speed` (rolled per card
@@ -168,15 +168,10 @@ module — the Policy module owns tree structure/progression, not effect lookups
 - Determinism tests: same seed twice ⇒ identical outcome.
 - Fixtures: build minimal GameState by hand (`GameState.new_run(seed)` then tweak fields); never
   load scenes in core tests.
-- Commands (verified on this machine, run from `insignificant-game/`):
-  ```bash
-  export GODOT_BIN=/Applications/Godot.app/Contents/MacOS/Godot
-  export GODOT_DISABLE_LEAK_CHECKS=1
-  "$GODOT_BIN" --headless --path . --import --quit-after 2000   # REQUIRED after adding any class_name
-  ./addons/gdUnit4/runtest.sh -a res://test                     # exit 0 pass / 100 fail / 105 parse error
-  ```
+- Commands: `docs/dev-loop.md` holds the verified invocations and exit codes. The import
+  warm-up there is REQUIRED after adding any `class_name`.
 
-## Key decisions log (each big one also gets a standalone file in doc/)
+## Key decisions log (design gaps: `docs/decisions.md`; architectural calls: repo-root `docs/adr/`)
 
 - **Nested Godot project** at `insignificant-game/` — the repo's only Godot project; the root is
   docs-only.

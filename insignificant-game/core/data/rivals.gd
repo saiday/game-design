@@ -26,7 +26,7 @@ const CLASSES: Dictionary = {
 		# Design inconsistency: the doc's stated late g (1.11) yields only ~77 at gen 35,
 		# but its 35-gen target is 230 (the biggest WW2 threat — the archetype's role).
 		# The target wins: g_late calibrated to 1.24 (8×1.05^25×1.24^10 ≈ 233). Flagged
-		# for the design-doc sync (see decision-w2-gaps.md addendum).
+		# for the design-doc sync (see docs/decisions.md).
 		"zh": "慢熱國", "p0": 8.0, "g": 1.05, "g_late": 1.24, "g_switch_gen": 25,
 		"attack_period": 12,   # 低 — no number in the design (driver decision)
 		"names": ["臥龍邦", "冬眠帝國", "遲醒共和國"],

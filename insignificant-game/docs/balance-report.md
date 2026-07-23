@@ -60,7 +60,7 @@ surfaced questions — balance calls stay with the PM.**
   If the "five great powers" fantasy should hold to gen 50, exit conditions may be too easy
   to trip from the player side.
 - **隱藏災難 mitigation is a money wash** (endure −25×係數 vs pay 15×係數 + take 10×係數) —
-  already flagged in decision-w2-gaps.md.
+  already flagged in docs/decisions.md (W2 gaps).
 - **Difficulty channels work**: hard triples debt depth, drops final rank to 2nd–4th, and
   costs ~1 policy node — without killing anyone. Slopes look usable as v1.
 

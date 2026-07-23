@@ -6,6 +6,33 @@ rougelike: cross-run meta-progression
 
 # Unsent Prompts
 
+### Project Documentation Architecture Audit & Agent-First Restructuring
+
+Perform a fresh, comprehensive review of our project documentation architecture and restructure it for optimal long-term maintenance, agent efficiency, and human clarity.
+
+#### Context & Current Pain Points
+- The workspace currently has a split structure across root (`.`) and sub-project (`insignificant-game/`), each hosting its own `doc/` or `docs/` directories and `CLAUDE.md` files.
+- We are concerned that documentation is fragmented, file responsibilities are blurred, and duplicated or overlapping content may be scattered across multiple files.
+- As an AI-first project, the documentation structure must prioritize agent discoverability, unambiguous boundaries, and seamless cross-referencing.
+
+#### Objectives & Workflow
+1. **Audit & Boundary Analysis**:
+   - Inspect all existing documentation files across the root and `insignificant-game/` directories.
+   - Evaluate whether `CLAUDE.md` provides sufficient entry-point context for future agents to understand project conventions and design specs.
+   - Identify obsolete, redundant, or scattered information.
+
+2. **Structural Restructuring**:
+   - Propose and execute a streamlined documentation hierarchy that eliminates ambiguity and duplication.
+   - Feel unconstrained by legacy structures—prioritize a clean layout optimized for long-term agent-driven development.
+
+3. **Deliverable 1: Agent Navigation Guide (in `CLAUDE.md`)**:
+   - Update `CLAUDE.md` to serve as the single source of truth entry point for AI agents.
+   - Include a concise, directive lookup matrix/index mapping developer intents to specific docs (**"When working on X scenario, consult document Y"**).
+
+4. **Deliverable 2: Human Documentation Dashboard (`doc-map.html`)**:
+   - Build a standalone, clean HTML visual dashboard (e.g. `doc/doc-map.html`).
+   - Clearly summarize each document's purpose, ownership/scope, target audience, and inter-file relationships/dependencies for human developers.
+
 ### Units class (new session; run first)
 
 Read doc/image-assets-generation-orchestrator-cookbook.md and doc/mac-studio-handoff.md, then

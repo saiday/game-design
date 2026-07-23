@@ -5,7 +5,7 @@
 threat 「你的下場戰開場手牌 −1」. Three mutually exclusive deployment gates (軍費, 手牌, 部隊位)
 coexisted in a 定稿 corpus, so an agent resolved the contradiction by building a full Slay-the-Spire
 hand system (`OPENING_HAND = 4`, draw pile, discard, draw 1/round) and logging it in
-`decision-w3-w5-gaps.md`. **We removed the hand and the slots entirely: any unplayed card may be
+the decision log (now `insignificant-game/docs/decisions.md`, W3–W5 section). **We removed the hand and the slots entirely: any unplayed card may be
 deployed on any round, gated only by 軍費.** The per-battle constraint that makes holding a reserve
 cost something was already in the design and did not need a hand: 用後去向「進棄牌區」 means each card
 is playable once per battle.
@@ -13,7 +13,7 @@ is playable once per battle.
 ## Consequences
 
 - 軍事區 lost its only 基礎被動 and 兵營 lost its line output; both were re-specified (see
-  ADR-0002's sibling decisions in `insignificant-game/doc/plan-battle-model-rewrite.md`, D14/D15).
+  ADR-0002's sibling decisions in `insignificant-game/docs/plan-battle-model-rewrite.md`, D14/D15).
 - 文化國 lost its only player-facing threat and was re-specified as an accuracy debuff (D16).
 - **手牌 and 部隊位 are retired vocabulary.** If a doc, comment, or test implies either exists, it
   is stale. Do not reintroduce them.

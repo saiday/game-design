@@ -3,7 +3,7 @@
 Built from the `insignificant-game/design/` setting docs (營運 / 卡牌 / 戰鬥 / 時代與回合 /
 對手文明 / 國策 / Legacy / 經濟與債務 / 幸福 / 內亂與失敗 / 地圖與機會 / 民主 / 世界大戰 / 結局 /
 Insignificant.md). Ids follow cookbook §9 naming and the canonical StringName ids in
-`insignificant-game/doc/architecture.md`; era numbers are 1=部落 2=古典 3=信仰 4=工業
+`insignificant-game/docs/architecture.md`; era numbers are 1=部落 2=古典 3=信仰 4=工業
 5=現代 6=資訊 (時代與回合).
 
 Naming extensions beyond §9 (this doc is their definition): `fort_<type>_era<n>` (battlefield

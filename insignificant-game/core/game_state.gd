@@ -1,6 +1,6 @@
 class_name GameState
 extends RefCounted
-# The whole mutable run state. Schema is the contract in doc/architecture.md —
+# The whole mutable run state. Schema is the contract in docs/architecture.md —
 # modules extend it via driver report, never by forking their own state containers.
 # Derived values (BP income, player power, era) are module functions, not stored here.
 
@@ -12,7 +12,7 @@ var difficulty: StringName = &"normal"  # &"easy" | &"normal" | &"hard"
 
 # four axes + money
 var population: int = 12      # <5 => regime collapse (the only game over)
-var happiness: int = 70       # 0..100 (start: driver decision, doc/decision-starting-values.md)
+var happiness: int = 70       # 0..100 (start: driver decision, docs/decisions.md)
 var culture: int = 0
 var tech: int = 0
 var treasury: int = 30        # single money pool; negative = debt (never directly lethal)

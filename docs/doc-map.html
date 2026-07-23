@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Insignificant · Documentation Map</title>
+<style>
+  :root{
+    --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8eb; --muted:#9aa3af;
+    --accent:#5fb3ff; --green:#4caf82; --amber:#e0a83e; --red:#e0665f; --grid:#1d2128;
+  }
+  @media (prefers-color-scheme: light){
+    :root{ --bg:#f5f6f8; --panel:#ffffff; --border:#dfe3e8; --text:#1b1f24; --muted:#5b6470;
+           --accent:#1c6fd0; --green:#1f8f5f; --amber:#a86a10; --red:#c23b33; --grid:#eceff2; }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0f1115; --panel:#171a21; --border:#2a2f3a; --text:#e6e8eb; --muted:#9aa3af;
+    --accent:#5fb3ff; --green:#4caf82; --amber:#e0a83e; --red:#e0665f; --grid:#1d2128;
+  }
+  :root[data-theme="light"]{
+    --bg:#f5f6f8; --panel:#ffffff; --border:#dfe3e8; --text:#1b1f24; --muted:#5b6470;
+    --accent:#1c6fd0; --green:#1f8f5f; --amber:#a86a10; --red:#c23b33; --grid:#eceff2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    margin:0; padding:32px 24px 64px; line-height:1.5;
+  }
+  .wrap{max-width:1080px; margin:0 auto;}
+  h1{font-size:1.5rem; margin:0 0 4px;}
+  .sub{color:var(--muted); font-size:.9rem; margin:0 0 28px;}
+  .note{
+    background:var(--panel); border:1px solid var(--border); border-left:3px solid var(--accent);
+    border-radius:6px; padding:12px 16px; font-size:.85rem; color:var(--muted); margin-bottom:32px;
+  }
+  .note b{color:var(--text);}
+  h2{font-size:1.05rem; margin:36px 0 12px; border-bottom:1px solid var(--border); padding-bottom:8px;}
+  h3{font-size:.92rem; margin:20px 0 8px; color:var(--muted); font-weight:600;}
+  code{background:var(--grid); border-radius:4px; padding:1px 5px; font-size:.85em;}
+  /* layer map */
+  .layers{display:flex; flex-direction:column; gap:10px; margin-bottom:8px;}
+  .layer{background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px 16px;}
+  .layer .t{font-size:.78rem; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); margin-bottom:8px;}
+  .layer .t b{color:var(--text); text-transform:none; letter-spacing:0; font-size:.88rem;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{background:var(--grid); border:1px solid var(--border); border-radius:5px;
+        padding:3px 9px; font-size:.8rem; font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .flow{color:var(--muted); text-align:center; font-size:.8rem; margin:-2px 0;}
+  /* audience badges: never color-alone, label text always present */
+  .aud{display:inline-block; border-radius:4px; padding:1px 7px; font-size:.72rem; font-weight:600; white-space:nowrap;}
+  .aud.agent{color:var(--accent); border:1px solid var(--accent);}
+  .aud.human{color:var(--amber); border:1px solid var(--amber);}
+  .aud.both{color:var(--green); border:1px solid var(--green);}
+  table{width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--border);
+        border-radius:8px; overflow:hidden; font-size:.85rem;}
+  th,td{text-align:left; padding:8px 12px; border-bottom:1px solid var(--border); vertical-align:top;}
+  th{color:var(--muted); font-weight:500; font-size:.75rem; text-transform:uppercase; letter-spacing:.03em; background:var(--grid);}
+  tr:last-child td{border-bottom:none;}
+  td:first-child{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.8rem; white-space:nowrap;}
+  .scroll{overflow-x:auto;}
+  ul{margin:8px 0; padding-left:22px; font-size:.88rem;}
+  li{margin-bottom:4px;}
+  footer{margin-top:40px; color:var(--muted); font-size:.78rem; text-align:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Insignificant · Documentation Map</h1>
+  <p class="sub">What each document is for, who reads it, and how they connect. Companion to the
+  <a href="./progress-dashboard.html">development dashboard</a>.</p>
+
+  <div class="note">
+    <b>Layout rule:</b> one <code>docs/</code> tree per level. Repo-root <code>docs/</code> holds
+    cross-project doctrine, process docs, and human dashboards. <code>insignificant-game/docs/</code>
+    holds the build contract and working docs. <code>insignificant-game/design/</code> holds the game
+    rules and is the single source of truth. Agent navigation lives in the two <code>CLAUDE.md</code>
+    files (the root one carries the routing matrix); this page is the human-facing view of the same
+    structure. Update both when a document moves or changes role.
+  </div>
+
+  <h2>The architecture at a glance</h2>
+  <div class="layers">
+    <div class="layer">
+      <div class="t"><b>Entry points</b> · agents start here, every session</div>
+      <div class="chips">
+        <span class="chip">CLAUDE.md (root: pins + routing matrix)</span>
+        <span class="chip">insignificant-game/CLAUDE.md (build entry + read order)</span>
+      </div>
+    </div>
+    <div class="flow">route by intent into one of the four areas below</div>
+    <div class="layer">
+      <div class="t"><b>insignificant-game/design/</b> · the game itself, single source of truth, human-owned, 定稿</div>
+      <div class="chips">
+        <span class="chip">Insignificant.md (concept main page)</span>
+        <span class="chip">14 setting docs, one per system</span>
+        <span class="chip">README.md (status + edit rules)</span>
+      </div>
+    </div>
+    <div class="flow">design feeds the contract; frontmatter <code>code:</code> lists and module headers cross-link both directions</div>
+    <div class="layer">
+      <div class="t"><b>insignificant-game/docs/</b> · the build: contract, loop, state, measurements</div>
+      <div class="chips">
+        <span class="chip">architecture.md (contract)</span>
+        <span class="chip">dev-loop.md (commands)</span>
+        <span class="chip">PLAN.md (task board)</span>
+        <span class="chip">decisions.md (gap log)</span>
+        <span class="chip">plan-battle-model-rewrite.md</span>
+        <span class="chip">balance-report.md</span>
+        <span class="chip">difficulty-design.md</span>
+      </div>
+    </div>
+    <div class="flow">the build rides the doctrine; big decisions escalate to ADRs</div>
+    <div class="layer">
+      <div class="t"><b>repo-root docs/</b> · doctrine, process, records, dashboards</div>
+      <div class="chips">
+        <span class="chip">agent-development-loop.md (loop doctrine)</span>
+        <span class="chip">adr/ (sequential ADRs)</span>
+        <span class="chip">agents/ (issue tracker + triage)</span>
+        <span class="chip">image-assets-…-cookbook.md (art pipeline)</span>
+        <span class="chip">mac-studio-handoff.md</span>
+        <span class="chip">progress-dashboard.html</span>
+        <span class="chip">doc-map.html (this page)</span>
+        <span class="chip">prompts.md (human-only)</span>
+      </div>
+    </div>
+    <div class="flow">the art pipeline delivers into the build via the asset registry</div>
+    <div class="layer">
+      <div class="t"><b>insignificant-game/assets/pipeline/</b> · art production working docs</div>
+      <div class="chips">
+        <span class="chip">style-bible.md (locked recipe + templates)</span>
+        <span class="chip">inventory.md (full asset scope)</span>
+        <span class="chip">review-brief-units.md</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>Document registry</h2>
+
+  <h3>Entry points</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
+    <tr><td>CLAUDE.md</td><td><span class="aud agent">agent</span></td>
+        <td>Operating pins for the whole repo plus the routing matrix ("when working on X, consult Y"). Owns the documentation-style rule and the reference-implementation guide.</td>
+        <td>Routes into everything below; defers game detail to <code>design/</code>.</td></tr>
+    <tr><td>insignificant-game/CLAUDE.md</td><td><span class="aud agent">agent</span></td>
+        <td>Build entry point: mandatory read order, design-authority chain, non-negotiables, working loop, directory map.</td>
+        <td>architecture.md, dev-loop.md, design/, PLAN.md, decisions.md.</td></tr>
+  </table>
+  </div>
+
+  <h3>Game design (insignificant-game/design/) · human-owned</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
+    <tr><td>Insignificant.md</td><td><span class="aud both">both</span></td>
+        <td>Concept main page: pitch, USP, core loops, systems table. Every game term wikilinks to its setting doc.</td>
+        <td>All 14 setting docs.</td></tr>
+    <tr><td>14 setting docs</td><td><span class="aud both">both</span></td>
+        <td>One per system (時代與回合, 營運, 國策, Legacy, 經濟與債務, 幸福, 內亂與失敗, 戰鬥, 卡牌, 地圖與機會, 對手文明, 世界大戰, 民主, 結局). Structure locked; numbers are v1 baseline knobs.</td>
+        <td>Frontmatter <code>code:</code> maps each doc to its module, data table, and test suite; module headers cite back.</td></tr>
+    <tr><td>README.md</td><td><span class="aud both">both</span></td>
+        <td>Status (定稿) and edit rules for the corpus.</td>
+        <td>insignificant-game/CLAUDE.md design-authority chain.</td></tr>
+  </table>
+  </div>
+
+  <h3>Build docs (insignificant-game/docs/)</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
+    <tr><td>architecture.md</td><td><span class="aud agent">agent</span></td>
+        <td>The contract: layering rules, module map, GameState schema, canonical StringName IDs, glossary, test conventions. Fixes how code is shaped so parallel agents don't collide.</td>
+        <td>Mirrors design/ per module; cited by every <code>core/*.gd</code> header; commands live in dev-loop.md.</td></tr>
+    <tr><td>dev-loop.md</td><td><span class="aud agent">agent</span></td>
+        <td>Verified Part A / Part B / balance-batch commands and the pitfalls that actually bit. Only what you type and what bites.</td>
+        <td>Instantiates the doctrine in root docs/agent-development-loop.md.</td></tr>
+    <tr><td>PLAN.md</td><td><span class="aud both">both</span></td>
+        <td>Task board and wave history; the recovery point after any interruption. Purpose-built log: keeps its dates.</td>
+        <td>Gates cite architecture.md, dev-loop.md, plan-battle-model-rewrite.md, balance-report.md.</td></tr>
+    <tr><td>decisions.md</td><td><span class="aud both">both</span></td>
+        <td>Design-gap decision log: every value or rule the design leaves silent, decided conservatively, one row per gap. Purpose-built log: keeps its dates.</td>
+        <td>Fed by implementation waves; big architectural calls escalate to root docs/adr/.</td></tr>
+    <tr><td>plan-battle-model-rewrite.md</td><td><span class="aud both">both</span></td>
+        <td>Locked design (D1 to D16), glossary, retired terms, and blast radius for the battle-model rewrite executed as waves W11 to W15.</td>
+        <td>ADR-0001..0005 record its five biggest calls; PLAN.md board points here.</td></tr>
+    <tr><td>balance-report.md</td><td><span class="aud both">both</span></td>
+        <td>Measured v1 baseline knobs under simulation (dated measurement report). Surfaces imbalances; balance calls stay with the human.</td>
+        <td>Produced from <code>tools/balance_batch.gd</code>; refreshed when knobs or rules change.</td></tr>
+    <tr><td>difficulty-design.md</td><td><span class="aud both">both</span></td>
+        <td>Difficulty formula and its rationale (why each channel has its slope).</td>
+        <td>Formula synced into design/對手文明; implemented by <code>core/difficulty.gd</code>.</td></tr>
+  </table>
+  </div>
+
+  <h3>Doctrine, process, and records (repo-root docs/)</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
+    <tr><td>agent-development-loop.md</td><td><span class="aud both">both</span></td>
+        <td>The two-part self-correction doctrine: why the loop exists, Part A/B mechanics, defect taxonomy, known limits, scaling verdict. Project-generic.</td>
+        <td>Instantiated by insignificant-game/docs/dev-loop.md and PLAN.md.</td></tr>
+    <tr><td>adr/ (sequential)</td><td><span class="aud both">both</span></td>
+        <td>Architecture decision records: decisions with lasting consequences and the reasoning that must not be re-litigated. Read the ones touching your area; contradict out loud, never silently. Numbering and format convention: adr/README.md.</td>
+        <td>The current set records the battle-rewrite calls, sourced from plan-battle-model-rewrite.md.</td></tr>
+    <tr><td>agents/issue-tracker.md</td><td><span class="aud agent">agent</span></td>
+        <td>GitHub-issue conventions (<code>gh</code> CLI) plus wayfinder map/ticket operations. Read by the triage/wayfinder skills; path is skill-pinned, do not move.</td>
+        <td>GitHub repo saiday/game-design; agents/triage-labels.md.</td></tr>
+    <tr><td>agents/triage-labels.md</td><td><span class="aud agent">agent</span></td>
+        <td>Maps the five canonical triage roles to this repo's label strings. Path is skill-pinned, do not move.</td>
+        <td>agents/issue-tracker.md.</td></tr>
+    <tr><td style="white-space:normal">image-assets-generation-orchestrator-cookbook.md</td><td><span class="aud agent">agent</span></td>
+        <td>The art-pipeline contract for Mac Studio sessions: standing decisions, environment, ComfyUI driving, consistency strategy, phase plan, self-checks, escalation. §14 is a purpose-built findings log.</td>
+        <td>style-bible.md (locked recipe), inventory.md (scope from design/), mac-studio-handoff.md (ignition).</td></tr>
+    <tr><td>mac-studio-handoff.md</td><td><span class="aud human">human</span></td>
+        <td>Paste-ready prompts and the ComfyUI service checklist for starting an asset session on the Mac Studio.</td>
+        <td>Boots an agent into the cookbook.</td></tr>
+    <tr><td>progress-dashboard.html</td><td><span class="aud human">human</span></td>
+        <td>Static snapshot of build waves, test counts, and art-pipeline gates. Agents update it whenever a gate closes or a count changes.</td>
+        <td>Numbers sourced from PLAN.md gates and the pipeline manifests.</td></tr>
+    <tr><td>doc-map.html</td><td><span class="aud human">human</span></td>
+        <td>This page: the documentation architecture, ownership, and relationships.</td>
+        <td>Mirrors the routing matrix in root CLAUDE.md.</td></tr>
+    <tr><td>prompts.md</td><td><span class="aud human">human</span></td>
+        <td>Human-only prompt log. Agents never read it; it churns every turn, so commits stage specific paths.</td>
+        <td>None.</td></tr>
+  </table>
+  </div>
+
+  <h3>Art production (insignificant-game/assets/pipeline/)</h3>
+  <div class="scroll">
+  <table>
+    <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
+    <tr><td>style-bible.md</td><td><span class="aud agent">agent</span></td>
+        <td>The locked style: generation recipe, prompt block, post-process, license sign-off, model hashes, frozen UI templates, font, game-view composition. Cite, don't improvise.</td>
+        <td>Enforced by cookbook §8 checks; templates consumed by <code>view/main.gd</code> chrome.</td></tr>
+    <tr><td>inventory.md</td><td><span class="aud agent">agent</span></td>
+        <td>The full v1 asset scope with id schemes, built from design/ (never from memory).</td>
+        <td>Sources named per class (營運, 卡牌, 戰鬥, …); ids resolved by <code>core/data/asset_paths.gd</code>.</td></tr>
+    <tr><td>review-brief-units.md</td><td><span class="aud agent">agent</span></td>
+        <td>Reviewer-subagent brief for unit-cell contact sheets: zoom-before-verdict rule, reject criteria, known failure modes.</td>
+        <td>Cookbook §8 review loop.</td></tr>
+    <tr><td style="white-space:normal">../fonts/README.md</td><td><span class="aud both">both</span></td>
+        <td>Noto Sans TC subset provenance: SIL OFL license record and the pyftsubset rebuild command for the shipped font binaries.</td>
+        <td>Font locked in style-bible.md §10; consumed by <code>view/main.gd</code> chrome.</td></tr>
+  </table>
+  </div>
+
+  <h2>Maintenance rules (the short version)</h2>
+  <ul>
+    <li><b>Current state only.</b> Docs describe the present, written for fresh eyes. History lives in
+      git commit messages. Exceptions that keep dates: PLAN.md, decisions.md, prompts.md, the cookbook
+      §14 findings log, and license/verification records.</li>
+    <li><b>Single source of truth.</b> Game rules live in <code>design/</code> and nowhere else;
+      other docs link instead of restating. The contract (architecture.md) fixes code shape, not rules.</li>
+    <li><b>Bidirectional metadata.</b> Design frontmatter <code>code:</code> lists and module header
+      citations move together, in the same change.</li>
+    <li><b>Skill-pinned paths.</b> <code>docs/adr/</code> and <code>docs/agents/</code> are read by
+      installed skills at those exact paths; never rename them.</li>
+    <li><b>Known absences are declared, not discovered.</b> The routing matrix in the root
+      CLAUDE.md distinguishes out-of-scope-by-design (multiplayer, save/load) from
+      planned-but-pending (audio/music pipeline, localization workflow) so agents can tell
+      intentional absence from missing docs.</li>
+    <li><b>When docs move or change role:</b> update the root CLAUDE.md routing matrix and this page
+      together, and bump both dashboards' footers.</li>
+  </ul>
+
+  <footer>Last updated: 2026-07-23 (restructure validated by fresh-agent navigation probes; adr/README.md convention added, fonts README mapped) · edit this file directly, no build step</footer>
+</div>
+</body>
+</html>

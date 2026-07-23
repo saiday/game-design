@@ -292,7 +292,7 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
 ## 10. Godot integration
 
 - **Render resolution: Full HD 1920×1080** — the game window runs it (wired with the first
-  approved classes); core is resolution-blind (`insignificant-game/doc/architecture.md`). Assets are high-res
+  approved classes); core is resolution-blind (`insignificant-game/docs/architecture.md`). Assets are high-res
   illustrations — default (linear) texture filtering, lossless PNG import. Templates record
   rects/margins relative to the generated image, not screen pixels — scaling happens in-engine.
 - **The registry is `core/data/asset_paths.gd`** (pure id→path table + frozen-template geometry,
@@ -302,7 +302,7 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
   illustration texture + `Label` text (UI font, §6) — never single baked PNGs. `view/main.gd`
   holds the working patterns (styleboxes from templates, glyph-on-plate badges, card widget).
 - Wire assets data-driven (path derived from id + era), matching the pure-core architecture —
-  read `insignificant-game/CLAUDE.md` and `insignificant-game/doc/architecture.md` before touching scenes, and
+  read `insignificant-game/CLAUDE.md` and `insignificant-game/docs/architecture.md` before touching scenes, and
   run **both loop parts** (headless tests + Part B capture) after wiring.
 - Keep the design doc `code:` frontmatter convention: if you add asset tables/modules, map them.
 

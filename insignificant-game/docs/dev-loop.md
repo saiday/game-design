@@ -3,7 +3,7 @@
 > Everything here was verified on both dev machines (Godot 4.6.3 at
 > `/Applications/Godot.app` on each, Apple Silicon / Metal, gdUnit4 v6.1.3: MacBook M1 Pro,
 > Mac Studio M2 Max). Generic loop rationale lives in the repo root's
-> `doc/agent-development-loop.md`; this file is only what you type and what bites.
+> `docs/agent-development-loop.md`; this file is only what you type and what bites.
 
 ## Part A — headless logic tests (run after EVERY core/ or test/ change)
 
@@ -31,7 +31,7 @@ export GODOT_DISABLE_LEAK_CHECKS=1 INSIG_DEMO=1 INSIG_SEED=1
 - Demo mode simulates the same click handlers a human uses, walks every phase panel, writes
   `captures/w5_*.png`, prints `ASSERT PASS/FAIL` lines, exits 0/1 (45 s watchdog).
 - Judge from the PNGs, not the exit code alone: hunt clipping / wrong scale / missing text /
-  stale labels (the taxonomy in root `doc/agent-development-loop.md` §3). Part B has caught
+  stale labels (the taxonomy in root `docs/agent-development-loop.md` §3). Part B has caught
   real defects that Part A passed, so take the review seriously.
 - Interactive play: same command without `INSIG_DEMO`.
 
@@ -42,7 +42,7 @@ cd /Users/saiday/projects/game-design/insignificant-game
 "$GODOT_BIN" --headless --path . -s tools/balance_batch.gd     # 60 runs → reports/balance_batch.json
 ```
 
-Compare against `doc/balance-report.md` before/after a knob change.
+Compare against `docs/balance-report.md` before/after a knob change.
 
 ## Pitfalls (all hit for real in this repo)
 
