@@ -157,9 +157,9 @@ event and becomes the 7th **playable** battle type.
 |---|---|
 | **WW1** | **The battle decides the war.** 世界大戰 runs on the same wave/tick engine as every other battle; camp victory is **exhaustion (D3) applied to camps** (a camp loses when its field is empty and it has no wave left to commit). The old aggregate power-sum roll is gone — power only sizes each faction's force, it does not roll the outcome. |
 | **WW2** | **No neutral. Two camps, everyone in one.** Every living civ (the player included) is assigned to exactly one of two camps; the player can no longer sit out. Removes the `player_neutral` path; `form_camps` already assigns every AI civ, so this only drops the player exception. |
-| **WW3** | **Civ opponents field 正規軍; only the player's units are real instances.** A civilization's power converts into a **regular army drawn from the same unit roster the player uses** (步兵團/弓箭團/…, era-scaled) at **baseline 命中/閃避/攻速 — no roll, no growth, no veterancy, no medals**. This also reshapes **文明戰爭** (its 弱/中/硬 opening becomes 正規軍). Anonymous 弱/中/硬 tiers (and thematic monsters) stay for **非正規軍** — the other 5 battle types (海盜/外星人, 內亂, 民主, 保底收稅, 一般地圖戰). Only the player's persistent cards carry rolled quality + earned veterancy. **Does NOT reopen the 對手文明 scalar abstraction:** 正規軍 is a per-battle conversion from the power scalar, discarded after; rivals keep no persistent deck and make no card decisions. |
+| **WW3** | **Civ opponents field 正規軍; only the player's units are real instances.** A civilization's power converts into a **regular army drawn from the same unit roster the player uses** (步兵團/弓箭團/…, era-scaled) with **no 品質三項 at all** — enemies fight at engine defaults (命中 100% / 閃避 0% / 攻速 1.0, per 戰鬥.md), **no roll, no growth, no veterancy, no medals**. This also reshapes **文明戰爭** (its 弱/中/硬 opening becomes 正規軍). Anonymous 弱/中/硬 tiers (and thematic monsters) stay for **非正規軍** — the other 5 battle types (海盜/外星人, 內亂, 民主, 收稅戰, 一般地圖戰), also with no 品質三項. Only the player's persistent cards carry rolled quality + earned veterancy. **Does NOT reopen the 對手文明 scalar abstraction:** 正規軍 is a per-battle conversion from the power scalar, discarded after; rivals keep no persistent deck and make no card decisions. |
 | **WW4** | **出場序 sequences the waves.** 卡池張數 (= ceil(P/10)) orders each faction's force into the shared wave schedule, camps interleaved (A1, B1, A2, B2…); bigger power → earlier/heavier waves. The player deploys their own cards each 回合 (軍費-gated); every ally and enemy 正規軍 auto-fights. |
-| **WW5** | **Every unit carries faction identity.** Battlefield units are tagged with their owning civ (a colour/banner marker) — this doubles as the 戰功 attribution tag. 戰功 becomes **actual battlefield clears for every civ** (replacing the PoC power-share proxy); reparations/pool math (`max(正國庫×50%, power×2)`, pro-rata split, 最後一擊 +20%) is unchanged. Art: reuses existing unit sprites + a faction tint — **no new art**. |
+| **WW5** | **Every unit carries faction identity.** Battlefield units are tagged with their owning civ (a colour/banner marker) — this doubles as the 戰功 attribution tag. 戰功 becomes **actual battlefield clears for every civ** (replacing the PoC power-share proxy); reparations/pool math (`max(正國庫×50%, power×2)`; 最後一擊 first takes 20% of the pool, the remaining 80% pro-rata by 戰功 — conservation, no overpay) is unchanged. Art: reuses existing unit sprites + a faction tint — **no new art**. |
 
 **Why the battle, not a roll:** 世界大戰 is the game's marquee event (整代覆寫, rounds 15/35) and the
 7th row of the 戰鬥類型表; resolving it by a power-sum made the biggest fight the one battle you
@@ -279,16 +279,18 @@ Numbers are the human's, per the design authority chain. Measure and surface; do
   may be a large damage swing; steps likely differ per stat.
 - Wave schedules per battle type, and how the 總實力 ≈ P×0.5 budget spreads for 文明戰爭.
 - 兵營 medal production rate (per generation? per era?).
-- 回合上限 per type (currently 6/8/8/8/8/10/12) must be ≥ last wave + time to clear it, or the
-  player times out while winning.
+- 回合上限 per type (currently 6/8/8/8/8/10/**無** — 世界大戰 has no cap, throttled by 波數上限)
+  must be ≥ last wave + time to clear it, or the player times out while winning.
 - Accuracy debuff magnitude for 文化國 (D16). Its 威脅 column says 「極低（不主動）」, so this
   should be a nuisance, not a threat.
 - 世界大戰 sizing (WW1–WW5): waves per faction, how much of each civ's power becomes how many
   正規軍 units, and the **player's force fraction of the whole board** (governs how far one nation
-  can swing the war). 回合上限 12 must clear a multi-faction pile-up. Flavor knob: whether a rival's
-  正規軍 composition reflects its personality (鐵血部 elites vs 廣土邦 numbers).
-- 正規軍 baseline 命中/閃避/攻速 per unit type (WW3) — the fixed values civ opponents fight at,
-  distinct from the player's rolled distributions. Also drives 文明戰爭's reshaped opening.
+  can swing the war). 波數上限 (每文明 2 波, first-pass) must let a multi-faction pile-up resolve,
+  else 觀看模式 continues to exhaustion. Flavor knob: whether a rival's 正規軍 composition reflects
+  its personality (鐵血部 elites vs 廣土邦 numbers).
+- The enemy engine-default 三值 (命中 100% / 閃避 0% / 攻速 1.0, WW3 + all enemies) — the single
+  fixed set every enemy (正規軍 and 非正規軍) fights at; there are no per-unit-type baselines and no
+  enemy rolls. Only the player's units carry rolled 命中/閃避/攻速 distributions.
 
 ## Parked design questions
 
