@@ -15,14 +15,10 @@ and license sign-off / verification records, which keep their dates.
   (`doc/architecture.md`), the verified dev-loop commands (`doc/dev-loop.md`), and the
   task board. Never run engine/test commands from the repo root; there is no project here.
 - **`doc/`** — project history and doctrine: `agent-development-loop.md` (the two-part
-  self-correction loop, proven by the original repo-root loop PoC),
-  `poc-implementation-guidelines.md` (closed PoC record; both PoCs are finished, never execute
-  it), `prompts.md` (human-only prompt log; agents don't read it),
-  `image-assets-generation-orchestrator-cookbook.md` (art pipeline on the Mac Studio — the agent
-  cookbook) with
-  `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions),
-  `doc/loop-poc-archive/` (the loop PoC's PLAN/STRUCTURE/MEMORY/process snapshots). The loop
-  PoC's code lives only in git history.
+  self-correction loop this project rides on), `prompts.md` (human-only prompt log; agents
+  don't read it), `image-assets-generation-orchestrator-cookbook.md` (art pipeline on the Mac
+  Studio — the agent cookbook) with
+  `mac-studio-handoff.md` (paste-ready bootstrap prompts for the Studio sessions).
 - **`doc/progress-dashboard.html`** — a static, self-contained development-progress dashboard
   (core build waves, test counts, art pipeline gate status). Open it locally in a browser; no
   build step. **Agents: update it whenever a wave/gate closes or a test/asset count changes** —
