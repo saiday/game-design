@@ -52,8 +52,7 @@ static func is_unit(card_id: StringName) -> bool:
 
 static func has_form(card_id: StringName, era_idx: int) -> bool:
 	# Authoritative "does this card exist in this era" test: covers the early gate AND the
-	# top-end cutoffs (聖戰士團 工業-only, 私掠傭兵團 ends before 資訊). The data's min_era
-	# is a derived cache for pre-W12 battle.gd only.
+	# top-end cutoffs (聖戰士團 工業-only, 私掠傭兵團 ends before 資訊).
 	var entry: Dictionary = card(card_id)
 	if not bool(entry["evolves"]):
 		return true   # skills are era-neutral

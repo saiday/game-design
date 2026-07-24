@@ -36,20 +36,11 @@ func test_catalog_era_names_match_corpus() -> void:
 			["", "", "", "神權火槍旅", "", ""])
 
 
-func test_catalog_min_era_matches_first_form() -> void:
-	# min_era is a derived cache for pre-W12 battle.gd; it must equal the first formed era.
+func test_catalog_era_names_shape() -> void:
 	for card_id: StringName in CardsData.CARDS.keys():
 		var entry: Dictionary = CardsData.CARDS[card_id]
-		if not bool(entry["evolves"]):
-			continue
-		var names: Array = entry["era_names"]
-		assert_int(names.size()).is_equal(6)
-		var first_form: int = 0
-		for i: int in range(6):
-			if String(names[i]) != "":
-				first_form = i + 1
-				break
-		assert_int(int(entry["min_era"])).is_equal(first_form)
+		if bool(entry["evolves"]):
+			assert_int((entry["era_names"] as Array).size()).is_equal(6)
 
 
 func test_quality_table_covers_exactly_the_units() -> void:

@@ -1,335 +1,324 @@
 class_name BattleTest
 extends GdUnitTestSuite
+# Suite for core/battle.gd (design/戰鬥.md + plan-battle-model-rewrite D1-D6): rolled wave
+# schedules, tick-window resolution on attack speed, event timelines, symmetric exhaustion,
+# survivor persistence, 正規軍 conversion. Player stats are hand-crafted per test (acc/dodge/
+# speed set directly on instances) so combat math is exact; roll determinism itself is
+# covered in cards_test.
 
 
-func _state() -> GameState:
-	var s := GameState.new_run(55)
-	Cards.starting_deck(s)
-	return s
+func _state(seed_value: int = 33) -> GameState:
+	return GameState.new_run(seed_value)
 
 
-func _unit(attack: int, hp: int, row: StringName = &"melee", flags: Array = []) -> Dictionary:
-	return {"card_id": &"test", "attack": attack, "hp": hp, "row": row, "flags": flags, "leader": false}
+func _craft(state: GameState, card_id: StringName, tier: int, acc: float, dodge: float, speed: float) -> Cards.CardInstance:
+	var instance := Cards.CardInstance.new(card_id, tier)
+	instance.grade = &"medium"
+	instance.accuracy = acc
+	instance.dodge = dodge
+	instance.speed = speed
+	state.deck.append(instance)
+	return instance
 
 
-func test_start_enemy_composition_and_reward() -> void:
+func _deploy_id(state: GameState, battle: Battle.BattleField, card_id: StringName) -> Dictionary:
+	for i: int in range(battle.available.size()):
+		if (battle.available[i] as Cards.CardInstance).id == card_id:
+			return Battle.deploy(state, battle, i)
+	return {"ok": false, "reason": &"not_in_available"}
+
+
+func _has_event(report: Dictionary, event_type: StringName) -> bool:
+	for event: Dictionary in (report["events"] as Array):
+		if event["type"] == event_type:
+			return true
+	return false
+
+
+# --- waves ---
+
+func test_wave_roll_deterministic_and_within_window() -> void:
+	var a := _state(7)
+	var b := _state(7)
+	var battle_a := Battle.start(a, &"field_battle")
+	var battle_b := Battle.start(b, &"field_battle")
+	assert_int(battle_a.waves.size()).is_equal(2)
+	assert_int(int(battle_a.waves[0]["round"])).is_equal(1)
+	assert_int(int(battle_a.waves[1]["round"])).is_between(3, 4)
+	assert_int(int(battle_a.waves[1]["round"])).is_equal(int(battle_b.waves[1]["round"]))
+	assert_int((battle_a.waves[0]["units"] as Array).size()).is_equal(2)   # 中×1＋弱×1
+	assert_int((battle_a.waves[1]["units"] as Array).size()).is_equal(1)   # 中×1
+
+
+func test_wave_one_is_the_opening() -> void:
 	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	assert_int(b.enemy_units.size()).is_equal(2)
-	assert_int(int(b.enemy_units[0]["attack"])).is_equal(1)
-	assert_int(int(b.enemy_units[0]["hp"])).is_equal(2)
-	assert_int(b.expected_reward).is_equal(15)
-	s.generation = 17   # coeff 3
-	var h := Battle.start(s, &"hidden_battle")
-	assert_int(h.enemy_units.size()).is_equal(2)
-	assert_int(int(h.enemy_units[0]["attack"])).is_equal(9)   # hard 3×3
-	assert_bool((h.enemy_units[0]["flags"] as Array).has(&"siege")).is_true()
-	assert_int(h.expected_reward).is_equal(135)
+	var battle := Battle.start(s, &"tax_battle")
+	assert_int(battle.enemy_units.size()).is_equal(2)   # 弱×2: wave 1 = 敵方開場單位
+	assert_int(battle.next_wave).is_equal(1)
+	assert_int(int(battle.enemy_units[0]["attack"])).is_equal(1)
+	assert_int(int(battle.enemy_units[0]["hp"])).is_equal(2)
+	assert_int(battle.expected_reward).is_equal(15)
 
 
-func test_opening_hand_size_and_bonuses() -> void:
+func test_waves_stack_on_survivors() -> void:
+	# D4: an uncleared wave means the next wave stacks on its remnant.
 	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	assert_int(b.hand.size()).is_equal(4)
-	var s2 := _state()
-	s2.regions.append(&"military")
-	assert_int(Battle.start(s2, &"tax_battle").hand.size()).is_equal(5)
-	var s3 := _state()
-	s3.flags[&"enemy_psyops_next_battle"] = true
-	assert_int(Battle.start(s3, &"tax_battle").hand.size()).is_equal(3)
-	assert_bool(s3.flags.has(&"enemy_psyops_next_battle")).is_false()
+	Cards.starting_deck(s)   # player has cards but fields nothing: enemies just stack
+	var battle := Battle.start(s, &"field_battle")
+	var wave2_round: int = int(battle.waves[1]["round"])
+	while battle.round < wave2_round and battle.outcome == &"":
+		Battle.end_round(s, battle)
+	assert_int(battle.enemy_units.size()).is_equal(3)   # 2 survivors + 1 stacked
 
 
-func test_play_card_pays_military_cost() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	var r := Battle.play_card(s, b, 0)   # infantry, cost 2
-	assert_bool(bool(r["ok"])).is_true()
-	assert_int(s.treasury).is_equal(28)
-	assert_int(b.spent).is_equal(2)
-	assert_int(b.player_units.size()).is_equal(1)
+# --- the tick window ---
+
+func test_timeline_deterministic_same_seed() -> void:
+	var a := _state(11)
+	var b := _state(11)
+	Cards.starting_deck(a)
+	Cards.starting_deck(b)
+	var battle_a := Battle.start(a, &"field_battle")
+	var battle_b := Battle.start(b, &"field_battle")
+	Battle.deploy(a, battle_a, 0)
+	Battle.deploy(b, battle_b, 0)
+	var report_a := Battle.end_round(a, battle_a)
+	var report_b := Battle.end_round(b, battle_b)
+	assert_str(str(report_a["events"])).is_equal(str(report_b["events"]))
+	assert_str(str(report_a)).is_equal(str(report_b))
 
 
-func test_win_tax_battle_and_reward() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.player_units.append(_unit(5, 20))
-	Battle.end_round(s, b)   # kills first weak, takes 2 damage
-	Battle.end_round(s, b)
-	assert_that(b.outcome).is_equal(&"win")
-	assert_int(b.merit).is_equal(6)   # 2×(1+2)
-	var f := Battle.finish(s, b)
-	assert_int(int(f["reward"])).is_equal(15)
-	assert_int(s.treasury).is_equal(45)
+func test_faster_fires_first_no_mutual_destruction() -> void:
+	# D6: units act on their own speed; the faster one fires first and LIVES.
+	var s := _state(5)
+	_craft(s, &"elite_forces", 2, 100.0, 0.0, 2.0)   # atk 6, hp 8, two shots per window
+	var battle := Battle.start(s, &"tax_battle")     # 弱×2: atk 1, hp 2, speed 1.0
+	_deploy_id(s, battle, &"elite_forces")
+	var report := Battle.end_round(s, battle)
+	assert_int(int(report["kills"])).is_equal(2)
+	assert_int(int(report["losses"])).is_equal(0)
+	assert_that(battle.outcome).is_equal(&"win")     # exhausted: no units, no waves left
+	assert_int(int(battle.player_units[0]["hp"])).is_equal(8)   # never got hit
+	assert_int(battle.merit).is_equal(6)             # 2 × weak strength (1+2)×係數1
 
 
-func test_simultaneous_strikes() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"riot")   # medium×2 (2/4 each)
-	b.player_units.append(_unit(2, 2))
-	Battle.end_round(s, b)
-	# we dealt 2 to first medium (hp 2 left); both mediums dealt 4 total, we die
-	assert_int(b.player_units.size()).is_equal(0)
-	assert_int(b.enemy_units.size()).is_equal(2)
-	assert_that(b.outcome).is_equal(&"loss")
+func test_accuracy_zero_always_misses() -> void:
+	var s := _state(9)
+	_craft(s, &"elite_forces", 2, 0.0, 0.0, 1.0)     # blind; hp 8 soaks the answer
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"elite_forces")
+	var report := Battle.end_round(s, battle)
+	assert_int(int(report["kills"])).is_equal(0)
+	assert_int(battle.enemy_units.size()).is_equal(2)
+	assert_bool(_has_event(report, &"miss")).is_true()
+	assert_int(int(battle.player_units[0]["hp"])).is_equal(6)   # took 1+1 from the weak pair
 
 
-func test_trench_blocks_melee_until_filled() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.enemy_forts.append({"card_id": &"trench", "flags": [&"blocks_melee_contact"], "filled": false})
-	b.player_units.append(_unit(10, 50))
-	Battle.end_round(s, b)
-	assert_int(b.enemy_units.size()).is_equal(2)   # melee never connected
-	Battle._fill_one_trench(b.enemy_forts)
-	Battle.end_round(s, b)
-	assert_int(b.enemy_units.size()).is_equal(1)
+func test_dodge_events_occur() -> void:
+	var s := _state(13)
+	_craft(s, &"elite_forces", 4, 0.0, 50.0, 1.0)    # hp 20, max dodge, never hits back
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"elite_forces")
+	var dodge_seen := false
+	for i: int in range(5):
+		if battle.outcome != &"":
+			break
+		if _has_event(Battle.end_round(s, battle), &"dodge"):
+			dodge_seen = true
+	assert_bool(dodge_seen).is_true()
 
 
-func test_tank_crosses_trench() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.enemy_forts.append({"card_id": &"trench", "flags": [&"blocks_melee_contact"], "filled": false})
-	b.player_units.append(_unit(10, 50, &"melee", [&"crosses_trench"]))
-	Battle.end_round(s, b)
-	assert_int(b.enemy_units.size()).is_equal(1)
-
-
-func test_engineer_fills_trench_on_entry() -> void:
-	var s := _state()
-	s.deck = []
-	s.deck.append(Cards.CardInstance.new(&"engineers", 1))
-	var b := Battle.start(s, &"tax_battle")
-	b.enemy_forts.append({"card_id": &"trench", "flags": [&"blocks_melee_contact"], "filled": false})
-	Battle.play_card(s, b, 0)
-	assert_bool(bool(b.enemy_forts[0]["filled"])).is_true()
-
-
-func test_shield_absorbs_one_melee_hit() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")   # 2 weak melee enemies
-	b.player_forts.append({"card_id": &"shield_wall", "flags": [&"blocks_melee_once"], "filled": false})
-	b.player_units.append(_unit(0, 3, &"melee", [&"no_attack"]))
-	Battle.end_round(s, b)
-	# first enemy hit absorbed (shield consumed), second hit lands (1 damage)
-	assert_int(b.player_forts.size()).is_equal(0)
-	assert_int(int(b.player_units[0]["hp"])).is_equal(2)
-
-
-func test_anti_air_absorbs_ranged() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.enemy_units = [{"grade": &"weak", "attack": 5, "hp": 2, "row": &"ranged", "flags": [], "leader": false}]
-	b.player_forts.append({"card_id": &"anti_air", "flags": [&"blocks_ranged_once"], "filled": false})
-	b.player_units.append(_unit(0, 3, &"melee", [&"no_attack"]))
-	Battle.end_round(s, b)
-	assert_int(b.player_forts.size()).is_equal(0)
-	assert_int(int(b.player_units[0]["hp"])).is_equal(3)
-
-
-func test_siege_demolishes_fort_first() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.enemy_units = [{"grade": &"hard", "attack": 3, "hp": 6, "row": &"melee", "flags": [&"siege"], "leader": false}]
-	b.player_forts.append({"card_id": &"shield_wall", "flags": [&"blocks_melee_once"], "filled": false})
-	b.player_units.append(_unit(0, 10, &"melee", [&"no_attack"]))
-	Battle.end_round(s, b)
-	assert_int(b.player_forts.size()).is_equal(0)          # demolished, not consumed-by-absorb
-	assert_int(int(b.player_units[0]["hp"])).is_equal(10)  # attack spent on the fort
-
-
-func test_air_only_cannot_win() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")
-	b.player_units.append(_unit(50, 50, &"air", [&"air_strike", &"non_land"]))
-	Battle.end_round(s, b)
-	assert_int(b.enemy_units.size()).is_equal(1)
-	Battle.end_round(s, b)
-	assert_int(b.enemy_units.size()).is_equal(0)
-	assert_that(b.outcome).is_not_equal(&"win")   # 只剩空中單位不算拿下戰場
-
-
-func test_round_cap_timeout_is_loss() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"tax_battle")   # cap 6
-	b.player_units.append(_unit(0, 100, &"melee", [&"no_attack"]))
-	for i: int in range(6):
-		Battle.end_round(s, b)
-	assert_that(b.outcome).is_equal(&"loss")
-
-
-func test_retreat_cost_and_population() -> void:
-	var s := _state()
-	s.generation = 9   # coeff 2
-	var b := Battle.start(s, &"field_battle")
-	Battle.retreat(s, b)
-	assert_that(b.outcome).is_equal(&"retreat")
-	assert_int(s.treasury).is_equal(10)    # 30 − 20
-	assert_int(s.population).is_equal(14)
-
-
-func test_defection_gate() -> void:
-	var s := _state()
-	s.generation = 9   # era 2: gate 16
-	s.culture = 15
-	var b := Battle.start(s, &"field_battle")
-	assert_bool(Battle.can_defect(s, b)).is_false()
-	s.culture = 16
-	assert_bool(Battle.can_defect(s, b)).is_true()
-	s.policies.append(&"cultural_export")   # gate 10
-	s.culture = 10
-	assert_bool(Battle.can_defect(s, b)).is_true()
-	Battle.defect(s, b)
-	var f := Battle.finish(s, b)
-	assert_int(int(f["reward"])).is_equal(50)   # full reward, zero spend
-	assert_int(b.spent).is_equal(0)
-
-
-func test_civil_war_enemy_budget_and_psyops_discount() -> void:
-	var s := _state()
-	Rivals.setup(s)
-	var rival := Rivals.find(s, &"iron_tribe")
-	rival.power = 40.0                       # budget 20, coeff 1: 2× hard (9 each)
-	rival.psyops_discount = 0.30
-	var b := Battle.start(s, &"civil_war", &"iron_tribe")
-	assert_int(b.enemy_units.size()).is_equal(2)
-	assert_int(int(b.enemy_units[0]["attack"])).is_equal(2)   # round(3×0.7)
-	assert_int(b.expected_reward).is_equal(80)                # power×2
-
-
-func test_civil_war_finish_win_and_loss() -> void:
-	var s := _state()
-	Rivals.setup(s)
-	var rival := Rivals.find(s, &"vast_state")
-	rival.power = 100.0
-	var b := Battle.start(s, &"civil_war", &"vast_state")
-	b.outcome = &"win"
-	var f := Battle.finish(s, b)
-	assert_int(int(f["reward"])).is_equal(200)
-	assert_int(rival.defeats).is_equal(1)
-	var rival2 := Rivals.find(s, &"science_state")
-	rival2.power = 100.0
-	var b2 := Battle.start(s, &"civil_war", &"science_state")
-	b2.outcome = &"loss"
-	Battle.finish(s, b2)
-	assert_float(rival2.power).is_equal_approx(105.0, 0.01)   # 判輸: 對手 power +5%
-	assert_int(rival2.defeats).is_equal(0)
-
-
-func test_holy_war_reparations_bonus() -> void:
-	var s := _state()
-	Rivals.setup(s)
-	s.policies.append(&"holy_war")
-	var rival := Rivals.find(s, &"iron_tribe")
-	rival.power = 100.0
-	var declared := Battle.start(s, &"civil_war", &"iron_tribe", true)
-	assert_int(declared.expected_reward).is_equal(300)   # 200 × 1.5
-	var defended := Battle.start(s, &"civil_war", &"iron_tribe", false)
-	assert_int(defended.expected_reward).is_equal(200)   # only wars YOU declared
-
-
-func test_riot_loss_consequences() -> void:
-	var s := _state()
-	s.population = 20
-	s.regions.append(&"livelihood")
-	var b := Battle.start(s, &"riot")
-	b.outcome = &"loss"
-	var f := Battle.finish(s, b)
-	assert_bool(f.has("riot_loss")).is_true()
-	assert_int(s.population).is_equal(16)
-	assert_int(s.regions.size()).is_equal(0)
-
-
-func test_riot_mechanical_suppression_costs_happiness_once() -> void:
-	var s := _state()
-	s.deck = []
-	s.deck.append(Cards.CardInstance.new(&"elite_forces", 1))
-	s.deck.append(Cards.CardInstance.new(&"artillery", 1))
-	var b := Battle.start(s, &"riot")
-	Battle.play_card(s, b, 0)
-	Battle.play_card(s, b, 0)   # second mechanical card: still one charge per battle
-	b.outcome = &"win"
-	var f := Battle.finish(s, b)
-	assert_int(int(f["suppression_happiness"])).is_equal(-15)
-	assert_int(s.happiness).is_equal(55)   # 70 − 15, 勝敗皆然
-
-
-func test_riot_mechanical_suppression_applies_on_loss_too() -> void:
-	var s := _state()
-	s.population = 20
-	s.deck = []
-	s.deck.append(Cards.CardInstance.new(&"elite_forces", 1))
-	var b := Battle.start(s, &"riot")
-	Battle.play_card(s, b, 0)
-	b.outcome = &"loss"
-	var f := Battle.finish(s, b)
-	assert_int(int(f["suppression_happiness"])).is_equal(-15)
-	assert_int(s.happiness).is_equal(55)
-	assert_bool(f.has("riot_loss")).is_true()   # loss consequences stack on top
-
-
-func test_riot_personnel_only_keeps_happiness() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"riot")
-	Battle.play_card(s, b, 0)   # starting deck is all infantry (personnel)
-	b.outcome = &"win"
-	var f := Battle.finish(s, b)
-	assert_bool(f.has("suppression_happiness")).is_false()
-	assert_int(s.happiness).is_equal(70)
-
-
-func test_mechanical_outside_riot_has_no_suppression_cost() -> void:
-	var s := _state()
-	s.deck = []
-	s.deck.append(Cards.CardInstance.new(&"artillery", 1))
-	var b := Battle.start(s, &"field_battle")
-	Battle.play_card(s, b, 0)
-	b.outcome = &"win"
-	var f := Battle.finish(s, b)
-	assert_bool(f.has("suppression_happiness")).is_false()
-	assert_int(s.happiness).is_equal(70)
-
-
-func test_democracy_blood_loss_forces_democracy() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"democracy_blood")
-	b.outcome = &"loss"
-	Battle.finish(s, b)
-	assert_bool(bool(s.flags[&"forced_democracy"])).is_true()
-
-
-func test_reward_card_excludes_restricted() -> void:
-	var s := _state()
-	var b := Battle.start(s, &"field_battle")
-	b.player_units.append(_unit(50, 100))
-	while b.outcome == &"":
-		Battle.end_round(s, b)
-	assert_that(b.outcome).is_equal(&"win")
-	var f := Battle.finish(s, b)
-	var card_id: StringName = f["reward_card"]
-	assert_bool(card_id != &"").is_true()
-	var entry: Dictionary = CardsData.CARDS[card_id]
-	assert_that(entry["source_kind"]).is_not_equal(&"policy")
-	assert_that(entry["source_kind"]).is_not_equal(&"legacy")
-
-
-func test_intel_qualification_ladder() -> void:
-	var s := _state()
-	assert_bool(Battle.intel_covers(s)).is_false()
-	s.policies.append(&"scout_camp")
-	assert_bool(Battle.intel_covers(s)).is_true()    # tribal covered
-	s.generation = 17                                # faith era
-	assert_bool(Battle.intel_covers(s)).is_false()   # coverage doesn't extend itself
-	s.policies.append(&"political_marriage")
-	assert_bool(Battle.intel_covers(s)).is_true()
-
-
-func test_war_song_buffs_attack() -> void:
-	var s := _state()
-	s.deck = []
+func test_war_song_buffs_damage_at_fire_time() -> void:
+	var s := _state(5)
+	_craft(s, &"infantry", 1, 100.0, 0.0, 1.0)       # atk 1 → 2 with 軍歌
 	s.deck.append(Cards.CardInstance.new(&"war_song", 1))
-	var b := Battle.start(s, &"tax_battle")
-	b.player_units.append(_unit(1, 10))
-	Battle.play_card(s, b, 0)
-	assert_int(int(b.player_units[0]["attack"])).is_equal(2)
-	assert_int(b.attack_buff_rounds).is_equal(2)
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"war_song")
+	_deploy_id(s, battle, &"infantry")
+	var report := Battle.end_round(s, battle)
+	var buffed_hit := false
+	for event: Dictionary in (report["events"] as Array):
+		if event["type"] == &"hit" and event["by"] == &"infantry" and int(event["damage"]) == 2:
+			buffed_hit = true
+	assert_bool(buffed_hit).is_true()
+
+
+# --- exhaustion (D3) ---
+
+func test_player_exhaustion_is_loss() -> void:
+	var s := _state()   # empty deck: nothing fielded, nothing to commit
+	var battle := Battle.start(s, &"tax_battle")
+	Battle.end_round(s, battle)
+	assert_that(battle.outcome).is_equal(&"loss")
+	var finish := Battle.finish(s, battle)
+	assert_that(finish["outcome"]).is_equal(&"loss")
+	assert_bool(finish.has("reward_instance")).is_true()   # 勝敗皆然、每場必發
+
+
+func test_concede_with_cards_left_is_legal_loss() -> void:
+	var s := _state()
+	Cards.starting_deck(s)
+	var battle := Battle.start(s, &"tax_battle")
+	Battle.concede(battle)   # 還有未出卡但選擇不出
+	Battle.end_round(s, battle)
+	assert_that(battle.outcome).is_equal(&"loss")
+
+
+func test_air_only_field_cannot_take_the_win() -> void:
+	var s := _state(5)
+	_craft(s, &"bomber", 4, 100.0, 0.0, 1.0)   # atk 25: one kill per window
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"bomber")
+	Battle.end_round(s, battle)
+	Battle.end_round(s, battle)
+	assert_int(battle.enemy_units.size()).is_equal(0)   # both weak dead by round 2
+	assert_that(battle.outcome).is_equal(&"")            # 只剩空中單位不算拿下戰場
+	while battle.outcome == &"":
+		Battle.end_round(s, battle)
+	assert_that(battle.outcome).is_equal(&"loss")        # 判輸 at the round cap
+	assert_int(battle.round).is_equal(6)
+
+
+func test_round_cap_is_loss() -> void:
+	var s := _state()
+	Cards.starting_deck(s)
+	var battle := Battle.start(s, &"field_battle")
+	while battle.outcome == &"":
+		Battle.end_round(s, battle)   # never deploys; enemies stack, nobody dies
+	assert_that(battle.outcome).is_equal(&"loss")
+	assert_int(battle.round).is_equal(8)
+
+
+# --- deployment (D1: 軍費 is the only gate and never blocks) ---
+
+func test_deploy_spends_into_debt_and_once_per_card() -> void:
+	var s := _state()
+	s.treasury = 0
+	_craft(s, &"cavalry", 1, 85.0, 20.0, 1.2)
+	var battle := Battle.start(s, &"tax_battle")
+	assert_int(battle.available.size()).is_equal(1)
+	var report := _deploy_id(s, battle, &"cavalry")
+	assert_bool(bool(report["ok"])).is_true()
+	assert_int(s.treasury).is_equal(-3)              # negative, never blocked
+	assert_int(battle.spent).is_equal(3)
+	assert_int(battle.available.size()).is_equal(0)  # 每張卡每場只出一次
+	assert_bool(bool(_deploy_id(s, battle, &"cavalry")["ok"])).is_false()
+
+
+func test_fort_limit_two() -> void:
+	var s := _state()
+	for i: int in range(3):
+		s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"tax_battle")
+	assert_bool(bool(Battle.deploy(s, battle, 0)["ok"])).is_true()
+	assert_bool(bool(Battle.deploy(s, battle, 0)["ok"])).is_true()
+	assert_that(Battle.deploy(s, battle, 0)["reason"]).is_equal(&"fort_limit")
+
+
+# --- fortifications ---
+
+func test_fort_absorbs_once_then_consumed_without_engineers() -> void:
+	var s := _state()
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")           # 中×1, melee
+	_deploy_id(s, battle, &"shield_wall")
+	var report := Battle.end_round(s, battle)
+	assert_int(battle.player_forts.size()).is_equal(0)   # 擋一次近戰即消耗
+	assert_bool(_has_event(report, &"absorb")).is_true()
+
+
+func test_engineers_turn_absorb_into_repair() -> void:
+	var s := _state()
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)       # support: never fires
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"shield_wall")
+	Battle.end_round(s, battle)
+	assert_int(battle.player_forts.size()).is_equal(1)          # 轉為待修, not consumed
+	assert_bool(bool(battle.player_forts[0]["damaged"])).is_true()
+	var report := Battle.end_round(s, battle)                    # 自下一回合起修復
+	assert_bool(_has_event(report, &"repair")).is_true()
+
+
+func test_siege_demolishes_fort_outright() -> void:
+	var s := _state()
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"hidden_battle")  # 硬×1 帶攻城 (ranged row)
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"shield_wall")
+	var report := Battle.end_round(s, battle)
+	assert_int(battle.player_forts.size()).is_equal(0)   # demolition beats the repair rule
+	assert_bool(_has_event(report, &"demolish")).is_true()
+
+
+# --- death consequences ---
+
+func test_player_death_wipes_growth() -> void:
+	var s := _state(5)
+	var infantry := _craft(s, &"infantry", 1, 0.0, 0.0, 1.0)   # hp 2: dies to 弱×2
+	Cards.award_medal(infantry, &"speed")
+	infantry.xp[&"accuracy"] = 2
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"infantry")
+	var report := Battle.end_round(s, battle)
+	assert_int(int(report["losses"])).is_equal(1)
+	assert_bool(infantry.levels.is_empty()).is_true()   # D11: 已獲成長全部歸零
+	assert_bool(infantry.xp.is_empty()).is_true()
+	assert_that(infantry.grade).is_equal(&"medium")     # D12: the roll survives
+
+
+func test_non_leader_skills_skip_hard_and_regular() -> void:
+	var s := _state()
+	var battle := Battle.start(s, &"hidden_battle")     # 硬×1 = 首領
+	var events: Array[Dictionary] = []
+	Battle._destroy_one_non_leader(battle, events, 0)
+	assert_int(battle.enemy_units.size()).is_equal(1)   # untouched
+	assert_int(battle.merit).is_equal(0)
+	assert_int(events.size()).is_equal(0)
+
+
+# --- 正規軍 (civil war) ---
+
+func test_civil_war_fields_regular_army() -> void:
+	var s := _state()
+	Rivals.setup(s)
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 30.0   # 總實力 15 → wave budgets 6 / 5.25 / 3.75
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	assert_int(battle.waves.size()).is_equal(3)
+	var wave1: Array = battle.waves[0]["units"]
+	assert_int(wave1.size()).is_equal(2)   # cavalry(4) + archers(2), greedy strongest-first
+	var first: Dictionary = wave1[0]
+	assert_that(first["card_id"]).is_equal(&"cavalry")
+	assert_bool(bool(first["regular"])).is_true()
+	assert_that(first["grade"]).is_equal(&"")
+	assert_float(float(first["accuracy"])).is_equal_approx(100.0, 0.001)   # engine defaults
+	assert_float(float(first["speed"])).is_equal_approx(1.0, 0.001)
+	assert_int(int(battle.waves[1]["round"])).is_between(4, 5)
+	assert_int(int(battle.waves[2]["round"])).is_between(7, 8)
+
+
+func test_civil_war_psyops_discounts_regular_attack() -> void:
+	var s := _state()
+	Rivals.setup(s)
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 30.0
+	rival.psyops_discount = 0.3   # 7折封頂
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	var first: Dictionary = (battle.waves[0]["units"] as Array)[0]
+	assert_int(int(first["attack"])).is_equal(1)   # cavalry 2 × 0.7 → round → 1
+
+
+# --- retreat ---
+
+func test_retreat_costs_and_returns_population() -> void:
+	var s := _state()
+	Cards.starting_deck(s)
+	var battle := Battle.start(s, &"field_battle")
+	var report := Battle.retreat(s, battle)
+	assert_that(battle.outcome).is_equal(&"retreat")
+	assert_int(int(report["cost"])).is_equal(10)
+	assert_int(s.population).is_equal(14)
+	assert_bool(Battle.finish(s, battle).has("reward_instance")).is_true()

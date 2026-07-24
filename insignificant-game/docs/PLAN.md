@@ -42,10 +42,19 @@ every green wave.
       (`add_reward_card` kept as a deprecated shim for sim/view until W14/W15). battle_test
       red on retired trench mechanics as planned — W12 rewrites that suite. Conventions +
       deviations: `docs/implementation-notes.md`.)*
-- [ ] **W12 — Battle model.** Wave schedule roll, tick loop, event timeline emission, exhaustion
+- [x] **W12 — Battle model.** Wave schedule roll, tick loop, event timeline emission, exhaustion
       win check, survivor persistence. Delete the hand (`OPENING_HAND`, draw/discard piles,
       `play_card(hand_index)`) and the simultaneous resolver. Gate: Part A green on `battle_test`;
       timeline deterministic and replayable from a seed.
+      *(done 2026-07-24: battle_test 22 cases green incl. same-seed identical-timeline assert;
+      full suite back to exit 0 — 21/21 suites, 208/208 cases — two waves ahead of the W14
+      expectation. Waves rolled per battle on `battle` track; per-unit speed accumulators;
+      文明戰爭 fields 正規軍 (greedy composition, psyops attack discount); engineers repair
+      forts; deaths wipe growth (D11); reward instance issued from `finish` every fought
+      battle. `sim.gd::_fight` got a minimal compile-fix policy (W14 owns the real bot);
+      `view/main.gd` is parse-broken against the dead hand API until W15 — Part B is DOWN
+      W12–W14 by plan. Gap decisions + engine conventions: decisions.md W12 +
+      implementation-notes.md.)*
 - [ ] **W13 — Growth.** Per-stat XP, 勳章 from both sources (battle-automatic, 兵營-assigned),
       軍事區 老兵 veterancy, 文化國 accuracy debuff. Rewires `operations.gd` + `rivals.gd`.
       Gate: Part A green on `cards_test`, `operations_test`, `rivals_test`.
@@ -55,6 +64,12 @@ every green wave.
       `game_state.gd` defaults, `unrest.gd` arming flag, decisions.md W1 table update; the sim
       auto-player must learn the 解散-for-population opening or W14 runs starve. Gate: Part A
       green on `unrest_test` + defaults asserted; full-suite green folds into W14's gate.
+- [ ] **W12.5 — World war on the battle engine (new task, raised in W12; plan WW1–WW5).**
+      `world_war.gd` still auto-resolves by the PoC power-sum contest. Rebuild it as the 7th
+      playable battle type on the W12 engine: two camps, no neutral, per-camp exhaustion,
+      卡池張數-sequenced interleaved waves of 正規軍, per-civ faction tags feeding real-clear
+      戰功, reparations math unchanged. Must land before W14 (it reshapes balance).
+      Gate: Part A green on rewritten `world_war_test` + `battle_test`.
 - [ ] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
       back to exit 0, balance batch recalibrated. Gate: Part A exit 0 all suites executed;
       `test_determinism_same_seed_same_run` green; findings surfaced to PM in

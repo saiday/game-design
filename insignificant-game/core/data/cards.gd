@@ -13,11 +13,8 @@ extends RefCounted
 #   attack: int, hp: int       base 攻/血 (tier 1); scale ×Era coeff per tier; fort/skill = 0.
 #                              Fixed per type+era, never rolled (D8) — quality is separate.
 #   row: StringName            自動佈陣: &"melee" | &"ranged" | &"air" | &"fortification" | &"global"
-#   min_era: int               DERIVED CACHE of the first formed era (= first non-"" era_names
-#                              slot). Kept only because pre-W12 battle.gd's reward pick reads
-#                              it; Cards.has_form() is the authoritative check (it also covers
-#                              top-end cutoffs). cards_test asserts consistency. W12 deletes it.
 #   evolves: bool              units + fortifications evolve in place; skills never do
+#                              (era availability = Cards.has_form on era_names; no min_era field)
 #   era_names: Array           6 per-era form names ("" = no form that era; a "" AFTER formed
 #                              eras = the card auto-disbands on entering that era)
 #   disband_pop: int           解散 population recovery (+2 personnel, 0 otherwise)
@@ -71,7 +68,6 @@ const CARDS: Dictionary = {
 		"attack": 1,
 		"hp": 2,
 		"row": &"melee",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["棍棒戰團", "長矛方陣", "劍盾步兵", "線列步兵", "摩托化步兵", "動力裝甲兵"],
 		"disband_pop": 2,
@@ -87,7 +83,6 @@ const CARDS: Dictionary = {
 		"attack": 1,
 		"hp": 1,
 		"row": &"ranged",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["投石手", "弓箭團", "弩手連", "火槍散兵", "狙擊小隊", "精準飛彈組"],
 		"disband_pop": 2,
@@ -103,7 +98,6 @@ const CARDS: Dictionary = {
 		"attack": 2,
 		"hp": 2,
 		"row": &"melee",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["馭獸騎手", "戰車騎兵", "重裝騎士團", "龍騎兵", "坦克營", "無人戰車群"],
 		"disband_pop": 2,
@@ -120,7 +114,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 3,
 		"row": &"melee",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["修路隊", "築城匠", "攻城工兵", "工兵營", "機械化工兵", "戰鬥工程隊"],
 		"disband_pop": 2,
@@ -140,7 +133,6 @@ const CARDS: Dictionary = {
 		"attack": 3,
 		"hp": 4,
 		"row": &"melee",
-		"min_era": 2,
 		"evolves": true,
 		"era_names": ["", "禁衛軍", "聖殿武士", "擲彈兵", "特種部隊", "生化超級士兵"],
 		"disband_pop": 0,
@@ -156,7 +148,6 @@ const CARDS: Dictionary = {
 		"attack": 4,
 		"hp": 2,
 		"row": &"ranged",
-		"min_era": 3,
 		"evolves": true,
 		"era_names": ["", "", "射石砲", "野戰砲", "自走砲", "電磁砲"],
 		"disband_pop": 0,
@@ -172,7 +163,6 @@ const CARDS: Dictionary = {
 		"attack": 5,
 		"hp": 3,
 		"row": &"air",
-		"min_era": 4,
 		"evolves": true,
 		"era_names": ["", "", "", "飛船轟炸隊", "轟炸機聯隊", "匿蹤轟炸機"],
 		"disband_pop": 0,
@@ -190,7 +180,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"fortification",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["木盾牆", "盾陣", "城垛", "沙包工事", "電網", "複合裝甲牆"],
 		"disband_pop": 0,
@@ -208,7 +197,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"fortification",
-		"min_era": 1,
 		"evolves": true,
 		"era_names": ["擋箭棚", "箭樓", "城防塔", "高射砲", "防空飛彈", "雷射攔截網"],
 		"disband_pop": 0,
@@ -226,7 +214,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"global",
-		"min_era": 1,
 		"evolves": false,
 		"disband_pop": 0,
 		"destroyed_on_use": false,
@@ -241,7 +228,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"global",
-		"min_era": 1,
 		"evolves": false,
 		"disband_pop": 0,
 		"destroyed_on_use": false,
@@ -256,7 +242,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"global",
-		"min_era": 1,
 		"evolves": false,
 		"disband_pop": 0,
 		"destroyed_on_use": false,
@@ -273,7 +258,6 @@ const CARDS: Dictionary = {
 		"attack": 4,
 		"hp": 1,
 		"row": &"melee",
-		"min_era": 4,
 		"evolves": true,
 		# 工業-only form; auto-disbands on entering 現代 (時代演化總表: 形態止於某個時代).
 		"era_names": ["", "", "", "神權火槍旅", "", ""],
@@ -290,7 +274,6 @@ const CARDS: Dictionary = {
 		"attack": 2,
 		"hp": 3,
 		"row": &"melee",
-		"min_era": 3,
 		"evolves": true,
 		# Forms end at 現代; auto-disbands on entering 資訊 (時代演化總表).
 		"era_names": ["", "", "盜匪團", "竊賊團", "網路駭客", ""],
@@ -307,7 +290,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"global",
-		"min_era": 1,
 		"evolves": false,
 		"disband_pop": 0,
 		"destroyed_on_use": true,  # 用後永久銷毀，本局不再取得
@@ -323,7 +305,6 @@ const CARDS: Dictionary = {
 		"attack": 0,
 		"hp": 0,
 		"row": &"global",
-		"min_era": 1,
 		"evolves": false,
 		"disband_pop": 0,
 		"destroyed_on_use": true,  # 用後永久銷毀，本局不再取得

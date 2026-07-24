@@ -54,9 +54,9 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Civil-war defeat power hit ("power 受挫") | ×0.9 per loss | rivals.gd |
 | Catch-up player-protection ceiling (floor 0.65 is pinned; ceiling isn't) | strongest rival ≤ player×1.5, adjustment bounded ±25% | rivals.gd |
 | First contact | all rivals met at generation 1 (+5 influence) | rivals.gd |
-| Battle hand system (design implies "opening hand" but pins nothing) | opening hand 4 (+1 military region, −1 enemy psyops), draw 1/round, reshuffle discard when empty | battle.gd |
-| Auto-resolution targeting | focus fire in deploy order; siege/air demolish fortifications first; mobile bypasses to ranged row | battle.gd |
-| Enemy reinforcements | enemies deploy their whole opening at battle start (design lists only 開場單位) | battle.gd |
+| Battle hand system (design implies "opening hand" but pins nothing) | ~~opening hand 4, draw 1/round~~ **retired by W12** — the W10 corpus pins D1: no hand, any unplayed card any round, 軍費 the only gate | battle.gd |
+| Auto-resolution targeting | focus fire in deploy order; siege/air demolish fortifications first (the mobile ranged-row bypass retired with 壕溝 in the W10 corpus) | battle.gd |
+| Enemy reinforcements | ~~whole opening at battle start~~ **retired by W12** — the corpus pins rolled wave schedules (D2/D5) | battle.gd |
 | 為民主而流血 frequency ("unknown 低頻") | 15% of unknown battles while unlocked-but-refused and happiness<70 | map_nodes.gd |
 | World war battle | automated common-table strength contest (±15% seeded roll); camps/turn-order/merit/last-hit/reparations math faithful; per-card play not simulated | world_war.gd |
 | Legacy passive magnitudes ("小幅永久＋") | +1/+2 per-generation values per legacy (table in legacy.gd) | legacy.gd |
@@ -67,9 +67,8 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Difficulty formula | 3-channel signed-level model; full rationale in docs/difficulty-design.md, synced to corpus | difficulty.gd |
 | Window resolution | standing decision: Full HD 1920×1080 for both the PoC window and the shipped game (core is resolution-blind). History: PoC opened at 1280×720 for placeholder-UI density; the 2026-07-09 Moebius style pick retired the 640×360 pixel-art plan and set 1920×1080 | project.godot |
 
-> The 「Battle hand system」 and 「文化國 psyops cadence」 rows describe the code as built through
-> W9; the battle-model rewrite (`docs/plan-battle-model-rewrite.md`, ADR-0001/0002) retires the
-> hand and re-specifies 文化國. Update these rows when W12–W13 land.
+> The 「文化國 psyops-vs-player cadence」 row still describes pre-rewrite behavior (hand −1);
+> W13 re-specifies it as an accuracy debuff (D16) — update that row when W13 lands.
 
 ## W11 gaps: card model
 
@@ -77,6 +76,15 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 |---|---|---|
 | Evolution auto-disband vs 牌組下限 5 (卡牌.md pins 自動解散 at form end but not its interaction with the minimum) | Forced disband proceeds even below 5; the minimum guards **voluntary** 解散 only — a formless ghost card would contradict the evolution table | cards.gd |
 | Reward-card pick's rng track (卡牌.md pins the quality roll on `cards`; the pick itself names no track) | Same `cards` track: pick → grade → stats is one reproducible acquisition stream | cards.gd |
+
+## W12 gaps: battle model
+
+| Gap | Decision | Where |
+|---|---|---|
+| 正規軍 wave composition within a budget (對手文明 pins the budget and roster, not the mix) | Greedy strongest-first over unit types formed this era ((攻+血)×係數 desc); 國策限定 and support types (no_attack 工兵團) stay out of the conversion roster; a rival too weak for any wave still fields one weakest regular in wave 1 | battle.gd |
+| Mutual simultaneous exhaustion (both fields empty, both with nothing left to commit — no land force claims the field) | Player 敗北 (conservative: the design defines victory only as the other side still holding 陸軍) | battle.gd |
+| Which battle ends issue the 戰後獎勵卡 (design: 每場結束必發, excludes only cancelled battles) | Win / loss / 判輸 / retreat all issue the roll; only 讓步・戒嚴-cancelled battles (never fought) don't | battle.gd |
+| Within-tick fire order (design pins speed ordering across ticks, not inside one tick) | Player units before enemy units, each side in deploy order — fixed order is part of the determinism contract | battle.gd |
 
 > 2026-07-24, wayfinder #12: the corpus now pins what two rows above decided or assumed — 起始牌組
 > 5×步兵團 is promoted into 卡牌.md §起始牌組, and the W1 note's 「corpus pins start population

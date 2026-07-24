@@ -156,30 +156,40 @@ static func _opportunity_choice(state: GameState, opportunity: StringName) -> St
 
 
 static func _fight(state: GameState, battle: Battle.BattleField) -> void:
+	# Minimal W12 policy (no hand: any unplayed card, 軍費-gated by bot prudence only —
+	# W14 owns the real tempo-aware auto-player): each boundary, field cheapest unit cards
+	# until we outnumber the visible enemy field by one.
 	if Battle.can_defect(state, battle):
 		Battle.defect(state, battle)
 	var spend_floor: int = -50 * Era.coeff(state.generation)
 	while battle.outcome == &"":
 		var played := true
-		while played and battle.player_units.size() < 4:
+		while played and battle.player_units.size() < battle.enemy_units.size() + 1:
 			played = false
 			var cheapest: int = -1
 			var cheapest_cost: int = 1 << 30
-			for i: int in range(battle.hand.size()):
-				var instance: Cards.CardInstance = battle.hand[i]
-				if Cards.card(instance.id)["class"] == &"skill":
+			for i: int in range(battle.available.size()):
+				var instance: Cards.CardInstance = battle.available[i]
+				var cls: StringName = Cards.card(instance.id)["class"]
+				if cls == &"skill" or cls == &"fortification":
 					continue   # bot keeps it simple: units only
 				var cost: int = Battle.card_cost(state, battle, instance)
 				if cost < cheapest_cost:
 					cheapest_cost = cost
 					cheapest = i
 			if cheapest >= 0 and state.treasury - cheapest_cost >= spend_floor:
-				played = bool(Battle.play_card(state, battle, cheapest)["ok"])
+				played = bool(Battle.deploy(state, battle, cheapest)["ok"])
 		Battle.end_round(state, battle)
 	var finish := Battle.finish(state, battle)
-	if finish.has("reward_card") and state.flags.has(&"pending_reward_card"):
-		Cards.add_reward_card(state, state.flags[&"pending_reward_card"])
-		state.flags.erase(&"pending_reward_card")
+	if finish.has("reward_instance"):
+		var reward: Cards.CardInstance = finish["reward_instance"]
+		var duplicate := false
+		for owned: Cards.CardInstance in state.deck:
+			if owned.id == reward.id:
+				duplicate = true
+				break
+		if not duplicate:
+			Cards.accept_reward(state, reward)   # bot: take first-seen free, skip duplicates
 
 
 static func _handle_unrest(state: GameState) -> void:

@@ -49,6 +49,31 @@
   (`on_era_transition` now reports evolved/auto-disbanded/population). Godot doesn't warn on
   discarded returns; the view (W15) will need these.
 
+### W12 — battle model
+
+- **Unit dict schema** (the shape battle emits, W13 grows, W15 renders):
+  `{card_id, grade, regular, faction, attack, hp, strength, row, flags, accuracy, dodge,
+  speed, progress, instance}`. `strength` = merit value (base 攻+血 ×係數, pre-difficulty);
+  `instance` = the player's `CardInstance` (null for every enemy); `faction` is the 戰功
+  attribution tag (&"player"/&"enemy" today, civ ids when 世界大戰 lands on this engine).
+- **Event schema** (the timeline the view replays): Dictionaries
+  `{tick, type: &"absorb"|&"demolish"|&"repair"|&"miss"|&"dodge"|&"hit"|&"death", ...}` with
+  unit labels = `card_id` (player/正規軍) or grade (非正規軍). W13 adds `&"medal"` events.
+- **Tick model:** per-unit accumulator `progress += speed / TICKS_PER_ROUND` per tick, fires
+  on ≥ 1 (subtract 1, may fire twice in one window at speed 2+), **carries across rounds**
+  (speed 0.6 ≈ one attack every 1.67 windows). Within a tick: player units before enemy
+  units, each side in deploy order. Never reorder any of this — determinism contract.
+- **Boundary order inside `end_round`:** engineer repair → player stat re-snapshot →
+  love-and-peace trigger → tick window → sweep dead → exhaustion check → round-cap check →
+  round++ → wave arrival → buff decrement. The per-boundary stat re-snapshot is what makes
+  mid-battle medals apply 自下一回合 (D13) for free in W13.
+- **XP accrual hooks** are marked with W13 comments inside `_fire` (accuracy XP at hit,
+  dodge XP at dodge; speed XP per survived round belongs at the boundary).
+- **Rolls on `&"battle"`:** wave-arrival rounds at `start`, then per-fire accuracy roll
+  before dodge roll. The reward card at `finish` rolls on `&"cards"` via `Cards.roll_reward`.
+- **view/main.gd is parse-broken until W15** (it still calls the dead hand API). Part A never
+  loads it; Part B **cannot run between W12 and W15** — the W15 gate restores it.
+
 ## Deviations (conservative calls made mid-wave; revisit out loud, not silently)
 
 - **2026-07-24 / W11 — plan's "era_names untouched" line is stale.** The rewrite plan's blast
@@ -70,6 +95,12 @@
   Old battle.gd reads the old flag and so casts it as a no-op until W12 rewires targeting —
   accepted, battle_test is scheduled for full rewrite in W12.
 
+- **2026-07-24 / W12 — sim._fight patched outside its wave.** `sim.gd` is W14's file, but
+  deleting the hand breaks its parse, which would take the whole suite down. It got a
+  minimal deterministic policy (field cheapest units until outnumbering the visible enemy
+  field by one; take first-seen rewards, skip duplicates). W14 still owns the real
+  tempo-aware auto-player and the balance batch.
+
 ## Tasks raised (not part of the current wave; tracked on PLAN.md)
 
 - **Starting-state sync (before the W14 gate):** corpus now pins 起始人口 0 (營運.md) with the
@@ -81,12 +112,18 @@
 ## Wave status
 
 - **W11 (card model): done 2026-07-24.** Files: `core/cards.gd`, `core/data/cards.gd`,
-  `test/cards_test.gd` (+ `game_state.gd` deck comment). Gate: cards_test 29/29 green,
-  same-seed determinism asserted; 21/21 suites executed. The only red is `battle_test`
-  (aborts at `test_engineer_fills_trench_on_entry` — retired trench mechanic; the abort masks
-  its tail cases until the W12 rewrite). Handoff to W12: battle must (1) read the quality
-  three via `accuracy_of/dodge_of/speed_of` only, (2) call `wipe_growth` on unit death,
-  (3) replace its private reward pick (`min_era`-based) with `roll_reward`/`accept_reward`
-  and then delete `min_era` from the data, (4) implement the engineers repair rule
-  (`repairs_fortifications`) and the 首領＝硬級 non-leader targeting rule, (5) never resurrect
-  trench/mobile/tank_from_modern/convert_weak_enemy flags.
+  `test/cards_test.gd` (+ `game_state.gd` deck comment). Gate: cards_test green, same-seed
+  determinism asserted. All five handoff items to W12 were honored (quality via `*_of` only,
+  `wipe_growth` on death, reward via `roll_reward`/`accept_reward`, `min_era` deleted,
+  engineers repair + 首領＝硬級 targeting, no retired flags).
+- **W12 (battle model): done 2026-07-24.** Files: `core/battle.gd`, `test/battle_test.gd`
+  (+ minimal `sim.gd::_fight` compile-fix, see Deviations). Gate met and exceeded: battle_test
+  green with a same-seed identical-timeline assertion, and the FULL suite is back to
+  **exit 0, 21/21 suites, 208/208 cases** — two waves ahead of the plan's W14 expectation.
+  Hand/draw/discard deleted; waves + tick timelines + symmetric exhaustion + survivor
+  persistence live; 文明戰爭 fields 正規軍. Handoff to W13: fill the XP hooks in `_fire` and
+  the speed-XP boundary hook, emit `&"medal"` events at the filling tick, wire 老兵/兵營/
+  文化國 into `operations.gd`/`rivals.gd` and the `*_of` accessors (`psyops_active` on the
+  BattleField and the reserved `state` params are waiting). 世界大戰 on this engine (WW1-WW5)
+  is W12.5-scale work parked inside the W14 wave slot or its own follow-up — `world_war.gd`
+  still runs the PoC power-sum contest today.
