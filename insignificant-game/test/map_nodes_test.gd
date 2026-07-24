@@ -122,6 +122,7 @@ func test_resolve_merchant_money() -> void:
 
 func test_resolve_refugee_accept() -> void:
 	var s := _state()
+	s.population = 12
 	s.happiness = 70
 	var r := MapNodes.resolve_opportunity(s, &"refugee", &"accept")
 	assert_int(int(r["population"])).is_equal(3)

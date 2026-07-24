@@ -117,5 +117,12 @@ static func apply_riot_loss(state: GameState) -> Dictionary:
 
 
 static func regime_collapsed(state: GameState) -> bool:
-	# 政權崩潰: population < 5, the ONLY game over (結局 handles the epilogue).
+	# 政權崩潰: population < 5, the ONLY game over (結局 handles the epilogue). The check
+	# arms only after population FIRST reaches 5 (內亂與失敗.md): 起始人口 0 is a tight
+	# opening, not a loss. Arming samples at each check (the settle cadence — transient
+	# mid-generation spikes aren't observed) and is permanent once set.
+	if not state.collapse_armed:
+		if state.population >= COLLAPSE_POPULATION:
+			state.collapse_armed = true
+		return false
 	return state.population < COLLAPSE_POPULATION

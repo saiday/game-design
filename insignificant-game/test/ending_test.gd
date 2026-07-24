@@ -15,6 +15,7 @@ func test_ongoing_run() -> void:
 
 func test_collapse_is_the_only_loss() -> void:
 	var s := _state()
+	s.collapse_armed = true   # the check arms once population has first reached 5
 	s.population = 4
 	var r := Ending.check(s)
 	assert_bool(bool(r["over"])).is_true()

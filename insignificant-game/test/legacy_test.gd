@@ -44,6 +44,7 @@ func test_apply_passives_sums_bonuses() -> void:
 	s.legacies.append(&"rational_spirit")   # tech+2 culture+1
 	s.legacies.append(&"rock_spirit")       # pop+1 happiness+1
 	s.legacies.append(&"martial_law")       # active-type: no passive
+	s.population = 12
 	s.happiness = 50
 	var totals := Legacy.apply_passives(s)
 	assert_int(int(totals["tech"])).is_equal(2)

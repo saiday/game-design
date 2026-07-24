@@ -127,11 +127,7 @@
 
 ## Tasks raised (not part of the current wave; tracked on PLAN.md)
 
-- **Starting-state sync (before the W14 gate):** corpus now pins 起始人口 0 (營運.md) with the
-  政權崩潰 check arming only after population first reaches 5 (內亂與失敗.md); code still
-  starts at 12 with an always-armed check. Touches `game_state.gd`, `unrest.gd`,
-  `docs/decisions.md` W1 table; sim's auto-player must learn the disband-for-population
-  opening or every W14 run starves. Deliberately NOT folded into W11 (card files only).
+- **Starting-state sync:** raised in W11, landed as W13.5 (see Wave status).
 
 ## Wave status
 
@@ -157,3 +153,12 @@
   the sim bot never voluntarily assigns 兵營 medals pre-democracy (stock just banks until
   the democracy auto-assign) — the W14 tempo bot should spend it; W15 renders `&"medal"`
   events and the `state.medals` stock (to_dict already carries it).
+- **W13.5 (starting-state sync): done 2026-07-25.** Files: `core/game_state.gd`
+  (population 0 + `collapse_armed`), `core/unrest.gd` (lazy arming inside
+  `regime_collapsed` — samples at the settle cadence, permanent once set), `core/sim.gd`
+  (`_grow_population`: disband personnel deck-order-first while pop < 20, deck minimum
+  guarded by `Cards.disband`), plus six tests that now pin pop 12 explicitly where the
+  delta math assumed it. Gate: full suite exit 0, 21/21, 223/223. Handoff to W14: an
+  unarmed run can never collapse, so seeds where the bot keeps pop < 5 forever are
+  immortal-by-rule — the balance batch should report pop trajectories and how many runs
+  never arm the check.

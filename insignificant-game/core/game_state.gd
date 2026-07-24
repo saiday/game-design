@@ -11,7 +11,9 @@ var generation: int = 1
 var difficulty: StringName = &"normal"  # &"easy" | &"normal" | &"hard"
 
 # four axes + money
-var population: int = 12      # <5 => regime collapse (the only game over)
+var population: int = 0       # 起始人口 0 (營運.md): the engine starts by disbanding 起始牌組
+var collapse_armed: bool = false  # 政權崩潰 (<5) arms only after population FIRST reaches 5
+                                  # (內亂與失敗.md); Unrest.regime_collapsed owns the arming
 var happiness: int = 70       # 0..100 (start: driver decision, docs/decisions.md)
 var culture: int = 0
 var tech: int = 0
@@ -75,6 +77,7 @@ func to_dict() -> Dictionary:
 		"generation": generation,
 		"era": Era.of(generation),
 		"population": population,
+		"collapse_armed": collapse_armed,
 		"happiness": happiness,
 		"culture": culture,
 		"tech": tech,

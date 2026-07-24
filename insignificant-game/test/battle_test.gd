@@ -315,6 +315,7 @@ func test_civil_war_psyops_discounts_regular_attack() -> void:
 
 func test_retreat_costs_and_returns_population() -> void:
 	var s := _state()
+	s.population = 12
 	Cards.starting_deck(s)
 	var battle := Battle.start(s, &"field_battle")
 	var report := Battle.retreat(s, battle)

@@ -69,7 +69,8 @@ var rng: SeededRng
 var generation: int            # 1..50
 var difficulty: StringName     # &"easy" | &"normal" | &"hard"
 # four axes + money
-var population: int            # start 12; <5 ⇒ regime collapse (only game over)
+var population: int            # start 0 (起始人口 0); <5 ⇒ regime collapse (only game over)
+var collapse_armed: bool       # the collapse check arms when population first reaches 5
 var happiness: int             # 0..100
 var culture: int
 var tech: int

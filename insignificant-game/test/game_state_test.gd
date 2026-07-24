@@ -5,7 +5,8 @@ extends GdUnitTestSuite
 func test_new_run_defaults() -> void:
 	var state := GameState.new_run(123)
 	assert_int(state.generation).is_equal(1)
-	assert_int(state.population).is_equal(12)
+	assert_int(state.population).is_equal(0)      # 起始人口 0 (營運.md)
+	assert_bool(state.collapse_armed).is_false()  # 政權崩潰 arms at first 人口 ≥ 5
 	assert_int(state.happiness).is_equal(70)
 	assert_int(state.treasury).is_equal(30)
 	assert_int(state.culture).is_equal(0)

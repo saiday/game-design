@@ -98,7 +98,10 @@ func test_riot_loss_removes_region_buildings_and_pop() -> void:
 
 func test_regime_collapse_threshold() -> void:
 	var s := _state()
+	s.population = 0
+	assert_bool(Unrest.regime_collapsed(s)).is_false()   # unarmed: 起始人口 0 is not a loss
 	s.population = 5
-	assert_bool(Unrest.regime_collapsed(s)).is_false()
+	assert_bool(Unrest.regime_collapsed(s)).is_false()   # first touch of 5 arms the check
+	assert_bool(s.collapse_armed).is_true()
 	s.population = 4
-	assert_bool(Unrest.regime_collapsed(s)).is_true()
+	assert_bool(Unrest.regime_collapsed(s)).is_true()    # armed: <5 is the game over

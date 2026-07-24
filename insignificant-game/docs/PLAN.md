@@ -66,12 +66,17 @@ every green wave.
       老兵 +1 lane level in the `*_of` accessors; 文化國 D16 = −10 accuracy next battle.
       `opening_hand_bonus`/`opening_slots_bonus` deleted. Gap decisions: decisions.md W13;
       conventions: implementation-notes.md.)*
-- [ ] **W13.5 — Starting-state sync (new task, raised in W11).** The corpus (wayfinder #12)
+- [x] **W13.5 — Starting-state sync (new task, raised in W11).** The corpus (wayfinder #12)
       now pins 起始人口 0 (營運.md) with the 政權崩潰 check arming only after 人口 first
       reaches 5 (內亂與失敗.md); code still starts at 12 with an always-armed check.
       `game_state.gd` defaults, `unrest.gd` arming flag, decisions.md W1 table update; the sim
       auto-player must learn the 解散-for-population opening or W14 runs starve. Gate: Part A
       green on `unrest_test` + defaults asserted; full-suite green folds into W14's gate.
+      *(done 2026-07-25: population starts 0, `collapse_armed` field arms lazily inside
+      `Unrest.regime_collapsed` at first 人口 ≥ 5 (sampled at the settle cadence); sim bot
+      got `_grow_population` — disband personnel deck-order-first while pop < 20 and the
+      deck exceeds the minimum. Six tests that leaned on the old default now set pop 12
+      explicitly. Full suite exit 0, 21/21, 223/223 — the W14 fold-in gate is already met.)*
 - [ ] **W12.5 — World war on the battle engine (new task, raised in W12; plan WW1–WW5).**
       `world_war.gd` still auto-resolves by the PoC power-sum contest. Rebuild it as the 7th
       playable battle type on the W12 engine: two camps, no neutral, per-camp exhaustion,

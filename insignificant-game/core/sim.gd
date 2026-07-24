@@ -6,6 +6,7 @@ extends RefCounted
 
 const SAFETY_CAP: int = 60
 const DEMOCRACY_ENTRY_GEN: int = 38
+const POP_COMFORT: int = 20   # disband-for-population target (base pop cap; tax ≈ 20/gen)
 
 const BUILD_ORDER: Array = [
 	[&"region", &"livelihood"], [&"building", &"housing"], [&"building", &"food"],
@@ -56,6 +57,7 @@ static func run(seed_value: int, difficulty: StringName = &"normal") -> Dictiona
 
 static func _operate(state: GameState) -> void:
 	var debt_floor: int = -30 * Era.coeff(state.generation)
+	_grow_population(state, debt_floor)
 	var progressed := true
 	while state.bp > 0 and progressed:
 		progressed = false
@@ -77,6 +79,23 @@ static func _operate(state: GameState) -> void:
 			progressed = _upgrade_something(state, debt_floor)
 	_unlock_cards(state)
 	Operations.end_operate_phase(state)
+
+
+static func _grow_population(state: GameState, debt_floor: int) -> void:
+	# 起始人口 0 opening (營運.md/卡牌.md 起始牌組): the population engine starts by
+	# disbanding personnel cards (+2 人口 each). Convert spare personnel (deck-order
+	# first; battle rewards keep replenishing the deck) while population is below
+	# comfort — Cards.disband itself guards the deck minimum.
+	while state.population < POP_COMFORT and state.deck.size() > Cards.DECK_MINIMUM:
+		if state.treasury - Cards.DISBAND_COST_BASE * Era.coeff(state.generation) < debt_floor:
+			return
+		var target: int = -1
+		for i: int in range(state.deck.size()):
+			if int(Cards.card((state.deck[i] as Cards.CardInstance).id)["disband_pop"]) > 0:
+				target = i
+				break
+		if target < 0 or not bool(Cards.disband(state, target)["ok"]):
+			return
 
 
 static func _invest_policy(state: GameState) -> bool:

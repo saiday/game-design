@@ -7,8 +7,9 @@ consequences also get an ADR in the repo root's `docs/adr/`.
 
 ## Starting values (W1)
 
-The corpus pins start population (12) but not start treasury, happiness, culture, or tech.
-Driver decisions:
+The corpus pins start population (0, 營運.md; the 政權崩潰 check arms only after 人口 first
+reaches 5, 內亂與失敗.md — synced in W13.5) but not start treasury, happiness, culture, or
+tech. Driver decisions:
 
 | Field | Start | Reasoning |
 |---|---|---|

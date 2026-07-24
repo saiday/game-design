@@ -48,7 +48,8 @@ func test_interest_ladder() -> void:
 
 
 func test_settle_tax_flows_into_treasury() -> void:
-	var s := _state()   # pop 12, treasury 30
+	var s := _state()   # treasury 30
+	s.population = 12
 	var report := Economy.settle(s)
 	assert_int(int(report["tax"])).is_equal(12)
 	assert_int(s.treasury).is_equal(42)
@@ -56,6 +57,7 @@ func test_settle_tax_flows_into_treasury() -> void:
 
 func test_settle_applies_production() -> void:
 	var s := _state()
+	s.population = 12
 	s.regions.append(&"finance")
 	s.regions.append(&"culture")
 	s.buildings[&"medical"] = 1
@@ -68,6 +70,7 @@ func test_settle_applies_production() -> void:
 
 func test_settle_debt_happiness_penalty() -> void:
 	var s := _state()
+	s.population = 12
 	s.treasury = -100
 	s.happiness = 70
 	Economy.settle(s)
