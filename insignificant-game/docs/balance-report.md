@@ -1,71 +1,85 @@
 # Balance report — v1 baseline knobs under simulation
 
-**Measured at:** 2026-07-16, post-W9 rules (includes 鎮壓的手段有代價, the −15 happiness cost for
-mechanical units in riot battles), 21 suites / 192 cases green. When rules or knobs change,
-re-run the batch and refresh this report (and this stamp) before comparing.
+**Measured at:** 2026-07-25, post-battle-model rewrite (W11–W13.5 + W12.5: rolled card
+instances with growth, wave/tick battles, played world wars, 起始人口 0) with the W14 tempo
+bot, 21 suites / 222 cases green. When rules or knobs change, re-run the batch and refresh
+this report (and this stamp) before comparing.
 
-Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), baseline bot
-(`core/sim.gd`: greedy builder, fights everything, concedes unrest when affordable, enters
-democracy at gen 38). Raw data: `reports/balance_batch.json`. These are **measurements and
-surfaced questions — balance calls stay with the PM.**
+Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), W14 bot
+(`core/sim.gd`: greedy builder; disbands personnel for population while pop < 20; routes all
+兵營 medals to its strongest unit; fields cheapest units to strength parity per boundary,
+personnel-first in riots; concedes unheld fields; enters democracy at gen 38). Raw data:
+`reports/balance_batch.json`. These are **measurements and surfaced questions — balance
+calls stay with the PM.**
 
-## Headline numbers
+## Headline numbers (mean over 20 runs; min–max where it matters)
 
-| Metric (mean over 20 runs) | easy | normal | hard |
+| Metric | easy | normal | hard |
 |---|---|---|---|
 | Endings | 20× survived | 20× survived | 20× survived |
-| Final rank distribution | mostly 1st | 1st–2nd | 2nd–4th |
-| Deepest debt touched | −140 | −180 | −330 |
-| Generations spent in debt | 5.8 | 7.4 | 9.3 |
-| Unrest battles triggered / run | 3.8 | 4.0 | 3.5 |
-| Final treasury (gen 50) | ~9060 | ~9080 | ~9290 |
-| Final happiness | 100 | 100 | 100 |
-| Buildings built (lifetime) | 10.9 | 10.9 | 12.2 |
-| Final escalation coefficient | 3.7 | 3.7 | 4.1 |
-| Policies completed | 10 | 10 | 9.2 |
-| Rivals alive at gen 50 | 1.9 | 1.8 | 1.7 |
+| Final rank (mean, range) | 1.2 (1–2) | 1.6 (1–4) | 2.6 (2–5) |
+| Collapse check armed | 20/20 | 20/20 | 20/20 |
+| Final population (from 起始 0) | 110 (86–127) | 110 (62–134) | 115 (48–167) |
+| World wars fought / won by player camp | 2 / 1.9 | 2 / 1.9 | 2 / 1.9 |
+| Medal levels on deck at gen 50 | 55 (11–81) | 54 (28–72) | 65 (6–94) |
+| 兵營 medals left unassigned | 0 | 0 | 0 |
+| Final happiness | 98 (63–100) | 95 (16–100) | 91 (28–100) |
+| Unrest battles triggered / run | 4.8 | 6.2 | 6.3 |
+| Deepest debt touched | −96 (to −381) | −130 (to −300) | −168 (to −553) |
+| Generations spent in debt | 6.7 | 10 | 10 |
+| Final treasury (gen 50) | ~9190 | ~9190 | ~9200 |
+| Buildings built (lifetime) | 10.8 | 11.8 | 10.9 |
+| Policies completed | 9.3 | 9.1 | 9.0 |
+| Deck size | 13.4 | 12.9 | 12.6 |
+| Rivals alive at gen 50 | 1.6 | 1.9 | 1.6 |
 
 ## The three sensitive knobs
 
-1. **BP curve** — behaves as designed. Tribal era locks policy out (BP=1, keep-1-free rule);
-   from classical on, the era caps (3/3/4/5/5) bind long before `pop/10` does (population
-   passes 50 by mid-game). Policy budget lands at ~10 completed nodes ≈ 45–55 BP — exactly
-   the corpus's "two mid-price terminals" estimate. **No change suggested.**
-2. **Escalating cost 0.25** — bites in the intended window. Debt generations cluster in
-   classical/faith exactly when the coefficient crosses ~2×; by industrial the brake is
-   irrelevant because all 12 lines are built (~11 lifetime builds). The knob works early but
-   **runs out of things to price** — see money finding below.
-3. **Unrest weights** — the chain threatens but never kills: 3.5–3.9 triggers per run, all
-   absorbed by concession/martial-law/winnable riots; **zero collapses in 60 runs**. The
-   corpus target is "a run tolerates 1–2 unrest LOSSES" — the baseline bot never loses one.
-   Either the v1 floor is safe-by-design (fine for a survival fantasy) or too safe (the only
-   death never shows its teeth). *PM call.*
+1. **BP curve** — unchanged behavior: era caps bind before `pop/10` once population passes
+   ~50; ~9 policy nodes complete per run. The 起始人口 0 opening does NOT starve BP: the
+   floor-1 rule plus the disband engine reaches double-digit population inside the tribal
+   era. **No change suggested.**
+2. **Escalating cost 0.25** — same window as before (debt clusters classical/faith); the
+   rewrite didn't move it. Still runs out of things to price by industrial.
+3. **Unrest weights** — triggers rose (4.8–6.3/run vs 3.5–4.0 pre-rewrite) because
+   happiness now actually moves (below), yet **zero collapses in 60 runs** and every run
+   arms the pop ≥ 5 check. The 內亂 chain threatens more often and still never kills. *PM
+   call whether "survival fantasy, rarely lethal" is the intent.*
 
-## Surfaced imbalances (measurements, not decisions)
+## New-model findings (first measurement of the rewritten battle layer)
 
-- **Late-game money has no sink.** Final treasury ≈ 9,000 on every difficulty. The three
-  designed caps (escalating cost + interest + capital-gains cap) all stop mattering once
-  the 12 building lines are full and democracy halts BP: the last ~12 generations are pure
-  accumulation (democracy auto-explore + candidate income + reparations). If gen-50 wealth
-  should mean something, the design needs a late sink or the ranking should weigh it.
-- **Happiness pegs at 100 in every run.** Medical + arts + legacy passives yield +4–5/gen
-  against almost no recurring drains (debt −5 pre-國債司, a few event hits). Above 70 the
-  good-draw bonus compounds the snowball. The <60 unrest entrance is effectively
-  unreachable for any player who builds the two obvious lines. W9's suppression cost does not
-  move the endpoint for the baseline bot (final happiness 100 in all 60 post-W9 runs): any −15
-  hits are transient and re-climbed. A happiness *time-series* (not just the endpoint) would
-  show whether the rule bites mid-run.
-- **Rival churn is high.** ~3 of 5 rivals die (two-defeat exit or annex) per run because
-  every injected civil war is fought and usually won; WW at 15/35 then has thin camps.
-  If the "five great powers" fantasy should hold to gen 50, exit conditions may be too easy
-  to trip from the player side.
-- **隱藏災難 mitigation is a money wash** (endure −25×係數 vs pay 15×係數 + take 10×係數) —
-  already flagged in docs/decisions.md (W2 gaps).
-- **Difficulty channels work**: hard triples debt depth, drops final rank to 2nd–4th, and
-  costs ~1 policy node — without killing anyone. Slopes look usable as v1.
+- **The player's camp wins ~95% of world wars** (114 of 120 fought). Real veterans + medal
+  growth against baseline 正規軍, plus the bounded catch-up, make the shared table strongly
+  player-favored; reparations then feed the money pile. If WW2 at gen 35 should be "a
+  harder wall" (design anchor), the 正規軍 sizing knobs (P×0.5, 2 waves, 60/40) are the
+  levers to revisit — structure supports it, values don't yet bite.
+- **Growth is highly active**: 54–65 medal levels on a ~13-card deck by gen 50, and the bot
+  banks nothing (兵營 stock always spent). The design's standing flag — attack speed is
+  uncapped and lane-routed to every melee carry — is now live in numbers; per-stat level
+  telemetry (which lanes those levels sit on) is a cheap next instrument if the PM wants to
+  see the 攻速 runaway before v1 numbers ship.
+- **Happiness finally moves.** Pre-rewrite it pegged at 100 in all 60 runs; now means are
+  91–98 with minima of 16 (normal) and 28 (hard) — riot suppression costs plus heavier
+  unrest cadence bite mid-run. The <60 penalty zone is reachable in real runs for the first
+  time.
+- **起始人口 0 works as designed**: every run crosses the arming threshold, no run ends
+  anywhere near pop < 5 (minima 48–86 at gen 50). The 解散-for-population opening is
+  load-bearing — a bot that never disbands would sit at pop ≈ building output only.
+
+## Standing imbalances (unchanged from the pre-rewrite report)
+
+- **Late-game money still has no sink** (~9,200 final treasury on every difficulty; WW
+  reparations now add to it). If gen-50 wealth should mean something, the design needs a
+  late sink or the ranking should weigh it.
+- **Rival churn is high**: ~3 of 5 rivals die per run; WW camps are thin by gen 35.
+- **隱藏災難 mitigation is a money wash** — flagged in docs/decisions.md (W2 gaps).
+- **Difficulty channels work**: hard roughly doubles debt depth, drops mean rank to 2.6,
+  and costs ~0.3 policy nodes. Slopes remain usable as v1.
 
 ## Caveats
 
-The bot is one archetype (balanced builder). It never rushes military, never stays out of
-democracy, never plays skill cards, never uses psyops. Extreme-archetype bots (all-military,
-all-culture, debt-max) would stress different edges — cheap follow-up if wanted.
+The bot is one archetype (balanced builder, strength-parity fielder). It never rushes
+military, never plays skill or fortification cards, never uses psyops, and always accepts
+first-seen rewards. Extreme-archetype bots (all-military, all-culture, debt-max,
+never-disband) would stress different edges — cheap follow-up if wanted. Medal telemetry is
+total levels only; per-stat/per-lane splits are not yet instrumented.

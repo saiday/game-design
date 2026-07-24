@@ -33,6 +33,14 @@ func _summarize(result: Dictionary, seed_value: int, difficulty: StringName) -> 
 		var era: StringName = snapshot["era"]
 		if not bp_by_era.has(era):
 			bp_by_era[era] = 0
+	var medal_levels: int = 0
+	for instance: Cards.CardInstance in state.deck:
+		for stat: StringName in instance.levels.keys():
+			medal_levels += int(instance.levels[stat])
+	var ww_wins: int = 0
+	for ww: Dictionary in state.ww_results:
+		if bool(ww.get("player_won", false)):
+			ww_wins += 1
 	return {
 		"seed": seed_value,
 		"difficulty": String(difficulty),
@@ -40,6 +48,11 @@ func _summarize(result: Dictionary, seed_value: int, difficulty: StringName) -> 
 		"rank": int(ending.get("rank", 0)),
 		"generations": int(result["generations"]),
 		"final_population": state.population,
+		"collapse_armed": state.collapse_armed,
+		"medals_unassigned": state.medals,
+		"medal_levels_on_deck": medal_levels,
+		"ww_fought": state.ww_results.size(),
+		"ww_player_wins": ww_wins,
 		"final_treasury": state.treasury,
 		"final_culture": state.culture,
 		"final_tech": state.tech,

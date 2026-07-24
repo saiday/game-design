@@ -186,6 +186,15 @@
   unarmed run can never collapse, so seeds where the bot keeps pop < 5 forever are
   immortal-by-rule — the balance batch should report pop trajectories and how many runs
   never arm the check.
+- **W14 (sim + balance): done 2026-07-25.** Files: `core/sim.gd` (tempo bot:
+  `_drive_battle` fields cheapest units to 攻+血 parity per boundary, personnel-first in
+  riots via `_pick_deploy`; `_spend_medals` routes the 兵營 stock to the strongest unit
+  card), `tools/balance_batch.gd` (new telemetry: collapse_armed, medal counts, WW
+  fought/won), `docs/balance-report.md` (rewritten from the 60-run batch). Gate met: full
+  suite exit 0, 21/21, 222/222, determinism green. The report's PM-facing headline: WW
+  sizing knobs don't yet produce the designed gen-35 wall (player camp wins ~95%), and
+  per-lane medal telemetry is the next cheap instrument for the 攻速-runaway flag. Bot
+  still never plays skills/forts/psyops (report caveats).
 - **W12.5 (world war on the battle engine): done 2026-07-25.** Files: `core/world_war.gd`
   (rewritten: composer + settlement, power-sum contest deleted), `core/battle.gd` (side/
   faction split, prepared waves, per-side pending-wave exhaustion, uncapped rounds,

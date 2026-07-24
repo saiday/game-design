@@ -91,10 +91,16 @@ every green wave.
       reparations keep the PoC math with exact pool conservation. Sim fights both world
       wars for real (concede guard added for uncapped termination). Gap decisions:
       decisions.md W12.5; conventions: implementation-notes.md.)*
-- [ ] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
+- [x] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
       back to exit 0, balance batch recalibrated. Gate: Part A exit 0 all suites executed;
       `test_determinism_same_seed_same_run` green; findings surfaced to PM in
       `docs/balance-report.md` (measure, don't tune to taste).
+      *(done 2026-07-25: tempo bot — strength-parity fielding, personnel-first riots,
+      medal routing to the strongest unit, disband-for-population opening, concede guard;
+      batch re-run 60 runs and balance-report.md rewritten. Full suite exit 0, 21/21,
+      222/222 with determinism green. Headline measurements: player camp wins ~95% of
+      world wars (WW2-wall knobs don't bite yet), happiness finally moves (min 16 on
+      normal), 0 collapses with every run arming the check, money pile unchanged ~9200.)*
 - [ ] **W15 — Three-scene view revamp (style bible §11 + corpus 場景呈現; was W10).** Operations
       city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
       focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route fog-map

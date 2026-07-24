@@ -58,6 +58,7 @@ static func run(seed_value: int, difficulty: StringName = &"normal") -> Dictiona
 static func _operate(state: GameState) -> void:
 	var debt_floor: int = -30 * Era.coeff(state.generation)
 	_grow_population(state, debt_floor)
+	_spend_medals(state)
 	var progressed := true
 	while state.bp > 0 and progressed:
 		progressed = false
@@ -95,6 +96,24 @@ static func _grow_population(state: GameState, debt_floor: int) -> void:
 				target = i
 				break
 		if target < 0 or not bool(Cards.disband(state, target)["ok"]):
+			return
+
+
+static func _spend_medals(state: GameState) -> void:
+	# D14: the bot routes the whole 兵營 stock to its strongest unit card (max 攻+血,
+	# ties to deck order) — a deterministic "carry" pick; the stat routes by lane.
+	while state.medals > 0:
+		var best: int = -1
+		var best_strength: int = -1
+		for i: int in range(state.deck.size()):
+			var instance: Cards.CardInstance = state.deck[i]
+			if Cards.lane_stat(instance.id) == &"":
+				continue
+			var strength: int = Cards.attack_of(instance) + Cards.hp_of(instance)
+			if strength > best_strength:
+				best_strength = strength
+				best = i
+		if best < 0 or not bool(Operations.assign_medal(state, best)["ok"]):
 			return
 
 
@@ -193,33 +212,55 @@ static func _world_war(state: GameState) -> void:
 
 
 static func _drive_battle(state: GameState, battle: Battle.BattleField) -> void:
-	# Each boundary: field cheapest unit cards until we outnumber the visible enemy field
-	# by one. If the bot won't hold the field (broke, or out of units) while enemies stand,
-	# it concedes — without this, an uncapped battle (world war) could never terminate.
+	# Tempo policy (最小軍費 as a strength race): each boundary, field the cheapest unit
+	# cards until our fielded 攻+血 matches the enemy's — no more (waves may stack later,
+	# but survivors persist and rewards don't scale with overspend). In riots, personnel
+	# first: any mechanical deploy costs 幸福 −15 (鎮壓的手段有代價). If the bot won't hold
+	# the field while enemies stand, it concedes — mandatory for uncapped battles (WW).
 	var spend_floor: int = -50 * Era.coeff(state.generation)
 	while battle.outcome == &"":
 		var deployed_any := false
 		var played := true
-		while played and battle.player_units.size() < battle.enemy_units.size() + 1:
+		while played and _fielded_strength(battle.player_units) < _fielded_strength(battle.enemy_units):
 			played = false
-			var cheapest: int = -1
-			var cheapest_cost: int = 1 << 30
-			for i: int in range(battle.available.size()):
-				var instance: Cards.CardInstance = battle.available[i]
-				var cls: StringName = Cards.card(instance.id)["class"]
-				if cls == &"skill" or cls == &"fortification":
-					continue   # bot keeps it simple: units only
-				var cost: int = Battle.card_cost(state, battle, instance)
-				if cost < cheapest_cost:
-					cheapest_cost = cost
-					cheapest = i
-			if cheapest >= 0 and state.treasury - cheapest_cost >= spend_floor:
-				played = bool(Battle.deploy(state, battle, cheapest)["ok"])
+			var pick: int = _pick_deploy(state, battle, true) if battle.battle_type == &"riot" \
+					else _pick_deploy(state, battle, false)
+			if pick >= 0 and state.treasury - Battle.card_cost(state, battle, battle.available[pick]) >= spend_floor:
+				played = bool(Battle.deploy(state, battle, pick)["ok"])
 				deployed_any = deployed_any or played
 		if battle.player_units.is_empty() and not battle.enemy_units.is_empty() \
 				and not deployed_any and not battle.conceded:
 			Battle.concede(battle)   # nothing fieldable against a standing enemy: give up
 		Battle.end_round(state, battle)
+
+
+static func _fielded_strength(units: Array[Dictionary]) -> int:
+	var total: int = 0
+	for unit: Dictionary in units:
+		if int(unit["hp"]) > 0:
+			total += int(unit["attack"]) + int(unit["hp"])
+	return total
+
+
+static func _pick_deploy(state: GameState, battle: Battle.BattleField, personnel_only: bool) -> int:
+	# Cheapest deployable unit card; personnel_only pass falls back to any unit when no
+	# personnel remain (a riot the bot can't win with people is still worth machines).
+	var cheapest: int = -1
+	var cheapest_cost: int = 1 << 30
+	for i: int in range(battle.available.size()):
+		var instance: Cards.CardInstance = battle.available[i]
+		var cls: StringName = Cards.card(instance.id)["class"]
+		if cls == &"skill" or cls == &"fortification":
+			continue   # bot keeps it simple: units only
+		if personnel_only and cls != &"personnel":
+			continue
+		var cost: int = Battle.card_cost(state, battle, instance)
+		if cost < cheapest_cost:
+			cheapest_cost = cost
+			cheapest = i
+	if cheapest < 0 and personnel_only:
+		return _pick_deploy(state, battle, false)
+	return cheapest
 
 
 static func _take_reward(state: GameState, finish: Dictionary) -> void:
