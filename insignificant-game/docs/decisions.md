@@ -101,3 +101,15 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | 兵營 medal stock lifetime (產出勳章, no expiry rule) | Unassigned medals bank without cap or expiry; production lands at generation start (Turn.begin_generation) so the medal is assignable in the same operate phase | operations.gd, game_state.gd `medals` |
 | 民主後 auto-assign default target (卡牌.md marks the rule itself a calibration item) | Deck-order-first unit card takes the whole stock (deterministic, no rng) | operations.gd `auto_assign_medals` |
 | 文化國 debuff magnitude (D16; 威脅 極低＝nuisance) | −10 accuracy percentage points, floored at 0, next battle only; 傳播線 心戰效果增強 stays outgoing-only per 營運.md | data/rivals.gd `ENEMY_PSYOPS_ACCURACY_DEBUFF` |
+
+## W12.5 gaps: world war on the battle engine
+
+| Gap | Decision | Where |
+|---|---|---|
+| 出場序 → concrete rounds (世界大戰.md pins the interleave order, not arrival timing) | Per camp: civs sort by 卡池張數 desc (tie: class id), each contributes wave 1 then wave 2 in that order; the camp queue's k-th wave arrives round k+1; player-camp arrivals precede enemy-camp within a round | world_war.gd `_build_waves`, battle.gd prepared-wave sort |
+| Per-civ budget split across its 2 waves (波數上限 2 pinned, split isn't) | P×0.5 total (same conversion as 文明戰爭), 60/40 heavier-first | world_war.gd `WAVE_SHARES` |
+| A civ too weak for any 正規軍 unit | Fields one weakest regular in its first wave (mirrors the 文明戰爭 guard) | world_war.gd |
+| Psyops discount vs camp membership (對手文明: 「世界大戰同桌時它的單位」, camp unspecified) | A discounted civ's 正規軍 fight discounted wherever they appear — allied camp included (you weakened them; now they're your weak ally) | battle.gd `_regular_unit` |
+| 最後一擊 when the losing camp's last unit wasn't cleared by a winner (e.g. player concedes with enemies standing) | Falls back to the winning camp's highest real 戰功 civ | world_war.gd `_top_merit` |
+| Pool distribution rounding (守恆: 發出去的正好等於池) | Floor-rounded shares; the remainder (and the 20% bonus) goes to the last hitter — payouts sum to the pool exactly | world_war.gd `finish` |
+| Faction tag in 文明戰爭 (WW5 pins civ tags for the shared table only) | Single-rival battles keep `&"enemy"`; civ-id faction tags appear only in 世界大戰 units | battle.gd |

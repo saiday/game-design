@@ -77,12 +77,20 @@ every green wave.
       got `_grow_population` — disband personnel deck-order-first while pop < 20 and the
       deck exceeds the minimum. Six tests that leaned on the old default now set pop 12
       explicitly. Full suite exit 0, 21/21, 223/223 — the W14 fold-in gate is already met.)*
-- [ ] **W12.5 — World war on the battle engine (new task, raised in W12; plan WW1–WW5).**
+- [x] **W12.5 — World war on the battle engine (new task, raised in W12; plan WW1–WW5).**
       `world_war.gd` still auto-resolves by the PoC power-sum contest. Rebuild it as the 7th
       playable battle type on the W12 engine: two camps, no neutral, per-camp exhaustion,
       卡池張數-sequenced interleaved waves of 正規軍, per-civ faction tags feeding real-clear
       戰功, reparations math unchanged. Must land before W14 (it reshapes balance).
       Gate: Part A green on rewritten `world_war_test` + `battle_test`.
+      *(done 2026-07-25: full suite exit 0 — 21/21 suites, 222/222 cases. world_war.gd is
+      now composer + settlement (WorldWar.start → deploy/end_round loop → WorldWar.finish);
+      the power-sum roll and player_neutral are gone. Engine grew the side/faction split
+      (side = camp array, faction = 戰功 tag), prepared two-camp wave schedules, per-side
+      pending-wave exhaustion, uncapped rounds (cap 0), and real-clear merit bookkeeping;
+      reparations keep the PoC math with exact pool conservation. Sim fights both world
+      wars for real (concede guard added for uncapped termination). Gap decisions:
+      decisions.md W12.5; conventions: implementation-notes.md.)*
 - [ ] **W14 — Sim + balance.** `sim.gd::_fight()` rewrite (must auto-resolve headless), full suite
       back to exit 0, balance batch recalibrated. Gate: Part A exit 0 all suites executed;
       `test_determinism_same_seed_same_run` green; findings surfaced to PM in

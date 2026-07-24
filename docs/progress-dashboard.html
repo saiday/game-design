@@ -65,8 +65,8 @@
 
   <h2>Core build (production waves)</h2>
   <div class="tiles">
-    <div class="tile"><div class="n">15 / 18</div><div class="l">waves closed (W0–W13 + W13.5; W12.5 next)</div></div>
-    <div class="tile"><div class="n">223 / 223</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
+    <div class="tile"><div class="n">16 / 18</div><div class="l">waves closed (W0–W13.5 incl. W12.5; W14 next)</div></div>
+    <div class="tile"><div class="n">222 / 222</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
   </div>
@@ -82,7 +82,7 @@
     <tr><td>W12</td><td>Battle model — wave schedule, tick loop, timeline emission (hand removed)</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-24: battle_test 22 cases green incl. same-seed identical-timeline assert; hand deleted, tick engine + waves + exhaustion + survivor persistence live; Part B down until W15 (view parse-broken by plan)</span></td></tr>
     <tr><td>W12.5</td><td>World war on the battle engine — two camps, interleaved 正規軍 waves, real-clear 戰功 (raised in W12; must land before W14)</td>
-        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+        <td><span class="status done"><span class="dot done"></span>closed 2026-07-25: the 7th playable battle type; power-sum contest deleted, per-camp exhaustion decides the war, reparations conserve exactly; sim fights both world wars for real; suite 222/222 exit 0</span></td></tr>
     <tr><td>W13</td><td>Growth — per-stat XP, 勳章, veterancy rewire</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-25: both medal sources live (battle XP with timeline events, 兵營 produce/assign), 軍事區 老兵 in the stat accessors, 文化國 accuracy debuff; full suite 223/223 exit 0</span></td></tr>
     <tr><td>W13.5</td><td>Starting-state sync — 起始人口 0, collapse check arms at first 人口 ≥ 5 (raised in W11)</td>
@@ -125,7 +125,7 @@
         <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED, W11 gate open; #17 (民主 貴族資金 40/60 split) closed, no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-07-25 (W13 growth + W13.5 starting-state sync closed, full suite 223/223 exit 0; next: W12.5 world war on the battle engine) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-07-25 (W13 + W13.5 + W12.5 all closed, full suite 222/222 exit 0; next: W14 sim + balance recalibration) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>

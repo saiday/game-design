@@ -32,7 +32,7 @@ static func run(seed_value: int, difficulty: StringName = &"normal") -> Dictiona
 	while true:
 		var begin := Turn.begin_generation(state)
 		if begin.has("world_war"):
-			Turn.run_world_war(state)
+			_world_war(state)
 		elif begin.has("democracy"):
 			Democracy.generation_step(state)
 		else:
@@ -176,12 +176,29 @@ static func _opportunity_choice(state: GameState, opportunity: StringName) -> St
 
 static func _fight(state: GameState, battle: Battle.BattleField) -> void:
 	# Minimal W12 policy (no hand: any unplayed card, 軍費-gated by bot prudence only —
-	# W14 owns the real tempo-aware auto-player): each boundary, field cheapest unit cards
-	# until we outnumber the visible enemy field by one.
+	# W14 owns the real tempo-aware auto-player).
 	if Battle.can_defect(state, battle):
 		Battle.defect(state, battle)
+	_drive_battle(state, battle)
+	_take_reward(state, Battle.finish(state, battle))
+
+
+static func _world_war(state: GameState) -> void:
+	# 世界大戰 is the same drive loop on the shared table: the bot deploys only its own
+	# cards (allies auto-fight); no defect, no retreat (不可撤軍); WorldWar.finish settles
+	# camps/reparations and issues the reward card.
+	var battle := WorldWar.start(state)
+	_drive_battle(state, battle)
+	_take_reward(state, WorldWar.finish(state, battle))
+
+
+static func _drive_battle(state: GameState, battle: Battle.BattleField) -> void:
+	# Each boundary: field cheapest unit cards until we outnumber the visible enemy field
+	# by one. If the bot won't hold the field (broke, or out of units) while enemies stand,
+	# it concedes — without this, an uncapped battle (world war) could never terminate.
 	var spend_floor: int = -50 * Era.coeff(state.generation)
 	while battle.outcome == &"":
+		var deployed_any := false
 		var played := true
 		while played and battle.player_units.size() < battle.enemy_units.size() + 1:
 			played = false
@@ -198,8 +215,14 @@ static func _fight(state: GameState, battle: Battle.BattleField) -> void:
 					cheapest = i
 			if cheapest >= 0 and state.treasury - cheapest_cost >= spend_floor:
 				played = bool(Battle.deploy(state, battle, cheapest)["ok"])
+				deployed_any = deployed_any or played
+		if battle.player_units.is_empty() and not battle.enemy_units.is_empty() \
+				and not deployed_any and not battle.conceded:
+			Battle.concede(battle)   # nothing fieldable against a standing enemy: give up
 		Battle.end_round(state, battle)
-	var finish := Battle.finish(state, battle)
+
+
+static func _take_reward(state: GameState, finish: Dictionary) -> void:
 	if finish.has("reward_instance"):
 		var reward: Cards.CardInstance = finish["reward_instance"]
 		var duplicate := false

@@ -81,6 +81,5 @@ static func settle(state: GameState) -> Dictionary:
 	report["ending"] = Ending.check(state)
 	return report
 
-
-static func run_world_war(state: GameState, player_neutral: bool = false) -> Dictionary:
-	return WorldWar.run(state, player_neutral)
+# World war (15/35): a played shared-table battle — the caller drives it like any other
+# battle: WorldWar.start(state) -> Battle.deploy/end_round loop -> WorldWar.finish.

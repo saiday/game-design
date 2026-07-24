@@ -51,11 +51,13 @@
 
 ### W12 — battle model
 
-- **Unit dict schema** (the shape battle emits, W13 grows, W15 renders):
-  `{card_id, grade, regular, faction, attack, hp, strength, row, flags, accuracy, dodge,
-  speed, progress, instance}`. `strength` = merit value (base 攻+血 ×係數, pre-difficulty);
-  `instance` = the player's `CardInstance` (null for every enemy); `faction` is the 戰功
-  attribution tag (&"player"/&"enemy" today, civ ids when 世界大戰 lands on this engine).
+- **Unit dict schema** (the shape battle emits and W15 renders):
+  `{card_id, grade, regular, side, faction, attack, hp, strength, row, flags, accuracy,
+  dodge, speed, progress, instance}`. `strength` = merit value (base 攻+血 ×係數,
+  pre-difficulty); `instance` = the player's `CardInstance` (null for every enemy and ally).
+  **`side` is structural** (which camp array the unit fights in — targeting, XP, plunder all
+  key off it); **`faction` is the 戰功 attribution tag** (&"player"/&"enemy" in the six fixed
+  types; owning-civ ids on 世界大戰 正規軍, W12.5). Never derive one from the other.
 - **Event schema** (the timeline the view replays): Dictionaries
   `{tick, type: &"absorb"|&"demolish"|&"repair"|&"miss"|&"dodge"|&"hit"|&"death", ...}` with
   unit labels = `card_id` (player/正規軍) or grade (非正規軍). W13 adds `&"medal"` events.
@@ -97,6 +99,28 @@
   generations included). Assignment: `Operations.assign_medal(state, deck_index)` (operate
   phase, player verb), `Operations.auto_assign_medals` (民主後; WW-override generations skip
   assignment entirely). Report keys: `medals_produced` / `medals_auto_assigned`.
+
+### W12.5 — world war on the battle engine
+
+- **The war is a driven battle, same shape as every other:** `WorldWar.start(state)` returns
+  a `BattleField` (camps stashed on `battle.camps`); the caller runs the ordinary
+  `Battle.deploy`/`end_round` loop; `WorldWar.finish(state, battle)` settles reparations and
+  itself calls `Battle.finish` (so the 戰後獎勵卡 comes through the WW report's
+  `reward_instance`). Never call `Battle.finish` separately for a world war.
+- **Prepared waves:** `Battle.start(..., prepared_waves)` bypasses the roll; wave entries
+  are `{round, units, side}` for ALL battle types (the six fixed types always side
+  &"enemy"). `_arrive_waves` routes by side; exhaustion counts pending waves per side —
+  allied arrivals keep the player camp un-exhausted even with an empty field and no cards.
+- **`round_cap` 0 means uncapped** (世界大戰: 波數上限 throttles instead; watch mode grinds
+  to camp exhaustion). Any cap check must guard `round_cap > 0`.
+- **戰功 bookkeeping lives on every battle:** `merit_by_faction` (clearer's faction →
+  Σ strength) and `last_clear_by_side` update on every death; only WorldWar reads them
+  today, but the fields are populated for all types (battle.merit stays the player's own
+  tally and 掠奪 keys off attacker side).
+- **Sim termination rule:** `Sim._drive_battle` concedes when the bot's field is empty
+  against a standing enemy and it deployed nothing this boundary — mandatory for uncapped
+  battles; harmless (an earlier honest loss) for capped ones. `Turn.run_world_war` is
+  deleted; `view/main.gd`'s stale call is part of the known W15 debt.
 
 ## Deviations (conservative calls made mid-wave; revisit out loud, not silently)
 
@@ -162,3 +186,14 @@
   unarmed run can never collapse, so seeds where the bot keeps pop < 5 forever are
   immortal-by-rule — the balance batch should report pop trajectories and how many runs
   never arm the check.
+- **W12.5 (world war on the battle engine): done 2026-07-25.** Files: `core/world_war.gd`
+  (rewritten: composer + settlement, power-sum contest deleted), `core/battle.gd` (side/
+  faction split, prepared waves, per-side pending-wave exhaustion, uncapped rounds,
+  merit_by_faction/last_clear_by_side), `core/turn.gd` (run_world_war deleted),
+  `core/sim.gd` (_drive_battle/_world_war/_take_reward refactor + concede guard),
+  `test/world_war_test.gd` (rewritten, 6 cases). Gate met: world_war_test + battle_test
+  green, full suite **exit 0, 21/21 suites, 222/222 cases**; sim runs now fight both world
+  wars for real and stay deterministic. Handoff to W14: the war reshapes mid/late-game
+  money (reparations pools are real now) — rerun the balance batch; the bot's outnumber-
+  by-one deploy rule is naive on a multi-civ table (allies count as its units). W15: the
+  battle scene needs faction color/banner markers keyed off `faction` (WW5, no new art).

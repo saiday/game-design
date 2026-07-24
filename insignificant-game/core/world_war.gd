@@ -1,14 +1,22 @@
 class_name WorldWar
 extends RefCounted
-# 世界大戰 (design/世界大戰.md): generations 15/35, whole-generation override, two camps
-# from the relations ledger, reparations max(正國庫×50%, power×2) chargeable into negative.
+# 世界大戰 (design/世界大戰.md): generations 15/35, whole-generation override. The 7th
+# PLAYABLE battle type (WW1-WW5): every living civ (player included) lands in exactly two
+# camps — no neutral — and fights one shared-table battle on Battle's wave/tick engine.
+# Camp victory is exhaustion (D3 per camp); power only sizes each civ's 正規軍, it never
+# rolls the outcome. The player deploys their own deck (軍費-gated) while every ally and
+# enemy 正規軍 auto-fights; 撤軍 is disabled (callers never offer it).
+# 戰功 = each civ's actual battlefield clears (Battle.merit_by_faction); reparations
+# max(正國庫×50%, power×2) per losing civ, last-hit 20% + 80% pro-rata, exact conservation.
 #
-# PoC simplification (documented in doc): the common-table card battle is resolved as
-# an automated strength contest — camps/turn-order/merit/last-hit/reparations math is
-# faithful; individual card plays are not simulated. Player merit share uses player power.
+# Flow: start(state) -> BattleField (drive with Battle.deploy/end_round like any battle)
+# -> finish(state, battle) applies the war's economy/system consequences.
 
 const AI_LOSER_POWER_HIT: float = 0.9
 const LAST_HIT_BONUS: float = 0.20
+const WAVES_PER_CIV: int = 2                       # 波數上限 (v1 基準; throttles the uncapped war)
+const WAVE_SHARES: Array[float] = [0.6, 0.4]       # per-civ budget split, heavier first
+const BUDGET_PER_POWER: float = 0.5                # 總實力 ≈ P×0.5 (same conversion as 文明戰爭)
 
 
 static func is_ww_generation(state: GameState) -> bool:
@@ -16,7 +24,8 @@ static func is_ww_generation(state: GameState) -> bool:
 
 
 static func form_camps(state: GameState) -> Dictionary:
-	# 與你開戰過的在對面; others balance by power proximity; 零衝突 may stay neutral.
+	# 分營 (WW2): 與你開戰過的在對面; the rest balance the totals; NO neutral — every
+	# living civ (player included) is in exactly one camp.
 	var player_camp: Array[StringName] = [&"player"]
 	var enemy_camp: Array[StringName] = []
 	var unaligned: Array[Rivals.RivalState] = []
@@ -39,27 +48,25 @@ static func card_count(power: float) -> int:
 	return int(ceil(power / 10.0))
 
 
-static func run(state: GameState, player_neutral: bool = false) -> Dictionary:
-	# Whole-generation override: no operate, no route; policy frozen (Policy checks the
-	# generation itself). Returns the full ledger for UI/telemetry.
+static func start(state: GameState) -> Battle.BattleField:
+	# Composes the two-camp wave schedule (WW4) and opens the shared-table battle.
 	var camps := form_camps(state)
-	var player_camp: Array[StringName] = camps["player_camp"]
-	var enemy_camp: Array[StringName] = camps["enemy_camp"]
-	var player_warred: bool = false
-	for rival: Rivals.RivalState in Rivals.living(state):
-		player_warred = player_warred or rival.warred_this_window
-	if player_neutral and player_warred:
-		player_neutral = false   # 零衝突的文明才可中立
-	if player_neutral:
-		player_camp.erase(&"player")
-	var player_power: float = float(Rivals.player_power(state))
-	var side_a: float = _camp_power(state, player_camp)
-	var side_b: float = _camp_power(state, enemy_camp)
-	# strength contest with a bounded random factor (±15%) on the &"rivals" track
-	var roll: float = 0.85 + 0.30 * state.rng.randf(&"rivals")
-	var a_wins: bool = side_a * roll >= side_b
-	var winners: Array[StringName] = player_camp if a_wins else enemy_camp
-	var losers: Array[StringName] = enemy_camp if a_wins else player_camp
+	var waves := _build_waves(state, camps)
+	var battle := Battle.start(state, &"world_war", &"", false, false, waves)
+	battle.camps = camps
+	return battle
+
+
+static func finish(state: GameState, battle: Battle.BattleField) -> Dictionary:
+	# Settle the war from the battle outcome (WW1: the battle decides; no roll).
+	# Reparations math is the PoC math unchanged; 戰功 is now real battlefield clears (WW5).
+	var battle_report := Battle.finish(state, battle)   # 戰後獎勵卡 issues here too
+	var player_camp: Array[StringName] = battle.camps["player_camp"]
+	var enemy_camp: Array[StringName] = battle.camps["enemy_camp"]
+	var player_won: bool = battle.outcome == &"win"
+	var winners: Array[StringName] = player_camp if player_won else enemy_camp
+	var losers: Array[StringName] = enemy_camp if player_won else player_camp
+	var losing_side: StringName = &"enemy" if player_won else &"player"
 	# reparations per loser: max(正國庫×50%, power×2), charged even into negative
 	var pool: int = 0
 	var reparations: Dictionary = {}
@@ -67,8 +74,8 @@ static func run(state: GameState, player_neutral: bool = false) -> Dictionary:
 		var amount: int = 0
 		if civ_id == &"player":
 			@warning_ignore("integer_division")
-			amount = maxi(maxi(state.treasury, 0) / 2, int(player_power * 2.0))
-			state.treasury -= amount
+			amount = maxi(maxi(state.treasury, 0) / 2, int(float(Rivals.player_power(state)) * 2.0))
+			state.treasury -= amount   # 可扣到負 → 債務難度; 不因此直接輸
 		else:
 			var rival := Rivals.find(state, civ_id)
 			@warning_ignore("integer_division")
@@ -76,31 +83,75 @@ static func run(state: GameState, player_neutral: bool = false) -> Dictionary:
 			rival.power *= AI_LOSER_POWER_HIT   # 扣賠款同步壓其 power −10%
 		reparations[civ_id] = amount
 		pool += amount
-	# merit pro-rata (share of camp power) + last-hit 20% bonus to the strongest winner
-	var payouts: Dictionary = {}
-	var winner_power_total: float = _camp_power(state, winners)
-	var last_hitter: StringName = _strongest(state, winners)
+	# 最後一擊: whoever cleared the losing camp's last on-field unit takes 20% first;
+	# the remaining 80% splits pro-rata by real 戰功; rounding remainder goes to the
+	# last hitter so 發出去的正好等於池 (守恆, exact — docs/decisions.md W12.5).
+	var last_hitter: StringName = battle.last_clear_by_side[losing_side]
+	if not winners.has(last_hitter):
+		last_hitter = _top_merit(battle, winners)
 	var bonus: int = int(float(pool) * LAST_HIT_BONUS)
 	var distributable: int = pool - bonus
+	var merit_total: int = 0
 	for civ_id: StringName in winners:
-		var civ_power: float = player_power if civ_id == &"player" else Rivals.find(state, civ_id).power
-		var share: int = int(float(distributable) * civ_power / winner_power_total) if winner_power_total > 0.0 else 0
-		if civ_id == last_hitter:
-			share += bonus
+		merit_total += int(battle.merit_by_faction.get(civ_id, 0))
+	var payouts: Dictionary = {}
+	var paid: int = 0
+	for civ_id: StringName in winners:
+		var share: int = 0
+		if merit_total > 0:
+			share = int(float(distributable) * float(int(battle.merit_by_faction.get(civ_id, 0))) / float(merit_total))
 		payouts[civ_id] = share
-		if civ_id == &"player":
-			state.treasury += share
+		paid += share
+	payouts[last_hitter] = int(payouts.get(last_hitter, 0)) + (pool - paid)   # bonus + remainder
+	if winners.has(&"player"):
+		state.treasury += int(payouts[&"player"])
 	var result: Dictionary = {
 		"generation": state.generation,
 		"player_camp": player_camp, "enemy_camp": enemy_camp,
-		"player_neutral": player_neutral,
-		"player_won": (not player_neutral) and a_wins,
+		"player_won": player_won,
 		"winners": winners, "reparations": reparations, "pool": pool,
 		"payouts": payouts, "last_hitter": last_hitter,
+		"merit": battle.merit_by_faction.duplicate(),
+		"rounds": battle.round,
+		"reward_instance": battle_report["reward_instance"],
 	}
 	state.ww_results.append(result)
 	Rivals.on_world_war_end(state)   # 開戰過 window resets; WW losses don't count toward exit
 	return result
+
+
+# --- internals ---
+
+static func _build_waves(state: GameState, camps: Dictionary) -> Array[Dictionary]:
+	# 出場序 (WW4): within each camp, civs sort by 卡池張數 desc (tie: class id) and each
+	# contributes WAVES_PER_CIV waves — all first waves, then all second waves; the camp
+	# queue's k-th wave arrives at round k+1. Bigger power → earlier and heavier. The
+	# player contributes NO 正規軍 wave — their force is the deck, deployed by hand.
+	var out: Array[Dictionary] = []
+	for side: StringName in [&"player", &"enemy"]:
+		var camp: Array[StringName] = camps["player_camp"] if side == &"player" else camps["enemy_camp"]
+		var civs: Array[Rivals.RivalState] = []
+		for civ_id: StringName in camp:
+			if civ_id != &"player":
+				civs.append(Rivals.find(state, civ_id))
+		civs.sort_custom(func(a: Rivals.RivalState, b: Rivals.RivalState) -> bool:
+			if card_count(a.power) != card_count(b.power):
+				return card_count(a.power) > card_count(b.power)
+			return String(a.id) < String(b.id))
+		var arrival: int = 1
+		for wave_idx: int in range(WAVES_PER_CIV):
+			for rival: Rivals.RivalState in civs:
+				var budget: float = rival.power * BUDGET_PER_POWER * WAVE_SHARES[wave_idx]
+				var units: Array[Dictionary] = Battle.regular_force(state, budget, side, rival.id, rival)
+				if units.is_empty() and wave_idx == 0:
+					# a civ too weak for any unit still fields one weakest regular in its
+					# first wave (mirrors the 文明戰爭 guard; docs/decisions.md W12.5)
+					units = Battle.regular_force(
+							state, float(Battle.weakest_regular_strength(state)), side, rival.id, rival)
+				if not units.is_empty():
+					out.append({"round": arrival, "units": units, "side": side})
+					arrival += 1
+	return out
 
 
 static func _camp_power(state: GameState, camp: Array[StringName]) -> float:
@@ -113,12 +164,14 @@ static func _camp_power(state: GameState, camp: Array[StringName]) -> float:
 	return total
 
 
-static func _strongest(state: GameState, camp: Array[StringName]) -> StringName:
-	var best: StringName = &""
-	var best_power: float = -1.0
-	for civ_id: StringName in camp:
-		var civ_power: float = float(Rivals.player_power(state)) if civ_id == &"player" else Rivals.find(state, civ_id).power
-		if civ_power > best_power:
-			best_power = civ_power
+static func _top_merit(battle: Battle.BattleField, winners: Array[StringName]) -> StringName:
+	# Fallback when the losing camp's last unit wasn't cleared by a winner (e.g. the
+	# player conceded with enemies standing): highest real 戰功, ties to camp order.
+	var best: StringName = winners[0]
+	var best_merit: int = -1
+	for civ_id: StringName in winners:
+		var merit: int = int(battle.merit_by_faction.get(civ_id, 0))
+		if merit > best_merit:
+			best_merit = merit
 			best = civ_id
 	return best

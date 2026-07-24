@@ -8,7 +8,9 @@ extends RefCounted
 # negative and never blocks a play (D1/D3). Defeat is symmetric exhaustion: field empty AND
 # nothing left to commit (D3). Survivors persist across waves, both sides (D4).
 # Only player units carry the quality three + growth; every enemy (正規軍 and 非正規軍)
-# fights at the engine defaults below (WW3).
+# fights at the engine defaults below (WW3). 世界大戰 (design/世界大戰.md, WW1-WW5) rides
+# this same engine as the 7th type: two-camp prepared wave schedules, per-side exhaustion,
+# uncapped rounds; WorldWar composes the war and settles it.
 # 鎮壓的手段有代價: a riot in which any 機械型部隊卡 was played ends with 幸福 −15,
 # win or lose, once per battle.
 #
@@ -35,7 +37,10 @@ const GRADE_STATS: Dictionary = {&"weak": [1, 2], &"medium": [2, 4], &"hard": [3
 # battle_type -> round cap, money reward, wave schedule (v1 基準; rolled at start within
 # each wave's round window on the &"battle" track — 開戰前情報 reveals the roll).
 # civil_war waves carry budget shares of 總實力 ≈ P×0.5 instead of fixed grades (對手文明).
+# world_war (the 7th type, WW1-WW5): round_cap 0 = uncapped (波數上限 throttles instead);
+# its two-camp wave schedule is composed by WorldWar and passed to start() prepared.
 const TYPES: Dictionary = {
+	&"world_war": {"round_cap": 0, "reward_per_coeff": 0, "waves": []},
 	&"tax_battle": {"round_cap": 6, "reward_per_coeff": 15,
 		"waves": [{"window": [1, 1], "grades": [&"weak", &"weak"], "siege": false}]},
 	&"field_battle": {"round_cap": 8, "reward_per_coeff": 25,
@@ -73,8 +78,13 @@ class BattleField:
 	var round: int = 1
 	var round_cap: int = 8
 	var outcome: StringName = &""         # &"win"|&"loss"|&"retreat"|&"defected" ("" = ongoing)
-	var waves: Array[Dictionary] = []     # rolled schedule: {round, units} sorted by round
+	var waves: Array[Dictionary] = []     # schedule: {round, units, side} sorted by round
+	                                      # (side &"player" = allied arrivals, world war only)
 	var next_wave: int = 0
+	var camps: Dictionary = {}            # world war only: {player_camp, enemy_camp} civ ids
+	var merit_by_faction: Dictionary = {} # 戰功 per faction tag: Σ strength of units cleared
+	var last_clear_by_side: Dictionary = {&"player": &"", &"enemy": &""}
+	                                      # who last cleared a unit ON that side (最後一擊)
 	var player_units: Array[Dictionary] = []
 	var enemy_units: Array[Dictionary] = []
 	var player_forts: Array[Dictionary] = []
@@ -107,7 +117,7 @@ static func intel_covers(state: GameState) -> bool:
 	return false
 
 
-static func start(state: GameState, battle_type: StringName, rival_id: StringName = &"", player_declared: bool = false, surprise: bool = false) -> BattleField:
+static func start(state: GameState, battle_type: StringName, rival_id: StringName = &"", player_declared: bool = false, surprise: bool = false, prepared_waves: Array[Dictionary] = []) -> BattleField:
 	var battle := BattleField.new()
 	battle.battle_type = battle_type
 	battle.rival_id = rival_id
@@ -120,7 +130,16 @@ static func start(state: GameState, battle_type: StringName, rival_id: StringNam
 		battle.expected_reward = int(rival.power * 2.0)
 		if player_declared and state.policies.has(&"holy_war"):
 			battle.expected_reward = int(battle.expected_reward * 1.5)
-	_roll_waves(state, battle)
+	if prepared_waves.is_empty():
+		_roll_waves(state, battle)
+	else:
+		# world war: WorldWar composed the two-camp schedule (WW4); sort round-ascending,
+		# player-camp arrivals before enemy-camp arrivals within a round.
+		battle.waves = prepared_waves.duplicate()
+		battle.waves.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+			if int(a["round"]) != int(b["round"]):
+				return int(a["round"]) < int(b["round"])
+			return a["side"] == &"player" and b["side"] != &"player")
 	battle.intel_visible = intel_covers(state) and not (battle_type == &"hidden_battle" and surprise)
 	battle.see_deployment = state.policies.has(&"satellite_surveillance")
 	battle.available = state.deck.duplicate()
@@ -221,8 +240,8 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 	for unit: Dictionary in battle.player_units:
 		_grant_battle_xp(unit, &"speed", TICKS_PER_ROUND, events)
 	_check_exhaustion(battle)
-	if battle.outcome == &"" and battle.round >= battle.round_cap:
-		battle.outcome = &"loss"   # 判輸＝耗盡, same consequence (D3)
+	if battle.outcome == &"" and battle.round_cap > 0 and battle.round >= battle.round_cap:
+		battle.outcome = &"loss"   # 判輸＝耗盡, same consequence (D3); cap 0 = 無上限 (世界大戰)
 	if battle.outcome == &"":
 		battle.round += 1
 		_arrive_waves(battle)      # next wave stacks on the remnant (D4)
@@ -292,21 +311,25 @@ static func _roll_waves(state: GameState, battle: BattleField) -> void:
 			for grade: StringName in (spec["grades"] as Array):
 				units.append(_irregular_unit(state, grade, coeff, bool(spec["siege"])))
 		if not units.is_empty():
-			battle.waves.append({"round": arrival, "units": units})
+			battle.waves.append({"round": arrival, "units": units, "side": &"enemy"})
 	battle.waves.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["round"]) < int(b["round"]))
 	if battle.waves.is_empty():
 		# tiny civil-war rival: still field one weakest regular in wave 1
 		var weakest := _cheapest_regular_type(state)
-		battle.waves.append({"round": 1,
-			"units": [_regular_unit(state, battle, weakest)] as Array[Dictionary]})
+		var rival: Rivals.RivalState = Rivals.find(state, battle.rival_id)
+		battle.waves.append({"round": 1, "side": &"enemy",
+			"units": [_regular_unit(state, weakest, &"enemy", &"enemy", rival)] as Array[Dictionary]})
 
 
 static func _arrive_waves(battle: BattleField) -> void:
 	while battle.next_wave < battle.waves.size() \
 			and int(battle.waves[battle.next_wave]["round"]) <= battle.round:
-		for unit: Dictionary in (battle.waves[battle.next_wave]["units"] as Array):
-			battle.enemy_units.append(unit)
+		var wave: Dictionary = battle.waves[battle.next_wave]
+		var into: Array[Dictionary] = battle.player_units if wave["side"] == &"player" \
+				else battle.enemy_units
+		for unit: Dictionary in (wave["units"] as Array):
+			into.append(unit)
 		battle.next_wave += 1
 
 
@@ -314,7 +337,8 @@ static func _irregular_unit(state: GameState, grade: StringName, coeff: int, sie
 	# 非正規軍: anonymous tiers, 預設近戰列; 帶攻城 units sit in the ranged row (戰鬥.md).
 	var stats: Array = GRADE_STATS[grade]
 	return {
-		"card_id": &"", "grade": grade, "regular": false, "faction": &"enemy",
+		"card_id": &"", "grade": grade, "regular": false,
+		"side": &"enemy", "faction": &"enemy",
 		"attack": Difficulty.scale_enemy_stat(state, int(stats[0]) * coeff),
 		"hp": Difficulty.scale_enemy_stat(state, int(stats[1]) * coeff),
 		"strength": (int(stats[0]) + int(stats[1])) * coeff,
@@ -325,19 +349,24 @@ static func _irregular_unit(state: GameState, grade: StringName, coeff: int, sie
 	}
 
 
-static func _regular_army_wave(state: GameState, battle: BattleField, share: float) -> Array[Dictionary]:
-	# 正規軍 (對手文明): rival power × 0.5 × share becomes real-roster units at baseline
+static func regular_force(state: GameState, budget: float, side: StringName, faction: StringName, rival: Rivals.RivalState) -> Array[Dictionary]:
+	# 正規軍 conversion (WW3): a strength budget becomes real-roster units at baseline
 	# stats. Composition gap decided greedy strongest-first (docs/decisions.md, W12);
 	# 國策限定 and support (no_attack) types stay out of the conversion roster.
-	var rival := Rivals.find(state, battle.rival_id)
-	var budget: float = rival.power * 0.5 * share
+	# Used by 文明戰爭 (enemy side, one rival) and 世界大戰 (both camps, per civ).
 	var units: Array[Dictionary] = []
 	for card_id: StringName in _regular_roster_desc(state):
 		var strength: float = float(_type_strength(state, card_id))
 		while budget >= strength:
 			budget -= strength
-			units.append(_regular_unit(state, battle, card_id))
+			units.append(_regular_unit(state, card_id, side, faction, rival))
 	return units
+
+
+static func _regular_army_wave(state: GameState, battle: BattleField, share: float) -> Array[Dictionary]:
+	# 文明戰爭 wave: rival power × 0.5 × share (對手文明 三波總實力預算).
+	var rival := Rivals.find(state, battle.rival_id)
+	return regular_force(state, rival.power * 0.5 * share, &"enemy", &"enemy", rival)
 
 
 static func _regular_roster_desc(state: GameState) -> Array[StringName]:
@@ -363,22 +392,30 @@ static func _cheapest_regular_type(state: GameState) -> StringName:
 	return roster[roster.size() - 1]
 
 
+static func weakest_regular_strength(state: GameState) -> int:
+	# The smallest budget that converts into one 正規軍 unit (WorldWar's too-weak guard).
+	return _type_strength(state, _cheapest_regular_type(state))
+
+
 static func _type_strength(state: GameState, card_id: StringName) -> int:
 	var entry: Dictionary = CardsData.CARDS[card_id]
 	return (int(entry["attack"]) + int(entry["hp"])) * Era.coeff(state.generation)
 
 
-static func _regular_unit(state: GameState, battle: BattleField, card_id: StringName) -> Dictionary:
+static func _regular_unit(state: GameState, card_id: StringName, side: StringName, faction: StringName, rival: Rivals.RivalState) -> Dictionary:
 	# Real roster type at era-baseline 攻/血, engine-default三值, no roll/growth (WW3).
+	# faction = 戰功 attribution tag (WW5: the owning civ id in 世界大戰; &"enemy" in the
+	# single-rival 文明戰爭). A psyops-discounted rival's units fight discounted wherever
+	# they appear, allied camp included (docs/decisions.md, W12.5).
 	var entry: Dictionary = CardsData.CARDS[card_id]
 	var coeff: int = Era.coeff(state.generation)
 	var attack: int = Difficulty.scale_enemy_stat(state, int(entry["attack"]) * coeff)
-	if battle.rival_id != &"":
-		var rival := Rivals.find(state, battle.rival_id)
+	if rival != null:
 		# 被心戰過的對手: 攻擊力照累計折扣打折 (−10%/次, 7折封頂)
 		attack = maxi(int(round(float(attack) * Rivals.attack_multiplier(rival))), 1)
 	return {
-		"card_id": card_id, "grade": &"", "regular": true, "faction": &"enemy",
+		"card_id": card_id, "grade": &"", "regular": true,
+		"side": side, "faction": faction,
 		"attack": attack,
 		"hp": Difficulty.scale_enemy_stat(state, int(entry["hp"]) * coeff),
 		"strength": _type_strength(state, card_id),
@@ -393,7 +430,8 @@ static func _regular_unit(state: GameState, battle: BattleField, card_id: String
 static func _unit_from_card(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> Dictionary:
 	var entry: Dictionary = Cards.card(instance.id)
 	return {
-		"card_id": instance.id, "grade": &"", "regular": false, "faction": &"player",
+		"card_id": instance.id, "grade": &"", "regular": false,
+		"side": &"player", "faction": &"player",
 		"attack": Cards.attack_of(instance), "hp": Cards.hp_of(instance),
 		"strength": Cards.attack_of(instance) + Cards.hp_of(instance),
 		"row": entry["row"], "flags": (entry["flags"] as Array).duplicate(),
@@ -467,6 +505,7 @@ static func _cast_skill(state: GameState, battle: BattleField, instance: Cards.C
 			var enemy: Dictionary = battle.enemy_units[i]
 			if _is_non_leader(enemy):
 				battle.enemy_units.remove_at(i)
+				enemy["side"] = &"player"
 				enemy["faction"] = &"player"
 				enemy["row"] = &"melee"
 				battle.player_units.append(enemy)
@@ -483,8 +522,11 @@ static func _destroy_one_non_leader(battle: BattleField, events: Array[Dictionar
 		if _is_non_leader(unit):
 			unit["hp"] = 0
 			battle.merit += int(unit["strength"])
+			battle.merit_by_faction[&"player"] = int(battle.merit_by_faction.get(&"player", 0)) \
+					+ int(unit["strength"])
+			battle.last_clear_by_side[&"enemy"] = &"player"
 			events.append({"tick": tick, "type": &"death", "victim": _unit_label(unit),
-					"by": &"skill", "faction": &"enemy"})
+					"by": &"skill", "faction": unit["faction"]})
 			return
 
 
@@ -519,7 +561,9 @@ static func _accumulate_and_fire(state: GameState, battle: BattleField, unit: Di
 
 
 static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, tick: int, events: Array[Dictionary]) -> void:
-	var player_side: bool = attacker["faction"] == &"player"
+	# Side is structural (which camp array the unit fights in); faction is the 戰功
+	# attribution tag (WW5) — allied 正規軍 are player-side but carry their civ's faction.
+	var player_side: bool = attacker["side"] == &"player"
 	var defenders: Array[Dictionary] = battle.enemy_units if player_side else battle.player_units
 	var defender_forts: Array[Dictionary] = battle.enemy_forts if player_side else battle.player_forts
 	var flags: Array = attacker["flags"]
@@ -579,10 +623,16 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	if int(target["hp"]) <= 0:
 		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
 				"by": _unit_label(attacker), "faction": target["faction"]})
-		if player_side and target["faction"] == &"enemy":
-			battle.merit += int(target["strength"])   # 戰功＝清除的實力總和 (攻+血)
-			if (attacker["flags"] as Array).has(&"plunder"):
-				battle.plunder += 5 * Era.coeff(state.generation)   # 掠奪: 它清除的單位
+		# 戰功＝清除的實力總和 (攻+血), credited to the clearer's faction tag (WW5);
+		# battle.merit stays the player's OWN units' tally.
+		var clearer: StringName = attacker["faction"]
+		battle.merit_by_faction[clearer] = int(battle.merit_by_faction.get(clearer, 0)) \
+				+ int(target["strength"])
+		battle.last_clear_by_side[target["side"]] = clearer
+		if clearer == &"player":
+			battle.merit += int(target["strength"])
+		if player_side and (attacker["flags"] as Array).has(&"plunder"):
+			battle.plunder += 5 * Era.coeff(state.generation)   # 掠奪: 它清除的單位
 
 
 static func _pick_target(defenders: Array[Dictionary], kind: StringName) -> Dictionary:
@@ -632,16 +682,26 @@ static func _sweep_dead(units: Array[Dictionary]) -> int:
 # --- internals: victory (exhaustion, D3) ---
 
 static func _check_exhaustion(battle: BattleField) -> void:
+	# D3 per camp (WW1): a side is exhausted when its field is empty AND it has nothing
+	# left to commit — pending waves count for both sides (world war: allied arrivals).
 	var enemy_exhausted: bool = battle.enemy_units.is_empty() \
-			and battle.next_wave >= battle.waves.size()
+			and not _pending_waves(battle, &"enemy")
 	var player_committed_out: bool = battle.available.is_empty() or battle.conceded
-	var player_exhausted: bool = battle.player_units.is_empty() and player_committed_out
+	var player_exhausted: bool = battle.player_units.is_empty() and player_committed_out \
+			and not _pending_waves(battle, &"player")
 	if enemy_exhausted and _has_land(battle.player_units):
 		battle.outcome = &"win"   # 場上仍有陸軍部隊則勝 (只剩空中單位不算)
 	elif player_exhausted:
 		# Includes the mutual-exhaustion edge: no land force claims the field → 敗北
 		# for the player (conservative, docs/decisions.md W12).
 		battle.outcome = &"loss"
+
+
+static func _pending_waves(battle: BattleField, side: StringName) -> bool:
+	for i: int in range(battle.next_wave, battle.waves.size()):
+		if battle.waves[i]["side"] == side:
+			return true
+	return false
 
 
 static func _has_land(units: Array[Dictionary]) -> bool:
