@@ -4,7 +4,8 @@ extends RefCounted
 # 成長 (medal levels per stat), deck economy (unified paid 解散, 戰後獎勵卡), era evolution
 # incl. form-end auto-disband, strength. Catalog + quality bands in CardsData.
 # Battle consumes 攻/血 via attack_of/hp_of (fixed per type+era, D8) and the quality three
-# via accuracy_of/dodge_of/speed_of (innate + growth; W13 adds 老兵 floor + 心戰 debuff).
+# via accuracy_of/dodge_of/speed_of (innate + medal levels + 軍事區 老兵, D15; the 文化國
+# 心戰 accuracy debuff is battle-scoped and applied by Battle's snapshot layer, D16).
 # Acquisition randomness lives on the &"cards" rng track; draw-order contract in
 # docs/implementation-notes.md.
 
@@ -147,29 +148,73 @@ static func roll_quality(state: GameState, instance: CardInstance) -> void:
 			&"speed": instance.speed = value
 
 
-static func accuracy_of(_state: GameState, instance: CardInstance) -> float:
-	# Innate + medal levels ×3%/階, capped 100 (卡牌.md §成長). The state parameter is
-	# reserved: W13 adds the 老兵 floor (軍事區) and 文化國 accuracy debuff here.
-	var lv: int = int(instance.levels.get(&"accuracy", 0))
+static func accuracy_of(state: GameState, instance: CardInstance) -> float:
+	# Innate + medal levels ×3%/階 + 老兵, capped 100 (卡牌.md §成長).
+	var lv: int = int(instance.levels.get(&"accuracy", 0)) + veteran_bonus(state, instance, &"accuracy")
 	return clampf(instance.accuracy + lv * float(CardsData.GROWTH_STEP[&"accuracy"]),
 			0.0, CardsData.ACCURACY_MAX)
 
 
-static func dodge_of(_state: GameState, instance: CardInstance) -> float:
-	# Innate + medal levels ×2%/階, capped 50. State reserved for W13 (老兵 floor).
-	var lv: int = int(instance.levels.get(&"dodge", 0))
+static func dodge_of(state: GameState, instance: CardInstance) -> float:
+	# Innate + medal levels ×2%/階 + 老兵, capped 50.
+	var lv: int = int(instance.levels.get(&"dodge", 0)) + veteran_bonus(state, instance, &"dodge")
 	return clampf(instance.dodge + lv * float(CardsData.GROWTH_STEP[&"dodge"]),
 			0.0, CardsData.DODGE_MAX)
 
 
-static func speed_of(_state: GameState, instance: CardInstance) -> float:
-	# Innate + medal levels ×0.1/階, 無封頂 (the D14 runaway is bounded by 兵營 production
-	# rate, not structure). State reserved for W13 (老兵 floor).
-	var lv: int = int(instance.levels.get(&"speed", 0))
+static func speed_of(state: GameState, instance: CardInstance) -> float:
+	# Innate + medal levels ×0.1/階 + 老兵, 無封頂 (the D14 runaway is bounded by 兵營
+	# production rate, not structure).
+	var lv: int = int(instance.levels.get(&"speed", 0)) + veteran_bonus(state, instance, &"speed")
 	return maxf(instance.speed + lv * float(CardsData.GROWTH_STEP[&"speed"]), 0.0)
 
 
-# --- 成長 primitives (accrual rules land in W13; battle applies death in W12) ---
+# --- 成長: lanes, XP, medals, 老兵 ---
+
+
+static func lane_stat(card_id: StringName) -> StringName:
+	# 成長軸由所屬列固定決定 (D14/D15): 近戰列→攻速, 遠程列/空域→命中率, 工兵團→閃避率
+	# (support, never swings). &"" for fort/skill cards — they take no medals.
+	if not is_unit(card_id):
+		return &""
+	var entry: Dictionary = card(card_id)
+	if (entry["flags"] as Array).has(&"no_attack"):
+		return &"dodge"
+	if entry["row"] == &"melee":
+		return &"speed"
+	return &"accuracy"
+
+
+static func veteran_bonus(state: GameState, instance: CardInstance, stat: StringName) -> int:
+	# 軍事區 基礎被動＝老兵 (D15): units start one growth level up on their lane stat —
+	# an always-on floor that re-applies after the death wipe and disappears with the
+	# region (內亂戰). 「起始 +1 成長階」 shifts the whole ladder: additive with earned
+	# medals, not a max() floor (docs/decisions.md, W13). 純戰力, never purchasable.
+	if not state.regions.has(&"military"):
+		return 0
+	if stat != lane_stat(instance.id):
+		return 0
+	return int((BuildingData.REGIONS[&"military"]["passive"] as Dictionary)["veteran_levels"])
+
+
+static func grant_xp(instance: CardInstance, stat: StringName) -> bool:
+	# D9 練什麼強什麼: 1 XP per qualifying event; the medal lands when the stat's xp fills
+	# (CardsData.XP_TO_MEDAL, remainder carries). Stats the card lacks accrue nothing
+	# (工兵團: dodge only). Returns true when a medal was awarded — the caller (battle)
+	# emits the timeline event at the filling tick (D13).
+	if not is_unit(instance.id):
+		return false
+	if not (CardsData.QUALITY[instance.id] as Dictionary).has(stat):
+		return false
+	var xp: int = int(instance.xp.get(stat, 0)) + 1
+	var threshold: int = int(CardsData.XP_TO_MEDAL[stat])
+	var awarded: bool = false
+	while xp >= threshold:
+		xp -= threshold
+		award_medal(instance, stat)
+		awarded = true
+	instance.xp[stat] = xp
+	return awarded
 
 static func award_medal(instance: CardInstance, stat: StringName) -> int:
 	# One 勳章 = +1 level on one stat (D13/D14). No per-card cap. Returns the new level.

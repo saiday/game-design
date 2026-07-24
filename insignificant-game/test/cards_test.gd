@@ -390,3 +390,70 @@ func test_deck_strength() -> void:
 	s.deck.append(Cards.CardInstance.new(&"war_song", 1))    # skill: 0
 	s.deck.append(Cards.CardInstance.new(&"artillery", 3))   # (4+2)×3
 	assert_int(Cards.deck_strength(s)).is_equal(21)
+
+
+# --- W13 成長: lanes, XP, 老兵 ---
+
+func test_lane_stat_routing() -> void:
+	assert_that(Cards.lane_stat(&"infantry")).is_equal(&"speed")     # 近戰列 → 攻速
+	assert_that(Cards.lane_stat(&"cavalry")).is_equal(&"speed")
+	assert_that(Cards.lane_stat(&"elite_forces")).is_equal(&"speed")
+	assert_that(Cards.lane_stat(&"archers")).is_equal(&"accuracy")   # 遠程列 → 命中率
+	assert_that(Cards.lane_stat(&"artillery")).is_equal(&"accuracy")
+	assert_that(Cards.lane_stat(&"bomber")).is_equal(&"accuracy")    # 空域 → 命中率
+	assert_that(Cards.lane_stat(&"engineers")).is_equal(&"dodge")    # 工兵團 → 閃避率
+	assert_that(Cards.lane_stat(&"shield_wall")).is_equal(&"")       # forts/skills take none
+	assert_that(Cards.lane_stat(&"war_song")).is_equal(&"")
+
+
+func test_grant_xp_fills_to_medal() -> void:
+	var instance := Cards.CardInstance.new(&"archers", 1)
+	for i: int in range(4):
+		assert_bool(Cards.grant_xp(instance, &"accuracy")).is_false()
+	assert_int(int(instance.xp[&"accuracy"])).is_equal(4)
+	assert_int(instance.levels.size()).is_equal(0)
+	assert_bool(Cards.grant_xp(instance, &"accuracy")).is_true()     # 5th fills (XP_TO_MEDAL)
+	assert_int(int(instance.levels[&"accuracy"])).is_equal(1)
+	assert_int(int(instance.xp[&"accuracy"])).is_equal(0)
+
+
+func test_grant_xp_ignores_stats_the_card_lacks() -> void:
+	var engineer := Cards.CardInstance.new(&"engineers", 1)
+	assert_bool(Cards.grant_xp(engineer, &"accuracy")).is_false()    # 工兵團: dodge only
+	assert_bool(Cards.grant_xp(engineer, &"speed")).is_false()
+	assert_bool(engineer.xp.is_empty()).is_true()
+	assert_bool(Cards.grant_xp(engineer, &"dodge")).is_false()       # accrues (threshold 4)
+	assert_int(int(engineer.xp[&"dodge"])).is_equal(1)
+	var fort := Cards.CardInstance.new(&"shield_wall", 1)
+	assert_bool(Cards.grant_xp(fort, &"dodge")).is_false()           # not a unit: nothing
+	assert_bool(fort.xp.is_empty()).is_true()
+
+
+func test_veteran_floor_on_lane_stat_only() -> void:
+	var s := GameState.new_run(5)
+	var cavalry := Cards.CardInstance.new(&"cavalry", 1)
+	cavalry.accuracy = 85.0
+	cavalry.dodge = 20.0
+	cavalry.speed = 1.2
+	assert_float(Cards.speed_of(s, cavalry)).is_equal_approx(1.2, 0.0001)
+	s.regions.append(&"military")
+	assert_float(Cards.speed_of(s, cavalry)).is_equal_approx(1.3, 0.0001)     # lane stat +1 階
+	assert_float(Cards.accuracy_of(s, cavalry)).is_equal_approx(85.0, 0.0001) # others untouched
+	assert_float(Cards.dodge_of(s, cavalry)).is_equal_approx(20.0, 0.0001)
+	Cards.award_medal(cavalry, &"speed")                             # additive with medals
+	assert_float(Cards.speed_of(s, cavalry)).is_equal_approx(1.4, 0.0001)
+	Cards.wipe_growth(cavalry)                                       # 常駐底線: survives death
+	assert_float(Cards.speed_of(s, cavalry)).is_equal_approx(1.3, 0.0001)
+	s.regions.erase(&"military")                                     # lost with the region
+	assert_float(Cards.speed_of(s, cavalry)).is_equal_approx(1.2, 0.0001)
+
+
+func test_veteran_respects_stat_caps() -> void:
+	var s := GameState.new_run(5)
+	s.regions.append(&"military")
+	var archers := Cards.CardInstance.new(&"archers", 1)
+	archers.accuracy = 99.0
+	assert_float(Cards.accuracy_of(s, archers)).is_equal_approx(100.0, 0.0001)  # 99+3 clamps
+	var engineer := Cards.CardInstance.new(&"engineers", 1)
+	engineer.dodge = 49.5
+	assert_float(Cards.dodge_of(s, engineer)).is_equal_approx(50.0, 0.0001)

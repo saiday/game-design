@@ -19,10 +19,19 @@ static func begin_generation(state: GameState) -> Dictionary:
 		Cards.on_era_transition(state)          # 就地演化
 		report["state_religion_decay"] = Happiness.on_era_transition(state)
 		report["era_transition"] = true
+	# 兵營 line output＝勳章, every branch (建築照常產出 — democracy and WW gens included).
+	var medals_produced: int = Operations.produce_medals(state)
+	if medals_produced > 0:
+		report["medals_produced"] = medals_produced
 	if Era.is_world_war(state.generation):
-		report["world_war"] = true               # 整代覆寫: no operate/route; policy frozen
+		report["world_war"] = true               # 整代覆寫: no operate/route; policy frozen;
+		                                         # 兵營 medal assignment skipped this gen (卡牌.md §成長)
 	elif state.is_democracy:
 		report["democracy"] = true               # BP 停產
+		# 民主後: 兵營勳章 依所屬列自動指派 (no operate phase to pick a card in).
+		var auto_assigned: Array[Dictionary] = Operations.auto_assign_medals(state)
+		if not auto_assigned.is_empty():
+			report["medals_auto_assigned"] = auto_assigned.size()
 	else:
 		Operations.grant_bp(state)
 		report["bp"] = state.bp

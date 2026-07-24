@@ -56,6 +56,12 @@ const SPEED_MIN: float = 0.1
 # 攻速無封頂. Steps differ per stat by design.
 const GROWTH_STEP: Dictionary = {&"accuracy": 3.0, &"dodge": 2.0, &"speed": 0.1}
 
+# 經驗填滿門檻: the corpus pins the accrual sources (命中率＝出手攻擊, 閃避率＝被攻擊且活下來,
+# 攻速＝每存活一個回合) and the per-medal steps, but not the fill size — these are v1 knobs
+# (docs/decisions.md, W13). 1 XP per qualifying event; the medal lands when a stat's xp
+# reaches its threshold (remainder carries; battle emits the &"medal" event at that tick).
+const XP_TO_MEDAL: Dictionary = {&"accuracy": 5, &"dodge": 4, &"speed": 6}
+
 # --- catalog -----------------------------------------------------------------------------
 
 const CARDS: Dictionary = {

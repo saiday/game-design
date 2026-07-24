@@ -50,7 +50,7 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Rival axes from the power scalar (design pins only "國庫由 power 映射") | treasury = power×2 (matches WW reparations floor), population = power×0.5, culture = power×0.3 (psyops condition) | data/rivals.gd |
 | 慢熱國 late growth | g_late calibrated 1.24 — the doc's stated 1.11 yields ~77 at gen 35 vs its own 230 target (the "biggest WW2 threat" role); target wins, corpus value updated | data/rivals.gd, corpus 對手文明 |
 | 慢熱國 aggression ("低", no number) | every ~12 generations | data/rivals.gd |
-| 文化國 psyops-vs-player cadence | every ~8 generations (next battle opening hand −1) | data/rivals.gd |
+| 文化國 psyops-vs-player cadence | every ~8 generations; effect re-specified by W13 as the D16 accuracy debuff (see W13 gaps) | data/rivals.gd |
 | Civil-war defeat power hit ("power 受挫") | ×0.9 per loss | rivals.gd |
 | Catch-up player-protection ceiling (floor 0.65 is pinned; ceiling isn't) | strongest rival ≤ player×1.5, adjustment bounded ±25% | rivals.gd |
 | First contact | all rivals met at generation 1 (+5 influence) | rivals.gd |
@@ -66,9 +66,6 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Collapse epilogue text | driver addition (corpus has only the 7 victory texts) | data/epilogues.gd |
 | Difficulty formula | 3-channel signed-level model; full rationale in docs/difficulty-design.md, synced to corpus | difficulty.gd |
 | Window resolution | standing decision: Full HD 1920×1080 for both the PoC window and the shipped game (core is resolution-blind). History: PoC opened at 1280×720 for placeholder-UI density; the 2026-07-09 Moebius style pick retired the 640×360 pixel-art plan and set 1920×1080 | project.godot |
-
-> The 「文化國 psyops-vs-player cadence」 row still describes pre-rewrite behavior (hand −1);
-> W13 re-specifies it as an accuracy debuff (D16) — update that row when W13 lands.
 
 ## W11 gaps: card model
 
@@ -86,9 +83,20 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Which battle ends issue the 戰後獎勵卡 (design: 每場結束必發, excludes only cancelled battles) | Win / loss / 判輸 / retreat all issue the roll; only 讓步・戒嚴-cancelled battles (never fought) don't | battle.gd |
 | Within-tick fire order (design pins speed ordering across ticks, not inside one tick) | Player units before enemy units, each side in deploy order — fixed order is part of the determinism contract | battle.gd |
 
-> 2026-07-24, wayfinder #12: the corpus now pins what two rows above decided or assumed — 起始牌組
+> 2026-07-24, wayfinder #12: the corpus now pins what earlier rows decided or assumed — 起始牌組
 > 5×步兵團 is promoted into 卡牌.md §起始牌組, and the W1 note's 「corpus pins start population
 > (12)」 is superseded by 起始人口 0 (營運.md; collapse check arms at first 人口 ≥ 5, 內亂與失敗.md).
 > Same pass: post-battle reward card every battle (first-seen free / duplicate 5×係數), 解散 unified
 > as the single paid removal (8×係數), and quality grades Bad/Medium/Good. Code follows with the
 > #14 fix wave and W11+.
+
+## W13 gaps: growth
+
+| Gap | Decision | Where |
+|---|---|---|
+| XP fill size (卡牌.md pins the accrual sources and per-medal steps, not how much XP fills a medal) | 1 XP per qualifying event; medal at accuracy 5 / dodge 4 / speed 6 XP, remainder carries | data/cards.gd `XP_TO_MEDAL` |
+| Dodge-XP qualifying events (被攻擊且活下來 — which resolutions count?) | Dodged attacks and survived hits accrue; a miss doesn't (the attack never reached the unit), and the killing blow doesn't (didn't survive it) | battle.gd `_fire` |
+| 老兵 +1 vs earned levels (「起始 +1 成長階」 vs 「常駐底線」) | Additive: the +1 sits under the earned ladder (level 3 + 老兵 = 4 effective), never a `max(levels, 1)` floor — "starting one level up" shifts the whole ladder | cards.gd `veteran_bonus` |
+| 兵營 medal stock lifetime (產出勳章, no expiry rule) | Unassigned medals bank without cap or expiry; production lands at generation start (Turn.begin_generation) so the medal is assignable in the same operate phase | operations.gd, game_state.gd `medals` |
+| 民主後 auto-assign default target (卡牌.md marks the rule itself a calibration item) | Deck-order-first unit card takes the whole stock (deterministic, no rng) | operations.gd `auto_assign_medals` |
+| 文化國 debuff magnitude (D16; 威脅 極低＝nuisance) | −10 accuracy percentage points, floored at 0, next battle only; 傳播線 心戰效果增強 stays outgoing-only per 營運.md | data/rivals.gd `ENEMY_PSYOPS_ACCURACY_DEBUFF` |

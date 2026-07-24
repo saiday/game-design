@@ -169,3 +169,25 @@ func test_only_player_remains() -> void:
 	for rival: Rivals.RivalState in s.rivals:
 		rival.alive = false
 	assert_bool(Rivals.only_player_remains(s)).is_true()
+
+
+# --- W13: 文化國 對你心戰 (D16 accuracy debuff) ---
+
+func test_enemy_psyops_rolls_the_debuff_flag() -> void:
+	var s := _state()
+	var fired := false
+	for i: int in range(300):   # cadence ~1/8 per generation; seeded, so this must hit
+		if Rivals.roll_enemy_psyops(s):
+			fired = true
+			break
+	assert_bool(fired).is_true()
+	assert_bool(bool(s.flags[&"enemy_psyops_next_battle"])).is_true()
+	assert_bool(RivalData.ENEMY_PSYOPS_ACCURACY_DEBUFF > 0.0).is_true()
+
+
+func test_enemy_psyops_needs_living_culture_state() -> void:
+	var s := _state()
+	Rivals.find(s, &"culture_state").alive = false
+	for i: int in range(50):
+		assert_bool(Rivals.roll_enemy_psyops(s)).is_false()
+	assert_bool(s.flags.has(&"enemy_psyops_next_battle")).is_false()

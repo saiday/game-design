@@ -17,7 +17,9 @@ const REGIONS: Dictionary = {
 	},
 	&"military": {
 		"zh": "軍事區", "lines": [&"barracks", &"arsenal"],
-		"passive": {"opening_hand": 1}, "unlocks_card_class": &"mechanical",
+		# 基礎被動＝老兵 (D15): units start +1 growth level on their lane-routed stat while
+		# the region stands (Cards.veteran_bonus reads this knob). 無軸 — pure 戰力.
+		"passive": {"veteran_levels": 1}, "unlocks_card_class": &"mechanical",
 	},
 	&"culture": {
 		"zh": "文化區", "lines": [&"arts", &"media"],
@@ -59,7 +61,9 @@ const LINES: Dictionary = {
 	},
 	&"barracks": {
 		"zh": "兵營", "region": &"military", "base_cost": 15,
-		"output": {}, "card_pool": &"mechanical", "opening_slots": 1, "min_era": 1, "min_tier": 1,
+		# 每回合產出＝勳章 (D14): fixed per line (tier-independent), assigned in the operate
+		# phase to a card of the player's choice; stat routed by that card's lane.
+		"output": {}, "card_pool": &"mechanical", "medals_per_generation": 1, "min_era": 1, "min_tier": 1,
 		"names": ["校場", "軍營", "騎士團部", "徵兵所", "軍事基地", "無人機聯隊"],
 	},
 	&"arsenal": {

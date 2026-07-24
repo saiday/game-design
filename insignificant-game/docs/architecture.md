@@ -38,7 +38,7 @@
 | `era.gd` | `Era` | generation→era, era cost coeff, tech gate 時代序, era BP caps (時代與回合) |
 | `game_state.gd` | `GameState` | the whole mutable run state + `new_run(seed)` + `to_dict()` (schema below) |
 | `economy.gd` | `Economy` | tax, interest ladder, capital gains, settle pipeline, debt consequences (經濟與債務) |
-| `operations.gd` | `Operations` | BP production/carryover, region/building build+upgrade, escalating cost, declare_war/psyops actions (營運) |
+| `operations.gd` | `Operations` | BP production/carryover, region/building build+upgrade, escalating cost, 兵營 勳章 production/assignment (營運) |
 | `policy.gd` | `Policy` | 國策 DAG (24 nodes) data + lock progression + effect flags queries (國策) |
 | `happiness.gd` | `Happiness` | happiness sources/clamps (幸福) |
 | `unrest.gd` | `Unrest` | unrest weight, trigger roll, concession, riot consequences, regime collapse check (內亂與失敗) |
@@ -80,6 +80,7 @@ var bp_carryover: int          # ≤2 (enlightened_absolutism ⇒ ≤3)
 var regions: Array[StringName] # built regions of 5 types (livelihood/academic/military/culture/finance)
 var buildings: Dictionary      # StringName line -> int tier (one building per line, upgrade in place)
 var buildings_built: int       # lifetime count of NEW buildings (escalating-cost coefficient; upgrades DON'T increment)
+var medals: int                # 兵營-produced 勳章 stock awaiting assignment (banks without cap)
 # policy tree
 var policies: Array[StringName]        # completed node ids
 var policy_in_progress: StringName     # &"" if none

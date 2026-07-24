@@ -155,13 +155,55 @@ func test_production_sums_regions_and_lines() -> void:
 
 func test_combat_flags() -> void:
 	var s := _state()
-	assert_int(Operations.opening_hand_bonus(s)).is_equal(0)
 	assert_float(Operations.psyops_potency(s)).is_equal_approx(0.10, 0.001)
-	s.regions.append(&"military")
 	s.buildings[&"barracks"] = 1
 	s.buildings[&"media"] = 1
-	assert_int(Operations.opening_hand_bonus(s)).is_equal(1)
-	assert_int(Operations.opening_slots_bonus(s)).is_equal(1)
 	assert_float(Operations.psyops_potency(s)).is_equal_approx(0.15, 0.001)
 	assert_int(Operations.card_pool_tier(s, &"barracks")).is_equal(1)
 	assert_int(Operations.card_pool_tier(s, &"arsenal")).is_equal(0)
+
+
+# --- W13: 兵營 勳章 production + assignment (D14) ---
+
+func test_medal_production_banks_without_cap() -> void:
+	var s := _state()
+	assert_int(Operations.produce_medals(s)).is_equal(0)   # no 兵營: nothing
+	s.buildings[&"barracks"] = 1
+	assert_int(Operations.produce_medals(s)).is_equal(1)
+	Operations.produce_medals(s)
+	Operations.produce_medals(s)
+	assert_int(s.medals).is_equal(3)                       # stock banks, no cap/expiry
+	s.buildings[&"barracks"] = 4                           # tier never scales line output
+	assert_int(Operations.medal_production(s)).is_equal(1)
+
+
+func test_assign_medal_routes_stat_by_lane() -> void:
+	var s := _state()
+	s.medals = 3
+	var cavalry := Cards.CardInstance.new(&"cavalry", 1)
+	var archers := Cards.CardInstance.new(&"archers", 1)
+	var fort := Cards.CardInstance.new(&"shield_wall", 1)
+	s.deck.append(cavalry)
+	s.deck.append(archers)
+	s.deck.append(fort)
+	var melee := Operations.assign_medal(s, 0)
+	assert_that(melee["stat"]).is_equal(&"speed")          # 近戰列 → 攻速
+	assert_int(int(cavalry.levels[&"speed"])).is_equal(1)
+	var ranged := Operations.assign_medal(s, 1)
+	assert_that(ranged["stat"]).is_equal(&"accuracy")      # 遠程列 → 命中率
+	assert_that(Operations.assign_medal(s, 2)["reason"]).is_equal(&"not_a_unit")
+	assert_int(s.medals).is_equal(1)                       # a refused assign spends nothing
+	Operations.assign_medal(s, 0)
+	assert_that(Operations.assign_medal(s, 0)["reason"]).is_equal(&"no_medal")
+
+
+func test_auto_assign_targets_first_unit_card() -> void:
+	var s := _state()
+	s.medals = 2
+	s.deck.append(Cards.CardInstance.new(&"war_song", 1))
+	var cavalry := Cards.CardInstance.new(&"cavalry", 1)
+	s.deck.append(cavalry)
+	var out := Operations.auto_assign_medals(s)
+	assert_int(out.size()).is_equal(2)
+	assert_int(int(cavalry.levels[&"speed"])).is_equal(2)  # deck-order-first unit takes the stock
+	assert_int(s.medals).is_equal(0)

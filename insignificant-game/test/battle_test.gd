@@ -322,3 +322,67 @@ func test_retreat_costs_and_returns_population() -> void:
 	assert_int(int(report["cost"])).is_equal(10)
 	assert_int(s.population).is_equal(14)
 	assert_bool(Battle.finish(s, battle).has("reward_instance")).is_true()
+
+
+# --- W13 growth: XP accrual, medal events, 心戰 debuff ---
+
+func test_battle_xp_accrues_per_source() -> void:
+	var s := _state()
+	var instance := _craft(s, &"cavalry", 1, 100.0, 0.0, 1.0)
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"cavalry")
+	var rounds: int = 0
+	while battle.outcome == &"":
+		Battle.end_round(s, battle)
+		rounds += 1
+	assert_that(battle.outcome).is_equal(&"win")
+	assert_int(int(instance.xp.get(&"accuracy", 0))).is_equal(2)    # 出手攻擊 ×2 (one kill each)
+	assert_int(int(instance.xp.get(&"dodge", 0))).is_equal(1)       # survived exactly one hit
+	assert_int(int(instance.xp.get(&"speed", 0))).is_equal(rounds)  # 每存活一個回合
+	assert_int(instance.levels.size()).is_equal(0)                  # nothing filled yet
+
+
+func test_medal_lands_in_timeline_when_xp_fills() -> void:
+	var s := _state()
+	var instance := _craft(s, &"cavalry", 1, 100.0, 0.0, 1.0)
+	instance.xp[&"accuracy"] = 4   # one attack away from the medal (XP_TO_MEDAL 5)
+	var battle := Battle.start(s, &"tax_battle")
+	_deploy_id(s, battle, &"cavalry")
+	var report := Battle.end_round(s, battle)
+	var medal_seen := false
+	for event: Dictionary in (report["events"] as Array):
+		if event["type"] == &"medal":
+			medal_seen = true
+			assert_that(event["stat"]).is_equal(&"accuracy")
+			assert_that(event["unit"]).is_equal(&"cavalry")
+			assert_int(int(event["level"])).is_equal(1)
+	assert_bool(medal_seen).is_true()
+	assert_int(int(instance.levels[&"accuracy"])).is_equal(1)
+	assert_int(int(instance.xp[&"accuracy"])).is_equal(0)
+
+
+func test_medal_applies_from_next_round_snapshot() -> void:
+	var s := _state()
+	_craft(s, &"engineers", 1, 0.0, 0.0, 0.0)                   # meat shield: melee focus target
+	var instance := _craft(s, &"cavalry", 1, 80.0, 0.0, 0.1)    # speed 0.1: silent this round
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"cavalry")
+	assert_float(float(battle.player_units[1]["accuracy"])).is_equal_approx(80.0, 0.001)
+	Cards.award_medal(instance, &"accuracy")                    # e.g. a 兵營 medal mid-run
+	assert_float(float(battle.player_units[1]["accuracy"])).is_equal_approx(80.0, 0.001)
+	Battle.end_round(s, battle)                                 # boundary re-snapshot (D13)
+	assert_float(float(battle.player_units[1]["accuracy"])).is_equal_approx(83.0, 0.001)
+
+
+func test_enemy_psyops_debuffs_accuracy_for_one_battle() -> void:
+	var s := _state()
+	_craft(s, &"cavalry", 1, 90.0, 0.0, 1.0)
+	s.flags[&"enemy_psyops_next_battle"] = true
+	var battle := Battle.start(s, &"tax_battle")
+	assert_bool(battle.psyops_active).is_true()
+	assert_bool(s.flags.has(&"enemy_psyops_next_battle")).is_false()   # consumed
+	_deploy_id(s, battle, &"cavalry")
+	assert_float(float(battle.player_units[0]["accuracy"])).is_equal_approx(80.0, 0.001)
+	var second := Battle.start(s, &"tax_battle")                # 下場戰 only
+	assert_bool(second.psyops_active).is_false()

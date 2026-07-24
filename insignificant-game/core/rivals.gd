@@ -145,7 +145,8 @@ static func roll_aggression(state: GameState) -> StringName:
 
 
 static func roll_enemy_psyops(state: GameState) -> bool:
-	# 文化國: 對你心戰 — your next battle starts with opening hand −1.
+	# 文化國: 對你心戰 (D16) — your units enter your NEXT battle with reduced accuracy
+	# (RivalData.ENEMY_PSYOPS_ACCURACY_DEBUFF); Battle.start consumes the flag.
 	var rival := find(state, &"culture_state")
 	if rival == null or not rival.alive:
 		return false

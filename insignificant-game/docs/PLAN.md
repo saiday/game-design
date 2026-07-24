@@ -55,9 +55,17 @@ every green wave.
       `view/main.gd` is parse-broken against the dead hand API until W15 — Part B is DOWN
       W12–W14 by plan. Gap decisions + engine conventions: decisions.md W12 +
       implementation-notes.md.)*
-- [ ] **W13 — Growth.** Per-stat XP, 勳章 from both sources (battle-automatic, 兵營-assigned),
+- [x] **W13 — Growth.** Per-stat XP, 勳章 from both sources (battle-automatic, 兵營-assigned),
       軍事區 老兵 veterancy, 文化國 accuracy debuff. Rewires `operations.gd` + `rivals.gd`.
       Gate: Part A green on `cards_test`, `operations_test`, `rivals_test`.
+      *(done 2026-07-25: full suite exit 0 — 21/21 suites, 223/223 cases (15 new across
+      cards/operations/rivals/battle/turn). XP hooks live in the tick engine (accuracy per
+      attack, dodge per dodge/survived hit, speed per survived round; `&"medal"` events at
+      the filling tick, effect 自下一回合 via the boundary re-snapshot); 兵營 produces 1
+      勳章/gen into `state.medals`, assigned by lane (民主後 auto-assign, WW gens skip);
+      老兵 +1 lane level in the `*_of` accessors; 文化國 D16 = −10 accuracy next battle.
+      `opening_hand_bonus`/`opening_slots_bonus` deleted. Gap decisions: decisions.md W13;
+      conventions: implementation-notes.md.)*
 - [ ] **W13.5 — Starting-state sync (new task, raised in W11).** The corpus (wayfinder #12)
       now pins 起始人口 0 (營運.md) with the 政權崩潰 check arming only after 人口 first
       reaches 5 (內亂與失敗.md); code still starts at 12 with an always-armed check.

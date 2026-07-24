@@ -23,6 +23,7 @@ var bp_carryover: int = 0     # <=2 (enlightened_absolutism => <=3)
 var regions: Array[StringName] = []   # of: livelihood/academic/military/culture/finance
 var buildings: Dictionary = {}        # StringName line -> int tier (1..6), one building per line
 var buildings_built: int = 0          # lifetime NEW buildings (escalating cost; upgrades don't count)
+var medals: int = 0                   # 兵營-produced 勳章 stock awaiting assignment (D14; banks without cap)
 
 # policy tree
 var policies: Array[StringName] = []
@@ -86,6 +87,7 @@ func to_dict() -> Dictionary:
 		"policies": policies.duplicate(),
 		"policy_in_progress": policy_in_progress,
 		"deck_size": deck.size(),
+		"medals": medals,
 		"legacies": legacies.duplicate(),
 		"rivals_alive": rivals.filter(func(r: Variant) -> bool: return r.alive).size(),
 		"is_democracy": is_democracy,

@@ -15,6 +15,8 @@ extends RefCounted
 # Design gaps decided here (docs/decisions.md, W12): 正規軍 wave composition greedy
 # strongest-first; mutual simultaneous exhaustion = player 敗北; siege/air prefer standing
 # fortifications; retreat still issues the reward card (only cancelled battles don't).
+# W13 growth hooks (D9/D13): accuracy XP per attack taken, dodge XP on dodge/survived hit,
+# speed XP per survived round; filled XP emits a &"medal" event at that tick, effect next round.
 
 const TICKS_PER_ROUND: int = 100        # calibration knob (plan: open items)
 const RETREAT_COST_BASE: int = 10
@@ -89,7 +91,8 @@ class BattleField:
 	var intel_visible: bool = false       # pre-battle: the rolled wave schedule is visible
 	var see_deployment: bool = false      # 衛星監控 per-boundary preview (view concern)
 	var mechanical_played: bool = false   # any 機械型部隊卡 fielded (riot 幸福 cost)
-	var psyops_active: bool = false       # 文化國心戰: accuracy debuff (magnitude wired W13)
+	var psyops_active: bool = false       # 文化國心戰 (D16): player accuracy snapshots take
+	                                      # −RivalData.ENEMY_PSYOPS_ACCURACY_DEBUFF this battle
 	var last_timeline: Array[Dictionary] = []   # the previous round's full event list
 
 
@@ -122,7 +125,7 @@ static func start(state: GameState, battle_type: StringName, rival_id: StringNam
 	battle.see_deployment = state.policies.has(&"satellite_surveillance")
 	battle.available = state.deck.duplicate()
 	if bool(state.flags.get(&"enemy_psyops_next_battle", false)):
-		battle.psyops_active = true   # D16: 命中率減益 (magnitude lands with W13 rewiring)
+		battle.psyops_active = true   # D16: 下場戰命中率減益 — this battle consumes the flag
 		state.flags.erase(&"enemy_psyops_next_battle")
 	_arrive_waves(battle)   # wave 1 (敵方開場單位 became wave 1)
 	return battle
@@ -179,7 +182,7 @@ static func deploy(state: GameState, battle: BattleField, available_index: int) 
 				Cards.destroy_permanently(state, instance.id)
 			# 用後消耗: non-policy skills just don't return this battle
 		_:
-			battle.player_units.append(_unit_from_card(state, instance))
+			battle.player_units.append(_unit_from_card(state, battle, instance))
 	return {"ok": true, "reason": &"", "cost": cost}
 
 
@@ -213,6 +216,10 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 	_resolve_window(state, battle, events)
 	var kills: int = _sweep_dead(battle.enemy_units)
 	var losses: int = _sweep_dead(battle.player_units)
+	# 攻速 XP: 每存活一個回合 (D9) — after the sweep, so only units that lived through the
+	# window accrue; the killed accrue nothing (their growth was just wiped anyway).
+	for unit: Dictionary in battle.player_units:
+		_grant_battle_xp(unit, &"speed", TICKS_PER_ROUND, events)
 	_check_exhaustion(battle)
 	if battle.outcome == &"" and battle.round >= battle.round_cap:
 		battle.outcome = &"loss"   # 判輸＝耗盡, same consequence (D3)
@@ -383,28 +390,37 @@ static func _regular_unit(state: GameState, battle: BattleField, card_id: String
 
 # --- internals: units, forts, skills ---
 
-static func _unit_from_card(state: GameState, instance: Cards.CardInstance) -> Dictionary:
+static func _unit_from_card(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> Dictionary:
 	var entry: Dictionary = Cards.card(instance.id)
 	return {
 		"card_id": instance.id, "grade": &"", "regular": false, "faction": &"player",
 		"attack": Cards.attack_of(instance), "hp": Cards.hp_of(instance),
 		"strength": Cards.attack_of(instance) + Cards.hp_of(instance),
 		"row": entry["row"], "flags": (entry["flags"] as Array).duplicate(),
-		"accuracy": Cards.accuracy_of(state, instance),
+		"accuracy": _snapshot_accuracy(state, battle, instance),
 		"dodge": Cards.dodge_of(state, instance),
 		"speed": Cards.speed_of(state, instance),
 		"progress": 0.0, "instance": instance,
 	}
 
 
+static func _snapshot_accuracy(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> float:
+	# 文化國心戰 (D16) is battle-scoped (下場戰 only), so it lands here in the snapshot
+	# layer, not inside Cards.accuracy_of — psyops_active lives on this BattleField.
+	var accuracy: float = Cards.accuracy_of(state, instance)
+	if battle.psyops_active:
+		accuracy = maxf(accuracy - RivalData.ENEMY_PSYOPS_ACCURACY_DEBUFF, 0.0)
+	return accuracy
+
+
 static func _refresh_player_stats(state: GameState, battle: BattleField) -> void:
 	# Growth effects land 自下一回合生效 (D13): re-snapshot the quality three at every
-	# boundary so mid-battle medals (W13) apply from the next window automatically.
+	# boundary so mid-battle medals apply from the next window automatically.
 	for unit: Dictionary in battle.player_units:
 		var instance: Cards.CardInstance = unit["instance"]
 		if instance == null:
 			continue
-		unit["accuracy"] = Cards.accuracy_of(state, instance)
+		unit["accuracy"] = _snapshot_accuracy(state, battle, instance)
 		unit["dodge"] = Cards.dodge_of(state, instance)
 		unit["speed"] = Cards.speed_of(state, instance)
 
@@ -494,7 +510,12 @@ static func _accumulate_and_fire(state: GameState, battle: BattleField, unit: Di
 	unit["progress"] = float(unit["progress"]) + float(unit["speed"]) / float(TICKS_PER_ROUND)
 	while float(unit["progress"]) >= 1.0 and int(unit["hp"]) > 0:
 		unit["progress"] = float(unit["progress"]) - 1.0
+		var before: int = events.size()
 		_fire(state, battle, unit, tick, events)
+		# 命中率 XP: 出手攻擊 (D9) — any attack action taken (demolish/absorb/miss/dodge/hit
+		# all emit an event); a fire with nothing to shoot at emits none and accrues none.
+		if events.size() > before:
+			_grant_battle_xp(unit, &"accuracy", tick, events)
 
 
 static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, tick: int, events: Array[Dictionary]) -> void:
@@ -543,7 +564,7 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
 		events.append({"tick": tick, "type": &"dodge", "by": _unit_label(target),
 				"attacker": _unit_label(attacker)})
-		# W13: dodge XP accrues here (被攻擊且活下來).
+		_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
 		return
 	var damage: int = int(attacker["attack"])
 	if player_side and battle.attack_buff_rounds > 0:
@@ -551,7 +572,10 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	target["hp"] = int(target["hp"]) - damage
 	events.append({"tick": tick, "type": &"hit", "by": _unit_label(attacker),
 			"target": _unit_label(target), "damage": damage})
-	# W13: accuracy XP accrues here (出手攻擊).
+	if int(target["hp"]) > 0:
+		# 閃避率 XP: survived the hit (被攻擊且活下來). A miss accrues nothing — the attack
+		# never reached the unit (docs/decisions.md, W13). The killing blow accrues nothing.
+		_grant_battle_xp(target, &"dodge", tick, events)
 	if int(target["hp"]) <= 0:
 		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
 				"by": _unit_label(attacker), "faction": target["faction"]})
@@ -572,6 +596,19 @@ static func _pick_target(defenders: Array[Dictionary], kind: StringName) -> Dict
 		if int(unit["hp"]) > 0:
 			return unit
 	return {}
+
+
+static func _grant_battle_xp(unit: Dictionary, stat: StringName, tick: int, events: Array[Dictionary]) -> void:
+	# D9/D13: XP accrues only on the player's real instances (enemies and 勸降-converted
+	# units carry instance == null and never grow). When a stat's XP fills, the medal lands
+	# 當場 at this tick — visible in the timeline; its effect applies from the next round's
+	# stat re-snapshot (自下一回合生效).
+	var instance: Cards.CardInstance = unit["instance"]
+	if instance == null:
+		return
+	if Cards.grant_xp(instance, stat):
+		events.append({"tick": tick, "type": &"medal", "unit": _unit_label(unit),
+				"stat": stat, "level": int(instance.levels.get(stat, 0))})
 
 
 static func _unit_label(unit: Dictionary) -> StringName:

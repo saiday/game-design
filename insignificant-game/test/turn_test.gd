@@ -71,3 +71,21 @@ func test_settle_enters_forced_democracy() -> void:
 	Turn.settle(s)
 	assert_bool(s.is_democracy).is_true()
 	assert_bool(s.legacies.has(&"democratic_spirit")).is_false()   # forced ≠ voluntary
+
+
+func test_begin_generation_medal_flow() -> void:
+	var s := _state()
+	s.buildings[&"barracks"] = 1
+	var r := Turn.begin_generation(s)
+	assert_int(int(r["medals_produced"])).is_equal(1)      # 兵營 每回合產出＝勳章
+	assert_int(s.medals).is_equal(1)                       # banks until assigned
+	s.is_democracy = true
+	var r2 := Turn.begin_generation(s)                     # produce, then auto-assign the stock
+	assert_int(int(r2["medals_auto_assigned"])).is_equal(2)
+	assert_int(s.medals).is_equal(0)
+	assert_int(int((s.deck[0] as Cards.CardInstance).levels[&"speed"])).is_equal(2)  # 步兵團 lane 攻速
+	s.generation = 15                                      # WW 整代覆寫: produce but skip 指派
+	var r3 := Turn.begin_generation(s)
+	assert_bool(bool(r3["world_war"])).is_true()
+	assert_int(s.medals).is_equal(1)
+	assert_bool(r3.has("medals_auto_assigned")).is_false()

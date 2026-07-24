@@ -11,7 +11,7 @@ const CLASSES: Dictionary = {
 	},
 	&"culture_state": {
 		"zh": "文化國", "p0": 10.0, "g": 1.07, "attack_period": 0,
-		"psyops_player_period": 8,   # 對你心戰: 下場戰開場手牌 −1 (driver decision on cadence)
+		"psyops_player_period": 8,   # 對你心戰 cadence (driver decision); effect = D16 accuracy debuff below
 		"names": ["繆思之邦", "風雅同盟", "百戲王國"],
 	},
 	&"iron_tribe": {
@@ -40,6 +40,12 @@ const POPULATION_PER_POWER: float = 0.5
 const CULTURE_PER_POWER: float = 0.3      # psyops condition compares player culture to this
 
 const PSYOPS_DISCOUNT_CAP: float = 0.30   # 7折封頂
+
+# 文化國 對你心戰 (D16): flat accuracy debuff (percentage points) on YOUR units for the
+# next battle only. 威脅 極低 — a nuisance, not a threat; magnitude unpinned in the corpus
+# (driver decision, docs/decisions.md W13). 傳播線's 心戰效果增強 boosts only the outgoing
+# player→rival direction (營運.md), never this one.
+const ENEMY_PSYOPS_ACCURACY_DEBUFF: float = 10.0
 const DEFEAT_POWER_PENALTY: float = 0.9   # 每敗一場 power 受挫 (amount unpinned: ×0.9)
 const CATCHUP_FLOOR: float = 0.65         # WW−1: strongest rival ≥ player×0.65
 const CATCHUP_MAX_BOOST: float = 1.25     # bounded: at most +25%

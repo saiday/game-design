@@ -64,15 +64,39 @@
   (speed 0.6 ≈ one attack every 1.67 windows). Within a tick: player units before enemy
   units, each side in deploy order. Never reorder any of this — determinism contract.
 - **Boundary order inside `end_round`:** engineer repair → player stat re-snapshot →
-  love-and-peace trigger → tick window → sweep dead → exhaustion check → round-cap check →
-  round++ → wave arrival → buff decrement. The per-boundary stat re-snapshot is what makes
-  mid-battle medals apply 自下一回合 (D13) for free in W13.
-- **XP accrual hooks** are marked with W13 comments inside `_fire` (accuracy XP at hit,
-  dodge XP at dodge; speed XP per survived round belongs at the boundary).
+  love-and-peace trigger → tick window → sweep dead → **speed-XP grant (W13)** → exhaustion
+  check → round-cap check → round++ → wave arrival → buff decrement. The per-boundary stat
+  re-snapshot is what makes mid-battle medals apply 自下一回合 (D13) for free.
 - **Rolls on `&"battle"`:** wave-arrival rounds at `start`, then per-fire accuracy roll
   before dodge roll. The reward card at `finish` rolls on `&"cards"` via `Cards.roll_reward`.
 - **view/main.gd is parse-broken until W15** (it still calls the dead hand API). Part A never
   loads it; Part B **cannot run between W12 and W15** — the W15 gate restores it.
+
+### W13 — growth
+
+- **Lane routing is one function:** `Cards.lane_stat(card_id)` (近戰→`speed`, 遠程/空域→
+  `accuracy`, `no_attack` 工兵團→`dodge`, non-units → `&""`) is the single authority used by
+  both 兵營 assignment (D14) and 老兵 (D15). Never re-derive the lane elsewhere.
+- **XP is integer, 1 per qualifying event**, on `instance.xp`; `Cards.grant_xp(instance,
+  stat)` owns the fill check (`CardsData.XP_TO_MEDAL`, remainder carries) and returns whether
+  a medal was awarded — the caller emits the timeline event. Stats a card lacks silently
+  accrue nothing (工兵團: dodge only), so battle hooks never special-case card types.
+- **Battle XP hook sites:** accuracy XP is granted in `_accumulate_and_fire` (an attack
+  happened iff `_fire` emitted an event — a fire with no target accrues nothing); dodge XP at
+  the dodge event and after a survived hit inside `_fire`; speed XP at the boundary after the
+  dead are swept. `&"medal"` events carry `{tick, unit, stat, level}`.
+- **老兵 lives inside the `*_of` accessors** (`Cards.veteran_bonus`: +1 effective level on
+  the lane stat while `state.regions` has `&"military"`; knob `veteran_levels` in
+  `BuildingData.REGIONS`). **The 文化國 debuff does NOT** — contradicting the W12 note above
+  that reserved both for `*_of`: the debuff is battle-scoped (`psyops_active` sits on the
+  BattleField, 下場戰 only), so it lands in `Battle._snapshot_accuracy`, the one place
+  deploy-time and boundary snapshots both read. Anything battle-scoped belongs in the
+  snapshot layer; anything run-scoped belongs in `*_of`.
+- **勳章 stock is `state.medals`** (int, banks without cap). Production: `Operations.
+  produce_medals` in `Turn.begin_generation`, every branch (建築照常產出 — WW and democracy
+  generations included). Assignment: `Operations.assign_medal(state, deck_index)` (operate
+  phase, player verb), `Operations.auto_assign_medals` (民主後; WW-override generations skip
+  assignment entirely). Report keys: `medals_produced` / `medals_auto_assigned`.
 
 ## Deviations (conservative calls made mid-wave; revisit out loud, not silently)
 
@@ -121,9 +145,15 @@
   green with a same-seed identical-timeline assertion, and the FULL suite is back to
   **exit 0, 21/21 suites, 208/208 cases** — two waves ahead of the plan's W14 expectation.
   Hand/draw/discard deleted; waves + tick timelines + symmetric exhaustion + survivor
-  persistence live; 文明戰爭 fields 正規軍. Handoff to W13: fill the XP hooks in `_fire` and
-  the speed-XP boundary hook, emit `&"medal"` events at the filling tick, wire 老兵/兵營/
-  文化國 into `operations.gd`/`rivals.gd` and the `*_of` accessors (`psyops_active` on the
-  BattleField and the reserved `state` params are waiting). 世界大戰 on this engine (WW1-WW5)
-  is W12.5-scale work parked inside the W14 wave slot or its own follow-up — `world_war.gd`
-  still runs the PoC power-sum contest today.
+  persistence live; 文明戰爭 fields 正規軍. 世界大戰 on this engine (WW1-WW5) is
+  W12.5-scale work — `world_war.gd` still runs the PoC power-sum contest today.
+- **W13 (growth): done 2026-07-25.** Files: `core/cards.gd`, `core/data/cards.gd`,
+  `core/battle.gd` (hooks), `core/operations.gd`, `core/data/buildings.gd`, `core/rivals.gd`
+  (comment), `core/data/rivals.gd`, `core/game_state.gd` (`medals`), `core/turn.gd`, and the
+  five touched suites. Gate met: full suite **exit 0, 21/21 suites, 223/223 cases** (15 new).
+  Both medal sources live (battle-automatic with timeline events, 兵營 produce/assign +
+  democracy auto-assign), 老兵 in the accessors, 文化國 D16 accuracy debuff consumed by the
+  battle snapshot. `opening_hand_bonus`/`opening_slots_bonus` deleted. Handoff to W12.5/W14:
+  the sim bot never voluntarily assigns 兵營 medals pre-democracy (stock just banks until
+  the democracy auto-assign) — the W14 tempo bot should spend it; W15 renders `&"medal"`
+  events and the `state.medals` stock (to_dict already carries it).

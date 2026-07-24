@@ -133,16 +133,57 @@ static func production(state: GameState) -> Dictionary:
 	return out
 
 
+# --- 兵營 勳章 production + assignment (D14; the operate-phase growth verb) ---
+
+static func medal_production(state: GameState) -> int:
+	# 兵營 每回合產出＝勳章 (營運.md line table): fixed, tier-independent (一線一棟不疊加).
+	if state.buildings.has(&"barracks"):
+		return int((BuildingData.LINES[&"barracks"] as Dictionary)["medals_per_generation"])
+	return 0
+
+
+static func produce_medals(state: GameState) -> int:
+	# Called once per generation (Turn.begin_generation, every branch — 建築照常產出).
+	# Unassigned medals bank without cap or expiry (docs/decisions.md, W13).
+	var produced: int = medal_production(state)
+	state.medals += produced
+	return produced
+
+
+static func assign_medal(state: GameState, deck_index: int) -> Dictionary:
+	# D14: the player picks the CARD; the stat is fixed by its lane (Cards.lane_stat).
+	# No per-card cap — a melee carry may stack 攻速 without bound (production-rate bounded).
+	if state.medals < 1:
+		return {"ok": false, "reason": &"no_medal"}
+	if deck_index < 0 or deck_index >= state.deck.size():
+		return {"ok": false, "reason": &"bad_index"}
+	var instance: Cards.CardInstance = state.deck[deck_index]
+	var stat: StringName = Cards.lane_stat(instance.id)
+	if stat == &"":
+		return {"ok": false, "reason": &"not_a_unit"}
+	state.medals -= 1
+	var level: int = Cards.award_medal(instance, stat)
+	return {"ok": true, "reason": &"", "card_id": instance.id, "stat": stat, "level": level}
+
+
+static func auto_assign_medals(state: GameState) -> Array[Dictionary]:
+	# 民主後 (卡牌.md §成長): no player pick — the stock auto-assigns; the default target
+	# rule is itself a calibration item, v1 = deck-order-first unit card
+	# (docs/decisions.md, W13). WW-override generations skip assignment entirely (Turn).
+	var out: Array[Dictionary] = []
+	while state.medals > 0:
+		var target: int = -1
+		for i: int in range(state.deck.size()):
+			if Cards.lane_stat((state.deck[i] as Cards.CardInstance).id) != &"":
+				target = i
+				break
+		if target < 0:
+			return out   # no unit card in deck: the stock keeps banking
+		out.append(assign_medal(state, target))
+	return out
+
+
 # --- combat/system flags queried by other modules (not part of production) ---
-
-static func opening_hand_bonus(state: GameState) -> int:
-	# 軍事區 passive: 戰鬥開場手牌 +1.
-	return 1 if state.regions.has(&"military") else 0
-
-
-static func opening_slots_bonus(state: GameState) -> int:
-	# 兵營 line: 戰鬥開場部隊位 +1 (any tier).
-	return 1 if state.buildings.has(&"barracks") else 0
 
 
 static func card_pool_tier(state: GameState, line_id: StringName) -> int:
