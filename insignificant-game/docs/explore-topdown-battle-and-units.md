@@ -86,9 +86,13 @@ What it does:
 
 Sprites: 60 exploratory raws under `assets/exploration/topdown-demo/`, never `assets/approved/`.
 Recipe unchanged (Krea-2-Turbo + Moebius LoRA @1.0, euler/simple, 8 steps, cfg 1.0,
-`ConditioningZeroOut`), seed 401 with re-rolls at 402. `docs/tools/build_motion_demo.py` keys the
-grey render background to transparent by flooding inward from the frame edges, trims, downscales
-to 256px, quantises to 128 colours, and rewrites only the `@SPRITES` / `@CREDITS` marker blocks so
+`ConditioningZeroOut`), seed 401 with re-rolls at 402 and 403.
+`docs/tools/build_motion_demo.py` keys the grey render background to transparent in two passes:
+inward from the frame edges, then one fill per pocket of background the subject seals off
+(between an arm and a torso, inside the curve of a bow). A pocket is filled only when dark
+linework runs around it, because a pale hull or a white surcoat matches the backdrop colour
+exactly and punching those out is worse than the slab. It then trims, downscales to 256px,
+quantises to 128 colours, and rewrites only the `@SPRITES` / `@CREDITS` marker blocks so
 hand-edited JS and CSS survive re-runs.
 
 ## 3. Why the demo session stopped (2026-07-25)
@@ -161,6 +165,19 @@ the demo's to make.
   can mirror; sprites faced the camera and flipping did nothing. Round 2 pins
   `the whole group oriented toward the right edge of the frame, bodies and weapons pointing right`
   and mirrors cleanly.
+- **A singular subject contradicts the shared "...figures" clause, and the model settles it by
+  inventing a crowd.** `privateers_e3/e4/e5` were the roster's only three figure prompts written as
+  "a lone bandit / thief / cyber hacker", and all three returned one hero in front of a mass of
+  generic soldiers. No prompt written as "two/three identical X" did. Stating the count fixed all
+  three in one pass.
+- **Pin the aim direction, not the carry position.** "held upright against his own shoulder" gave
+  `holy_warriors_e4` nothing to aim at, so a shooting unit came back with muskets slung across the
+  back, reading as idle. "levelled forward ... pointing toward the right edge of the frame", the
+  wording `archers_e4` already uses, fixed it.
+- **Framing words cannot change a sprite's proportions.** The build trims to the alpha bbox, so
+  margin is discarded and only the subject's own silhouette survives. The era-4 airship rendered at
+  3.59:1 against an otherwise portrait roster; only changing the subject moved it (a short
+  deep-bodied airship with a gondola, 2.06:1).
 - **Frame-by-frame walk cycles are the wrong default for an AI sprite pipeline** (frame-to-frame
   consistency is diffusion's hardest problem). This survives the audit unconditionally; it is an
   argument about animation, not about camera.

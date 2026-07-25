@@ -64,7 +64,51 @@ WARN_BYTES = int(4.5 * 1024 * 1024)
 STOP_BYTES = 6 * 1024 * 1024
 
 KEY_THRESH = 34       # flood-fill tolerance when keying the render background
+SEED_THRESH = 20      # max per-channel gap from the reference before a seed is refused
+POCKET_THRESH = 5     # ditto for seeding an enclosed pocket: far tighter, because a pocket IS
+                      # the render background, while the subject's own greys only resemble it
+RING_DARK = 120       # a pocket is sealed by ligne-claire outline, so its rim reads this dark
+RING_SHARE = 0.25     # ...over at least this share of the rim
 SENTINEL = (255, 0, 255)
+
+
+def _bg_reference(rgb: Image.Image) -> tuple[int, int, int]:
+    """Median colour of the frame border: the flat render background."""
+    w, h = rgb.size
+    px = [rgb.getpixel((x, y)) for x in range(0, w, 8) for y in (0, h - 1)]
+    px += [rgb.getpixel((x, y)) for y in range(0, h, 8) for x in (0, w - 1)]
+    px.sort(key=sum)
+    return px[len(px) // 2]
+
+
+def _worst_channel(a: Image.Image, b: Image.Image) -> Image.Image:
+    r, g, bl = ImageChops.difference(a, b).split()
+    return ImageChops.lighter(ImageChops.lighter(r, g), bl)
+
+
+def _near_bg(rgb: Image.Image, ref: tuple[int, int, int], thresh: int) -> Image.Image:
+    """Mask of pixels within `thresh` of `ref` on every channel."""
+    worst = _worst_channel(rgb, Image.new("RGB", rgb.size, ref))
+    return worst.point(lambda v: 255 if v <= thresh else 0)
+
+
+def _keyed(rgb: Image.Image) -> Image.Image:
+    """Mask of the pixels a fill has already claimed."""
+    worst = _worst_channel(rgb, Image.new("RGB", rgb.size, SENTINEL))
+    return worst.point(lambda v: 255 if v == 0 else 0)
+
+
+def _sealed_by_linework(gray: Image.Image, region: Image.Image) -> bool:
+    """Does the subject's dark outline run around this region?
+
+    The one test that separates a pocket of backdrop from a pale fill of the subject's own
+    (a grey hull, a white surcoat), which by colour alone are indistinguishable from it. A
+    pocket is walled in by ligne-claire outline; a highlight on a hull just fades into more hull.
+    """
+    rim = ImageChops.subtract(region.filter(ImageFilter.MaxFilter(5)), region)
+    hist = gray.histogram(rim)
+    total = sum(hist)
+    return total > 0 and sum(hist[:RING_DARK]) >= RING_SHARE * total
 
 
 def scan() -> dict[str, str]:
@@ -145,17 +189,50 @@ def resolve(found: dict[str, str]) -> tuple[dict[str, str], list[tuple[str, str]
 def key_background(im: Image.Image) -> Image.Image:
     """Key the plain light-grey render background to transparent.
 
-    Flood-fills inward from the frame edges rather than matching a colour globally, so light
-    interior fills (white waistcoats, pale hulls) are never punched through.
+    Flood-fills rather than matching a colour globally, so light interior fills (white
+    waistcoats, pale hulls) are never punched through. Two passes: outward-in from the frame
+    edges, then one fill per enclosed pocket of background the first pass cannot reach.
     """
     rgb = im.convert("RGB")
     w, h = rgb.size
+    ref = _bg_reference(rgb)
     seeds = [(0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1),
              (w // 2, 0), (w // 2, h - 1), (0, h // 2), (w - 1, h // 2)]
     for seed in seeds:
-        if rgb.getpixel(seed) == SENTINEL:
+        px = rgb.getpixel(seed)
+        # A subject that runs off the frame (the era-4 airship spans the full width) puts a
+        # mid-edge seed on the subject itself, where a fill would eat it. Refuse those.
+        if px == SENTINEL or max(abs(a - b) for a, b in zip(px, ref)) > SEED_THRESH:
             continue
         ImageDraw.floodfill(rgb, seed, SENTINEL, thresh=KEY_THRESH)
+
+    # Background sealed off by the subject (between an arm and a torso, inside the curve of a
+    # bow) is unreachable from the frame edge and survives the pass above as a grey slab. Fill
+    # each such pocket separately. Colour alone cannot authorise the fill: gun metal and pale
+    # hulls carry patches that match the backdrop exactly, and punching those out is worse than
+    # the slab. So each candidate is filled on a scratch copy and only committed if the outline
+    # test agrees. MinFilter drops lone matching pixels, which are never pockets.
+    gray = rgb.convert("L")
+    candidates = _near_bg(rgb, ref, POCKET_THRESH).filter(ImageFilter.MinFilter(3)).tobytes()
+    rejected = Image.new("L", rgb.size, 0)
+    pos = 0
+    while True:
+        i = candidates.find(b"\xff", pos)
+        if i < 0:
+            break
+        pos = i + 1
+        xy = (i % w, i // w)
+        # already swallowed by an earlier fill, or inside a pocket the outline test turned down
+        if rgb.getpixel(xy) == SENTINEL or rejected.getpixel(xy):
+            continue
+        scratch = rgb.copy()
+        ImageDraw.floodfill(scratch, xy, SENTINEL, thresh=KEY_THRESH)
+        region = ImageChops.subtract(_keyed(scratch), _keyed(rgb))
+        if _sealed_by_linework(gray, region):
+            rgb.paste(SENTINEL, (0, 0), region)
+        else:
+            rejected.paste(255, (0, 0), region)
+
     # alpha = 0 exactly where the fill landed. Max-of-channels keeps the test exact
     # (a per-pixel Python loop would be ~1M iterations per sprite).
     diff = ImageChops.difference(rgb, Image.new("RGB", rgb.size, SENTINEL))
