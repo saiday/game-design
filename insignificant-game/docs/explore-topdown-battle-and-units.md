@@ -344,6 +344,58 @@ up; it is installed but currently stopped.)
     rendered with side-view pose language still in the prompt. Re-rolled at seed 402 with the
     wording fixed; all six came back equal or better, and two of them (elite_forces e2 and e5)
     also fixed genuine count drift, having rendered one figure where the prompt asked for two.
+- **2026-07-25, round 2: sprites regenerated for facing, and a Codex review.** Human feedback
+  found three defects, one of which exposed a mistake in the round-1 prompt work.
+  - **The facing flip was broken, and the prompts caused it.** Round 1 stripped every
+    right-facing phrase out of the subject wording to remove side-view language. That also
+    removed the only thing an X-flip can mirror: sprites faced the camera, so flipping them did
+    nothing legible. Round 2 pins orientation explicitly (`the whole group oriented toward the
+    right edge of the frame, bodies and weapons pointing right`), which a steep overhead view
+    supports well, since a near-overhead figure mirrors cleanly. Verified: every unit on the left
+    faces right and every unit on the right faces left, with weapons, mounts and gun barrels all
+    mirroring correctly.
+  - **The simplified look now actually lands.** Round 1 used a truncated form phrase and the LoRA
+    ignored it, leaving full-detail Moebius figures. Round 2 restores the full probe wording
+    (`simplified stylized figures with rounded chunky bodies and no facial features`), which
+    reproduces the `exp_td2_simple_*` look: chunky, big-headed, blank-faced.
+  - **The bomber is no longer a horizontal shooter.** It was firing an arcing projectile like an
+    archer. A bomber now has a 70px reach so it must fly over its target, and the bomb falls
+    straight down from the fuselage. Bomber sprites no longer carry visible bombs, since the
+    attack spawns one.
+  - **Attack motion is per class**, not one shared lunge: melee lunges forward, cavalry charges
+    with a roll, muskets and rifles recoil backward, artillery recoils hard with a scale kick,
+    a bomber banks with no translation, engineers have none.
+  - **Flying weapons are generated art.** Eight projectile sprites (stone, arrow, bolt, bullet,
+    missile, cannonball, shell, bomb) mapped per class and era, authored pointing right, with the
+    bomb authored nose-down for its vertical fall. Total set is 60 sprites at 1.12 MB.
+  - **Unit metrics moved onto the field.** The stat block (era form name, live HP, 攻 / 命中率 /
+    閃避率 / 攻速) is now a tag attached to each unit, with a collision pass that places tags in
+    free lanes and draws a leader line back to its unit. The canvas took the full page width to
+    keep the tags legible; the full table moved below the field.
+  - **A Codex review found seven defects, all fixed.** Two mattered: an air strike targets a
+    standing fortification first, but movement steered at the nearest *unit*, so a bomber could
+    drop its bomb in empty field while demolishing a fort elsewhere; and `speedMul` was applied
+    to projectiles both at creation and per frame, squaring it, so at 2.5x the slider arrows flew
+    at 6.25x. Also fixed: in-flight shots silently evaporated when their target died before
+    impact (core resolves atomically, so the shot now re-plans against current state); 「僅剩空軍」
+    was labelled a draw when `battle.gd` does not call it one at all (with no land force nothing
+    claims the field and the outcome simply stays unset, so it is now labelled a sandbox stop
+    condition); projectiles spawned from the sprite centre instead of the facing side; the dodge
+    side-step was not perpendicular to oblique attack vectors; and tag de-collision stacked tags
+    at the bottom edge instead of trying upward lanes. Codex independently confirmed that every
+    value in the demo's `CLASSES` table and `ERA_COEFF` matches `cards.gd` and `era.gd`, and that
+    the roll order, fort selection, repair timing and melee row preference are faithful.
+  - **A bug found by measurement, not by eye:** with only horizontal alignment gating the drop,
+    a bomb whose target sat higher up the field rendered as travelling *upward*. Bombers now
+    require 2D proximity and close on the vertical axis at full speed, and the release point is
+    clamped to at least 90px above the impact point, so a bomb always falls.
+  - **Known limits carried forward:** the camera still splits by subject type (structures,
+    vehicles and aircraft come out straight down, mounted figures drift toward profile), negative
+    prompt wording still does not reliably suppress insignia (a bomber came back with a roundel
+    and tail flashes despite the prompt forbidding both), and a few cells drift in figure count.
+    None of these block a stats sandbox; all of them are the same prompt-only limits the audit
+    already established.
+
   - **Approximations are listed on the page itself** (its `.note` block), not hidden: continuous
     movement stands in for a model with no positions, nearest-enemy targeting stands in for
     deploy-order focus fire, both sides carry the quality triple where the real game gives it to

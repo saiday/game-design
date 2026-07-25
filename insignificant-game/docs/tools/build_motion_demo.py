@@ -53,6 +53,11 @@ ERAS = {
 # longest first so elite_forces never matches as 'forces' inside another stem
 CLASSES = sorted(ERAS, key=len, reverse=True)
 
+# Flying weapons. These have no era: one sprite per ammo type, keyed proj_<name>, mapped onto
+# classes/eras by the demo's AMMO table. A missing one is a warning, not an error: the demo
+# falls back to drawing a plain tracer line.
+PROJECTILES = ["stone", "arrow", "bolt", "bullet", "missile", "cannonball", "shell", "bomb"]
+
 # Progressive tightening if the embedded file overshoots its budget.
 LADDER = [(256, 128), (224, 96), (192, 64), (160, 48)]
 WARN_BYTES = int(4.5 * 1024 * 1024)
@@ -73,6 +78,12 @@ def scan() -> dict[str, str]:
             continue
         stem = name[:-4]
         key = None
+        if stem.startswith("proj_"):
+            if stem[5:] not in PROJECTILES:
+                unmapped.append(name)
+                continue
+            found[stem] = os.path.join(SRC_DIR, name)
+            continue
         for cls in CLASSES:
             m = re.search(rf"{re.escape(cls)}_e(\d)$", stem)
             if m:
@@ -98,6 +109,16 @@ def resolve(found: dict[str, str]) -> tuple[dict[str, str], list[tuple[str, str]
                  + "\n  every class needs at least one era; generate them or shrink the demo roster.")
     picked: dict[str, str] = {}
     subs: list[tuple[str, str]] = []
+    absent_proj = []
+    for name in PROJECTILES:
+        key = f"proj_{name}"
+        if key in found:
+            picked[key] = found[key]
+        else:
+            absent_proj.append(key)
+    if absent_proj:
+        print("WARNING: no sprite for these flying weapons, the demo will draw a plain tracer "
+              "line instead: " + ", ".join(absent_proj))
     for cls, eras in ERAS.items():
         for era in eras:
             key = f"{cls}_e{era}"
