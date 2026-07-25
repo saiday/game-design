@@ -307,3 +307,47 @@ up; it is installed but currently stopped.)
   - **ComfyUI restarted solely to render the top-down sprites this demo needs**, then shut down
     again. The renders are exploratory raws under `assets/exploration/topdown-demo/`, never
     `assets/approved/`; style-bible and `inventory.md` are untouched.
+
+- **2026-07-25, demo upgrade delivered.** `explore-topdown-motion-demo.html` now runs the full
+  roster with an era selector, and takes its numbers from the game rather than from invented demo
+  values.
+  - **Stats are transcribed, not invented.** 攻/血 are the `core/data/cards.gd` catalog bases
+    scaled by `core/era.gd` `COST_COEFF` (1/2/3/5/8/12); 命中率/閃避率/攻速 are the midpoints of
+    each class's v1 medium quality band (`cards.gd` `QUALITY`). Era names are the catalog's six
+    per-class form names. Verified at both ends of the range: era 1 shows 棍棒戰團 攻1/血2, era 6
+    shows 動力裝甲兵 攻12/血24 and 電磁砲 攻48.
+  - **Roll order mirrors `Battle._fire`.** Siege/air demolition of a standing fortification first
+    (no roll, no repair), then fortification absorb (盾陣 one melee, 防空 one ranged/air, ignoring
+    attack value, turning 待修 instead of consumed when an engineer lives), then accuracy roll,
+    then dodge roll. Engineers never attack and repair one fortification per round starting the
+    round after it was damaged. A side holding only air units cannot claim the field.
+  - **Sprite set: 52 raws, no gaps.** One per class×era for the 11 classes the demo fields, all
+    rendered fresh; the build script needed no era substitutions. Recipe unchanged
+    (Krea-2-Turbo + Moebius LoRA @1.0, euler/simple, 8 steps, cfg 1.0, `ConditioningZeroOut`),
+    subject wording taken from the approved manifest rows with side-view pose language rewritten
+    to view-neutral phrasing and the steep-angle framing suffix appended. Seed 401 throughout,
+    with six cells re-rolled at seed 402.
+  - **Build tooling:** `docs/tools/build_motion_demo.py` keys the plain grey render background to
+    transparent by flooding inward from the frame edges (so pale interior fills are not punched
+    through), trims, downscales to 256px, quantises to 128 colours, and rewrites only the
+    `@SPRITES` / `@CREDITS` marker blocks so hand-edited JS and CSS survive re-runs. The demo
+    stays one self-contained double-clickable file at 1.24 MB.
+  - **QC finding worth keeping: the camera splits by subject type.** Structures, emplacements,
+    vehicles and aircraft come out genuinely steep overhead. Multi-figure human groups still
+    drift toward eye-level three-quarter even with the steep-angle suffix that fixed archers-e4 in
+    the probe. This reproduces the board finding above and matches the audit's position that a
+    shared camera is not lockable by prompt wording. Acceptable for a stats sandbox; for any real
+    top-down asset class it would need a fixed camera (ControlNet/pose reference), which O3
+    already priced out.
+  - **A prompt-cleanup bug worth recording:** the first pass rewrote several directional phrases
+    but missed `"both facing right"`, so six cells (archers e5/e6, elite_forces e2/e3/e5/e6) were
+    rendered with side-view pose language still in the prompt. Re-rolled at seed 402 with the
+    wording fixed; all six came back equal or better, and two of them (elite_forces e2 and e5)
+    also fixed genuine count drift, having rendered one figure where the prompt asked for two.
+  - **Approximations are listed on the page itself** (its `.note` block), not hidden: continuous
+    movement stands in for a model with no positions, nearest-enemy targeting stands in for
+    deploy-order focus fire, both sides carry the quality triple where the real game gives it to
+    player units only, engineer repair is symmetric where core grants it to the player side only,
+    and there are no waves, 軍費, skills or growth. The round is stretched to 4.5 s on screen
+    because 攻 and 血 scale by the same coefficient at every era, so a strike is worth one or two
+    units' entire HP and the exchange is otherwise over before it can be watched.
