@@ -220,6 +220,12 @@ def main() -> None:
                  f"hand-edit\n// {len(entries)} sprites, {max_dim}px max side, {colors} colours\n"
                  "const SPRITES = {\n"
                  + "".join(f"  {k!r}: {v!r},\n".replace("'", '"') for k, v in entries.items())
+                 + "};\n"
+                 # The page's asset table names its own sources. Emitted rather than derived from
+                 # the key, because resolve() may fill a missing era from a neighbouring one, and
+                 # a table that guessed <key>.png would then name a file that does not exist.
+                 + "const SPRITE_SRC = {\n"
+                 + "".join(f'  "{k}": "{os.path.basename(picked[k])}",\n' for k in sorted(entries))
                  + "};\n" + SPRITES_END)
         credits = (CREDITS_BEGIN + "\n    sprites: "
                    f"{len(found)} exploratory top-down raws "
