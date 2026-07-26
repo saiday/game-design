@@ -16,3 +16,9 @@ captures/
 
 # macOS folder metadata
 .DS_Store
+
+# Re-roll candidates from render_topdown_sprites.py --probe (reviewed, then discarded)
+insignificant-game/docs/tools/topdown-probe/
+
+# Python bytecode from the docs/tools scripts
+__pycache__/

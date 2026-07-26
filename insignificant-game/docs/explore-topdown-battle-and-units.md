@@ -84,9 +84,13 @@ What it does:
   scale by the same coefficient at every era, so a strike is worth one or two units' entire HP and
   the exchange is otherwise over before it can be watched.
 
-Sprites: 60 exploratory raws under `assets/exploration/topdown-demo/`, never `assets/approved/`.
-Recipe unchanged (Krea-2-Turbo + Moebius LoRA @1.0, euler/simple, 8 steps, cfg 1.0,
-`ConditioningZeroOut`), seed 401 with re-rolls at 402 and 403.
+Sprites: 60 exploratory raws under `assets/exploration/topdown-demo/`, never `assets/approved/`,
+with a README beside them saying so. Recipe unchanged (Krea-2-Turbo + Moebius LoRA @1.0,
+euler/simple, 8 steps, cfg 1.0, `ConditioningZeroOut`): **55 at seed 501** (the round-2 pass that
+turned every subject to face right) and **5 at seed 403** (the review re-rolls). Round 1, seeds
+401 and 402, is superseded and no file on disk comes from it. The prompt and seed for all 60 live
+in `docs/tools/topdown_demo_sprites.json`, and `docs/tools/render_topdown_sprites.py` renders any
+subset from it, so the set is reproducible.
 `docs/tools/build_motion_demo.py` keys the grey render background to transparent in two passes:
 inward from the frame edges, then one fill per pocket of background the subject seals off
 (between an arm and a torso, inside the curve of a bow). A pocket is filled only when dark
