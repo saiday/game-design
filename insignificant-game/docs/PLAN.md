@@ -116,12 +116,6 @@ every green wave.
       scene, per-battle-type battle scene replaying the core's tick timeline. Backgrounds class
       plates are already approved (`9b45ed8`); the blocker is W11–W14, not art. Interface behavior
       iterates in-engine on Part B captures (no more interface mocks).
-      `docs/explore-topdown-motion-demo.html` is a **presentation reference only** — how rolls,
-      HP, medals and the interception moment read on screen — never a rules spec. Its top-down
-      camera is a sandbox property (the game camera stays side-view, see
-      `explore-topdown-battle-and-units.md`), and its battle rules **predate ADR-0006/0007**:
-      it still models 防空 absorbing ranged fire, demolition removing forts, and
-      engineer-present-conditional 待修. Rules come from `design/`, never from the demo.
 
 ## Closed: PoC waves W0–W9 (record; all gates passed)
 
