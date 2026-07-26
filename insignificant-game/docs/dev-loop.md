@@ -20,6 +20,28 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - Reports: `reports/report_N/{results.xml,index.html}`. Failure detail is in the XML.
 - Benign noise: `ERROR: The remote port number must be between 1 and 65535` (runtest.sh's debugger trap).
 
+### Design-graph check (run after ANY `design/`, doc, or module-header change)
+
+```bash
+python3 docs/tools/check_design_graph.py            # exit 1 on any error
+python3 docs/tools/check_design_graph.py --doc-map  # also regenerate doc-map's graph table
+```
+
+Current clean state: **14 system docs, 62 feed edges, 57 `code:` mappings, 0 errors, 0 warnings.**
+
+What it enforces, so you don't have to hold it in your head:
+
+- Every `graph:` `feeds` / `fed_by` name resolves to a real doc in `design/`, and every
+  `resources_in` / `resources_out` name is a real field in `core/game_state.gd`.
+- Every `[[wikilink]]` resolves (it understands `\|` table escapes, `|` aliases, `#anchors`).
+- Every `code:` path exists, and any `.gd` header citing `design/X.md` is listed by that doc.
+- Every doc-shaped file in the repo has a row (or a cluster row) in `docs/doc-map.html`.
+- **Warnings** are asymmetric feed edges: A says it feeds B, B does not say it is fed by A.
+  These are design questions — resolve them from the corpus prose or ask the human. The script
+  never invents an edge to silence itself, and warnings do not fail the run.
+
+Unlike the Godot commands, this one anchors on its own file location, so cwd does not matter.
+
 ## Part B — GPU capture demo (run before calling any view/system change "done")
 
 > **DOWN W12–W14:** `view/main.gd` is parse-broken against the rewritten battle API (no hand)

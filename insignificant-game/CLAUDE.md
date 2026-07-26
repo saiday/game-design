@@ -28,7 +28,13 @@ root is docs-only) — always `cd` here before running anything.
   the sim, surface findings (`docs/balance-report.md`), don't decide.
 - **Doc ↔ code metadata:** every design doc's frontmatter has a `code:` list naming its module /
   data table / test suite; every module's header comment cites its `design/*.md`. When you move
-  or add files, update BOTH directions in the same change.
+  or add files, update BOTH directions in the same change — then run
+  `python3 docs/tools/check_design_graph.py`, which is what actually verifies it.
+- **The corpus is a graph, and it is checked.** Each system doc's frontmatter `graph:` block
+  declares what feeds it, what it feeds, and which GameState fields it reads and writes — the
+  machine-readable form of the prose 被誰餵/餵給誰 intro. Keep the two in sync when you touch
+  either. `check_design_graph.py` (see `docs/dev-loop.md`) resolves every edge, both `code:`
+  directions, every wikilink, and doc-map coverage; it is part of Part A.
 - Where the design is silent, decide conservatively and log it as one row in
   `docs/decisions.md` (which holds the format plus everything already decided). Decisions with
   lasting architectural consequences also get an ADR in the repo root's `docs/adr/`. Never
@@ -44,7 +50,8 @@ root is docs-only) — always `cd` here before running anything.
 - **Static typing everywhere**; Godot 4.6 idioms (`await`, typed arrays, `&"StringName"` ids —
   only the canonical IDs from architecture.md, never invented variants).
 - **Content is data.** Rules read `core/data/*.gd` const tables; logic never hardcodes content.
-- **Both loop parts before "done".** Part A (gdUnit4, exit 0, all suites executed) AND Part B
+- **Both loop parts before "done".** Part A (gdUnit4, exit 0, all suites executed; plus
+  `docs/tools/check_design_graph.py` at exit 0 when docs or headers moved) AND Part B
   (INSIG_DEMO capture: PNGs reviewed against the defect taxonomy, zero ASSERT FAIL). Headless
   green alone has already missed real defects here.
 - **Module boundaries = file boundaries.** Touching module X means `core/x.gd`,

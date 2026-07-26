@@ -3,6 +3,7 @@ extends RefCounted
 # 結局 (design/結局.md): no victory threshold — surviving to generation 50 IS the win.
 # Three exits: 政權崩潰 (only failure), 走到最後 (ranked narrative epilogue),
 # 提前完全勝利 (last civilization standing).
+# 政權崩潰 is the failure chain's terminal step, owned by design/內亂與失敗.md.
 
 
 static func check(state: GameState) -> Dictionary:

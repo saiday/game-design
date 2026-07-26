@@ -5,6 +5,18 @@ date: 2026-07-07
 code:
   - insignificant-game/core/legacy.gd
   - insignificant-game/test/legacy_test.gd
+graph:
+  fed_by:
+    - 國策
+    - 對手文明
+    - 民主
+    - 營運
+  feeds:
+    - 卡牌
+    - 幸福
+    - 內亂與失敗
+  resources_in: [culture]
+  resources_out: [population, culture, tech, happiness, legacies]
 ---
 
 # Legacy（文明精神）

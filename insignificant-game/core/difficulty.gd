@@ -1,6 +1,8 @@
 class_name Difficulty
 extends RefCounted
 # Difficulty algorithm (docs/difficulty-design.md, synced to the design corpus).
+# Consumed by three systems: design/戰鬥.md (enemy combat stats), design/對手文明.md
+# (rival curves + the full formula), design/地圖與機會.md (event penalties).
 # One signed level d (easy −1 / normal 0 / hard +1) drives three channels with
 # per-channel slopes — no per-encounter special cases:
 #   enemy combat stats   ×(1 + 0.20·d)
