@@ -263,8 +263,8 @@
         <td>Noto Sans TC subset provenance: SIL OFL license record and the pyftsubset rebuild command for the shipped font binaries.</td>
         <td>Font locked in style-bible.md §10; consumed by <code>view/main.gd</code> chrome.</td></tr>
     <tr><td style="white-space:normal">../exploration/topdown-demo/README.md</td><td><span class="aud both">both</span></td>
-        <td>Boundary marker for the demo-only top-down sprites: nothing in that folder ships, no Godot code reads it, and it is not a stand-in for the frozen side-view units (wrong camera, unkeyed raws, roster keyed to card classes).</td>
-        <td>Sole consumer is insignificant-game/docs/explore-topdown-motion-demo.html; shipping art stays in <code>assets/approved/</code> behind <code>core/data/asset_paths.gd</code>.</td></tr>
+        <td>Inventory and boundary marker for the demo-only top-down sprites: what the 60 files are (class × era × subject kind, ammo-to-class mapping), how the demo embeds them, and why they are not a stand-in for the frozen side-view units (wrong camera, unkeyed raws, roster keyed to card classes). Nothing in that folder ships and no Godot code reads it.</td>
+        <td>Sole consumer is insignificant-game/docs/explore-topdown-motion-demo.html; indexed by <code>docs/tools/topdown_demo_sprites.json</code>; shipping art stays in <code>assets/approved/</code> behind <code>core/data/asset_paths.gd</code>. Records the three <code>anti_air</code> renders ADR-0006 stranded.</td></tr>
   </table>
   </div>
 
@@ -319,7 +319,7 @@
       requires either its own row or a cluster row that covers its directory.</li>
   </ul>
 
-  <footer>Last updated: 2026-07-26 (the design corpus is now a machine-checked graph: <code>graph:</code> frontmatter, the generated system-graph table, and registry-coverage enforcement in Part A) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
+  <footer>Last updated: 2026-07-27 (the topdown-demo sprite README is now an inventory an agent can read instead of a folder listing: class × era × subject kind, the ammo-to-class mapping, and the three <code>anti_air</code> renders ADR-0006 stranded) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
 </div>
 </body>
 </html>
