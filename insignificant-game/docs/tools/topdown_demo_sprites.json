@@ -348,24 +348,24 @@
   "cls": "privateers",
   "era": 3,
   "kind": "figure",
-  "seed": 403,
-  "prompt": "three identical bandits in dark leather jerkins standing in a tight rank, each gripping his own short curved sword held forward, each with a small closed brown loot sack tied at his belt, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background"
+  "seed": 501,
+  "prompt": "a single lone bandit in a dark leather jerkin standing alone in an otherwise empty frame, gripping his short curved sword held forward, a small closed brown loot sack tied at his belt, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background"
  },
  {
   "key": "privateers_e4",
   "cls": "privateers",
   "era": 4,
   "kind": "figure",
-  "seed": 403,
-  "prompt": "three identical thieves in dark hooded coats and neck scarves standing in a tight rank, each gripping his own short dagger held forward, each carrying his own brass-cornered suitcase under his other arm, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background"
+  "seed": 501,
+  "prompt": "a single lone thief in a dark hooded coat and neck scarf standing alone in an otherwise empty frame, gripping his short dagger held forward, a brass-cornered suitcase carried under his other arm, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background"
  },
  {
   "key": "privateers_e5",
   "cls": "privateers",
   "era": 5,
   "kind": "figure",
-  "seed": 403,
-  "prompt": "three identical hackers in dark hooded field jackets standing in a tight rank, each holding his own open rugged laptop in both hands, each laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background"
+  "seed": 501,
+  "prompt": "a single lone hacker in a dark hooded field jacket standing alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background"
  },
  {
   "key": "proj_arrow",

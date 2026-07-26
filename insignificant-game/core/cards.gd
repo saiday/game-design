@@ -53,7 +53,7 @@ static func is_unit(card_id: StringName) -> bool:
 
 static func has_form(card_id: StringName, era_idx: int) -> bool:
 	# Authoritative "does this card exist in this era" test: covers the early gate AND the
-	# top-end cutoffs (聖戰士團 工業-only, 私掠傭兵團 ends before 資訊).
+	# top-end cutoffs (聖戰士團 工業-only, 私掠傭兵 ends before 資訊).
 	var entry: Dictionary = card(card_id)
 	if not bool(entry["evolves"]):
 		return true   # skills are era-neutral
@@ -379,7 +379,7 @@ static func destroy_permanently(state: GameState, card_id: StringName) -> void:
 static func on_era_transition(state: GameState) -> Dictionary:
 	# 就地演化: every evolving card rises to the current era's form, carrying grade, innate
 	# three, and medals (卡牌.md §陣亡與重骰: 就地演化全部保留). Cards whose forms END here
-	# (聖戰士團 after 工業, 私掠傭兵團 after 現代) auto-disband: free, recovery per card
+	# (聖戰士團 after 工業, 私掠傭兵 after 現代) auto-disband: free, recovery per card
 	# table, and it proceeds even below the deck minimum (the minimum guards voluntary
 	# disband; a formless ghost card would contradict the evolution table).
 	var idx: int = Era.index(state.generation)

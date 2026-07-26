@@ -97,7 +97,7 @@ CARDS = {
     "card_bomber_era6": "a black angular flying-wing stealth bomber cutting across a dramatic dusk sky, its bomb bay open with a single guided bomb dropping, matte-black unmarked surfaces",
     # --- holy_warriors (聖戰士團, 國策限定, era 4 only) ---
     "card_holy_warriors_era4": "a musketeer in a white coat holding his musket upright against his shoulder, a single golden tree emblem on his chest, a rank of white-coated musketeers behind him, a dramatic sky",
-    # --- privateers (私掠傭兵團, 國策限定) ---
+    # --- privateers (私掠傭兵, 國策限定) ---
     "card_privateers_era3": "a bandit in a dark leather jerkin brandishing a short curved sword, a closed brown loot sack over his shoulder, a rough band of raiders behind him, a dramatic frontier sky",
     "card_privateers_era4": "a thief in a dark hooded coat and neck scarf clutching a brass-cornered suitcase under his arm, glancing back over his shoulder, a shadowy street opening to a dramatic sky",
     "card_privateers_era5": "a cyber hacker in a suit walking with an open laptop, its lid a plain unmarked metallic surface, cascading data-light around him and a dramatic city-night sky behind",

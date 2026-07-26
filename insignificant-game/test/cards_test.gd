@@ -31,7 +31,7 @@ func test_catalog_era_names_match_corpus() -> void:
 	assert_str(String((CardsData.CARDS[&"shield_wall"]["era_names"] as Array)[4])).is_equal("電網")
 	assert_str(String((CardsData.CARDS[&"artillery"]["era_names"] as Array)[1])).is_equal("")
 	assert_array(CardsData.CARDS[&"privateers"]["era_names"]).contains_exactly(
-			["", "", "盜匪團", "竊賊團", "網路駭客", ""])
+			["", "", "盜匪", "竊賊", "網路駭客", ""])
 	assert_array(CardsData.CARDS[&"holy_warriors"]["era_names"]).contains_exactly(
 			["", "", "", "神權火槍旅", "", ""])
 
@@ -308,7 +308,7 @@ func test_era_evolution_keeps_roll_and_growth() -> void:
 
 
 func test_era_transition_auto_disbands_form_end() -> void:
-	# 時代演化總表: 聖戰士團 ends after 工業, 私掠傭兵團 after 現代 — free auto-disband that
+	# 時代演化總表: 聖戰士團 ends after 工業, 私掠傭兵 after 現代 — free auto-disband that
 	# proceeds even below the deck minimum (deliberate, docs/decisions.md).
 	var s := _state()
 	s.population = 10

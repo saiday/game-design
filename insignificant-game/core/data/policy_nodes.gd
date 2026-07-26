@@ -186,7 +186,7 @@ const NODES: Dictionary = {
 		"requires_any": [],
 		"effects": {
 			"map_nodes_min": 2,  # per-generation node count floor 2 (was 1-3)
-			"unlocks_card": &"privateer_band",  # 私掠傭兵團 (Cards owns)
+			"unlocks_card": &"privateer_band",  # 私掠傭兵 (Cards owns)
 		},
 	},
 	&"world_map": {  # 世界地圖

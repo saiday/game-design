@@ -187,11 +187,28 @@ The original handoff, in cost order:
   can mirror; sprites faced the camera and flipping did nothing. Round 2 pins
   `the whole group oriented toward the right edge of the frame, bodies and weapons pointing right`
   and mirrors cleanly.
-- **A singular subject contradicts the shared "...figures" clause, and the model settles it by
-  inventing a crowd.** `privateers_e3/e4/e5` were the roster's only three figure prompts written as
-  "a lone bandit / thief / cyber hacker", and all three returned one hero in front of a mass of
-  generic soldiers. No prompt written as "two/three identical X" did. Stating the count fixed all
-  three in one pass.
+- **The subject's count and the style tail's count must agree, or the model invents a crowd.** The
+  tail every other sprite shares is plural (`simplified stylized figures with rounded chunky
+  bodies`, `the whole group oriented toward the right edge of the frame, bodies and weapons
+  pointing right`). A lone subject under that tail contradicts it, and the model settles the
+  contradiction by putting one hero in front of a mass of generic soldiers, which is what "a lone
+  bandit / thief / cyber hacker" returned. Either count works once the whole prompt agrees on it:
+  `privateers_e3/e4/e5` are the roster's only single-figure units and carry the tail singularised
+  end to end (`a simplified stylized figure with a rounded chunky body...`, `the figure oriented
+  toward the right edge of the frame, body and weapon pointing right`), each returning exactly one
+  man with no crowd behind him.
+- **A stated count buys three heads, not three bodies.** In a multi-figure prompt the count clause
+  is satisfied by three heads and three weapons growing out of one fused torso column standing on a
+  single pair of legs, which reads on the field as one big unit rather than a squad. `infantry_e4`
+  carries the mild form: three shakos and three muskets over one torso, one pair of boots. Neither
+  a fresh seed nor the arrangement wording the roster already uses ("standing in a tight rank", "in
+  a staggered line") separates them; naming the per-figure anatomy does:
+  `each man a separate complete body standing on his own two legs and boots`. Pin a direction in
+  the same clause, because separated figures re-arrange themselves: told only to stand "spaced
+  apart in a line" the model lays them left-to-right for a 2.27:1 landscape sprite, against a
+  figure roster that otherwise runs 0.42–1.58. `the three men arranged in a staggered diagonal
+  line, each man set lower and further right than the one before him` holds the separation and the
+  frame together.
 - **Pin the aim direction, not the carry position.** "held upright against his own shoulder" gave
   `holy_warriors_e4` nothing to aim at, so a shooting unit came back with muskets slung across the
   back, reading as idle. "levelled forward ... pointing toward the right edge of the frame", the

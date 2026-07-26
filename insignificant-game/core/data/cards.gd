@@ -279,7 +279,7 @@ const CARDS: Dictionary = {
 		"flags": [&"fanatic"],  # 狂熱: high attack, thin hp (marker only)
 	},
 	&"privateers": {
-		"zh": "私掠傭兵團",
+		"zh": "私掠傭兵",
 		"class": &"mechanical",  # 部隊·國策限定 — no disband recovery, so mechanical rules
 		"source_kind": &"policy",
 		"source": &"great_voyage",
@@ -289,7 +289,7 @@ const CARDS: Dictionary = {
 		"row": &"melee",
 		"evolves": true,
 		# Forms end at 現代; auto-disbands on entering 資訊 (時代演化總表).
-		"era_names": ["", "", "盜匪團", "竊賊團", "網路駭客", ""],
+		"era_names": ["", "", "盜匪", "竊賊", "網路駭客", ""],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
 		"flags": [&"plunder"],  # 掠奪: each unit it clears grants +5×Era coeff money

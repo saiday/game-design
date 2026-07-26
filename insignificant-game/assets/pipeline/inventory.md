@@ -144,8 +144,8 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | unit_bomber_era5 | 轟炸機聯隊 |
 | unit_bomber_era6 | 匿蹤轟炸機 |
 | unit_holy_warriors_era4 | 神權火槍旅 |
-| unit_privateers_era3 | 盜匪團 |
-| unit_privateers_era4 | 竊賊團 |
+| unit_privateers_era3 | 盜匪 |
+| unit_privateers_era4 | 竊賊 |
 | unit_privateers_era5 | 網路駭客 |
 
 ### Fortifications (`fort_<type>_era<n>`) — source: 卡牌 工事卡的時代演化表
@@ -195,7 +195,7 @@ coherence — same subject, larger canvas.
 | card_artillery_era3..6 | 4 | 射石砲→電磁砲 |
 | card_bomber_era4..6 | 3 | 飛船轟炸隊→匿蹤轟炸機 |
 | card_holy_warriors_era4 | 1 | 神權火槍旅 |
-| card_privateers_era3..5 | 3 | 盜匪團→網路駭客 |
+| card_privateers_era3..5 | 3 | 盜匪→網路駭客 |
 | card_shield_wall_era1..6 | 6 | 木盾牆→複合裝甲牆 |
 | card_anti_air_era1..6 | 6 | 擋箭棚→雷射攔截網 |
 | card_war_song | 1 | 軍歌 (era-neutral skill) |

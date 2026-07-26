@@ -33,7 +33,7 @@ and vehicles come out genuinely overhead, human groups drift toward three-quarte
 | `artillery` | 火砲 | ranged | e3–e6 | vehicle |
 | `bomber` | 轟炸機 | air | e4–e6 | air |
 | `holy_warriors` | 聖戰士團 | melee | e4 only | figure |
-| `privateers` | 私掠傭兵團 | melee | e3–e5 | figure |
+| `privateers` | 私掠傭兵 | melee | e3–e5 | figure |
 | `shield_wall` | 盾陣 | fortification | e1–e6 | barrier |
 | `anti_air` | 防空飛彈 | fortification | e1–e6, 3 stranded | emplacement, vehicle from e5 |
 

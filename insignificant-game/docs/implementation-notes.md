@@ -36,7 +36,7 @@
   through these, never raw fields.
 - **`Cards.has_form(card_id, era_idx)`** (era_names non-empty; skills always true) is the
   authoritative "does this card exist this era" test — it covers both the early gate and the
-  new top-end cutoffs (聖戰士團 工業-only, 私掠傭兵團 ends before 資訊). `min_era` in the data
+  new top-end cutoffs (聖戰士團 工業-only, 私掠傭兵 ends before 資訊). `min_era` in the data
   is now a **derived cache kept only because `battle.gd`'s pre-rewrite reward pick still reads
   it**; `cards_test` asserts it equals the first formed era. **W12: switch battle to
   `Cards.roll_reward`/`reward_pool` and delete `min_era` from card entries.**
@@ -127,7 +127,7 @@
 - **2026-07-24 / W11 — plan's "era_names untouched" line is stale.** The rewrite plan's blast
   radius promised era names wouldn't change, but the W10+wayfinder corpus edits did change
   them (騎兵團 工業＝龍騎兵, 菁英 資訊＝生化超級士兵, 轟炸機 工業＝飛船轟炸隊, 盾陣 現代＝電網,
-  火砲 loses 古典 弩砲, 私掠傭兵團 forms 盜匪團/竊賊團/網路駭客, 聖戰士團 工業-only) and
+  火砲 loses 古典 弩砲, 私掠傭兵 forms 盜匪/竊賊/網路駭客, 聖戰士團 工業-only) and
   **removed 壕溝 entirely** (工兵團 becomes the fortification repairer). Per the plan's own
   precedence rule the design docs win; data table synced to the corpus. Consequence for the
   art pipeline: the era-1 unit renders keyed to card identity × era are unaffected (era-1
