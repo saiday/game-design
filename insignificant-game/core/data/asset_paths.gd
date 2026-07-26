@@ -43,6 +43,9 @@ const ICONS: Array[StringName] = [
 # Approved unit / enemy sprites: line -> eras frozen (line-pick gate 2026-07-21; the lineage
 # picks live in assets/pipeline/phase3_units_freeze.py). infantry omits era 4 — a known gap: the
 # era-4 render was §8-rejected with no sibling chain, so the view placeholders that one slot.
+# These tables are the art inventory, not the card catalog: anti_air keeps its era 1-3 entries
+# because those approved renders exist on disk, but the card has no era 1-3 form any more
+# (ADR-0006 retired 擋箭棚/箭樓/城防塔), so nothing ever resolves them.
 const UNIT_COVERAGE: Dictionary = {
 	&"anti_air": [1, 2, 3, 4, 5, 6],
 	&"archers": [1, 2, 3, 4, 5, 6],

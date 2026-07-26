@@ -50,6 +50,10 @@ root is docs-only) — always `cd` here before running anything.
 - **Module boundaries = file boundaries.** Touching module X means `core/x.gd`,
   `core/data/x_*.gd`, `test/x_test.gd`. Missing GameState fields: extend `game_state.gd` (driver
   file) with a comment — don't fork state into your module.
+- **Controller support.** The shipped game must be fully playable with a gamepad, not just
+  mouse/keyboard. Every interaction added to `view/` needs a controller path (input actions,
+  focus navigation); never build mouse-only UI. Input handling stays in the view layer
+  (`core/` remains `Input`-free per the pure-core rule).
 - Don't hand-corrupt `.tscn` (`view/main.gd` builds all UI programmatically — keep it that way);
   don't reopen locked decisions (engine/language/2D, corpus structure).
 
@@ -66,7 +70,7 @@ Numbers changed? Run the balance batch and diff against `docs/balance-report.md`
 | Where | What |
 |---|---|
 | `core/` (19 modules) + `core/data/` (7 tables) | all game logic; module↔doc map in architecture.md |
-| `test/` (21 suites, 199 cases green) | one suite per module; sim_test = full-run invariants |
+| `test/` (21 suites, 234 cases green) | one suite per module; sim_test = full-run invariants |
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
 | `docs/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |

@@ -65,8 +65,8 @@
 
   <h2>Core build (production waves)</h2>
   <div class="tiles">
-    <div class="tile"><div class="n">17 / 18</div><div class="l">waves closed (W0–W14 incl. W12.5/W13.5; W15 view revamp remains)</div></div>
-    <div class="tile"><div class="n">222 / 222</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
+    <div class="tile"><div class="n">18 / 19</div><div class="l">waves closed (W0–W14.5 incl. W12.5/W13.5; W15 view revamp remains)</div></div>
+    <div class="tile"><div class="n">234 / 234</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
   </div>
@@ -89,8 +89,10 @@
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-25: population starts 0, collapse_armed lazy-arming in unrest.gd, sim bot disbands for population; suite 223/223 exit 0</span></td></tr>
     <tr><td>W14</td><td>Sim + balance recalibration</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-25: tempo bot (strength parity, riot personnel-first, medal routing), 60-run batch, balance-report.md rewritten; headline: WW wall knobs don't bite yet (player camp wins ~95%), happiness finally moves, 0 collapses</span></td></tr>
+    <tr><td>W14.5</td><td>Air &amp; fortification rules delta (ADR-0006/0007 — targeting matrix, 防空 destroy-on-hit, fort disable/repair)</td>
+        <td><span class="status done"><span class="dot done"></span>closed 2026-07-26: 近戰打不到空域, 空襲只打地面, 防空飛彈主動開火即擊落 (era 1–3 forms retired), 工事失效待修永不移除 + 工兵輪流修復, 僅剩空軍雙向續打, 世界大戰僵局判定; suite 234/234 exit 0. Batch re-run: hard-difficulty world wars 95%→79% (bomber-heavy 正規軍 are melee-proof), collapse chain fired for the first time (2/60, an opening-game pop-5 trap) — both PM calls in balance-report.md</span></td></tr>
     <tr><td>W15</td><td>Three-scene view revamp (operations panorama / fog-map / battle scene)</td>
-        <td><span class="status todo"><span class="dot todo"></span>not started</span></td></tr>
+        <td><span class="status todo"><span class="dot todo"></span>not started — the only remaining wave; W14.5 renamed the fort/air timeline events it must render (intercept / disable / repair / shootdown)</span></td></tr>
   </table>
 
   <h2>Art pipeline (Phase 3 class gates)</h2>
@@ -122,10 +124,10 @@
     <tr><td>insignificant-game/design/ (single source of truth)</td>
         <td><span class="status done"><span class="dot done"></span>定稿 — structure/rules locked, numbers are v1 baselines</span></td></tr>
     <tr><td>Battle model rewrite (D1–D16, plan-battle-model-rewrite.md)</td>
-        <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED, W11 gate open; #17 (民主 貴族資金 40/60 split) closed, no open design blockers</span></td></tr>
+        <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5, no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-07-25 (W12.5 through W14 closed, full suite 222/222 exit 0; only W15 three-scene view revamp remains) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-07-26 (W14.5 air &amp; fortification delta closed, full suite 234/234 exit 0; only W15 three-scene view revamp remains) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>

@@ -113,3 +113,15 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | 最後一擊 when the losing camp's last unit wasn't cleared by a winner (e.g. player concedes with enemies standing) | Falls back to the winning camp's highest real 戰功 civ | world_war.gd `_top_merit` |
 | Pool distribution rounding (守恆: 發出去的正好等於池) | Floor-rounded shares; the remainder (and the 20% bonus) goes to the last hitter — payouts sum to the pool exactly | world_war.gd `finish` |
 | Faction tag in 文明戰爭 (WW5 pins civ tags for the shared table only) | Single-rival battles keep `&"enemy"`; civ-id faction tags appear only in 世界大戰 units | battle.gd |
+
+## W14.5 gaps: air & fortification rules delta (ADR-0006/0007)
+
+| Gap | Decision | Where |
+|---|---|---|
+| When in the tick window a 防空飛彈 fires (戰鬥.md pins 每回合一發 and the engine defaults, not the tick) | The window's first tick, right after 工兵 repair (tick 0) — a fort has no 攻速, so it doesn't ride the accumulator. Firing ahead of the strikes that suppress it is what makes the 防空+工兵 loop the exchange ADR-0006 describes; firing at the last tick would let one speed-1.0 bomber suppress the battery forever | battle.gd `_resolve_window`, `_fire_anti_air` |
+| 「多個待修依序輪流」 order | A rotating cursor over the fort line: the repair starts scanning at the slot after the last one repaired, so a fort that keeps getting re-disabled can't starve its neighbour | battle.gd `BattleField.repair_cursor` |
+| 戰功 for an aircraft the battery downs (a fort has no faction tag) | Credited to the side that owns the fort (player forts → `&"player"`), same as a 技能卡 clear | battle.gd `_fire_batteries` → `_credit_clear` |
+| Scope of 僵局判定 (世界大戰.md pins it for the uncapped war; capped types say 回合上限到＝判輸照舊) | Only `round_cap == 0` battles settle on deadlock; the other six ride their round cap even when the field can no longer change | battle.gd `_check_exhaustion` → `_check_deadlock` |
+| Deadlock where BOTH camps still hold 陸軍 but neither can act (e.g. only 工兵團 left on both sides) | Player's camp loses — the win branch requires the player to hold land AND the enemy not to (conservative, same ruling as mutual exhaustion) | battle.gd `_check_deadlock` |
+| 盾陣 interception when the side has no ground unit to shield | No interception: 攔截一次射向我方地面單位的近戰攻擊 requires an attack aimed at a ground unit, and a player holding only forts is exhausted anyway (工事不計入場上清空) | battle.gd `_fire` (target picked before the fort line) |
+| Non-terminating grind the rules do allow in an uncapped war (a lone sieger re-disabling a fort an engineer keeps repairing) | Sim-side guard only, never an engine cap: the bot stops driving at 200 rounds and takes the legal 認輸 exit | sim.gd `BATTLE_ROUND_GUARD` |

@@ -333,10 +333,11 @@ func test_reward_pool_by_era() -> void:
 	var s := _state()
 	assert_array(Cards.reward_pool(s)).contains_exactly_in_any_order([
 		&"infantry", &"archers", &"cavalry", &"engineers",
-		&"shield_wall", &"anti_air", &"war_song", &"holes_dont_matter",
-	])
+		&"shield_wall", &"war_song", &"holes_dont_matter",
+	])   # 防空飛彈 has no 部落 form: 有空軍才有防空 (ADR-0006)
 	s.generation = 25   # industrial: mechanical roster is formed now
 	var pool := Cards.reward_pool(s)
+	assert_bool(pool.has(&"anti_air")).is_true()
 	assert_bool(pool.has(&"elite_forces")).is_true()
 	assert_bool(pool.has(&"artillery")).is_true()
 	assert_bool(pool.has(&"bomber")).is_true()

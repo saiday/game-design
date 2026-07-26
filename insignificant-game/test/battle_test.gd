@@ -215,19 +215,27 @@ func test_fort_limit_two() -> void:
 	assert_that(Battle.deploy(s, battle, 0)["reason"]).is_equal(&"fort_limit")
 
 
-# --- fortifications ---
+# --- fortifications: disable & repair, never removed (ADR-0007) ---
 
-func test_fort_absorbs_once_then_consumed_without_engineers() -> void:
+func test_intercept_disables_the_fort_without_removing_it() -> void:
 	var s := _state()
+	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)         # silent ground unit: the thing being shielded
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
-	var battle := Battle.start(s, &"riot")           # 中×1, melee
+	var battle := Battle.start(s, &"riot")           # 中×1 (攻2), melee
+	_deploy_id(s, battle, &"infantry")
 	_deploy_id(s, battle, &"shield_wall")
 	var report := Battle.end_round(s, battle)
-	assert_int(battle.player_forts.size()).is_equal(0)   # 擋一次近戰即消耗
-	assert_bool(_has_event(report, &"absorb")).is_true()
+	assert_int(battle.player_forts.size()).is_equal(1)   # 本場永不移除, even with no engineer
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	assert_bool(_has_event(report, &"intercept")).is_true()
+	assert_bool(_has_event(report, &"hit")).is_false()   # 無視攻擊力: the attack never landed
+	# a disabled 盾陣 intercepts nothing and nobody repairs it: the next attack reaches the unit
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"intercept")).is_false()
+	assert_bool(_has_event(second, &"hit")).is_true()
 
 
-func test_engineers_turn_absorb_into_repair() -> void:
+func test_engineer_repairs_one_disabled_fort_per_round() -> void:
 	var s := _state()
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)       # support: never fires
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
@@ -235,22 +243,230 @@ func test_engineers_turn_absorb_into_repair() -> void:
 	_deploy_id(s, battle, &"engineers")
 	_deploy_id(s, battle, &"shield_wall")
 	Battle.end_round(s, battle)
-	assert_int(battle.player_forts.size()).is_equal(1)          # 轉為待修, not consumed
-	assert_bool(bool(battle.player_forts[0]["damaged"])).is_true()
-	var report := Battle.end_round(s, battle)                    # 自下一回合起修復
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	var report := Battle.end_round(s, battle)
 	assert_bool(_has_event(report, &"repair")).is_true()
+	# 修復再啟用: the repaired wall intercepts again in the same round it came back, so the
+	# 工兵+盾陣 pair is a suppression duel — one repair per round against one attack per round.
+	assert_bool(_has_event(report, &"intercept")).is_true()
+	assert_bool(_has_event(report, &"hit")).is_false()
+	assert_int(battle.player_forts.size()).is_equal(1)
 
 
-func test_siege_demolishes_fort_outright() -> void:
+func test_engineer_arriving_late_repairs_older_damage() -> void:
+	# ADR-0007: the engineer-present-at-interception conditional is gone — all that matters is
+	# that an engineer eventually stands on the side.
+	var s := _state()
+	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"shield_wall")
+	Battle.end_round(s, battle)                       # disabled with nobody to fix it
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	_deploy_id(s, battle, &"engineers")               # arrives a round later
+	assert_bool(_has_event(Battle.end_round(s, battle), &"repair")).is_true()
+
+
+func test_repair_round_robin_does_not_starve_the_second_fort() -> void:
+	var s := _state()
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
+	for i: int in range(2):
+		s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"shield_wall")
+	_deploy_id(s, battle, &"shield_wall")
+	battle.enemy_units.clear()                        # isolate the repair cadence
+	battle.player_forts[0]["disabled"] = true
+	battle.player_forts[1]["disabled"] = true
+	Battle.end_round(s, battle)                       # repairs #0, cursor moves to #1
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()
+	battle.player_forts[0]["disabled"] = true         # #0 goes down again
+	Battle.end_round(s, battle)                       # 依序輪流: #1's turn, not #0 again
+	assert_bool(bool(battle.player_forts[1]["disabled"])).is_false()
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+
+
+func test_siege_disables_active_fort_then_hits_units() -> void:
 	var s := _state()
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
-	var battle := Battle.start(s, &"hidden_battle")  # 硬×1 帶攻城 (ranged row)
+	var battle := Battle.start(s, &"hidden_battle")   # 硬×1 帶攻城 (ranged row)
 	_deploy_id(s, battle, &"engineers")
 	_deploy_id(s, battle, &"shield_wall")
 	var report := Battle.end_round(s, battle)
-	assert_int(battle.player_forts.size()).is_equal(0)   # demolition beats the repair rule
-	assert_bool(_has_event(report, &"demolish")).is_true()
+	assert_int(battle.player_forts.size()).is_equal(1)   # suppression, not demolition
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	assert_bool(_has_event(report, &"disable")).is_true()
+	# the sieger stops re-hitting the wreck; with the engineer repairing, the two trade
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"repair")).is_true()
+	assert_bool(_has_event(second, &"disable")).is_true()
+
+
+# --- air: targeting matrix + 防空飛彈 (ADR-0006) ---
+
+func test_melee_cannot_attack_air() -> void:
+	var s := _state(5)
+	_craft(s, &"bomber", 4, 0.0, 0.0, 0.0)     # blind and silent: a pure air target
+	var battle := Battle.start(s, &"riot")     # 中×1, melee row
+	_deploy_id(s, battle, &"bomber")
+	var report := Battle.end_round(s, battle)
+	assert_int(int(report["losses"])).is_equal(0)
+	assert_bool(_has_event(report, &"hit")).is_false()   # a club gang can't beat a bomber down
+	assert_bool(_has_event(report, &"miss")).is_false()  # it never even takes the shot
+
+
+func test_ranged_can_pick_air_targets() -> void:
+	var s := _state(5)
+	_craft(s, &"bomber", 4, 0.0, 0.0, 0.0)
+	var battle := Battle.start(s, &"hidden_battle")   # 硬×1 帶攻城 sits in the ranged row
+	_deploy_id(s, battle, &"bomber")
+	var report := Battle.end_round(s, battle)
+	assert_bool(_has_event(report, &"hit")).is_true()   # 遠程列自由選目標（含空域）
+
+
+func test_air_strike_hits_ground_only() -> void:
+	var s := _state(5)
+	Rivals.setup(s)
+	s.generation = 25                          # industrial: enemy 正規軍 field bombers
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 200.0
+	_craft(s, &"bomber", 4, 100.0, 0.0, 1.0)
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	battle.enemy_units.clear()                 # air-only enemy field: nothing to strike
+	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	_deploy_id(s, battle, &"bomber")
+	var report := Battle.end_round(s, battle)
+	assert_bool(_has_event(report, &"hit")).is_false()    # 空襲任選地面目標: no air-to-air
+	assert_int(int(report["kills"])).is_equal(0)
+
+
+func test_anti_air_destroys_one_aircraft_per_round() -> void:
+	var s := _state(5)
+	Rivals.setup(s)
+	s.generation = 25
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 200.0
+	s.deck.append(Cards.CardInstance.new(&"anti_air", 4))
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	battle.enemy_units.clear()
+	for i: int in range(2):
+		battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	_deploy_id(s, battle, &"anti_air")
+	var report := Battle.end_round(s, battle)
+	assert_bool(_has_event(report, &"shootdown")).is_true()
+	assert_int(int(report["kills"])).is_equal(1)          # 命中即擊落, one missile one aircraft
+	assert_int(battle.enemy_units.size()).is_equal(1)
+	assert_int(battle.merit).is_equal(int(Battle._type_strength(s, &"bomber")))
+	# the survivor answers by suppressing the battery, and with no engineer it stays down
+	assert_bool(_has_event(report, &"disable")).is_true()
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"shootdown")).is_false()
+	assert_int(battle.enemy_units.size()).is_equal(1)
+
+
+func test_engineer_keeps_the_battery_downing_one_aircraft_per_round() -> void:
+	# The 防空+工兵 loop (ADR-0006/0007): their strike suppresses the battery, your engineer
+	# repairs it, and it fires again the next round — one aircraft per round.
+	var s := _state(5)
+	s.generation = 25
+	_craft(s, &"engineers", 4, 0.0, 10.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"anti_air", 4))
+	var battle := _world_war_field(s, &"bomber")
+	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"anti_air")
+	Battle.end_round(s, battle)
+	assert_int(battle.enemy_units.size()).is_equal(1)
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()   # suppressed at tick 100
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"repair")).is_true()
+	assert_bool(_has_event(second, &"shootdown")).is_true()
+	assert_int(battle.enemy_units.size()).is_equal(0)
+
+
+func test_anti_air_does_not_intercept_and_needs_an_air_target() -> void:
+	var s := _state()
+	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"anti_air", 4))
+	var battle := Battle.start(s, &"riot")               # ground melee enemy only
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"anti_air")
+	var report := Battle.end_round(s, battle)
+	assert_bool(_has_event(report, &"shootdown")).is_false()   # 沒有空域目標就不開火
+	assert_bool(_has_event(report, &"intercept")).is_false()   # 防空不攔截: its absorb job is gone
+	assert_bool(_has_event(report, &"hit")).is_true()          # the melee attack lands unimpeded
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()
+
+
+func test_anti_air_has_no_form_before_industrial() -> void:
+	var s := _state()
+	assert_bool(Cards.has_form(&"anti_air", 1)).is_false()   # 有空軍才有防空
+	assert_bool(Cards.has_form(&"anti_air", 3)).is_false()
+	assert_bool(Cards.has_form(&"anti_air", 4)).is_true()
+
+
+func test_air_only_opponent_cannot_end_an_exhausted_players_battle() -> void:
+	# ADR-0006, symmetric 僅剩空軍: the player is exhausted, but the enemy holds only air,
+	# so the battle continues until the round cap rules 判輸.
+	var s := _state(5)
+	Rivals.setup(s)
+	s.generation = 25
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 200.0
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	battle.enemy_units.clear()
+	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	battle.waves.clear()
+	battle.next_wave = 0
+	Battle.end_round(s, battle)                    # empty deck: player already has nothing
+	assert_bool(battle.player_units.is_empty()).is_true()
+	assert_that(battle.outcome).is_equal(&"")      # 只剩空軍拿不下戰場, 敵我皆然
+	while battle.outcome == &"":
+		Battle.end_round(s, battle)
+	assert_that(battle.outcome).is_equal(&"loss")   # 判輸 at the cap (civil_war: 10)
+	assert_int(battle.round).is_equal(10)
+
+
+func _world_war_field(s: GameState, enemy_type: StringName) -> Battle.BattleField:
+	# 世界大戰 opened straight on the engine with one prepared enemy wave (WorldWar composes the
+	# real two-camp schedule; here the point is the uncapped round rule).
+	var wave: Array[Dictionary] = [{"round": 1, "side": &"enemy",
+			"units": [Battle._regular_unit(s, enemy_type, &"enemy", &"enemy", null)] as Array[Dictionary]}]
+	return Battle.start(s, &"world_war", &"", false, false, wave)
+
+
+func test_world_war_deadlock_settles_immediately() -> void:
+	# 世界大戰 僵局判定: no round cap to fall back on, so the moment the field can no longer
+	# change the war settles — here the bomber kills the last ground unit and then has nothing
+	# left it can legally hit, and no camp holds 陸軍 → 玩家所在營敗 (design/世界大戰.md).
+	var s := _state(5)
+	s.generation = 25                              # industrial: 轟炸機 has a form
+	var battle := _world_war_field(s, &"bomber")
+	assert_int(battle.round_cap).is_equal(0)
+	battle.player_units.append(Battle._regular_unit(s, &"infantry", &"player", &"player", null))
+	Battle.end_round(s, battle)
+	assert_bool(battle.player_units.is_empty()).is_true()   # struck down by the 空襲
+	assert_that(battle.outcome).is_equal(&"loss")
+	assert_int(battle.round).is_equal(1)            # settled on the spot, no endless watch mode
+
+
+func test_world_war_mutual_air_remnants_settle_at_once() -> void:
+	# The corpus's own example of 戰局不再可能變化: 兩邊都只剩空域單位. Neither camp holds 陸軍,
+	# so the player's camp loses — and watch mode never spins forever.
+	var s := _state(5)
+	s.generation = 25
+	_craft(s, &"bomber", 4, 100.0, 0.0, 1.0)
+	var battle := _world_war_field(s, &"bomber")
+	_deploy_id(s, battle, &"bomber")               # both camps now hold air and nothing else
+	Battle.end_round(s, battle)
+	assert_int(battle.player_units.size()).is_equal(1)   # air-vs-air is unreachable both ways
+	assert_int(battle.enemy_units.size()).is_equal(1)
+	assert_that(battle.outcome).is_equal(&"loss")
+	assert_int(battle.round).is_equal(1)
 
 
 # --- death consequences ---

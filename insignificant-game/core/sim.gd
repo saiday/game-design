@@ -7,6 +7,7 @@ extends RefCounted
 const SAFETY_CAP: int = 60
 const DEMOCRACY_ENTRY_GEN: int = 38
 const POP_COMFORT: int = 20   # disband-for-population target (base pop cap; tax ≈ 20/gen)
+const BATTLE_ROUND_GUARD: int = 200   # uncapped-battle backstop (see _drive_battle)
 
 const BUILD_ORDER: Array = [
 	[&"region", &"livelihood"], [&"building", &"housing"], [&"building", &"food"],
@@ -218,7 +219,7 @@ static func _drive_battle(state: GameState, battle: Battle.BattleField) -> void:
 	# first: any mechanical deploy costs 幸福 −15 (鎮壓的手段有代價). If the bot won't hold
 	# the field while enemies stand, it concedes — mandatory for uncapped battles (WW).
 	var spend_floor: int = -50 * Era.coeff(state.generation)
-	while battle.outcome == &"":
+	while battle.outcome == &"" and battle.round <= BATTLE_ROUND_GUARD:
 		var deployed_any := false
 		var played := true
 		while played and _fielded_strength(battle.player_units) < _fielded_strength(battle.enemy_units):
@@ -228,9 +229,23 @@ static func _drive_battle(state: GameState, battle: Battle.BattleField) -> void:
 			if pick >= 0 and state.treasury - Battle.card_cost(state, battle, battle.available[pick]) >= spend_floor:
 				played = bool(Battle.deploy(state, battle, pick)["ok"])
 				deployed_any = deployed_any or played
-		if battle.player_units.is_empty() and not battle.enemy_units.is_empty() \
-				and not deployed_any and not battle.conceded:
-			Battle.concede(battle)   # nothing fieldable against a standing enemy: give up
+		# Give up the field when the bot won't spend another coin on it: nothing fieldable
+		# against a standing enemy, or remnants that can't reach each other at all (this bot has
+		# no air answer, so melee-only survivors just stare at a bomber). 還有未出卡但選擇不出 is
+		# a legal voluntary concession, and it lets the engine settle an uncapped war on the spot
+		# instead of burning empty rounds.
+		var overrun: bool = battle.player_units.is_empty() and not battle.enemy_units.is_empty()
+		var frozen: bool = not Battle.has_pending_waves(battle) \
+				and not Battle.can_act(battle, &"player") \
+				and not Battle.can_act(battle, &"enemy")
+		if not battle.conceded and not deployed_any and (overrun or frozen):
+			Battle.concede(battle)
+		Battle.end_round(state, battle)
+	if battle.outcome == &"" and not battle.conceded:
+		# Backstop for a grind the rules DO allow to continue (e.g. a lone sieger re-disabling a
+		# fort an engineer keeps repairing). Never expected to fire; the concede rule above and
+		# Battle's 僵局判定 resolve every frozen field first.
+		Battle.concede(battle)
 		Battle.end_round(state, battle)
 
 

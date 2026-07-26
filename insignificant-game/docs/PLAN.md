@@ -101,7 +101,7 @@ every green wave.
       222/222 with determinism green. Headline measurements: player camp wins ~95% of
       world wars (WW2-wall knobs don't bite yet), happiness finally moves (min 16 on
       normal), 0 collapses with every run arming the check, money pile unchanged ~9200.)*
-- [ ] **W14.5 — Air & fortification rules delta (2026-07-26 design round; ADR-0006/0007,
+- [x] **W14.5 — Air & fortification rules delta (2026-07-26 design round; ADR-0006/0007,
       wayfinder #18–#22).** battle.gd: targeting matrix (melee excludes 空域, 空襲
       ground-only), 防空 active air fire (era 4+, **destroy-on-hit: no attack value, the
       target dies; engine defaults, target 閃避 still rolls**; era 1–3 forms retired in
@@ -110,6 +110,17 @@ every green wave.
       siege/air prefer active forts), 僅剩空軍 continuation + 世界大戰 deadlock resolution,
       `sim.gd` termination guard. Corpus already updated (design-first); code must follow it.
       Gate: Part A exit 0 on battle/cards/sim/world_war suites; determinism green.
+      *(done 2026-07-26: full suite exit 0 — 21/21 suites, 234/234 cases (12 new in
+      battle_test), determinism green. Targeting matrix + destroy-on-hit 防空 (fires at the
+      window's first tick, engine defaults, 閃避 still rolls, era 1–3 forms retired) + fort
+      disable/repair (never removed, round-robin, ground-only interception, siege/air prefer
+      active forts) + symmetric 僅剩空軍 continuation + 世界大戰 僵局判定 (uncapped only) +
+      sim round guard. Timeline events renamed: `absorb`/`demolish` → `intercept`/`disable`,
+      new `shootdown`; forts carry `disabled` only — W15 renders these. Balance batch re-run:
+      **hard-difficulty world wars fell 95%→79%** (bomber-heavy 正規軍 are now melee-proof) and
+      the collapse chain fired for the first time (2/60, both an opening-game pop-5 trap, not
+      an air effect) — both surfaced in balance-report.md for the PM. Gap decisions:
+      decisions.md W14.5; conventions: implementation-notes.md.)*
 - [ ] **W15 — Three-scene view revamp (style bible §11 + corpus 場景呈現; was W10).** Operations
       city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
       focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route fog-map

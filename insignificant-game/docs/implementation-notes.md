@@ -206,3 +206,26 @@
   money (reparations pools are real now) — rerun the balance batch; the bot's outnumber-
   by-one deploy rule is naive on a multi-civ table (allies count as its units). W15: the
   battle scene needs faction color/banner markers keyed off `faction` (WW5, no new art).
+- **W14.5 (air & fortification rules delta): done 2026-07-26.** Files: `core/battle.gd`
+  (targeting matrix `_pick_target`/`_attack_kind`/`_is_air`, active-air fire
+  `_fire_anti_air`/`_fire_batteries`, fort disable state + round-robin `_repair_forts`,
+  `_first_active_fort`, `_credit_clear` extracted, symmetric 僅剩空軍 exhaustion +
+  `_check_deadlock`/`_side_can_act` + public `can_act`), `core/data/cards.gd` (防空飛彈 →
+  `fires_at_air`, era 1-3 forms retired; 盾陣/工兵團/火砲/轟炸機 flag comments), `core/sim.gd`
+  (concede a frozen field + uncapped-round backstop),
+  `core/data/asset_paths.gd` (comment: era 1-3 防空 art is stranded, not resolved),
+  `test/battle_test.gd` (+12 cases), `test/cards_test.gd` (reward pool by era),
+  `docs/balance-report.md` (re-measured). Gate met: full suite **exit 0, 21/21 suites,
+  234/234 cases**, determinism green.
+  Event-name changes the W15 view must render: `absorb`/`demolish` are gone; forts now emit
+  `intercept` (盾陣 blocked a melee attack), `disable` (siege/air suppressed a fort),
+  `repair`, and `shootdown` (防空 downed an aircraft, always followed by the normal `death`).
+  Fort dictionaries carry `disabled` only — the old `damaged`/`damaged_round` pair is gone, so
+  the 運作中／被禁用 read the design asks for is a single field.
+  Three behavioral notes for later waves: (1) forts fire at tick 1 by decision, so the battle
+  scene should animate repair → battery → the round's melee in that order; (2) a **frozen
+  field is now a legal battle state** (melee-only remnants vs 空域) — `Battle.can_act(battle,
+  side)` is the public read for it, the sim concedes on it, and the view should explain an idle
+  unit with it rather than looking stuck; (3) the batch shows hard-difficulty world wars
+  dropping to 79% because the bot never answers air — a fort-and-ranged bot archetype is the
+  missing instrument, see the report's caveats.

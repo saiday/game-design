@@ -124,9 +124,9 @@ const CARDS: Dictionary = {
 		"era_names": ["修路隊", "築城匠", "攻城工兵", "工兵營", "機械化工兵", "戰鬥工程隊"],
 		"disband_pop": 2,
 		"destroyed_on_use": false,
-		# repairs_fortifications: while on field, a fortification that absorbs a hit is not
-		#   consumed but becomes damaged; engineers repair one fortification per round starting
-		#   the next round (戰鬥.md 工事卡).
+		# repairs_fortifications: an engineer on field repairs ONE disabled fortification per
+		#   round, round-robin over the fort line — 不限工事失效時誰在場, so engineers deployed in
+		#   later waves repair forts disabled before they arrived (戰鬥.md 工事卡, ADR-0007).
 		# no_attack: support unit, never attacks.
 		"flags": [&"repairs_fortifications", &"no_attack"],
 	},
@@ -158,7 +158,7 @@ const CARDS: Dictionary = {
 		"era_names": ["", "", "射石砲", "野戰砲", "自走砲", "電磁砲"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		"flags": [&"siege"],  # siege: can demolish enemy fortifications
+		"flags": [&"siege"],  # siege: disables an active enemy fortification (ADR-0007)
 	},
 	&"bomber": {
 		"zh": "轟炸機",
@@ -173,7 +173,8 @@ const CARDS: Dictionary = {
 		"era_names": ["", "", "", "飛船轟炸隊", "轟炸機聯隊", "匿蹤轟炸機"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		# air_strike: picks any target, can demolish fortifications.
+		# air_strike: 空襲 hits GROUND targets only (never air-to-air, ADR-0006) and disables
+		#   an active enemy fortification first (fort-busting is suppression now, ADR-0007).
 		# non_land: cannot take the field alone for victory (戰鬥: 只剩空中單位不算).
 		"flags": [&"air_strike", &"non_land"],
 	},
@@ -190,8 +191,9 @@ const CARDS: Dictionary = {
 		"era_names": ["木盾牆", "盾陣", "城垛", "沙包工事", "電網", "複合裝甲牆"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		# blocks_melee_once: ignores attack value; absorbs one melee hit then is consumed
-		# (unless engineers are on field: becomes damaged, repairable). Demolishable by siege/air.
+		# blocks_melee_once: ignores attack value; intercepts one melee attack aimed at a
+		# friendly GROUND unit and is disabled by the interception — never removed, never
+		# consumed, repairable by engineers (ADR-0007). Also disabled by siege/air strikes.
 		"flags": [&"blocks_melee_once"],
 	},
 	&"anti_air": {
@@ -204,12 +206,17 @@ const CARDS: Dictionary = {
 		"hp": 0,
 		"row": &"fortification",
 		"evolves": true,
-		"era_names": ["擋箭棚", "箭樓", "城防塔", "高射砲", "防空飛彈", "雷射攔截網"],
+		# 防空飛彈始於工業時代——有空軍才有防空 (卡牌.md 工事卡的時代演化表, ADR-0006). The era
+		# 1-3 forms (擋箭棚/箭樓/城防塔) are retired with the absorb job they used to do; their
+		# approved art stays on disk, knowingly stranded (AssetPaths.UNIT_COVERAGE).
+		"era_names": ["", "", "", "高射砲", "防空飛彈", "雷射攔截網"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		# blocks_ranged_once: absorbs one ranged or air-strike hit then is consumed
-		# (engineers rule applies as above).
-		"flags": [&"blocks_ranged_once"],
+		# fires_at_air: the dedicated active air counter (ADR-0006). Fires once per round
+		# window at one 空域 unit and a hit DESTROYS it — a fortification ignores attack values
+		# when it blocks, so it ignores hit points when it fires. Engine defaults resolve it
+		# (命中 100%, no 品質三項); the target's 閃避率 still rolls. It intercepts nothing.
+		"flags": [&"fires_at_air"],
 	},
 	&"war_song": {
 		"zh": "軍歌",

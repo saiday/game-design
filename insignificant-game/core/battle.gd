@@ -14,8 +14,13 @@ extends RefCounted
 # 鎮壓的手段有代價: a riot in which any 機械型部隊卡 was played ends with 幸福 −15,
 # win or lose, once per battle.
 #
-# Design gaps decided here (docs/decisions.md, W12): 正規軍 wave composition greedy
-# strongest-first; mutual simultaneous exhaustion = player 敗北; siege/air prefer standing
+# Air & fortifications (ADR-0006/0007): 近戰列 never reaches 空域, 遠程列 selects freely
+# (空域 included), 空襲 hits ground only; 防空飛彈 is the dedicated active air counter
+# (destroy-on-hit); a fortification hit once is DISABLED, never removed, and an engineer
+# repairs one per round round-robin. 只剩空軍 can't claim a field, for either side.
+#
+# Design gaps decided here (docs/decisions.md, W12 + W14.5): 正規軍 wave composition greedy
+# strongest-first; mutual simultaneous exhaustion = player 敗北; siege/air prefer ACTIVE
 # fortifications; retreat still issues the reward card (only cancelled battles don't).
 # W13 growth hooks (D9/D13): accuracy XP per attack taken, dodge XP on dodge/survived hit,
 # speed XP per survived round; filled XP emits a &"medal" event at that tick, effect next round.
@@ -89,6 +94,7 @@ class BattleField:
 	var enemy_units: Array[Dictionary] = []
 	var player_forts: Array[Dictionary] = []
 	var enemy_forts: Array[Dictionary] = []
+	var repair_cursor: int = 0            # round-robin position over player_forts (ADR-0007)
 	var available: Array = []             # unplayed CardInstances (每張卡每場只出一次)
 	var conceded: bool = false            # 還有未出卡但選擇不出 (voluntary exhaustion)
 	var spent: int = 0                    # 本場已燒軍費 (UI shows vs expected_reward)
@@ -183,7 +189,8 @@ static func deploy(state: GameState, battle: BattleField, available_index: int) 
 		return {"ok": false, "reason": &"battle_over"}
 	var instance: Cards.CardInstance = battle.available[available_index]
 	var entry: Dictionary = Cards.card(instance.id)
-	# a damaged (待修) fort still occupies its field slot — count all fielded forts
+	# 同場上限 2 counts every fielded fort for the whole battle: forts are never removed, so a
+	# disabled (待修) one still occupies its slot and slots never free up (ADR-0007)
 	if entry["class"] == &"fortification" and battle.player_forts.size() >= FORT_LIMIT:
 		return {"ok": false, "reason": &"fort_limit"}
 	var cost: int = card_cost(state, battle, instance)
@@ -464,21 +471,28 @@ static func _refresh_player_stats(state: GameState, battle: BattleField) -> void
 
 
 static func _fort_from_card(instance: Cards.CardInstance) -> Dictionary:
-	var entry: Dictionary = Cards.card(instance.id)
-	return {"card_id": instance.id, "flags": (entry["flags"] as Array).duplicate(),
-			"damaged": false, "damaged_round": 0}
+	# 運作中／被禁用 is the fort's whole state (ADR-0007) — no hit points, no damage counter.
+	return {"card_id": instance.id, "flags": (Cards.card(instance.id)["flags"] as Array).duplicate(),
+			"disabled": false}
 
 
 static func _repair_forts(battle: BattleField, events: Array[Dictionary]) -> void:
-	# 工兵團在場時: absorbed forts turn damaged instead of consumed; engineers repair one
-	# fortification per round starting the round AFTER it was damaged (戰鬥.md 工事卡).
-	if not _has_engineer(battle.player_units):
+	# 工兵團每回合修復一個待修工事 (ADR-0007). Presence timing no longer matters — only that an
+	# engineer stands on the side when the repair runs, so later waves clear an older backlog.
+	# Multiple disabled forts take turns: the cursor advances past the one just repaired, so a
+	# fort that keeps getting re-disabled can't starve its neighbour.
+	if battle.player_forts.is_empty() or not _has_engineer(battle.player_units):
 		return
-	for fort: Dictionary in battle.player_forts:
-		if bool(fort["damaged"]) and int(fort["damaged_round"]) < battle.round:
-			fort["damaged"] = false
-			events.append({"tick": 0, "type": &"repair", "card_id": fort["card_id"]})
-			return   # one per round
+	var count: int = battle.player_forts.size()
+	for offset: int in range(count):
+		var i: int = (battle.repair_cursor + offset) % count
+		var fort: Dictionary = battle.player_forts[i]
+		if not bool(fort["disabled"]):
+			continue
+		fort["disabled"] = false
+		battle.repair_cursor = (i + 1) % count
+		events.append({"tick": 0, "type": &"repair", "card_id": fort["card_id"]})
+		return   # one per round
 
 
 static func _has_engineer(units: Array[Dictionary]) -> bool:
@@ -521,12 +535,9 @@ static func _destroy_one_non_leader(battle: BattleField, events: Array[Dictionar
 	for unit: Dictionary in battle.enemy_units:
 		if _is_non_leader(unit):
 			unit["hp"] = 0
-			battle.merit += int(unit["strength"])
-			battle.merit_by_faction[&"player"] = int(battle.merit_by_faction.get(&"player", 0)) \
-					+ int(unit["strength"])
-			battle.last_clear_by_side[&"enemy"] = &"player"
 			events.append({"tick": tick, "type": &"death", "victim": _unit_label(unit),
 					"by": &"skill", "faction": unit["faction"]})
+			_credit_clear(battle, &"player", unit)
 			return
 
 
@@ -537,6 +548,10 @@ static func _resolve_window(state: GameState, battle: BattleField, events: Array
 	# rounds (speed 0.6 = an attack roughly every 1.67 windows). Within a tick, player
 	# units fire before enemy units, each side in deploy order — fixed order is part of
 	# the determinism contract (docs/implementation-notes.md).
+	# 防空飛彈 opens the window: a fort has no 攻速, so its one shot per round lands on the
+	# first tick — ahead of the strikes that suppress it, which is what makes the 防空+工兵
+	# loop an exchange instead of permanent suppression (docs/decisions.md, W14.5).
+	_fire_anti_air(state, battle, 1, events)
 	for tick: int in range(1, TICKS_PER_ROUND + 1):
 		for unit: Dictionary in battle.player_units:
 			_accumulate_and_fire(state, battle, unit, tick, events)
@@ -554,7 +569,7 @@ static func _accumulate_and_fire(state: GameState, battle: BattleField, unit: Di
 		unit["progress"] = float(unit["progress"]) - 1.0
 		var before: int = events.size()
 		_fire(state, battle, unit, tick, events)
-		# 命中率 XP: 出手攻擊 (D9) — any attack action taken (demolish/absorb/miss/dodge/hit
+		# 命中率 XP: 出手攻擊 (D9) — any attack action taken (disable/intercept/miss/dodge/hit
 		# all emit an event); a fire with nothing to shoot at emits none and accrues none.
 		if events.size() > before:
 			_grant_battle_xp(unit, &"accuracy", tick, events)
@@ -567,39 +582,30 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	var defenders: Array[Dictionary] = battle.enemy_units if player_side else battle.player_units
 	var defender_forts: Array[Dictionary] = battle.enemy_forts if player_side else battle.player_forts
 	var flags: Array = attacker["flags"]
-	var kind: StringName = &"melee"
-	if attacker["row"] == &"ranged":
-		kind = &"ranged"
-	elif attacker["row"] == &"air" or flags.has(&"air_strike"):
-		kind = &"air"
-	# 帶攻城／空襲者可拆工事: prefer demolishing while any fortification stands (W3 gap
-	# decision, carried over). Demolition destroys outright — no engineer repair.
-	if (flags.has(&"siege") or flags.has(&"air_strike")) and not defender_forts.is_empty():
-		var demolished: Dictionary = defender_forts[0]
-		defender_forts.remove_at(0)
-		events.append({"tick": tick, "type": &"demolish", "by": _unit_label(attacker),
-				"card_id": demolished["card_id"]})
-		return
-	# fortification absorbs: 盾陣 one melee, 防空 one ranged/air (無視攻擊力). With
-	# engineers on field it turns damaged (待修) instead of being consumed.
-	var absorb_flag: StringName = &"blocks_melee_once" if kind == &"melee" else &"blocks_ranged_once"
-	var defender_is_player: bool = not player_side
-	for i: int in range(defender_forts.size()):
-		var fort: Dictionary = defender_forts[i]
-		if bool(fort["damaged"]) or not (fort["flags"] as Array).has(absorb_flag):
-			continue
-		var defenders_units: Array[Dictionary] = battle.player_units if defender_is_player else battle.enemy_units
-		if defender_is_player and _has_engineer(defenders_units):
-			fort["damaged"] = true
-			fort["damaged_round"] = battle.round
-		else:
-			defender_forts.remove_at(i)   # 擋完即消耗
-		events.append({"tick": tick, "type": &"absorb", "card_id": fort["card_id"],
-				"by": _unit_label(attacker)})
-		return
+	var kind: StringName = _attack_kind(attacker)
+	# 帶攻城／空襲者優先癱瘓運作中的敵方工事 (ADR-0007): one hit disables, no accuracy roll, the
+	# fort stays on the field. A disabled fort is inert and no longer a target, so a second
+	# sieger goes for units instead of re-hitting the wreck.
+	if flags.has(&"siege") or flags.has(&"air_strike"):
+		var busted: int = _first_active_fort(defender_forts)
+		if busted >= 0:
+			defender_forts[busted]["disabled"] = true
+			events.append({"tick": tick, "type": &"disable", "by": _unit_label(attacker),
+					"card_id": defender_forts[busted]["card_id"]})
+			return
 	var target: Dictionary = _pick_target(defenders, kind)
 	if target.is_empty():
-		return
+		return   # 近戰打不到空域、空襲打不到空域: no legal target = no attack this shot
+	# 盾陣 intercepts one melee attack aimed at a friendly GROUND unit, ignoring attack value,
+	# and the interception disables it (ADR-0007). Shots at 空域 bypass the 工事線 entirely:
+	# a wall on the ground cannot absorb a shot at the sky (ADR-0006).
+	if kind == &"melee" and not _is_air(target):
+		var shield: int = _first_active_fort(defender_forts, &"blocks_melee_once")
+		if shield >= 0:
+			defender_forts[shield]["disabled"] = true
+			events.append({"tick": tick, "type": &"intercept", "by": _unit_label(attacker),
+					"card_id": defender_forts[shield]["card_id"]})
+			return
 	# accuracy roll, then dodge roll — both on the &"battle" track, in this order.
 	if not state.rng.chance(&"battle", float(attacker["accuracy"]) / 100.0):
 		events.append({"tick": tick, "type": &"miss", "by": _unit_label(attacker),
@@ -623,27 +629,100 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	if int(target["hp"]) <= 0:
 		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
 				"by": _unit_label(attacker), "faction": target["faction"]})
-		# 戰功＝清除的實力總和 (攻+血), credited to the clearer's faction tag (WW5);
-		# battle.merit stays the player's OWN units' tally.
-		var clearer: StringName = attacker["faction"]
-		battle.merit_by_faction[clearer] = int(battle.merit_by_faction.get(clearer, 0)) \
-				+ int(target["strength"])
-		battle.last_clear_by_side[target["side"]] = clearer
-		if clearer == &"player":
-			battle.merit += int(target["strength"])
+		_credit_clear(battle, attacker["faction"], target)
 		if player_side and (attacker["flags"] as Array).has(&"plunder"):
 			battle.plunder += 5 * Era.coeff(state.generation)   # 掠奪: 它清除的單位
 
 
+static func _fire_anti_air(state: GameState, battle: BattleField, tick: int, events: Array[Dictionary]) -> void:
+	# 防空飛彈 (ADR-0006): every ACTIVE battery fires once per round window at one 空域 unit and
+	# a hit destroys it outright — the fort carries no attack value, so it ignores hit points
+	# exactly as it ignores attack values when it blocks. 一發飛彈就是一架飛機.
+	_fire_batteries(state, battle, battle.player_forts, battle.enemy_units, &"player", tick, events)
+	_fire_batteries(state, battle, battle.enemy_forts, battle.player_units, &"enemy", tick, events)
+
+
+static func _fire_batteries(state: GameState, battle: BattleField, forts: Array[Dictionary], defenders: Array[Dictionary], faction: StringName, tick: int, events: Array[Dictionary]) -> void:
+	# Engine defaults resolve the shot (命中 100%, no 品質三項, the same precedent as every
+	# enemy unit); the target's 閃避率 still rolls. No air target = no fire, no roll.
+	for fort: Dictionary in forts:
+		if bool(fort["disabled"]) or not (fort["flags"] as Array).has(&"fires_at_air"):
+			continue
+		var target: Dictionary = _pick_air_target(defenders)
+		if target.is_empty():
+			continue
+		var label: StringName = fort["card_id"]
+		if not state.rng.chance(&"battle", ENEMY_ACCURACY / 100.0):
+			events.append({"tick": tick, "type": &"miss", "by": label,
+					"target": _unit_label(target)})
+			continue
+		if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
+			events.append({"tick": tick, "type": &"dodge", "by": _unit_label(target),
+					"attacker": label})
+			_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
+			continue
+		target["hp"] = 0   # 命中即擊落: the missile ignores hit points
+		events.append({"tick": tick, "type": &"shootdown", "by": label,
+				"target": _unit_label(target)})
+		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
+				"by": label, "faction": target["faction"]})
+		_credit_clear(battle, faction, target)
+
+
+static func _credit_clear(battle: BattleField, clearer: StringName, target: Dictionary) -> void:
+	# 戰功＝清除的實力總和 (攻+血), credited to the clearer's faction tag (WW5);
+	# battle.merit stays the player's OWN tally.
+	battle.merit_by_faction[clearer] = int(battle.merit_by_faction.get(clearer, 0)) \
+			+ int(target["strength"])
+	battle.last_clear_by_side[target["side"]] = clearer
+	if clearer == &"player":
+		battle.merit += int(target["strength"])
+
+
+static func _attack_kind(unit: Dictionary) -> StringName:
+	if unit["row"] == &"ranged":
+		return &"ranged"
+	if unit["row"] == &"air" or (unit["flags"] as Array).has(&"air_strike"):
+		return &"air"
+	return &"melee"
+
+
+static func _is_air(unit: Dictionary) -> bool:
+	return unit["row"] == &"air" or (unit["flags"] as Array).has(&"non_land")
+
+
+static func _first_active_fort(forts: Array[Dictionary], required_flag: StringName = &"") -> int:
+	for i: int in range(forts.size()):
+		var fort: Dictionary = forts[i]
+		if bool(fort["disabled"]):
+			continue
+		if required_flag != &"" and not (fort["flags"] as Array).has(required_flag):
+			continue
+		return i
+	return -1
+
+
 static func _pick_target(defenders: Array[Dictionary], kind: StringName) -> Dictionary:
-	# 近戰列互擊; 遠程列自由選目標; 空襲任選. Focus fire in deploy order (W3 gap decision);
-	# melee falls back to any living unit once the enemy melee row is cleared.
+	# Targeting matrix (ADR-0006), focus fire in deploy order within each band (W3 gap
+	# decision): 近戰列 fights the enemy melee row, then its GROUND backline, and can NEVER
+	# reach 空域; 遠程列 selects freely, 空域 included — ranged fire is the baseline air
+	# answer every roster can carry; 空襲 hits ground targets only (no air-to-air).
 	if kind == &"melee":
 		for unit: Dictionary in defenders:
 			if int(unit["hp"]) > 0 and unit["row"] == &"melee":
 				return unit
 	for unit: Dictionary in defenders:
-		if int(unit["hp"]) > 0:
+		if int(unit["hp"]) <= 0:
+			continue
+		if kind != &"ranged" and _is_air(unit):
+			continue
+		return unit
+	return {}
+
+
+static func _pick_air_target(defenders: Array[Dictionary]) -> Dictionary:
+	for unit: Dictionary in defenders:
+		if int(unit["hp"]) > 0 and _is_air(unit):
 			return unit
 	return {}
 
@@ -684,17 +763,71 @@ static func _sweep_dead(units: Array[Dictionary]) -> int:
 static func _check_exhaustion(battle: BattleField) -> void:
 	# D3 per camp (WW1): a side is exhausted when its field is empty AND it has nothing
 	# left to commit — pending waves count for both sides (world war: allied arrivals).
+	# 只剩空軍不算拿下戰場、敵我皆然 (ADR-0006): an exhausted side's opponent wins only with
+	# 陸軍 afield. An air-only opponent keeps fighting — either side may still land ground
+	# (the player by deploying, the enemy by pending waves) — until land claims the field or
+	# the round cap rules 判輸.
 	var enemy_exhausted: bool = battle.enemy_units.is_empty() \
 			and not _pending_waves(battle, &"enemy")
 	var player_committed_out: bool = battle.available.is_empty() or battle.conceded
 	var player_exhausted: bool = battle.player_units.is_empty() and player_committed_out \
 			and not _pending_waves(battle, &"player")
 	if enemy_exhausted and _has_land(battle.player_units):
-		battle.outcome = &"win"   # 場上仍有陸軍部隊則勝 (只剩空中單位不算)
-	elif player_exhausted:
-		# Includes the mutual-exhaustion edge: no land force claims the field → 敗北
-		# for the player (conservative, docs/decisions.md W12).
+		battle.outcome = &"win"
+	elif player_exhausted and _has_land(battle.enemy_units):
 		battle.outcome = &"loss"
+	elif player_exhausted and enemy_exhausted:
+		# Mutual exhaustion with no land force to claim the field → 敗北 for the player
+		# (conservative, docs/decisions.md W12).
+		battle.outcome = &"loss"
+	elif battle.round_cap == 0:
+		_check_deadlock(battle)   # 世界大戰 has no cap to fall back on
+
+
+static func _check_deadlock(battle: BattleField) -> void:
+	# 世界大戰 僵局判定 (design/世界大戰.md, ADR-0006). With air unreachable by air, an uncapped
+	# war can reach a field that can no longer change — mutually unreachable remnants, or one
+	# camp exhausted while the other holds only air with no land left to commit. Settle it the
+	# moment that happens: the camp still holding 陸軍 wins; nobody holding 陸軍 (or both) =
+	# the player's camp loses (conservative, matching the mutual-exhaustion ruling).
+	if _pending_waves(battle, &"player") or _pending_waves(battle, &"enemy"):
+		return
+	if not (battle.available.is_empty() or battle.conceded):
+		return   # the player can still commit a card, so the field can still change
+	if can_act(battle, &"player") or can_act(battle, &"enemy"):
+		return
+	var player_land: bool = _has_land(battle.player_units)
+	battle.outcome = &"win" if player_land and not _has_land(battle.enemy_units) else &"loss"
+
+
+static func has_pending_waves(battle: BattleField) -> bool:
+	# Any arrivals left on either side (world war: allied waves too) — i.e. the field can still
+	# change without anyone acting.
+	return battle.next_wave < battle.waves.size()
+
+
+static func can_act(battle: BattleField, side: StringName) -> bool:
+	# Public read for callers that need "can this side still hit anything?" without replicating
+	# the targeting matrix: the sim uses it to stop driving a frozen field, and the battle view
+	# can use it to explain why a unit is idle (近戰打不到空域).
+	if side == &"player":
+		return _side_can_act(battle.player_units, battle.enemy_units, battle.player_forts)
+	return _side_can_act(battle.enemy_units, battle.player_units, battle.enemy_forts)
+
+
+static func _side_can_act(attackers: Array[Dictionary], defenders: Array[Dictionary], forts: Array[Dictionary]) -> bool:
+	# Can this side still change the field? Any living attacker with a legal target under the
+	# targeting matrix, or any active 防空 battery with an aircraft to shoot at.
+	for unit: Dictionary in attackers:
+		if int(unit["hp"]) <= 0 or float(unit["speed"]) <= 0.0:
+			continue
+		if (unit["flags"] as Array).has(&"no_attack") or int(unit["attack"]) <= 0:
+			continue
+		if not _pick_target(defenders, _attack_kind(unit)).is_empty():
+			return true
+	if _pick_air_target(defenders).is_empty():
+		return false
+	return _first_active_fort(forts, &"fires_at_air") >= 0
 
 
 static func _pending_waves(battle: BattleField, side: StringName) -> bool:
@@ -705,7 +838,8 @@ static func _pending_waves(battle: BattleField, side: StringName) -> bool:
 
 
 static func _has_land(units: Array[Dictionary]) -> bool:
+	# 工事不是部隊: forts never count toward the field-empty / land-holding checks (ADR-0007).
 	for unit: Dictionary in units:
-		if unit["row"] != &"air" and not (unit["flags"] as Array).has(&"non_land"):
+		if not _is_air(unit):
 			return true
 	return false
