@@ -63,11 +63,15 @@ What it does:
   of each class's v1 medium quality band (`cards.gd` `QUALITY`); era names are the catalog's six
   per-class form names. Verified at both ends: era 1 棍棒戰團 攻1/血2, era 6 動力裝甲兵 攻12/血24
   and 電磁砲 攻48.
-- **Roll order mirrors `Battle._fire`:** siege/air demolition of a standing fortification first
-  (no roll, no repair), then fortification absorb (盾陣 one melee, 防空 one ranged/air, ignoring
-  attack value, turning 待修 instead of consumed while an engineer lives), then accuracy roll,
-  then dodge roll. Engineers never attack and repair one fortification per round starting the
-  round after it was damaged.
+- **Roll order mirrors `Battle._fire` as it stands after W14.5** (ADR-0006/0007): the round opens
+  with every active 防空飛彈 firing at one aircraft, destroy-on-hit at the engine defaults; then
+  siege/air disabling one **active** enemy fortification (no roll, and the fort is never removed);
+  then target selection under the matrix (近戰 never reaches 空域, 遠程 selects freely, 空襲 is
+  ground-only); then 盾陣 intercepting one melee attack aimed at a ground unit; then accuracy,
+  then dodge. Engineers never attack and repair one disabled fortification per round, round-robin.
+  Fortifications are the player side's alone, as in core, and 防空飛彈 exists from 工業 onward only.
+  **`docs/tools/check_motion_demo.js` pins all of that**: it boots the page's own JS headless and
+  fails if the sandbox drifts from the rules again (`node insignificant-game/docs/tools/check_motion_demo.js`).
 - **Per-unit metric tags on the field:** era form name, live HP, 攻/命中率/閃避率/攻速, placed in
   free lanes with a leader line back to the unit. The full table sits below the canvas.
 - **Per-class attack motion:** melee lunges, cavalry charges with a roll, muskets and rifles
@@ -78,9 +82,11 @@ What it does:
   cannonball, shell, bomb) mapped per class and era, authored pointing right, the bomb nose-down.
 - **Approximations are listed on the page itself** (its `.note` block), not hidden: continuous
   movement stands in for a model with no positions, nearest-enemy targeting stands in for
-  deploy-order focus fire, both sides carry the quality triple where the real game gives it to
-  player units only, engineer repair is symmetric where core grants it to the player side only,
-  and there are no waves, 軍費, skills or growth. The round is stretched to 4.5 s because 攻 and 血
+  deploy-order focus fire within each band of the matrix, both sides carry the quality triple
+  where the real game gives it to player units only, the battery's shot is given flight time
+  where core resolves it atomically on the window's first tick, a 僅剩空軍 field is settled by
+  世界大戰's 僵局判定 because a sandbox with no waves cannot carry the battle on, and there are no
+  waves, 軍費, skills or growth. The round is stretched to 4.5 s because 攻 and 血
   scale by the same coefficient at every era, so a strike is worth one or two units' entire HP and
   the exchange is otherwise over before it can be watched.
 
@@ -145,9 +151,12 @@ the demo's to make.
 and decided all four items below: air is countered by 遠程列 fire plus an actively-firing
 防空飛彈 (工業 era onward), 近戰 can never hit 空域, 空襲 is ground-only, forts one-hit-disable
 and never leave the field (engineer round-robin repair), and the battle core still gets no space.
-See `docs/adr/0006`/`0007` and `design/戰鬥.md` §工事卡. **The demo is now stale against design**
-— its roll order still models fort absorb (防空擋遠程) and demolish-removes; re-sync it to the
-new fort model and targeting matrix before touching it again.
+See `docs/adr/0006`/`0007` and `design/戰鬥.md` §工事卡.
+
+**The demo was re-synced to those rules on 2026-07-26** (see §2's roll-order bullet). Two of the
+five objections below are answered by the rules themselves rather than by the demo: 防空飛彈's
+affordance problem is gone because the battery now genuinely fires, and air now has a counter.
+The sandbox remains a presentation sandbox, not a camera proposal; nothing here reopens O1-O5.
 
 The original handoff, in cost order:
 

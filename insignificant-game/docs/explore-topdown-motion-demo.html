@@ -207,7 +207,7 @@
   <header>
     <p class="eyebrow">Insignificant · presentation sandbox</p>
     <h1>The whole roster, fighting by its own numbers</h1>
-    <p class="lede">Every unit class the game ships, at the era you pick, resolving attacks with the <b>real catalog stats</b> from <code>core/data/cards.gd</code> and the <b>real roll order</b> from <code>core/battle.gd</code>: accuracy, then dodge, with fortifications absorbing and engineers repairing them. Each fighter is <b>one static sprite</b>; all the motion is cheap transforms. This is a visualization sandbox for watching the numbers, <b>not</b> a proposal for the game's camera.</p>
+    <p class="lede">Every unit class the game ships, at the era you pick, resolving attacks with the <b>real catalog stats</b> from <code>core/data/cards.gd</code> and the <b>real roll order</b> from <code>core/battle.gd</code>: accuracy, then dodge, under the targeting matrix of <b>ADR-0006</b> (who may shoot at 空域) and the disable–repair fortification model of <b>ADR-0007</b>. Each fighter is <b>one static sprite</b>; all the motion is cheap transforms. This is a visualization sandbox for watching the numbers, <b>not</b> a proposal for the game's camera.</p>
   </header>
 
   <div class="board">
@@ -260,14 +260,24 @@
       <span class="cost">MISS · 閃避 · -N</span>
     </div>
     <div class="cell">
-      <h3>Fortifications absorb</h3>
-      <p>盾陣 eats one melee strike, 防空 eats one ranged or air strike, both ignoring attack value. With a living 工兵團 behind it the fort turns 待修 instead of being consumed.</p>
-      <span class="cost">格擋 · 修復</span>
+      <h3>Who may shoot at 空域</h3>
+      <p>近戰列 fights the enemy melee row, then its ground backline, and can <b>never</b> reach 空域. 遠程列 selects freely, air included. 空襲 hits ground only, so nothing in the game is air-to-air. A unit with no legal target simply holds position.</p>
+      <span class="cost">ADR-0006</span>
     </div>
     <div class="cell">
-      <h3>Siege and air demolish</h3>
-      <p>火砲 (攻城) and 轟炸機 (空襲) skip the absorb rule entirely: while any enemy fortification stands they demolish it outright, with no roll and no repair.</p>
-      <span class="cost">no roll, no repair</span>
+      <h3>防空飛彈 fires, and a hit kills</h3>
+      <p>Each active battery fires once per 回合 at one aircraft. It has no attack value, so it ignores hit points exactly as it ignores attack values when it blocks: 一發飛彈就是一架飛機. 命中 100%, no 品質三項, and the target's 閃避率 still rolls. It exists from 工業 onward only.</p>
+      <span class="cost">擊落 · 有空軍才有防空</span>
+    </div>
+    <div class="cell">
+      <h3>Fortifications disable and repair</h3>
+      <p>One hit and a fort is <b>被禁用</b>, but it is <b>never removed</b>: it stays on the field until a 工兵團 repairs it, one per round, taking turns over the whole line. 盾陣 intercepts one melee attack aimed at a ground unit, and the interception is what disables it. Fortifications are <b>我方's alone</b>: a 正規軍 roster is built from unit cards only, and core's <code>battle.enemy_forts</code> is declared and never filled.</p>
+      <span class="cost">攔截 · 失效 · 修復</span>
+    </div>
+    <div class="cell">
+      <h3>Siege and air suppress</h3>
+      <p>火砲 (攻城) and 轟炸機 (空襲) prefer an <b>active</b> enemy fortification over any unit: one hit disables it, no roll. A disabled fort is inert and no longer a target, so the exchange is their strikes suppressing your line against your engineer repairing it.</p>
+      <span class="cost">no roll, one hit</span>
     </div>
     <div class="cell">
       <h3>攻速 sets cadence</h3>
@@ -285,11 +295,12 @@
     <p><b>What this is.</b> A presentation sandbox for looking at units and their numbers. The top-down camera is a property of this sandbox and carries no implication for the game, whose battle screen is a locked side-view pair (<code>design/戰鬥.md</code> 場景呈現). A depandabot audit on 2026-07-25 falsified the case for a top-down game camera; see <code>explore-topdown-battle-and-units.md</code>.</p>
     <p><b>Deliberate approximations</b> (the numbers are the game's, the staging is not):</p>
     <ul>
-      <li><b>Continuous movement replaces the row model.</b> <code>core/battle.gd</code> has no positions at all: a unit's only spatial attribute is a categorical row (melee / ranged / air). The columns and the walking here are invented by this view.</li>
-      <li><b>Nearest-enemy targeting replaces deploy-order focus fire.</b> Core picks the first living defender in deploy order, preferring the melee row for melee attackers. This picks the nearest instead, keeping only the melee-row preference.</li>
-      <li><b>Both sides carry the quality triple.</b> In the real game only player units roll 命中率 / 閃避率 / 攻速; every enemy fights at accuracy 100, dodge 0, speed 1.0 (<code>battle.gd</code> engine defaults). Here both sides use the medium-band midpoints so misses and dodges are visible on both teams.</li>
-      <li><b>Engineer repair is symmetric.</b> Core grants the damaged-instead-of-consumed fort rule to the player side only; this gives it to whichever side has a living engineer.</li>
-      <li><b>One unit per class, one battle.</b> No waves, no 軍費, no skill cards, no growth or medals, no difficulty scaling. Rolls use <code>Math.random</code>: determinism is the core's contract, not this sandbox's.</li>
+      <li><b>Continuous movement replaces the row model.</b> <code>core/battle.gd</code> has no positions at all: a unit's only spatial attribute is a categorical row (melee / ranged / air). The columns and the walking here are invented by this view. A unit walks toward whatever it may legally hit, so an infantry line stands still once the only enemy left is airborne.</li>
+      <li><b>Nearest-enemy targeting replaces deploy-order focus fire.</b> Within each band of the matrix, core picks the first living defender in deploy order. This picks the nearest instead, keeping the bands themselves exact.</li>
+      <li><b>Both sides carry the quality triple.</b> In the real game only player units roll 命中率 / 閃避率 / 攻速; every enemy fights at accuracy 100, dodge 0, speed 1.0 (<code>battle.gd</code> engine defaults). Here both sides use the medium-band midpoints so misses and dodges are visible on both teams. The 防空飛彈 is the exception and matches core exactly: a 工事 has no quality triple, so it fires at the engine defaults.</li>
+      <li><b>The battery's shot is given flight time.</b> Core fires every battery atomically on the first tick of the round window, ahead of the strikes that suppress it. Here the missile is launched on the round boundary and resolves when it arrives, so you can see it; a missile already in the air still resolves even if the battery is disabled behind it.</li>
+      <li><b>僅剩空軍 ends the sandbox on 世界大戰's 僵局判定.</b> In the real game an air-only remnant does not end the battle — either side may still land ground forces, the player by deploying and the enemy by pending waves. This page has neither, so a field that can no longer change is settled immediately: the side holding 陸軍 wins, nobody holding 陸軍 = 我方判敗.</li>
+      <li><b>One unit per class, one battle.</b> No waves, no 軍費, no skill cards, no growth or medals, no difficulty scaling. Rolls use <code>Math.random</code>: determinism is the core's contract, not this sandbox's. 我方 wins most matchups here purely because it is the only side with fortifications — this is a legibility sandbox, not a balance test.</li>
     </ul>
   </div>
 
@@ -304,7 +315,10 @@
       Embedded here at 256px and
       128 colours with the grey render background keyed out. Columns are the card catalog's
       per-class form names (<code>core/data/cards.gd</code>); a dash means that class has no form
-      in that era, so no sprite was rendered.</p>
+      in that era, so no sprite was rendered. The three exceptions are 防空飛彈 era 1–3
+      (擋箭棚／箭樓／城防塔): those renders exist and are still embedded in this file, but the forms
+      themselves were retired by ADR-0006 (有空軍才有防空), so the table shows a dash and the demo
+      never places them.</p>
     <div class="tscroll"><table id="asset-table"></table></div>
     <h2 class="sep">Flying weapons</h2>
     <p class="sub">Projectile art has no era of its own: one sprite per ammunition type, mapped
@@ -511,12 +525,16 @@ const CLASSES = {
                   era_names:['','','','神權火槍旅','','']},
   privateers:    {zh:'私掠傭兵團', row:'melee', atk:2, hp:3, acc:85, dodge:17.5, speed:1.15, flags:['plunder'],
                   era_names:['','','盜匪團','竊賊團','網路駭客','']},
+  // 工事卡 have no stats at all: 運作中／被禁用 is their whole state (ADR-0007).
   shield_wall:   {zh:'盾陣', row:'fortification', atk:0, hp:0, acc:null, dodge:null, speed:null,
                   flags:['blocks_melee_once'],
                   era_names:['木盾牆','盾陣','城垛','沙包工事','電網','複合裝甲牆']},
+  // 防空飛彈始於工業時代——有空軍才有防空 (ADR-0006). The era 1-3 forms 擋箭棚／箭樓／城防塔 are
+  // retired along with the 「攔一次遠程」 job they used to do; their renders stay in the asset
+  // table below as a dash, knowingly stranded.
   anti_air:      {zh:'防空飛彈', row:'fortification', atk:0, hp:0, acc:null, dodge:null, speed:null,
-                  flags:['blocks_ranged_once'],
-                  era_names:['擋箭棚','箭樓','城防塔','高射砲','防空飛彈','雷射攔截網']},
+                  flags:['fires_at_air'],
+                  era_names:['','','','高射砲','防空飛彈','雷射攔截網']},
 };
 
 // Display-only knobs: sprite draw width, walk speed in px/s, engagement range in px.
@@ -552,6 +570,9 @@ function ammoFor(cls, era){ return (AMMO[cls] || [])[era-1] || null; }
 // exchange is over in a couple of volleys. Stretching the round makes it watchable.
 const ROUND_SEC = 4.5;
 const AIR_LIFT = 110;       // px the bomber sprite floats above its shadow
+// A 工事 resolves at the engine defaults, exactly like every enemy unit: 命中 100%, no 品質三項.
+// So a battery never misses on accuracy; only the target's 閃避率 can save it (ADR-0006).
+const BATTERY_ACC = 100;
 
 function hasForm(cls, era){ return (CLASSES[cls].era_names[era-1] || '') !== ''; }
 function formName(cls, era){ return CLASSES[cls].era_names[era-1] || CLASSES[cls].zh; }
@@ -590,6 +611,7 @@ let hoverUnit=null;
 const CAP = 60;             // hard cap on transient effect arrays
 
 function rosterFor(era){ return UNIT_CLASSES.filter(c=>hasForm(c, era)); }
+function fortLineFor(era){ return FORT_CLASSES.filter(c=>hasForm(c, era)); }
 
 function makeSide(side, era){
   const roster = rosterFor(era);
@@ -613,14 +635,22 @@ function makeSide(side, era){
   place(ranged, col.ranged, false);
   place(air, col.air, false);
 
-  FORT_CLASSES.forEach((cls, i)=>{
-    forts.push({
-      side, cls, era, flags:CLASSES[cls].flags,
-      x: mirror(col.fort), y: H*(i+1)/(FORT_CLASSES.length+1),
-      alive:true, damaged:false, damagedRound:0, absorb:0, boom:0, fade:1,
-      key: spriteKey(cls, era), w: RENDER[cls].w,
+  // 工事卡 are the PLAYER's alone. `battle.enemy_forts` is declared in core and never filled:
+  // a 正規軍 roster is built from `Cards.is_unit`, which excludes 工事卡, so an opponent never
+  // fields 盾陣 or 防空飛彈. Mirroring them onto both sides used to be this sandbox's own
+  // invention, and with a destroy-on-hit battery it would shoot both bombers down on round 1
+  // and hide every rule this page is here to show.
+  if(side===0){
+    const line = fortLineFor(era);
+    line.forEach((cls, i)=>{
+      forts.push({
+        side, cls, era, flags:CLASSES[cls].flags,
+        x: mirror(col.fort), y: H*(i+1)/(line.length+1),
+        disabled:false, intercept:0, boom:0, fire:0,
+        key: spriteKey(cls, era), w: RENDER[cls].w,
+      });
     });
-  });
+  }
   return made;
 }
 
@@ -630,7 +660,7 @@ function newUnit(side, cls, era, x, y){
     side, cls, era, row:c.row, flags:c.flags, stats:st, rd,
     name: formName(cls, era), key: spriteKey(cls, era),
     atk: rd.atk || 'none', ammo: ammoFor(cls, era),
-    x, y, hp:st.hp, maxhp:st.hp, hpShown:st.hp,
+    x, y, hp:st.hp, maxhp:st.hp, hpShown:st.hp, moving:false,
     // cadence: 攻速 is attacks per 回合, so one attack every ROUND_SEC / speed seconds
     cd: st.speed ? Math.random() * (ROUND_SEC/st.speed) : Infinity,
     phase: Math.random()*6.28, lunge:0, dodgeAnim:0, flash:0, hover:0,
@@ -639,13 +669,14 @@ function newUnit(side, cls, era, x, y){
 }
 
 function reset(){
-  forts = [];
+  forts = []; repairCursor = 0;
   units = makeSide(0, currentEra).concat(makeSide(1, currentEra));
   projectiles=[]; flashes=[]; floaters=[]; winner=null; winNote=''; winTimer=0;
   roundNo=1; roundT=0; hoverUnit=null;
   snapTheme();
   buildTables();
   updateVerdict();
+  fireBatteries();   // round 1 opens with the batteries, exactly as every later round does
 }
 
 // --- combat: mirrors core/battle.gd _fire ------------------------------------------------
@@ -655,7 +686,12 @@ function attackKind(u){
   return 'melee';
 }
 function livingFoes(u){ return units.filter(e=>e.alive && e.side!==u.side); }
-function standingForts(side){ return forts.filter(f=>f.alive && f.side===side); }
+function isAir(u){ return u.row==='air' || u.flags.includes('non_land'); }
+// 已失效的工事是惰性的、不再是目標 (ADR-0007). Deploy order decides which one answers, so this
+// scans the fort array in order exactly as `Battle._first_active_fort` does.
+function firstActiveFort(side, flag){
+  return forts.find(f=>f.side===side && !f.disabled && (!flag || f.flags.includes(flag))) || null;
+}
 function hasEngineer(side){
   return units.some(u=>u.alive && u.side===side && u.flags.includes('repairs_fortifications'));
 }
@@ -664,56 +700,62 @@ function nearestOf(u, list){
   for(const e of list){ const d=Math.hypot(e.x-u.x, e.y-u.y); if(d<bd){bd=d; best=e;} }
   return best;
 }
+// The targeting matrix (ADR-0006). 近戰列 fights the enemy melee row, then its GROUND backline,
+// and can never reach 空域; 遠程列 selects freely, air included; 空襲 hits ground only, so there
+// is no air-to-air anywhere. No legal target = the strike simply does not happen.
 function chooseTarget(u, kind){
   const foes = livingFoes(u);
   if(!foes.length) return null;
-  // 近戰列互擊, falling back to any living unit once the enemy melee row is cleared
   if(kind==='melee'){
     const m = foes.filter(e=>e.row==='melee');
     if(m.length) return nearestOf(u, m);
   }
-  return nearestOf(u, foes);
+  const legal = kind==='ranged' ? foes : foes.filter(e=>!isAir(e));
+  return legal.length ? nearestOf(u, legal) : null;
 }
 
-// Decide WHAT this strike is aimed at (fort demolition, fort absorb, or a unit). Rolls are
-// not made here: a ranged strike resolves them at impact.
+// Decide WHAT this strike is aimed at (disabling a fort, or a unit — possibly one a 盾陣 steps
+// in front of). Rolls are not made here: a ranged strike resolves them at impact.
 function planAttack(u, kind){
   const foeSide = 1-u.side;
-  const fs = standingForts(foeSide);
-  // 帶攻城／空襲者可拆工事: while any fortification stands, demolish it. No roll, no repair.
-  if((u.flags.includes('siege') || u.flags.includes('air_strike')) && fs.length){
-    return {mode:'demolish', fort:fs[0]};
+  // 帶攻城／空襲者優先癱瘓運作中的敵方工事: one hit disables it, no accuracy roll, and the fort
+  // STAYS on the field. Fort-busting is suppression now, not demolition.
+  if(u.flags.includes('siege') || u.flags.includes('air_strike')){
+    const f = firstActiveFort(foeSide);
+    if(f) return {mode:'disable', fort:f};
   }
-  // 盾陣 blocks one melee, 防空 blocks one ranged/air, ignoring attack value
-  const need = kind==='melee' ? 'blocks_melee_once' : 'blocks_ranged_once';
-  const blocker = fs.find(f=>!f.damaged && f.flags.includes(need));
-  if(blocker) return {mode:'absorb', fort:blocker};
   const target = chooseTarget(u, kind);
-  return target ? {mode:'unit', target} : null;
+  if(!target) return null;
+  // 盾陣 intercepts one 近戰 attack aimed at a GROUND unit, ignoring attack value, and the
+  // interception is what disables it. Shots at 空域 bypass the 工事線 entirely: a wall on the
+  // ground cannot absorb a shot at the sky.
+  if(kind==='melee' && !isAir(target)){
+    const shield = firstActiveFort(foeSide, 'blocks_melee_once');
+    if(shield) return {mode:'intercept', fort:shield, target};
+  }
+  return {mode:'unit', target};
 }
 
 function planStillValid(plan){
   if(!plan) return false;
-  if(plan.mode==='unit') return plan.target.alive;
-  if(plan.mode==='demolish') return plan.fort.alive;
-  return plan.fort.alive && !plan.fort.damaged;   // absorb needs an undamaged fort
+  if(plan.mode==='disable') return !plan.fort.disabled;
+  if(plan.mode==='intercept') return !plan.fort.disabled && plan.target.alive;
+  return plan.target.alive;   // unit / shootdown
 }
 
 function applyAttack(u, plan){
-  if(plan.mode==='demolish'){
+  if(plan.mode==='disable'){
     const f = plan.fort;
-    if(!f.alive) return;
-    f.alive=false; f.boom=1;
-    floater(f.x, f.y-40, '拆除', cssv('--amber'), 1.15);
+    if(f.disabled) return;
+    f.disabled=true; f.boom=1;
+    floater(f.x, f.y-40, '失效', cssv('--amber'), 1.15);
     return;
   }
-  if(plan.mode==='absorb'){
+  if(plan.mode==='intercept'){
     const f = plan.fort;
-    if(!f.alive || f.damaged) return;
-    if(hasEngineer(f.side)){ f.damaged=true; f.damagedRound=roundNo; }
-    else f.alive=false;
-    f.absorb=1;
-    floater(f.x, f.y-40, '格擋', cssv('--blue'), 1.0);
+    if(f.disabled) return;
+    f.disabled=true; f.intercept=1;
+    floater(f.x, f.y-40, '攔截', cssv('--blue'), 1.0);
     return;
   }
   const t = plan.target;
@@ -752,9 +794,9 @@ function fire(u){
   if(flags.lunge) u.lunge = 1;
   const ranged = kind!=='melee';
   if(ranged && flags.proj){
-    const dst = plan.mode==='unit' ? plan.target : plan.fort;
+    const dst = plan.target || plan.fort;
     if(projectiles.length<CAP){
-      const targetY = plan.mode==='unit' ? drawY(dst)-24 : dst.y;
+      const targetY = plan.target ? drawY(dst)-24 : dst.y;
       // A bomber does not shoot across the field: it flies over its target and lets the bomb
       // fall straight down. So the bomb starts under the aircraft and drops vertically,
       // with no arc, while an arrow / shell travels toward the target and arcs.
@@ -779,39 +821,116 @@ function fire(u){
   applyAttack(u, plan);
 }
 
+// --- 防空飛彈: the active air counter (ADR-0006) ------------------------------------------
+// Every ACTIVE battery fires once per 回合 at one 空域 unit, and a hit destroys it outright: the
+// fort carries no attack value, so it ignores hit points exactly as it ignores attack values
+// when it blocks. 一發飛彈就是一架飛機. Core fires the batteries on the FIRST tick of the window
+// (`Battle._resolve_window`), ahead of the strikes that suppress them — that ordering is what
+// makes 防空+工兵 an exchange instead of permanent suppression, so the demo keeps it.
+function pickAirTarget(side){
+  const air = units.filter(u=>u.alive && u.side===side && isAir(u));
+  return air.length ? air[0] : null;
+}
+function fireBatteries(){
+  for(const f of forts){
+    if(f.disabled || !f.flags.includes('fires_at_air')) continue;
+    const target = pickAirTarget(1-f.side);
+    if(!target) continue;               // 無空域目標 = 不開火、不擲骰
+    f.fire = 1;
+    const plan = {mode:'shootdown', target, fort:f};
+    if(flags.proj && projectiles.length<CAP){
+      projectiles.push({
+        x:f.x, y:f.y-52, tx:target.x, ty:drawY(target),
+        t:0, spd:1.7, arc:0, ammo:'missile', drop:false, u:null, fort:f, plan,
+      });
+    } else applyBatteryShot(f, plan);
+  }
+}
+function applyBatteryShot(f, plan){
+  const t = plan.target;
+  if(!t || !t.alive) return;
+  // BATTERY_ACC is 100, so there is no accuracy roll to lose; 閃避率 still rolls as usual.
+  if(Math.random() >= BATTERY_ACC/100){
+    floater(t.x, drawY(t)-70, 'MISS', cssv('--ink-soft'), 0.95);
+    return;
+  }
+  if(Math.random() < (t.stats.dodge||0)/100){
+    t.dodgeAnim = 1;
+    const ddx = t.x - f.x, ddy = drawY(t) - f.y, dl = Math.hypot(ddx, ddy) || 1;
+    t.dodgeVec = {x:-ddy/dl, y:ddx/dl};
+    floater(t.x, drawY(t)-70, '閃避', cssv('--blue'), 1.0);
+    return;
+  }
+  t.hp = 0; t.alive = false;            // 命中即擊落: the missile ignores hit points
+  t.flash = 1;
+  flashes.push({x:t.x, y:drawY(t)-30, t:0});
+  floater(t.x, drawY(t)-70, '擊落', cssv('--amber'), 1.3);
+}
+
+let repairCursor = 0;
 function repairPass(){
-  // one fortification per round, and only from the round AFTER it was damaged (battle.gd:472)
-  for(const side of [0,1]){
-    if(!hasEngineer(side)) continue;
-    const f = forts.find(f=>f.side===side && f.alive && f.damaged && f.damagedRound<roundNo);
-    if(f){
-      f.damaged=false;
-      floater(f.x, f.y-40, '修復', cssv('--blue'), 1.0);
-    }
+  // 工兵團每回合修復一個待修工事, round-robin over the fort line (ADR-0007). Arrival timing does
+  // not matter — 不限工事失效時誰在場 — and the cursor advances past the one just repaired, so a
+  // fort that keeps being re-disabled cannot starve its neighbour. One per round, player only.
+  if(!forts.length || !hasEngineer(0)) return;
+  for(let off=0; off<forts.length; off++){
+    const i = (repairCursor+off) % forts.length;
+    const f = forts[i];
+    if(!f.disabled) continue;
+    f.disabled = false;
+    repairCursor = (i+1) % forts.length;
+    floater(f.x, f.y-40, '修復', cssv('--blue'), 1.0);
+    return;
   }
 }
 
 function hasLand(side){
-  // battle.gd _has_land: air-row and non_land units cannot claim the field
-  return units.some(u=>u.alive && u.side===side && u.row!=='air' && !u.flags.includes('non_land'));
+  // battle.gd _has_land: air-row and non_land units cannot claim the field, and 工事不是部隊
+  // so it never counts either (ADR-0007).
+  return units.some(u=>u.alive && u.side===side && !isAir(u));
+}
+function canAct(side){
+  // battle.gd can_act: does this side still have any way to change the field? A living attacker
+  // with a legal target under the matrix, or an active battery with an aircraft to shoot at.
+  // Busting a fort does NOT count — suppression alone can never win.
+  for(const u of units){
+    if(!u.alive || u.side!==side) continue;
+    if(u.flags.includes('no_attack') || !u.stats.atk) continue;
+    if(chooseTarget(u, attackKind(u))) return true;
+  }
+  return !!pickAirTarget(1-side)
+      && forts.some(f=>f.side===side && !f.disabled && f.flags.includes('fires_at_air'));
+}
+
+// 勝負＝耗盡, 雙方對稱 (戰鬥.md): a side whose field is empty loses to an opponent that still
+// holds 陸軍. 只剩空軍不算拿下戰場、敵我皆然 — in the real game the battle would simply carry on
+// there, because either side may still land ground forces (the player by deploying, the enemy by
+// pending waves). This sandbox has neither, so the field can no longer change and it settles on
+// 世界大戰's 僵局判定 instead: 陸軍 wins, nobody holding 陸軍 = 我方判敗.
+function checkOutcome(){
+  const alive0 = units.some(u=>u.alive && u.side===0);
+  const alive1 = units.some(u=>u.alive && u.side===1);
+  if(!alive0 && !alive1) return settleDeadlock('雙方耗盡');
+  if(!alive1) return hasLand(0) ? takeField('BLUE') : settleDeadlock('敵方耗盡、我方僅剩空軍');
+  if(!alive0) return hasLand(1) ? takeField('RED')  : settleDeadlock('我方耗盡、敵方僅剩空軍');
+  if(!canAct(0) && !canAct(1)) settleDeadlock('戰局凍結：雙方都打不到對方');
+}
+function takeField(side){ winner = side; winNote = ''; }
+function settleDeadlock(why){
+  const bl = hasLand(0), rl = hasLand(1);
+  if(bl && !rl) return takeField('BLUE');
+  if(rl && !bl) return takeField('RED');
+  winner = 'RED';
+  winNote = why + ' → 我方判敗（僵局判定）';
 }
 
 function step(dt){
-  // round clock (drives engineer repair cadence)
+  // round clock. Core's order inside one round is repair -> batteries -> unit ticks
+  // (battle.gd end_round / _resolve_window), so the boundary runs them in that order too.
   roundT += dt*speedMul;
-  if(roundT>=ROUND_SEC){ roundT-=ROUND_SEC; roundNo++; repairPass(); }
+  if(roundT>=ROUND_SEC){ roundT-=ROUND_SEC; roundNo++; repairPass(); fireBatteries(); }
 
-  const alive0 = units.some(u=>u.alive && u.side===0);
-  const alive1 = units.some(u=>u.alive && u.side===1);
-  if((!alive0 || !alive1) && !winner){
-    const side = alive0 ? 0 : 1;
-    if(alive0===alive1){ winner='STOP'; winNote='雙方全滅'; }
-    else if(hasLand(side)){ winner = side===0?'BLUE':'RED'; winNote=''; }
-    // battle.gd does NOT call this a draw: with no land force nothing claims the field, so
-    // _check_exhaustion leaves the outcome unset and the battle simply carries on. There are
-    // no waves here to carry it on with, so the sandbox stops and says why.
-    else { winner='STOP'; winNote='僅剩空軍，無人佔領戰場（示範中止，非遊戲結果）'; }
-  }
+  if(!winner) checkOutcome();
   if(winner){ winTimer += dt; if(winTimer>2.6) reset(); }
 
   for(const u of units){
@@ -821,12 +940,13 @@ function step(dt){
     if(u.dodgeAnim>0) u.dodgeAnim = Math.max(0, u.dodgeAnim - dt*3.0);
     if(u.lunge>0) u.lunge = Math.max(0, u.lunge - dt*4.5);
 
+    u.moving = false;
     const foe = nearestOf(u, livingFoes(u));
     if(!foe) continue;
     const dir = Math.sign(foe.x - u.x) || u.face;
     if(flags.facing) u.face = dir>=0?1:-1;
 
-    // 工兵團 never attacks (battle.gd:550): it holds near its own fort line and wanders
+    // 工兵團 never attacks (battle.gd:565): it holds near its own fort line and wanders
     if(u.flags.includes('no_attack')){
       if(flags.walk){
         u.phase += dt*4*speedMul;
@@ -835,15 +955,14 @@ function step(dt){
       continue;
     }
 
-    // A bomber drops straight down, so it must fly to whatever it is actually going to hit,
-    // which is not necessarily the nearest unit: an air strike goes for a standing
-    // fortification first. Steering at the nearest foe while bombing a fort would drop the
-    // bomb in empty field and damage the fort anyway.
-    let goal = foe;
-    if(u.atk === 'bank'){
-      const plan = planAttack(u, attackKind(u));
-      if(plan) goal = plan.mode === 'unit' ? plan.target : plan.fort;
-    }
+    // Walk toward what this unit can actually hit, not simply the nearest enemy. Under the
+    // targeting matrix a 近戰 unit may have no legal target at all (只剩空軍的敵方), and a strike
+    // aircraft goes for an active fortification first — it drops straight down, so it has to be
+    // over the thing it is bombing. Steering at the nearest foe would march infantry across the
+    // field to stand under an aircraft it can never touch.
+    const plan = planAttack(u, attackKind(u));
+    if(!plan) continue;                        // 打不到: hold position, no walk, no swing
+    const goal = plan.target || plan.fort;
     const gx = goal.x, gy = goal.y;
     // A bomber must be genuinely OVER its target, not merely level with it in x: a bomb
     // released while the aircraft is still up- or down-field would have to travel sideways or
@@ -856,6 +975,7 @@ function step(dt){
       u.face = gdir>=0?1:-1;
     }
     if(!engaged){
+      u.moving = true;
       if(flags.walk){
         u.x += Math.sign(gx - u.x) * u.rd.mv * speedMul * dt;
         const yrate = u.rd.mv * (bank ? 1.0 : 0.5) * speedMul * dt;
@@ -876,8 +996,18 @@ function step(dt){
       // If whatever this projectile was aimed at is gone by the time it lands, re-plan against
       // the state that exists now instead of silently dropping the attack.
       let plan = p.plan;
-      if(!planStillValid(plan)) plan = planAttack(p.u, attackKind(p.u));
-      if(plan) applyAttack(p.u, plan);
+      if(p.fort){
+        // A missile that has left the rail still resolves: core fires the battery atomically on
+        // the first tick, before anything can suppress it.
+        if(!planStillValid(plan)){
+          const t = pickAirTarget(1-p.fort.side);
+          plan = t ? {mode:'shootdown', target:t, fort:p.fort} : null;
+        }
+        if(plan) applyBatteryShot(p.fort, plan);
+      } else {
+        if(!planStillValid(plan)) plan = planAttack(p.u, attackKind(p.u));
+        if(plan) applyAttack(p.u, plan);
+      }
       p.dead = true;
     }
   }
@@ -888,23 +1018,19 @@ function step(dt){
   for(const f of floaters) f.t += dt*1.15;
   floaters = floaters.filter(f=>f.t<1);
   for(const f of forts){
-    if(f.absorb>0) f.absorb = Math.max(0, f.absorb - dt*2.2);
-    if(!f.alive && f.fade>0) f.fade = Math.max(0, f.fade - dt*1.4);
+    if(f.intercept>0) f.intercept = Math.max(0, f.intercept - dt*2.2);
     if(f.boom>0) f.boom = Math.max(0, f.boom - dt*2.4);
+    if(f.fire>0) f.fire = Math.max(0, f.fire - dt*2.6);
   }
   // corpse cleanup
   units = units.filter(u=>u.alive || u.fade>0);
 
-  setLive('walk',  units.some(u=>u.alive && !inRange(u)));
-  setLive('bob',   flags.bob && units.some(u=>u.alive && !inRange(u)));
+  const walking = units.some(u=>u.alive && u.moving);
+  setLive('walk',  walking);
+  setLive('bob',   flags.bob && walking);
   setLive('lunge', units.some(u=>u.lunge>0.05));
   setLive('proj',  projectiles.length>0);
   setLive('facing',units.some(u=>u.side===1 && u.alive));
-}
-function inRange(u){
-  const foe = nearestOf(u, livingFoes(u));
-  if(!foe) return true;
-  return Math.hypot(foe.x-u.x, foe.y-u.y) <= u.rd.range;
 }
 const dots={};
 document.querySelectorAll('.chip').forEach(c=> dots[c.dataset.key]=c.querySelector('.dot'));
@@ -935,37 +1061,47 @@ function spriteBox(key, w){
   return {im, w, h: w*(im.naturalHeight/im.naturalWidth)};
 }
 
+// 工事讀作建物，不是單位 (戰鬥.md 場景呈現): no stat tag, no health bar, no death — only
+// 運作中／被禁用. A fort is never removed from the field, so nothing here fades out.
 function drawFort(f){
   const box = spriteBox(f.key, f.w);
   shadowEllipse(f.x, f.y+ (box?box.h*0.28:24), f.w, 0.16);
   ctx.save();
-  ctx.globalAlpha = f.alive ? (f.damaged?0.6:1) : f.fade*0.7;
+  ctx.globalAlpha = f.disabled ? 0.42 : 1;
   if(box){
     ctx.translate(f.x, f.y - box.h*0.28);
-    if(!f.alive){ const s=0.75+0.25*f.fade; ctx.scale(s,s); }
+    // a disabled fort sits slightly askew, so the state reads before the label does
+    if(f.disabled){ ctx.rotate(0.05); ctx.scale(0.95, 0.95); }
     ctx.drawImage(box.im, -box.w/2, -box.h*0.7, box.w, box.h);
   } else {
     ctx.fillStyle = cssv('--field-line');
     ctx.fillRect(f.x-f.w/2, f.y-30, f.w, 60);
   }
   ctx.restore();
-  if(f.absorb>0){
-    // blue-white shield arc on the strike it ate
+  if(f.intercept>0){
+    // 盾陣平時不搶眼，在攔截的那一刻現身擋下攻擊: the shield only shows at the moment it eats a hit
     ctx.save();
-    ctx.globalAlpha = f.absorb*0.9; ctx.lineWidth = 5; ctx.strokeStyle = '#dbeaff';
+    ctx.globalAlpha = f.intercept*0.9; ctx.lineWidth = 5; ctx.strokeStyle = '#dbeaff';
     ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44, -0.9, 0.9); ctx.stroke();
     ctx.strokeStyle = cssv('--blue'); ctx.lineWidth = 2;
     ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44+5, -0.9, 0.9); ctx.stroke();
+    ctx.restore();
+  }
+  if(f.fire>0){
+    // launch flash: 防空飛彈在有空域目標的回合真的開火
+    ctx.save();
+    ctx.globalAlpha = f.fire*0.85; ctx.strokeStyle = cssv('--blue'); ctx.lineWidth=4;
+    ctx.beginPath(); ctx.arc(f.x, f.y-30, 16+(1-f.fire)*34, 0, 6.283); ctx.stroke();
     ctx.restore();
   }
   if(f.boom>0){
     ctx.save(); ctx.globalAlpha = f.boom*0.8; ctx.strokeStyle = cssv('--amber'); ctx.lineWidth=6;
     ctx.beginPath(); ctx.arc(f.x, f.y-10, 30+(1-f.boom)*90, 0, 6.283); ctx.stroke(); ctx.restore();
   }
-  if(f.alive && f.damaged){
+  if(f.disabled){
     ctx.save();
     ctx.fillStyle = cssv('--amber'); ctx.font='600 22px '+cssv('--font-display');
-    ctx.textAlign='center'; ctx.fillText('待修', f.x, f.y+42); ctx.restore();
+    ctx.textAlign='center'; ctx.fillText('被禁用', f.x, f.y+42); ctx.restore();
   }
 }
 
@@ -973,7 +1109,7 @@ function drawUnit(u){
   const box = spriteBox(u.key, u.rd.w);
   const y = drawY(u);
   let bob=0, rot=0;
-  const moving = u.alive && !inRange(u) && flags.walk;
+  const moving = u.alive && u.moving && flags.walk;
   if(flags.bob && moving && !reduce){ bob = Math.sin(u.phase)*5.5; rot = Math.sin(u.phase)*0.05; }
   else if(flags.bob && moving && reduce){ bob = Math.sin(u.phase)*2; }
   if(u.row==='air') bob += Math.sin(u.phase*0.5)*7;   // slow hover
@@ -1181,17 +1317,16 @@ function drawHoverRing(){
 function drawWinner(){
   if(!winner) return;
   ctx.save();
-  ctx.fillStyle = winner==='BLUE'?cssv('--blue'):winner==='RED'?cssv('--red'):cssv('--ink');
+  ctx.fillStyle = winner==='BLUE'?cssv('--blue'):cssv('--red');
   ctx.textAlign='center';
   ctx.globalAlpha = Math.min(1, winTimer*2);
-  const stop = winner==='STOP';
-  ctx.font = '600 '+(stop ? 40 : 54)+'px '+cssv('--font-display');
-  ctx.fillText(stop ? winNote : winner+' HOLDS THE FIELD', W/2, H/2);
+  ctx.font = '600 '+(winNote ? 38 : 54)+'px '+cssv('--font-display');
+  ctx.fillText(winNote || (winner+' HOLDS THE FIELD'), W/2, H/2);
   ctx.restore();
 }
 
 // --- metrics table ----------------------------------------------------------------------
-const FORT_STATE = {ok:'完好', damaged:'待修', dead:'已毀'};
+const FORT_STATE = {ok:'運作中', disabled:'被禁用（待修）'};
 function buildTables(){
   for(const side of [0,1]){
     const tb = document.getElementById(side===0?'tb-player':'tb-enemy');
@@ -1240,9 +1375,9 @@ function paintTables(){
   }
   for(const f of forts){
     if(!f.tr) continue;
-    const s = !f.alive ? FORT_STATE.dead : f.damaged ? FORT_STATE.damaged : FORT_STATE.ok;
+    const s = f.disabled ? FORT_STATE.disabled : FORT_STATE.ok;
     if(f.td.textContent !== s) f.td.textContent = s;
-    f.tr.classList.toggle('dead', !f.alive);
+    f.tr.classList.toggle('dead', f.disabled);
   }
 }
 setInterval(paintTables, 250);   // 4Hz, never per-frame
@@ -1286,7 +1421,8 @@ ERA_LABEL.forEach((label, i)=>{
 function updateVerdict(){
   const n = rosterFor(currentEra).length;
   document.getElementById('verdict').innerHTML =
-    '時代 <b>'+currentEra+'</b> · '+ERA_LABEL[currentEra-1]+' · 每方 <b>'+n+'</b> 單位 + <b>'+FORT_CLASSES.length+'</b> 工事';
+    '時代 <b>'+currentEra+'</b> · '+ERA_LABEL[currentEra-1]+' · 每方 <b>'+n+'</b> 單位 · 我方 <b>'
+    + fortLineFor(currentEra).length + '</b> 工事（敵方無工事）';
 }
 
 reset();
