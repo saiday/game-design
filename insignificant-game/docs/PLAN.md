@@ -103,7 +103,8 @@ every green wave.
       normal), 0 collapses with every run arming the check, money pile unchanged ~9200.)*
 - [ ] **W14.5 — Air & fortification rules delta (2026-07-26 design round; ADR-0006/0007,
       wayfinder #18–#22).** battle.gd: targeting matrix (melee excludes 空域, 空襲
-      ground-only), 防空 active air fire (engine defaults, era 4+; era 1–3 forms retired in
+      ground-only), 防空 active air fire (era 4+, **destroy-on-hit: no attack value, the
+      target dies; engine defaults, target 閃避 still rolls**; era 1–3 forms retired in
       `data/cards.gd`), fort disable-repair state machine (one hit disables, never removed,
       engineer round-robin repair regardless of arrival time, ground-only interception,
       siege/air prefer active forts), 僅剩空軍 continuation + 世界大戰 deadlock resolution,

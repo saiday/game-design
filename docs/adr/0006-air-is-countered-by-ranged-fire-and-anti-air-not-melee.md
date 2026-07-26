@@ -15,9 +15,11 @@ with a categorical targeting matrix, keeping the battle core free of coordinates
   (the 轟炸機 row): the card's designed role, fort-busting plus backline strikes, is fully
   preserved; only air-to-air is removed. Bombers stop being the game's accidental anti-air.
 - **防空飛彈 becomes the dedicated active air counter and stays a 工事卡** (ADR-0007 holds
-  its lifecycle): from 工業 era it fires at one 空域 unit per round at the engine defaults
-  (命中 100% / 攻速 1.0, no 品質三項, same precedent as every enemy unit; its attack value
-  is a v1 baseline knob in the card table). Its former 「擋一次遠程／空襲」 absorb is
+  its lifecycle): from 工業 era it fires at one 空域 unit per round and **a hit destroys the
+  target outright**. It carries no attack value: a fortification ignores attack values when
+  it blocks, so it ignores hit points when it fires. One missile is one aircraft. Resolution
+  uses the engine defaults (命中 100%, one shot per round, no 品質三項, the same precedent as
+  every enemy unit); the target's 閃避率 still applies. Its former 「擋一次遠程／空襲」 absorb is
   removed, and its era 1-3 forms (擋箭棚/箭樓/城防塔) are retired with that job: no air
   exists before 工業, so no anti-air exists either. Six approved art pieces (3 battlefield
   sprites, 3 card illustrations, era 1-3) are stranded knowingly; nothing is regenerated.
@@ -46,3 +48,11 @@ with a categorical targeting matrix, keeping the battle core free of coordinates
 - The roster gains no fighter class and 防空飛彈 is not promoted to a unit: no new art, no
   new 品質分布 row, no 成長軸 change, no 正規軍 conversion change, and enemy civs still
   field no anti-air (their air answer is their ranged 正規軍).
+- **A destroy-on-hit battery is deliberately decisive, and its counter-play is suppression,
+  not attrition.** 正規軍 conversion picks greedy strongest-first and 轟炸機 has the highest
+  攻+血 of any type, so civ-war and world-war armies are bomber-heavy from 工業 onward: the
+  battery always has targets. Enemy bombers in turn prefer disabling an active fortification
+  over hitting units, so the exchange is your battery downing one aircraft per round against
+  their strikes suppressing it and your engineer repairing one fort per round. The knobs that
+  price this loop are the battery's 軍費 (4), the 同場上限 2, and the one-repair-per-round
+  rate, never a damage number.
