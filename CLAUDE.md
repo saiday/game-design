@@ -25,7 +25,7 @@ human dashboards; `insignificant-game/docs/` holds the build contract and workin
 | Architectural decisions (reading or recording) | `docs/adr/` (sequential ADRs; convention in `docs/adr/README.md`; contradict one out loud, never silently) |
 | Issues, PRDs, triage | `docs/agents/issue-tracker.md` and `docs/agents/triage-labels.md` (GitHub issues in `saiday/game-design` via `gh`) |
 | Reporting progress to the human | `docs/progress-dashboard.html`: update it whenever a wave/gate closes or a test/asset count changes, and bump its footer |
-| The documentation architecture itself | `docs/doc-map.html` (human-facing doc map; update it when docs move or change roles) |
+| The documentation architecture itself | `docs/doc-map.html` (human-facing doc map; update it in the same change whenever you add, move, re-role, or delete a doc, and bump its footer. A doc joining a cluster it already maps (setting doc, ADR, audit) needs no new row; a new kind of doc does) |
 | Out of scope by design (never build these) | Multiplayer/online: the game is 單機單人 (`design/Insignificant.md`). Save/load: runs are no-reload (`design/結局.md` §永久性; `GameState.to_dict()` is not a save format). |
 | Planned but not started (pending, don't invent it) | Audio/music: no pipeline or tooling docs yet, only design intent (`design/Insignificant.md` §視覺與聽覺風格). Localization workflow: none yet, zh-TW only today. When a task needs either, surface it to the human to open that work. |
 
