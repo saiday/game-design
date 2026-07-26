@@ -136,7 +136,16 @@ rules the core does not have. That is the same failure mode the audit already fa
 design has to lead. Two of the five items also need a human decision on 定稿 text, which is not
 the demo's to make.
 
-**Handoff to a design round**, in cost order:
+**HANDOFF CLOSED 2026-07-26.** The design round ran as wayfinder tickets
+[#18](https://github.com/saiday/game-design/issues/18)–[#22](https://github.com/saiday/game-design/issues/22)
+and decided all four items below: air is countered by 遠程列 fire plus an actively-firing
+防空飛彈 (工業 era onward), 近戰 can never hit 空域, 空襲 is ground-only, forts one-hit-disable
+and never leave the field (engineer round-robin repair), and the battle core still gets no space.
+See `docs/adr/0006`/`0007` and `design/戰鬥.md` §工事卡. **The demo is now stale against design**
+— its roll order still models fort absorb (防空擋遠程) and demolish-removes; re-sync it to the
+new fort model and targeting matrix before touching it again.
+
+The original handoff, in cost order:
 
 1. **Air counters** (non-spatial, decidable now). Who may attack a unit in 空域? A row-plus-flags
    targeting matrix, promoting 防空飛彈 from 工事卡 to a firing 部隊卡, or adding a fighter class.
