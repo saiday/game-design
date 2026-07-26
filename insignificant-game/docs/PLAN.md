@@ -101,6 +101,14 @@ every green wave.
       222/222 with determinism green. Headline measurements: player camp wins ~95% of
       world wars (WW2-wall knobs don't bite yet), happiness finally moves (min 16 on
       normal), 0 collapses with every run arming the check, money pile unchanged ~9200.)*
+- [ ] **W14.5 — Air & fortification rules delta (2026-07-26 design round; ADR-0006/0007,
+      wayfinder #18–#22).** battle.gd: targeting matrix (melee excludes 空域, 空襲
+      ground-only), 防空 active air fire (engine defaults, era 4+; era 1–3 forms retired in
+      `data/cards.gd`), fort disable-repair state machine (one hit disables, never removed,
+      engineer round-robin repair regardless of arrival time, ground-only interception,
+      siege/air prefer active forts), 僅剩空軍 continuation + 世界大戰 deadlock resolution,
+      `sim.gd` termination guard. Corpus already updated (design-first); code must follow it.
+      Gate: Part A exit 0 on battle/cards/sim/world_war suites; determinism green.
 - [ ] **W15 — Three-scene view revamp (style bible §11 + corpus 場景呈現; was W10).** Operations
       city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
       focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route fog-map

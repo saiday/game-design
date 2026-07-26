@@ -56,7 +56,7 @@ mechanical upside. Either intended as a psychological choice or a knob to revisi
 | Catch-up player-protection ceiling (floor 0.65 is pinned; ceiling isn't) | strongest rival ≤ player×1.5, adjustment bounded ±25% | rivals.gd |
 | First contact | all rivals met at generation 1 (+5 influence) | rivals.gd |
 | Battle hand system (design implies "opening hand" but pins nothing) | ~~opening hand 4, draw 1/round~~ **retired by W12** — the W10 corpus pins D1: no hand, any unplayed card any round, 軍費 the only gate | battle.gd |
-| Auto-resolution targeting | focus fire in deploy order; siege/air demolish fortifications first (the mobile ranged-row bypass retired with 壕溝 in the W10 corpus) | battle.gd |
+| Auto-resolution targeting | focus fire in deploy order; ~~siege/air demolish fortifications first~~ **superseded by ADR-0006/0007 (2026-07-26 design round)** — siege/air disable active fortifications first (never removed, engineer round-robin repair); melee cannot target 空域; 空襲 ground-only (the mobile ranged-row bypass retired with 壕溝 in the W10 corpus) | battle.gd |
 | Enemy reinforcements | ~~whole opening at battle start~~ **retired by W12** — the corpus pins rolled wave schedules (D2/D5) | battle.gd |
 | 為民主而流血 frequency ("unknown 低頻") | 15% of unknown battles while unlocked-but-refused and happiness<70 | map_nodes.gd |
 | World war battle | automated common-table strength contest (±15% seeded roll); camps/turn-order/merit/last-hit/reparations math faithful; per-card play not simulated | world_war.gd |
