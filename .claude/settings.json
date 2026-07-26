@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "permissions": {
+    "ask": [
+      "Read(./insignificant-game/docs/explore-topdown-motion-demo.html)",
+      "Read(**/explore-topdown-motion-demo.html)"
+    ],
+    "deny": [
+      "Read(./docs/prompts.md)",
+      "Read(**/prompts.md)"
+    ]
+  }
+}
