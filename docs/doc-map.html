@@ -198,11 +198,11 @@
         <td>Difficulty formula and its rationale (why each channel has its slope).</td>
         <td>Formula synced into design/對手文明; implemented by <code>core/difficulty.gd</code>.</td></tr>
     <tr><td style="white-space:normal">explore-topdown-battle-and-units.md</td><td><span class="aud both">both</span></td>
-        <td>Exploration log for the top-down battle camera and RimWorld-style unit art. Both halves are stopped: the camera direction by audit plus human arbitration, the demo session by the battle-rule questions it surfaced. Nothing here is decided, and no locked doc was changed. Purpose-built log: keeps its dates.</td>
-        <td>Audit reasoning lives in root docs/depandabot/; the surviving sandbox is explore-topdown-motion-demo.html.</td></tr>
+        <td>Exploration log for the top-down battle camera and RimWorld-style unit art, from the audit that stopped it to the round that adopted it. Records the objections that still stand (the core still gets no space; the sprite cost is real) alongside the decision taken despite them. Purpose-built log: keeps its dates.</td>
+        <td>The decisions it led to are ADR-0008 (cover chain) and ADR-0009 (top-down camera); the sandbox it rests on is explore-topdown-motion-demo.html.</td></tr>
     <tr><td style="white-space:normal">explore-topdown-motion-demo.html</td><td><span class="aud human">human</span></td>
-        <td>Presentation sandbox: the full unit roster at a chosen era, resolving attacks on the real catalog stats and roll order, each fighter one static sprite moved by cheap transforms. A way to watch the numbers, not a proposal for the game's camera.</td>
-        <td>Sprites come from ../assets/exploration/topdown-demo/; framed and bounded by explore-topdown-battle-and-units.md; its rules are pinned to ADR-0006/0007 by <code>docs/tools/check_motion_demo.js</code>. <b>Agent-gated:</b> 94% of its 1.2 MB is base64 sprite payload, so <code>.claude/settings.json</code> makes Claude ask before reading it and root CLAUDE.md carries the payload-stripping command for when the human does ask.</td></tr>
+        <td>Presentation sandbox: the full unit roster at a chosen era, resolving attacks on the real catalog stats and roll order, each fighter one static sprite moved by cheap transforms. Started as a way to watch the numbers; it became the evidence for the top-down camera (ADR-0009) and surfaced the cover defect behind ADR-0008. W14.7 rewrites it as a replayer of the core's exported timeline with every rule deleted, so it can no longer drift from the game.</td>
+        <td>Sprites come from ../assets/exploration/topdown-demo/; the exploration is logged in explore-topdown-battle-and-units.md; its rules are pinned to ADR-0006/0007 by <code>docs/tools/check_motion_demo.js</code> (which becomes a renderer check once the rules leave the page). <b>Agent-gated:</b> 94% of its 1.2 MB is base64 sprite payload, so <code>.claude/settings.json</code> makes Claude ask before reading it and root CLAUDE.md carries the payload-stripping command for when the human does ask.</td></tr>
   </table>
   </div>
 
@@ -215,7 +215,7 @@
         <td>Instantiated by insignificant-game/docs/dev-loop.md and PLAN.md.</td></tr>
     <tr><td>adr/ (sequential)</td><td><span class="aud both">both</span></td>
         <td>Architecture decision records: decisions with lasting consequences and the reasoning that must not be re-litigated. Read the ones touching your area; contradict out loud, never silently. Numbering and format convention: adr/README.md.</td>
-        <td>The current set records the battle-rewrite calls (sourced from plan-battle-model-rewrite.md) and the battle design-round rulings on air targeting and fortification lifecycle.</td></tr>
+        <td>The current set records the battle-rewrite calls (sourced from plan-battle-model-rewrite.md), the design-round rulings on air targeting and fortification lifecycle, and the cover chain plus the top-down battle camera (0008/0009, which overturned the earlier stop on top-down).</td></tr>
     <tr><td>agents/issue-tracker.md</td><td><span class="aud agent">agent</span></td>
         <td>GitHub-issue conventions (<code>gh</code> CLI) plus wayfinder map/ticket operations. Read by the triage/wayfinder skills; path is skill-pinned, do not move.</td>
         <td>GitHub repo saiday/game-design; agents/triage-labels.md.</td></tr>
@@ -223,8 +223,8 @@
         <td>Maps the five canonical triage roles to this repo's label strings. Path is skill-pinned, do not move.</td>
         <td>agents/issue-tracker.md.</td></tr>
     <tr><td>depandabot/ (dated)</td><td><span class="aud both">both</span></td>
-        <td>Drift audits, one <code>YYYY-MM-DD-topic.md</code> per invocation of the depandabot skill: current state, intended goal, the plan as it stood, missing human confirmations, web evidence, a Codex second opinion, and a terminal verdict. Purpose-built log directory: filenames and entries carry dates.</td>
-        <td>A verdict stops or reframes in-flight work; the summary and handoff land in the working doc it audited.</td></tr>
+        <td>Where drift audits land: one <code>YYYY-MM-DD-topic.md</code> per invocation of the depandabot skill, holding current state, intended goal, the plan as it stood, missing human confirmations, web evidence, a Codex second opinion, and a terminal verdict. Purpose-built log directory: filenames and entries carry dates. <b>Currently empty</b> — this row is a live convention for the next audit, not a pointer to a file.</td>
+        <td>A verdict stops or reframes in-flight work; the summary and handoff land in the working doc it audited. An audit is a reasoning trail, not a decision: when a verdict is later overturned, the load-bearing evidence must be lifted into the ADR that overturns it before the audit is retired (ADR-0009 carries the sprite-cost evidence for exactly this reason).</td></tr>
     <tr><td style="white-space:normal">image-assets-generation-orchestrator-cookbook.md</td><td><span class="aud agent">agent</span></td>
         <td>The art-pipeline contract for Mac Studio sessions: standing decisions, environment, ComfyUI driving, consistency strategy, phase plan, self-checks, escalation. §14 is a purpose-built findings log.</td>
         <td>style-bible.md (locked recipe), inventory.md (scope from design/), mac-studio-handoff.md (ignition).</td></tr>
@@ -319,7 +319,7 @@
       requires either its own row or a cluster row that covers its directory.</li>
   </ul>
 
-  <footer>Last updated: 2026-07-27 (the topdown-demo sprite README is now an inventory an agent can read instead of a folder listing: class × era × subject kind, the ammo-to-class mapping, and the three <code>anti_air</code> renders ADR-0006 stranded) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
+  <footer>Last updated: 2026-07-27 (W14.6 corpus round: the formation is an ordered cover chain and the battle camera is top-down, ADR-0008/0009. The 2026-07-25 top-down audit is deleted and its sprite-cost evidence lifted into ADR-0009; the <code>depandabot/</code> row is now a live convention over an empty directory. The two exploration docs are re-roled from stopped to adopted) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
 </div>
 </body>
 </html>

@@ -16,7 +16,7 @@ human dashboards; `insignificant-game/docs/` holds the build contract and workin
 | Any game code (logic, data, tests, view) | `insignificant-game/CLAUDE.md`, then `insignificant-game/docs/architecture.md` (the contract) and `insignificant-game/docs/dev-loop.md` (verified commands + pitfalls) |
 | Game rules, mechanics, or numbers | `insignificant-game/design/` (single source of truth; entry point `Insignificant.md`, one doc per system) |
 | Resuming interrupted build work | `insignificant-game/docs/PLAN.md` (task board) + `git log` |
-| Battle-model rewrite (waves W11 to W15) | `insignificant-game/docs/plan-battle-model-rewrite.md` (locked design D1 to D16) + `docs/adr/` 0001 to 0005 |
+| Battle-model rewrite (waves W11 to W15) | `insignificant-game/docs/plan-battle-model-rewrite.md` (locked design D1 to D16) + `docs/adr/` 0001 to 0009 (0006 to 0009 are the later design rounds: air targeting, fortification lifecycle, the cover chain, the top-down camera) |
 | A gap the design doesn't pin | `insignificant-game/docs/decisions.md`: decide conservatively, log it there |
 | Balance or difficulty measurement | `insignificant-game/docs/balance-report.md` and `insignificant-game/docs/difficulty-design.md` |
 | Understanding the two-part dev loop (why, limits) | `docs/agent-development-loop.md` (doctrine; the per-project commands live in `insignificant-game/docs/dev-loop.md`) |

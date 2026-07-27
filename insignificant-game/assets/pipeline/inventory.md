@@ -105,6 +105,16 @@ Battlefield sprites for the auto-deployed rows (戰鬥). "—" eras in the corpu
 form and no asset. Player sprites are reused mirrored for enemy sides where the enemy is a
 named civ; abstract enemy tiers get their own generic sprites (below).
 
+> **Superseded, pending re-render (ADR-0009: the battle scene is top-down).** All 69 sprites in
+> `assets/approved/units/` — every id in this section plus the fortifications and abstract enemy
+> tiers below — were rendered side-view and are superseded by the camera change. They stay on disk
+> and stay wired through `core/data/asset_paths.gd` until the re-render replaces them, so nothing
+> is missing in the meantime; they are simply the wrong camera. The ids, counts, subjects and era
+> forms below are unchanged and are the brief for the re-render: same 69 assets, overhead framing
+> per `style-bible.md` §3. The re-render is PLAN.md **W14.8**, and it runs after W14.7 so the
+> timeline replayer can inform the brief (silhouette readability at battle zoom, whether an L/R
+> mirror holds, the eye-level drift on mounted and multi-figure groups).
+
 | id | subject (era form) |
 |---|---|
 | unit_infantry_era1 | 棍棒戰團 |
@@ -245,6 +255,11 @@ base plate (Phase 2, §6).
 Three main scenes, each with its own distinct background (never shared): the operations city
 panorama, the route fog-of-war map, and per-battle-type battlefields. Time-of-day (one
 generation = one day) is an in-engine grade over the day plate, not separate art.
+
+> **The 7 `bg_battle_*` plates are superseded, pending re-render (ADR-0009).** They are side-view
+> backdrops for a top-down field. Same 7 ids and same per-type subjects; the re-render changes the
+> camera, and it rides PLAN.md **W14.8** together with the unit sprites. The other 10 backgrounds
+> are untouched: the city panorama stays side-view by design (`style-bible.md` §11).
 
 | id | subject |
 |---|---|

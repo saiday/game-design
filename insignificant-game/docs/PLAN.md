@@ -121,12 +121,53 @@ every green wave.
       the collapse chain fired for the first time (2/60, both an opening-game pop-5 trap, not
       an air effect) — both surfaced in balance-report.md for the PM. Gap decisions:
       decisions.md W14.5; conventions: implementation-notes.md.)*
-- [ ] **W15 — Three-scene view revamp (style bible §11 + corpus 場景呈現; was W10).** Operations
-      city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips, controller
-      focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route fog-map
-      scene, per-battle-type battle scene replaying the core's tick timeline. Backgrounds class
-      plates are already approved (`9b45ed8`); the blocker is W11–W14, not art. Interface behavior
-      iterates in-engine on Part B captures (no more interface mocks).
+- [x] **W14.6 — Corpus round: cover chain + top-down pivot (2026-07-27 design round;
+      ADR-0008/0009).** Documentation only, no code. `design/戰鬥.md`: 自動佈陣 becomes an ordered
+      cover chain (近戰列（最前）→ 工事線 → 遠程列 → 空域, each layer screening the one behind it),
+      盾陣 rescoped from any 地面單位 to the **遠程列**, one card = one wall segment, 工兵團 moves to
+      the 遠程列 and works at the 工事線, 正規軍 field 盾陣 (never 防空飛彈, never repairable) while
+      非正規軍 field none, §場景呈現 becomes top-down with cover read by arrangement alone.
+      `design/卡牌.md`: 工兵團's row + 盾陣's effect cell. ADR-0008 (cover chain, superseding
+      ADR-0007's ground-unit scope) and ADR-0009 (top-down, carrying the audit's sprite-cost
+      evidence). ADR-0006 amended by striking only the REFRAME clause; every rule in it survives.
+      `architecture.md`: 掩護鏈 + station terms and the **full timeline event contract** (two
+      replayers now depend on it). style-bible §3 camera split + §11 top-down; `inventory.md` marks
+      69 unit sprites + 7 battle backdrops superseded pending W14.8. Gate:
+      `python3 docs/tools/check_design_graph.py` exit 0. *(done 2026-07-27: exit 0, 14 system docs,
+      62 feed edges, 57 `code:` mappings, 0 errors, 0 warnings. Part A not runnable (no code
+      changed), Part B still down until W15. Gap decisions: decisions.md W14.6.)*
+- [ ] **W14.7 — Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009).**
+      `battle.gd`: the shield branch narrows to `target["row"] == &"ranged"`, 工兵團's row moves,
+      正規軍 rosters gain screens in `_regular_roster_desc` (`battle.enemy_forts` is declared and
+      read but never appended to today, so 帶攻城 is inert in every battle in the game), new
+      `take_station` event, header cite. `core/data/cards.gd`: the flag `&"blocks_melee_once"`
+      becomes `&"screens_ranged_row"`. `test/battle_test.gd`: rewrite the intercept test, add
+      melee-at-melee-is-not-intercepted, melee-at-ranged-is, no-ranged-unit-no-interception,
+      enemy-screen-never-repairs, `take_station`. New `tools/export_timeline.gd` (sibling of
+      `balance_batch.gd`, which already dumps JSON via `FileAccess`) exporting one fixture per era.
+      Demo converted from simulator to replayer: **all rule code deleted**, top-down render, station
+      staging; `check_motion_demo.js` drops from 46 rule assertions to a renderer check, and fixture
+      staleness is caught in Part A by re-running the exporter and failing on a diff. Add both
+      checkers to `dev-loop.md` Part A. Note the balance batch **cannot** measure this change:
+      `sim.gd` makes the bot skip every fort card and `balance-report.md` already records 盾陣 and
+      防空飛彈 as having zero batch coverage. The enemy-screens change will still move civ-war and
+      world-war numbers against the 79% hard-WW baseline and needs re-calibration.
+      Gate: Part A exit 0 (21 suites, ~239 cases); exporter diff clean; renderer check exit 0.
+- [ ] **W14.8 — Top-down battlefield art re-render (ADR-0009).** 69 unit/fort sprites + 7 battle
+      backdrops through the Mac Studio orchestrator (root `docs/image-assets-generation-orchestrator-cookbook.md`),
+      human pick gates, **strictly sequential**. Runs *after* W14.7 so the replayer informs the
+      sprite brief: silhouette readability at battle zoom, whether an L/R mirror holds on asymmetric
+      figures (untested), and the eye-level drift on mounted and multi-figure groups. Gate: human
+      pick-gate sign-off; `inventory.md` updated; superseded sprites removed.
+- [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
+      Operations city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips,
+      controller focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route
+      fog-map scene, and a **top-down** per-battle-type battle scene replaying the core's tick
+      timeline, prototyped by W14.7's replayer. The city stays a side-view panorama by design.
+      Non-battle background plates are already approved (`9b45ed8`); the battle plates come from
+      W14.8. Interface behavior iterates in-engine on Part B captures (no more interface mocks).
+      **Part B returns here** (`view/main.gd` is parse-broken until this wave).
+      Gate: Part B captures reviewed, zero ASSERT FAIL.
 
 ## Closed: PoC waves W0–W9 (record; all gates passed)
 

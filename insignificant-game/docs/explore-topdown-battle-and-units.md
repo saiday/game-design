@@ -1,23 +1,26 @@
 # Exploration log: top-down battle + RimWorld-style unit art
 
-> **Both halves of this exploration are now stopped, at two different levels.**
-> 1. **Top-down as a GAME camera: STOPPED** by a depandabot audit (`REFRAME`) plus human
->    arbitration on 2026-07-25. Do not resume without a fresh human decision.
-> 2. **The presentation sandbox (`explore-topdown-motion-demo.html`): STOPPED** on 2026-07-25
->    after it surfaced five battle-rule questions that the design corpus does not answer. Those
->    are design work, not demo work. The demo stays as-is and playable; the next move is a design
->    round, not another demo pass.
+> **Both halves of this exploration were adopted, on 2026-07-27, after both had been stopped.**
+> 1. **Top-down as the GAME camera: ADOPTED** (`docs/adr/0009-the-battle-scene-is-top-down.md`),
+>    overturning the 2026-07-25 REFRAME that had stopped it. The cost the audit priced is accepted
+>    knowingly, not refuted: illustrated ¾ overhead art is the dearest sprite bucket, and 69 unit
+>    sprites plus 7 battle backdrops are discarded to get there. That evidence now lives in ADR-0009,
+>    because the audit artifact that held it was deleted by human decision in the same round.
+> 2. **The cover proposal the sandbox surfaced: ADOPTED** as an ordered cover chain
+>    (`docs/adr/0008-the-formation-is-an-ordered-cover-chain-and-shields-screen-the-ranged-row.md`).
+>    The version rejected below needed coordinates; the adopted version needs none. 盾陣 screens the
+>    遠程列 specifically, 工兵團 moves behind the wall it repairs, and 正規軍 field screens of their own.
 >
-> Nothing here is decided or locked. No locked doc was edited by this exploration:
-> `design/戰鬥.md`, `assets/pipeline/style-bible.md` §11, `inventory.md` and the frozen
-> units/backgrounds all still describe the shipping side-view game.
+> The locked docs this exploration deliberately left alone have now been edited: `design/戰鬥.md`
+> §自動佈陣 and §場景呈現, `design/卡牌.md`, `style-bible.md` §3 and §11, and `inventory.md` (the 69
+> unit sprites and 7 battle backdrops are marked superseded pending the W14.8 re-render, which is
+> where the sprites actually get replaced).
 
 This is a purpose-built log (dated entries allowed, like `decisions.md` / cookbook §14), not a
-current-state doc. Full audit reasoning and evidence live in
-`docs/depandabot/2026-07-25-topdown-battle-unit-motion.md`; this file is the summary and the
-handoff.
+current-state doc. The rules live in the ADRs and the corpus; this file records how the exploration
+reached them, including the round in which it was stopped.
 
-## 1. What this was, and why the camera direction died
+## 1. What this was, and the objections the camera had to clear
 
 The human asked to explore a different unit art style, framed as "pixel art" with RimWorld as
 reference. Two corrections up front: RimWorld is not pixel art (it is flat-minimalist 2D
@@ -40,20 +43,50 @@ accepted with no rebuttal, terminating the loop at round 1 per the Bucket Rule:*
 | O5 | The design already solves world-war faction identification with civ colour tinting over existing art (「沿用現有單位美術套色，不需新圖」). A camera change discards a solved cheaper solution and invalidates 69 approved unit PNGs plus 7 side-view backdrops. |
 
 O6/O7 (implementation) were accepted as valid but moot. The falsified claims that used to be
-annotated inline here have been removed as redundant; the audit artifact holds them in full.
+annotated inline here have been removed as redundant.
 
-**Human arbitration, 2026-07-25:** the 5 reframes are accepted for the game direction. Top-down
-as a game camera stays stopped. If the world-war readability intuition is ever revisited,
-characterise the actual problem first (units on screen per wave, what specifically fails to read)
-before proposing any camera or art change.
+**Human arbitration, 2026-07-25:** the 5 reframes were accepted and top-down as a game camera was
+stopped. The arbitration set the condition for reopening it: characterise the actual readability
+problem first (units on screen per wave, what specifically fails to read) before proposing any camera
+or art change.
 
-## 2. What survived: the presentation sandbox
+**Human decision, 2026-07-27: the camera is adopted.** That condition was met by the sandbox, not
+argued around. Watching the roster resolve on a top-down field is what identified the real
+presentation problem, and it was not the world-war crowding the exploration set out to fix: **shield
+walls sat parked at the front of the field with nothing sheltering behind them**, because
+`design/戰鬥.md` put the 工事線 ahead of the 近戰列 and scoped 盾陣 to *any* ground unit, while cover
+itself was only ever described as draw order (「掩體感由畫面的前後遮蔽表達」). The wall belonged to
+nobody. That is a rules defect the side-view composition could not have surfaced and cannot express,
+and fixing it (ADR-0008) is what makes the camera worth its cost.
 
-By explicit human decision, `explore-topdown-motion-demo.html` continued, **reclassified as a
-presentation sandbox** for watching unit stats and combat rolls resolve on screen. Its top-down
-camera is a property of the sandbox, deliberately **not** a camera recommendation, and it does not
-reopen O1-O5. Open it directly in a browser; it is one self-contained file at 1.12 MB with 60
-sprites embedded as data URIs.
+How each objection stands after the decision:
+
+- **O1 and O5 stand as stated, and are not the basis of the adopted decision.** World war is still
+  exactly two camps, and civ colour tinting is still the world-war identification answer. Top-down is
+  adopted for the cover chain, not for world-war crowding. The founding premise of the *exploration*
+  was indeed false; the direction it stumbled into was not.
+- **O2 stands, and is honoured.** The battle core still has no coordinates, no distance, no velocity
+  and no movement. A station is a categorical place in the cover chain, and ADR-0008 adds it without
+  adding space. Unit motion in the view remains decoration over a position-less model, which is why
+  the demo becomes a replayer of the core's timeline rather than a simulator (W14.7).
+- **O3 stands and is accepted as a cost, not refuted.** The multipliers are real and they are now
+  recorded in ADR-0009 so the expense cannot be quietly forgotten.
+- **O4 stands and is still open.** Mirror-safety on asymmetric illustrated figures is untested; it is
+  carried into W14.8 as a named risk, not assumed away.
+
+## 2. The sandbox that carried the exploration, and became the evidence
+
+By explicit human decision, `explore-topdown-motion-demo.html` continued after the camera was
+stopped, **reclassified as a presentation sandbox** for watching unit stats and combat rolls resolve
+on screen. Its top-down camera was a property of the sandbox at the time, deliberately not a camera
+recommendation. It became one: the sandbox is the characterisation the 2026-07-25 arbitration asked
+for, and ADR-0009 cites it. Open it directly in a browser; it is one self-contained file at 1.12 MB
+with 60 sprites embedded as data URIs.
+
+**Its next revision is a rewrite, not a patch (PLAN.md W14.7):** the sandbox re-implements the battle
+rules in JS, which is exactly how it drifted from them once before. It becomes a **replayer** of the
+timeline `core/battle.gd` exports, with all rule code deleted, so it cannot diverge again. The
+roll-order description below is a record of the simulator, and it retires with it.
 
 What it does:
 
@@ -72,6 +105,9 @@ What it does:
   Fortifications are the player side's alone, as in core, and 防空飛彈 exists from 工業 onward only.
   **`docs/tools/check_motion_demo.js` pins all of that**: it boots the page's own JS headless and
   fails if the sandbox drifts from the rules again (`node insignificant-game/docs/tools/check_motion_demo.js`).
+  ADR-0008 has since narrowed the interception to the 遠程列 and given 正規軍 screens of their own, so
+  this roll order is one wave out of date on purpose: W14.7 deletes it rather than patching it, and
+  the checker becomes a renderer check because there will be no rules left in the page to pin.
 - **Per-unit metric tags on the field:** era form name, live HP, 攻/命中率/閃避率/攻速, placed in
   free lanes with a leader line back to the unit. The full table sits below the canvas.
 - **Per-class attack motion:** melee lunges, cavalry charges with a roll, muskets and rifles
@@ -113,8 +149,9 @@ problem, and only one of the five is a demo change.
 
 **Two rest on a premise the game does not have.**
 
-- **盾陣 and 防空飛彈 are 工事卡, not units.** `design/卡牌.md:48-49` and `design/戰鬥.md:30` pin
-  them completely: 工事線 (frontmost), **無視攻擊力**, 留場, block exactly one attack, 同場上限 2,
+- **盾陣 and 防空飛彈 are 工事卡, not units.** `design/卡牌.md` and `design/戰鬥.md` pin
+  them completely: 工事線 (frontmost *at the time*; ADR-0008 has since moved it behind the 近戰列),
+  **無視攻擊力**, 留場, block exactly one attack, 同場上限 2,
   工兵團 repair, plus full era skins. `battle.gd` keeps them in `player_forts`, an array separate
   from `player_units`, with no hp, attack, accuracy or dodge. The demo matches
   (`row:'fortification'`, atk 0, no stat tag). So "工事卡 feel out of place" is not a rules gap.
@@ -133,18 +170,23 @@ living defender regardless of `row`; melee prefers the melee row then falls back
 code implements exactly that. Restricting ground-attack aircraft to ground targets is an ADR-grade
 change to a 定稿 line, not a tweak.
 
-**One reopens the decision that stopped the camera.** Seed-generated destructible barriers with
-ranged units preferring cover requires space in the battle core, which is exactly O2 and exactly
-what the arbitration closed. It also contradicts `design/戰鬥.md:21` 自動佈陣
-(「玩家不指定位置」, categorical 列, not coordinates). And it overlaps an existing card: a
-destructible thing in front that shelters the ranged line **is** 盾陣. Note that the related
-"ranged units dodge melee" has a cheap non-spatial reading (a 閃避率 modifier keyed on attacker
-kind) that should be separated from the spatial one.
+**One reopened the decision that stopped the camera — and is now the adopted design, in its
+non-spatial form.** Seed-generated destructible barriers with ranged units *choosing* cover requires
+space in the battle core, which is exactly O2 and exactly what the arbitration closed; it also
+contradicts 自動佈陣's 「玩家不指定位置」 (categorical 列, not coordinates). Both objections survive.
+What the analysis got right is the sentence that became ADR-0008: **a destructible thing in front
+that shelters the ranged line is 盾陣.** The card already existed; what it lacked was somebody to
+cover. So the adopted version keeps every constraint the rejection rested on — no coordinates, no
+player placement, no new card — and changes only who the wall belongs to: the formation becomes an
+ordered chain (近戰列 → 工事線 → 遠程列 → 空域) and 盾陣's interception narrows from any ground unit to
+the 遠程列. The related "ranged units dodge melee" idea stays unbuilt; its cheap non-spatial reading
+(a 閃避率 modifier keyed on attacker kind) is not needed once the wall does the job.
 
 **The stop reason:** patching targeting rules or terrain into the demo would make the demo assert
 rules the core does not have. That is the same failure mode the audit already falsified (O2), so
 design has to lead. Two of the five items also need a human decision on 定稿 text, which is not
-the demo's to make.
+the demo's to make. This reason is the whole argument for W14.7's rewrite: a demo that holds rules
+will drift from them, so the demo stops holding rules.
 
 **HANDOFF CLOSED 2026-07-26.** The design round ran as wayfinder tickets
 [#18](https://github.com/saiday/game-design/issues/18)–[#22](https://github.com/saiday/game-design/issues/22)
@@ -153,10 +195,17 @@ and decided all four items below: air is countered by 遠程列 fire plus an act
 and never leave the field (engineer round-robin repair), and the battle core still gets no space.
 See `docs/adr/0006`/`0007` and `design/戰鬥.md` §工事卡.
 
+**SECOND HANDOFF CLOSED 2026-07-27.** The fifth item, the one this log recorded as rejected, came
+back and was decided as the cover chain, and the camera came with it. The battle core still gets no
+space: that ruling is unchanged and ADR-0008 was designed around it. See `docs/adr/0008`/`0009`,
+`design/戰鬥.md` §自動佈陣 and §場景呈現, and PLAN.md W14.6 to W15 for what implements it.
+
 **The demo was re-synced to those rules on 2026-07-26** (see §2's roll-order bullet). Two of the
 five objections below are answered by the rules themselves rather than by the demo: 防空飛彈's
 affordance problem is gone because the battery now genuinely fires, and air now has a counter.
-The sandbox remains a presentation sandbox, not a camera proposal; nothing here reopens O1-O5.
+The sandbox stopped being merely a sandbox on 2026-07-27: it is the evidence ADR-0009 rests on, and
+it is being rebuilt as a timeline replayer in W14.7. O1, O2, O4 and O5 all still stand as written
+(see §1); the camera was adopted despite them, not by refuting them.
 
 The original handoff, in cost order:
 
@@ -225,8 +274,9 @@ The original handoff, in cost order:
 
 - **The camera splits by subject type.** Structures, emplacements, vehicles and aircraft come out
   genuinely steep overhead; multi-figure human groups and mounted figures still drift toward
-  eye-level three-quarter. A shared locked camera needs ControlNet/pose reference, which O3 priced
-  out.
+  eye-level three-quarter. A shared locked camera may need ControlNet/pose reference, which O3's
+  multipliers price as expensive. **This is now a live production risk, not a reason to stop:**
+  ADR-0009 carries it, and W14.8 has to resolve it for real across 69 sprites.
 - **Negative wording does not reliably suppress insignia.** A bomber returned with a roundel and
   tail flashes despite the prompt forbidding both. More "no X" phrasing is the wrong lever.
 - **Count drift** (asked 3, got 5) remains routine §8 noise.

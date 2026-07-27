@@ -132,10 +132,41 @@ never called a card) · 老兵 `veterancy` (軍事區's 基礎被動) · **wave*
 commitment inside a battle) · **tick** (atomic time unit inside a 回合) · **timeline** (the
 complete tick-stamped event list core emits per round; the view replays it and decides nothing) ·
 **exhaustion** (the defeat condition: field empty AND nothing left to commit) · 回合 `round` (a
-fixed tick window; deployment, 軍費, and wave arrival all happen at its boundary).
+fixed tick window; deployment, 軍費, and wave arrival all happen at its boundary) ·
+**掩護鏈 cover chain** (the ordered formation 近戰列 → 工事線 → 遠程列 → 空域, each layer screening
+the one behind it; ADR-0008) · **station** (a unit's place in that chain: still the categorical `row`
+plus, for a fort, which layer it screens. **Not a coordinate and not a slot** — the core holds no
+positions, and stations are assigned by 自動佈陣, never chosen).
 
 **Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots), 同時結算 (simultaneous resolution).
 If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003.
+The 掩護鏈 is **not** a revival of 部隊位: slots were a bounded set of play positions the player
+filled, the chain is an ordering the engine derives from each unit's row.
+
+#### Timeline event contract
+
+`battle.last_timeline` is an `Array[Dictionary]`, one entry per event, tick-ordered within the round.
+Every entry carries `tick: int` and `type: StringName`; the rest is per-type. **This table is the
+contract, not documentation of it.** Two independent replayers consume it (`view/`'s battle scene and
+the HTML timeline replayer), so a rename here breaks both: W14.5 already renamed `absorb` → `intercept`
+and `demolish` → `disable` once.
+
+| `type` | Payload keys | Meaning |
+|---|---|---|
+| `hit` | `by`, `target`, `damage` | An attack landed. `damage` already includes the 軍歌 +1. |
+| `miss` | `by`, `target` | Accuracy roll failed. A miss accrues no 閃避率 XP: the attack never reached the unit. |
+| `dodge` | `by`, `attacker` | Dodge roll succeeded. **`by` is the unit that dodged**, not the attacker (the only entry where `by` is the defender). |
+| `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill, or a fort's `card_id` for a shootdown. `faction` is the victim's, for 戰功 attribution. |
+| `intercept` | `by`, `card_id` | A 盾陣 intercepted one melee attack (ADR-0008: aimed at the 遠程列) and is now disabled. No accuracy or dodge roll happens. |
+| `disable` | `by`, `card_id` | A 帶攻城／空襲 attacker disabled an **active** fort. No roll; the fort is never removed. |
+| `shootdown` | `by`, `target` | A 防空飛彈 destroyed an aircraft. `by` is the fort's `card_id`. Always followed by a `death` at the same tick. |
+| `repair` | `card_id` | 工兵團 restored one disabled fort. Always `tick: 0` (repair opens the window, ahead of the strikes that suppress it). |
+| `medal` | `unit`, `stat`, `level` | A stat's XP filled and the 勳章 landed 當場 at this tick. `level` is the new level. **XP accrual itself emits nothing** — only the medal is visible. |
+| `take_station` | `unit`, `row`, `screened_by` | W14.7. A unit took its place in the 掩護鏈. `screened_by` is the `card_id` of the fort covering it, or `&""` when nothing does. Re-emitted when a `repair` restores a wall, because the screen relationship changed. |
+
+Labels (`by` / `target` / `victim` / `unit`) come from `_unit_label`: a unit's `card_id`, or its
+anonymous `grade` for irregulars. **Labels are not identities** — two 步兵團 on the same field share
+one label, so a replayer must track its own per-unit handles and must not key state off the label.
 
 ## Canonical IDs (StringName; use these exactly — never invent variants)
 

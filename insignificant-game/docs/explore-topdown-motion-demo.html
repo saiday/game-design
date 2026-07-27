@@ -292,7 +292,8 @@
   </div>
 
   <div class="note">
-    <p><b>What this is.</b> A presentation sandbox for looking at units and their numbers. The top-down camera is a property of this sandbox and carries no implication for the game, whose battle screen is a locked side-view pair (<code>design/戰鬥.md</code> 場景呈現). A depandabot audit on 2026-07-25 falsified the case for a top-down game camera; see <code>explore-topdown-battle-and-units.md</code>.</p>
+    <p><b>What this is.</b> A presentation sandbox for looking at units and their numbers. The top-down camera it started with <b>is now the game's battle camera</b>: this page is the evidence the decision rests on (<code>docs/adr/0009-the-battle-scene-is-top-down.md</code>, which overturned the 2026-07-25 stop; the exploration is logged in <code>explore-topdown-battle-and-units.md</code>). Watching the roster resolve here is also what surfaced the cover defect that became the ordered cover chain, <code>docs/adr/0008</code>: 盾陣 now screens the 遠程列 and 工兵團 stands behind the wall it repairs.</p>
+    <p><b>This page is one wave out of date, deliberately.</b> It still simulates the rules in its own JS, which is how it drifted from them once before. PLAN.md <b>W14.7</b> rewrites it as a <b>replayer</b> of the tick timeline <code>core/battle.gd</code> exports, with every rule deleted from the page, so it cannot diverge again. The approximations below describe the simulator and retire with it.</p>
     <p><b>Deliberate approximations</b> (the numbers are the game's, the staging is not):</p>
     <ul>
       <li><b>Continuous movement replaces the row model.</b> <code>core/battle.gd</code> has no positions at all: a unit's only spatial attribute is a categorical row (melee / ranged / air). The columns and the walking here are invented by this view. A unit walks toward whatever it may legally hit, so an infantry line stands still once the only enemy left is airborne.</li>

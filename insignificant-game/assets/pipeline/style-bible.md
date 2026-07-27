@@ -46,7 +46,8 @@ as `<subject core>, <class framing suffix>`:
 
 | Class | Framing suffix | Size |
 |---|---|---|
-| Buildings / units / forts | `game building sprite, side view, centered, isolated on a plain light gray background` (swap "building" for the class noun) | 1024×1024 |
+| Buildings | `game building sprite, side view, centered, isolated on a plain light gray background` | 1024×1024 |
+| Battlefield units / forts | `game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, centered, isolated on a plain light gray background` (swap "unit" for the class noun) | 1024×1024 |
 | Card illustrations | `game card illustration, dramatic composition` | 768×1024 |
 | UI icons | `game <thing> icon, bold dark outline, centered, plain light gray background` | 1024×1024 |
 | Backgrounds | scene description, no isolation suffix | 1344×768 (verify per batch) |
@@ -55,6 +56,15 @@ as `<subject core>, <class framing suffix>`:
 Krea 2 + this LoRA follows isolation instructions reliably — no sprite-sheet drift. The building
 and icon rows are batch-verified; the other sizes/framings are working baselines: adjust freely,
 log in cookbook §14, but the style recipe itself is locked.
+
+**The camera splits by class, deliberately** (ADR-0009): the battle scene is top-down, the city
+panorama is not. Only battlefield units and forts take the overhead framing; buildings keep `side
+view` because they are composited into the side-view city. The overhead wording and the
+right-facing clause are both load-bearing and were validated by the exploration
+(`../../docs/explore-topdown-battle-and-units.md` §4): vague "three-quarter top-down" leaves hard
+cases near eye-level, and stripping the orientation phrase leaves an X-flip nothing to mirror.
+Two open risks ride this row into the unit re-render: mirror-safety on asymmetric figures is
+untested, and multi-figure human groups plus mounted figures still drift back toward eye-level ¾.
 
 ## 4. Post-process
 
@@ -144,11 +154,15 @@ authority; this section is the build mapping):
    (`icon_map_opportunity` is the opportunity face). Canonical art-direction mock:
    `contact-sheets/presentation_mock_route_map.png` (no other route mock in the folder is
    canonical).
-3. **Battle = a dedicated battlefield scene per battle type** (7 types in 戰鬥.md's table, each
-   with its own backdrop identity; specific looks are human-picked at asset gates). In-scene
-   structure per the auto-deployment rule: the two sides face each other, fortification line →
-   melee → ranged → air; spend-vs-reward stays on screen; 內亂-type battles open with the 民怨
-   source banner and the 鎮壓／讓步 choice. Canonical art-direction mocks:
+3. **Battle = a dedicated top-down battlefield scene per battle type** (7 types in 戰鬥.md's table,
+   each with its own backdrop identity; specific looks are human-picked at asset gates). The camera
+   looks straight down at the field (ADR-0009); the city above stays a side-view panorama. In-scene
+   structure per the auto-deployment rule, which is an ordered cover chain (ADR-0008): the two sides
+   face each other, melee → fortification line → ranged → air, each layer drawn in front of the one
+   it screens. **Cover reads by that arrangement alone — no cover indicator, no label.**
+   Spend-vs-reward stays on screen; 內亂-type battles open with the 民怨
+   source banner and the 鎮壓／讓步 choice. **The battle mocks are superseded by the camera change**
+   and stand only for per-type backdrop *identity*, not for composition:
    `contact-sheets/presentation_mock_battle_field.png` (一般地圖戰, 野戰郊野) and
    `presentation_mock_battle_riot.png` (內部暴動戰, 城內街壘) — the per-type backdrop is the
    first thing that tells the player which battle this is (no other battle mock in the folder

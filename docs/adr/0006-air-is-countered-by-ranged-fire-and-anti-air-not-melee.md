@@ -4,8 +4,7 @@ The battle model had no air rules beyond a row name. `_pick_target` let melee fa
 any living defender, so a tribal club gang could beat a bomber out of the sky, and nothing
 else in the game answered air: 防空飛彈 was a passive one-shot absorber, no anti-air or
 air-to-air unit existed, and the 僅剩空軍 outcome was left unset. The human closed the gap
-with a categorical targeting matrix, keeping the battle core free of coordinates (the
-2026-07-25 REFRAME stands; no spatial model was added):
+with a categorical targeting matrix, keeping the battle core free of coordinates:
 
 - **近戰列 cannot attack 空域.** Melee fights the enemy melee row, then the enemy's ground
   backline once that row is clear. The old anything-goes fallback is gone.

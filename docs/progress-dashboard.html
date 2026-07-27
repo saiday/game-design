@@ -65,7 +65,7 @@
 
   <h2>Core build (production waves)</h2>
   <div class="tiles">
-    <div class="tile"><div class="n">18 / 19</div><div class="l">waves closed (W0–W14.5 incl. W12.5/W13.5; W15 view revamp remains)</div></div>
+    <div class="tile"><div class="n">19 / 22</div><div class="l">waves closed (W0–W14.6 incl. W12.5/W13.5; W14.7 core+demo, W14.8 art re-render, W15 view remain)</div></div>
     <div class="tile"><div class="n">234 / 234</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
@@ -91,14 +91,20 @@
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-25: tempo bot (strength parity, riot personnel-first, medal routing), 60-run batch, balance-report.md rewritten; headline: WW wall knobs don't bite yet (player camp wins ~95%), happiness finally moves, 0 collapses</span></td></tr>
     <tr><td>W14.5</td><td>Air &amp; fortification rules delta (ADR-0006/0007 — targeting matrix, 防空 destroy-on-hit, fort disable/repair)</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-26: 近戰打不到空域, 空襲只打地面, 防空飛彈主動開火即擊落 (era 1–3 forms retired), 工事失效待修永不移除 + 工兵輪流修復, 僅剩空軍雙向續打, 世界大戰僵局判定; suite 234/234 exit 0. Batch re-run: hard-difficulty world wars 95%→79% (bomber-heavy 正規軍 are melee-proof), collapse chain fired for the first time (2/60, an opening-game pop-5 trap) — both PM calls in balance-report.md</span></td></tr>
-    <tr><td>W15</td><td>Three-scene view revamp (operations panorama / fog-map / battle scene)</td>
-        <td><span class="status todo"><span class="dot todo"></span>not started — the only remaining wave; W14.5 renamed the fort/air timeline events it must render (intercept / disable / repair / shootdown)</span></td></tr>
+    <tr><td>W14.6</td><td>Corpus round: cover chain + top-down pivot (ADR-0008/0009 — docs only, no code)</td>
+        <td><span class="status done"><span class="dot done"></span>closed 2026-07-27: 自動佈陣 is now an ordered cover chain (近戰列 → 工事線 → 遠程列 → 空域, each layer screening the one behind it), 盾陣 rescoped from any 地面單位 to the 遠程列, 工兵團 moved behind the wall it repairs, 正規軍 field screens of their own that never repair (making 帶攻城 live for the first time), and the battle scene becomes top-down. The full timeline event contract is pinned in architecture.md now that two replayers depend on it. Gate: check_design_graph.py exit 0 — 14 system docs, 62 feed edges, 57 code: mappings, 0 errors, 0 warnings</span></td></tr>
+    <tr><td>W14.7</td><td>Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started — battle.gd shield branch narrows to the ranged row, 正規軍 screens fill the never-appended enemy_forts array, new take_station event, timeline exporter, and the HTML demo loses all rule code so it cannot drift from the rules again</span></td></tr>
+    <tr><td>W14.8</td><td>Top-down battlefield art re-render (ADR-0009)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started — 69 unit/fort sprites + 7 battle backdrops re-rendered overhead, strictly sequential, after W14.7 so the replayer informs the brief. Open risks: mirror-safety on asymmetric figures, eye-level drift on mounted and multi-figure groups</span></td></tr>
+    <tr><td>W15</td><td>Three-scene view revamp, top-down battle (operations panorama / fog-map / battle scene)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started — Part B returns here; the battle scene is a top-down replayer of the tick timeline (intercept / disable / repair / shootdown / take_station), the city stays a side-view panorama</span></td></tr>
   </table>
 
   <h2>Art pipeline (Phase 3 class gates)</h2>
   <div class="tiles">
     <div class="tile"><div class="n">315</div><div class="l">total assets in scope (inventory.md)</div></div>
-    <div class="tile"><div class="n">6</div><div class="l">classes fully frozen</div></div>
+    <div class="tile"><div class="n">4</div><div class="l">classes fully frozen (units and 7 of 17 backgrounds await the W14.8 top-down re-render)</div></div>
     <div class="tile"><div class="n">0</div><div class="l">classes at human pick gate</div></div>
   </div>
 
@@ -109,9 +115,9 @@
     <tr><td>Buildings</td><td>76 sprites (12 lines + core, ×6 eras)</td>
         <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/buildings/</span></td></tr>
     <tr><td>Backgrounds</td><td>17 plates</td>
-        <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/backgrounds/</span></td></tr>
+        <td><span class="status wip"><span class="dot wip"></span>10 frozen in assets/approved/backgrounds/; the 7 bg_battle_* plates are superseded side-view and re-render in W14.8 (ADR-0009)</span></td></tr>
     <tr><td>Units / forts / enemy tiers</td><td>52 unit sprites + 18 enemy-tier sprites, 15 lineage lines</td>
-        <td><span class="status done"><span class="dot done"></span>closed, frozen in assets/approved/units/ (69 sprites; infantry_era4 gap)</span></td></tr>
+        <td><span class="status wip"><span class="dot wip"></span>all 69 in assets/approved/units/ are superseded side-view (ADR-0009) and re-render overhead in W14.8; they stay on disk and stay wired until then, so nothing is missing (infantry_era4 gap unchanged)</span></td></tr>
     <tr><td>Card illustrations</td><td>57 pieces</td>
         <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/cards/ (57 cards)</span></td></tr>
     <tr><td>Portraits</td><td>15 pieces (5 rival civs + 10 candidates)</td>
@@ -124,10 +130,10 @@
     <tr><td>insignificant-game/design/ (single source of truth)</td>
         <td><span class="status done"><span class="dot done"></span>定稿 — structure/rules locked, numbers are v1 baselines</span></td></tr>
     <tr><td>Battle model rewrite (D1–D16, plan-battle-model-rewrite.md)</td>
-        <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5, no open design blockers</span></td></tr>
+        <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5; the 2026-07-27 cover-chain round (ADR-0008/0009) landed in the corpus as W14.6 and awaits its code delta in W14.7 — no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-07-26 (W14.5 air &amp; fortification delta closed, full suite 234/234 exit 0; only W15 three-scene view revamp remains) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-07-27 (W14.6 corpus round closed, docs only: the formation is an ordered cover chain and the battle scene is top-down, ADR-0008/0009. check_design_graph.py exit 0, 0 errors, 0 warnings. Three waves now remain: W14.7 core+demo, W14.8 art re-render, W15 view. The 69 unit sprites and 7 battle backdrops are superseded pending W14.8) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>
