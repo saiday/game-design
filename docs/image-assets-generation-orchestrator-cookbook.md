@@ -310,7 +310,12 @@ frozen templates never regenerate.
    `assets/approved/buildings/`: the 12 building lines plus the core line). Units (incl.
    fortifications and enemy tiers): **closed** (69 sprites frozen in `assets/approved/units/`
    via `phase3_units_freeze.py`; one lineage per line, with three human-ruled cross-chain
-   divergences and `infantry_era4` left as a known gap). Full round history, the pick record,
+   divergences and `infantry_era4` left as a known gap). **A top-down re-render of the whole
+   battlefield roster is open** (ADR-0009, PLAN.md W14.8): 70 cells × 4 seeds as txt2img roots with
+   no era gates — the lineage classification and its cost are argued in
+   `phase3_units_topdown_sweep.py`'s header — plus the 7 `bg_battle_*` plates rewritten as ground
+   planes. Camera-specific review rules: `review-brief-units-topdown.md`. The side-view set stays
+   frozen and wired until the human picks. Full round history, the pick record,
    The closed-short set is the §14 live row; the round-by-round record is in git commit messages.
    Era-3 wording is authored under the positive-slot rule (§8.3): **never name a
    banned object, describe the desired slot** — prohibitions measurably backfire at cfg 1.
@@ -440,6 +445,12 @@ Four corollaries:
   "era"). The suffix cannot be reworded, so occupy the surface instead.
 - **Insignia are desirable on card hero art and rejected on sprites.** Same mark, opposite verdict —
   judge against the class, not a global rule.
+- **A heading stated only in the framing suffix is not reliably obeyed; front-load it into the
+  subject clause.** Established twice: the top-down exploration found "facing toward the right" as a
+  trailing clause ignored across a whole line, and a later roster audit found aircraft rendering
+  nose-left and lone figures facing the camera under suffixes that named the opposite. Suffixes carry
+  camera and style; only the subject clause reliably carries direction, and a subject with no stated
+  heading (a single figure with no rank geometry) has nothing else to fall back on.
 - **Icon expressiveness is judged at 44 px HUD size**, never at sheet size.
 - **Three freeze patterns; do not mix them up.** Icons, buildings, and units **key** to transparent.
   Cards and portraits ship **full-frame** — cards because they are dramatic scenes whose bottom band
