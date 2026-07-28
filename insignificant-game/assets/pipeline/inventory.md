@@ -13,7 +13,7 @@ index — display names are drawn per run from the 命名表, the class is the s
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
 cookbook §5). Counts: buildings 76 · units 52 + enemy 18 · card art 57 · icons 75 · UI templates 5 ·
-backgrounds 17 · portraits 15 → **315 assets**.
+backgrounds 17 · portraits 15 · flying weapons 8 → **323 assets**.
 
 ## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
@@ -195,6 +195,28 @@ Generic hostiles for 收稅戰/地圖戰/隱藏戰/內亂戰 (弱/中/硬 per er
 
 (18 assets; each of the 3 tier lines above is 6 assets, listed compact to keep this readable.)
 
+## Flying weapons (`proj_<ammo>`) — source: 卡牌 部隊卡 weapons, 戰鬥 攻擊結算
+
+**A top-down class with no side-view predecessor.** Seen from above, an attack is a thing crossing
+the gap between two stations, so the battle replayer needs something to draw for every `hit` /
+`miss` event in the timeline; a side-view battle scene never did. One sprite per ammo type, **no
+era of its own** — every era that fires a given ammo shares the sprite. Rendered right-facing and
+mirrored for the enemy side.
+
+| id | zh | fired by |
+|---|---|---|
+| proj_stone | 石彈 | archers era1, artillery era3 |
+| proj_arrow | 箭 | archers era2 |
+| proj_bolt | 弩矢 | archers era3 |
+| proj_bullet | 子彈 | archers era4/era5, infantry era4–era6, enemy tiers |
+| proj_cannonball | 實心砲彈 | artillery era4 |
+| proj_shell | 高爆砲彈 | artillery era5/era6 |
+| proj_missile | 飛彈 | archers era6, anti_air era5 |
+| proj_bomb | 航空炸彈 | bomber era4–era6 |
+
+(8 assets. A cannonball and a stone are spheres and carry no heading; a bomb falls nose-down rather
+than travelling flat. Prompts: `phase3_projectiles_topdown_batch.py`.)
+
 ## Card illustrations (`card_<id>_era<n>` / `card_<id>`) — source: 卡牌
 
 One illustration per era form for evolving cards (卡就地演化換皮); skill cards are era-neutral
@@ -269,11 +291,13 @@ generation = one day) is an in-engine grade over the day plate, not separate art
 > camera, and it rides PLAN.md **W14.8** together with the unit sprites. The other 10 backgrounds
 > are untouched: the city panorama stays side-view by design (`style-bible.md` §11).
 >
-> A top-down plate is not a suffix swap on a landscape: it has no sky, no horizon and no distant
-> hills, so each subject is rewritten as a ground plane whose identity is carried by terrain and by
-> props read from above. Prompts and the reasoning are in `phase3_backgrounds_topdown_batch.py`,
-> which keeps the empty middle band (units composite there, the plate never draws them) and the
-> anti-signage wording the riot / democracy / civwar plates each cost three rounds to find.
+> **A battle plate is flat ground and nothing else.** It has no sky, no horizon and no distant
+> hills, and it also carries no props: no trees, fences, hay bales, barricades, colonnades or
+> wreckage. Units move and fight across this surface, so anything a unit could collide with is a
+> separate field object placed by the engine, never paint on the plate — 盾陣 is the worked
+> example, already its own sprite (`fort_shield_wall_*`) placed by 自動佈陣. Per-type identity
+> therefore rests on ground material, colour and light alone: wheat stubble, turf, cracked ash,
+> cobbles, marble, mud, crater black. Prompts and reasoning: `phase3_backgrounds_topdown_batch.py`.
 
 | id | subject |
 |---|---|

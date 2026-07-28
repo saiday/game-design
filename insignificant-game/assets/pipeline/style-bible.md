@@ -50,7 +50,9 @@ as `<subject core>, <class framing suffix>`:
 | Battlefield units / forts | `game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, centered, isolated on a plain light gray background` (swap "unit" for the class noun) | 1024×1024 |
 | Card illustrations | `game card illustration, dramatic composition` | 768×1024 |
 | UI icons | `game <thing> icon, bold dark outline, centered, plain light gray background` | 1024×1024 |
+| Battlefield projectiles | `game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background` (spheres drop the pointing clause) | 1024×1024 |
 | Backgrounds | scene description, no isolation suffix | 1344×768 (verify per batch) |
+| Battle ground plates | flat ground material only, no props; style-carrying suffix required | 1920×1088 |
 | Portraits | `character portrait, bust, centered, plain light gray background` | 1024×1024 |
 
 Krea 2 + this LoRA follows isolation instructions reliably — no sprite-sheet drift. The building
@@ -155,11 +157,16 @@ authority; this section is the build mapping):
    `contact-sheets/presentation_mock_route_map.png` (no other route mock in the folder is
    canonical).
 3. **Battle = a dedicated top-down battlefield scene per battle type** (7 types in 戰鬥.md's table,
-   each with its own backdrop identity; specific looks are human-picked at asset gates). The camera
-   looks straight down at the field (ADR-0009); the city above stays a side-view panorama. In-scene
-   structure per the auto-deployment rule, which is an ordered cover chain (ADR-0008): the two sides
-   face each other, melee → fortification line → ranged → air, each layer drawn in front of the one
-   it screens. **Cover reads by that arrangement alone — no cover indicator, no label.**
+   each with its own ground identity; specific looks are human-picked at asset gates). The camera
+   looks straight down at the field (ADR-0009); the city above stays a side-view panorama.
+   **The plate is flat ground and nothing else** — a battle plate carries no trees, fences,
+   barricades or wreckage, because units move and fight across it and anything a unit could collide
+   with must be a separate field object the engine places (盾陣 already is one). Per-type identity
+   is carried by ground material, colour and light: wheat stubble, turf, cracked ash, cobbles,
+   marble, mud, crater black. In-scene structure per the auto-deployment rule, which is an ordered
+   cover chain (ADR-0008): the two sides face each other, melee → fortification line → ranged → air,
+   each layer drawn in front of the one it screens. **Cover reads by that arrangement alone — no
+   cover indicator, no label.**
    Spend-vs-reward stays on screen; 內亂-type battles open with the 民怨
    source banner and the 鎮壓／讓步 choice. **The battle mocks are superseded by the camera change**
    and stand only for per-type backdrop *identity*, not for composition:
