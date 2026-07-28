@@ -17,7 +17,8 @@ every green wave.
 ## Production board
 
 > **Read `docs/plan-battle-model-rewrite.md` before starting W10–W15.** It holds the locked design
-> (D1–D16), the glossary, the retired-terms list, and the blast radius. The battle model is being
+> (D1–D16), the blast radius, and the wave sequence; the vocabulary and the retired terms live in
+> `docs/architecture.md` §Glossary, the repo's only glossary. The battle model is being
 > replaced: no hand, enemy waves, tick timelines, cards as rolled instances that grow. Do not
 > reopen those decisions while executing; surface a design question instead.
 
@@ -136,7 +137,7 @@ every green wave.
       `python3 docs/tools/check_design_graph.py` exit 0. *(done 2026-07-27: exit 0, 14 system docs,
       62 feed edges, 57 `code:` mappings, 0 errors, 0 warnings. Part A not runnable (no code
       changed), Part B still down until W15. Gap decisions: decisions.md W14.6.)*
-- [ ] **W14.7 — Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009).**
+- [x] **W14.7 — Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009).**
       `battle.gd`: the shield branch narrows to `target["row"] == &"ranged"`, 工兵團's row moves,
       正規軍 rosters gain screens in `_regular_roster_desc` (`battle.enemy_forts` is declared and
       read but never appended to today, so 帶攻城 is inert in every battle in the game), new
@@ -153,12 +154,82 @@ every green wave.
       防空飛彈 as having zero batch coverage. The enemy-screens change will still move civ-war and
       world-war numbers against the 79% hard-WW baseline and needs re-calibration.
       Gate: Part A exit 0 (21 suites, ~239 cases); exporter diff clean; renderer check exit 0.
+      *(done 2026-07-28: full suite exit 0 — 21/21 suites, 240/240 cases (7 new in battle_test);
+      exporter byte-stable across re-runs; renderer check exit 0; check_design_graph.py exit 0
+      (14 docs, 62 edges, 58 `code:` mappings, 0/0). Part B still down until W15.
+      **Two deviations from the plan, both deliberate:** (1) the 正規軍 screens landed in wave
+      composition (`Battle.regular_screens` + `_arrive_waves`) rather than in the roster function,
+      because a roster returns unit types and a wall arrives with the row it covers; the roster
+      filter and `regular_unit` were made public for the exporter. (2) **Every timeline event
+      gained a `side` key.** Labels are card ids, so both camps' 步兵團 answer to one label and the
+      first replayer could not attribute a single strike to a camp — the pinned contract was not
+      replayable as written. architecture.md is updated rather than worked around, and the
+      remaining hole (two same-class units on ONE side still share a label) is stated there and in
+      decisions.md as a blocker W15 must close before it replays a real 正規軍 roster. The
+      fixtures dodge it by fielding one unit per class per side, which `check_motion_demo.js`
+      enforces. Balance batch re-run: aggregate movement is inside stream-reshuffle noise (hard WW
+      86% vs 79%, i.e. the opposite sign to the change — do not read it as a gain), the money pile
+      fell ~10% on normal/hard, and a 政權崩潰 fired outside the opening trap for the first time
+      (gen 13, hard) — surfaced in balance-report.md. Gap decisions: decisions.md W14.7.)*
 - [ ] **W14.8 — Top-down battlefield art re-render (ADR-0009).** 69 unit/fort sprites + 7 battle
       backdrops through the Mac Studio orchestrator (root `docs/image-assets-generation-orchestrator-cookbook.md`),
-      human pick gates, **strictly sequential**. Runs *after* W14.7 so the replayer informs the
-      sprite brief: silhouette readability at battle zoom, whether an L/R mirror holds on asymmetric
-      figures (untested), and the eye-level drift on mounted and multi-figure groups. Gate: human
-      pick-gate sign-off; `inventory.md` updated; superseded sprites removed.
+      human pick gates. Gate: human pick-gate sign-off; `inventory.md` updated; superseded sprites removed.
+      - [x] **Risks answered before spending GPU.** ADR-0009 handed W14.8 two open risks and the
+            52 exploration raws (`assets/exploration/topdown-demo/`) answer both, with pictures:
+            **mirroring holds** at battle zoom (vehicles are axis-symmetric; figures swap weapon hand,
+            which is not a §8 defect; the one hull mark is a mirror-invariant disc), and **eye-level
+            drift is confined to 5 cells** (`cavalry_e3/e4` mounted, `artillery_e4` wheeled carriage,
+            `anti_air_e1/e2` timber structures), not to multi-figure groups as feared. The audit also
+            found a defect class ADR-0009 did not name: **a heading stated only in the framing suffix
+            is not obeyed** — bombers rendered nose-left, lone privateers faced the camera — and an
+            X-flip cannot rescue it. Evidence and the camera-specific review rules:
+            `assets/pipeline/review-brief-units-topdown.md`.
+      - [x] **Pipeline authored.** `phase3_units_topdown_batch.py` (70 cells: the 69 ids plus
+            `unit_infantry_era4`, the side-view known gap the top-down wording closes; player cores
+            lifted from the exploration's validated wording, 18 enemy-tier cores newly authored
+            left-facing, 5 cores carrying the heading fix), `phase3_units_topdown_sweep.py`,
+            `phase3_backgrounds_topdown_batch.py` (the 7 plates rewritten as ground planes — a
+            top-down plate has no sky or horizon, so this is a subject rewrite, not a suffix swap),
+            `phase3_units_topdown_sheets.py` (pick-gate sheets carrying a battle-zoom inset per cell).
+      - [x] **Deviation from the buildings/units precedent, logged here because it reverses it:**
+            **no era gates and no img2img lineage — every cell is a txt2img root.** Cookbook §6.1's
+            own table calls for a root when a transition is a category reversal or shares no
+            silhouette with the target, and under the new camera every cell qualifies twice (no cell
+            has a top-down parent, and three lines change subject category at era 5). The exploration
+            generated all 52 player cells this way and its set held together. The cost: era-to-era
+            continuity inside a line is now carried by wording alone, so the pick gate must be read
+            **down each line's row**, not only across it. The gain: one unattended batch and one
+            complete pick gate instead of six sequential human-gated waves.
+      - [x] **Round 1 rendered and gated.** 280 unit candidates + 28 plates, zero render failures.
+            Human picked 58 of 67 unit cells; `fort_anti_air_era1..3` were ruled non-assets (ADR-0006
+            already retires those forms, so the art inventory was the stale artifact) and dropped,
+            taking the roster 70 → 67. Picks live in `phase3_units_topdown_picks.json`.
+      - [ ] **Round 2 rendering** (detached, resumable; logs `~/imagegen/logs/w148_{reroll2,bg_round2,proj}.log`):
+            9 unit re-rolls at seeds 191-194, 7 plates re-rolled at 161-164, 8 new projectile cells.
+            Two round-1 rules now enforced by `review-brief-units-topdown.md`: **a sprite must be a
+            discrete object with visible ends** (5 shield_wall cells bled off the frame — my own
+            barrier suffix caused it, and freezing alpha-trims to the bbox so an edge-touching
+            subject ships as an arbitrary crop) and **battlefield units must read as mobile, not
+            emplaced** (kneeling snipers, a crewman on a ladder). All 7 plates were rejected for
+            carrying props; they are now bare ground.
+      - [ ] **Freeze the approved set:** §8 objective pass → pick gate on the re-rolls → freeze + key
+            → `manifest.jsonl` rows → new `proj_*` + updated unit ids wired into
+            `core/data/asset_paths.gd` (+ `asset_paths_test.gd` sweep) → remove superseded sprites.
+      - [ ] **Neutral field objects (new class; starts only AFTER the background plates are
+            approved).** The plates are bare ground by ruling, so everything a player sees standing
+            on the field is now an object. Add a scatter class of neutral props — rocks, craters,
+            tree stumps, rubble, sandbag piles — **derived per battle type from its approved ground
+            plate**, so the wheat field and the crater field scatter differently. The plate must be
+            picked first: its material and palette are the brief.
+            **They are decoration and nothing else** (`design/戰鬥.md` §場景呈現, decisions.md W14.8):
+            no blocking, no cover, no damage, no place in the 掩護鏈, and no rule may read them —
+            工事線 stays the only cover model, or cover forks into two systems and the core acquires
+            the spatial model ADR-0006/0009 keep refusing it. Placement is the **view's**, seeded
+            from the battle's own seed and avoiding the stations, so a replay is identical every
+            time while the core still holds no coordinates. Scope the ids into `inventory.md` at the
+            same time; the seed's route to a fixture-driven replayer is a timeline-contract question
+            for W15, not an engine change here.
+            *Gate:* human pick-gate sign-off on the scatter set; `inventory.md` updated.
 - [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
       Operations city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips,
       controller focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route
