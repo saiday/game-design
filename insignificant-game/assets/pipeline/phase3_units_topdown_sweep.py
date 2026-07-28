@@ -88,14 +88,21 @@ def gen(state: dict, line: str, era: int, seed: int) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--lines", help="comma-separated subset")
+    ap.add_argument("--cells", help="comma-separated line:era list, for a re-roll round")
+    ap.add_argument("--seeds", help="comma-separated seed override; a re-roll bumps by +100 (§4)")
     ap.add_argument("--plan", action="store_true")
     args = ap.parse_args()
     only = {x.strip() for x in args.lines.split(",")} if args.lines else None
+    seeds = [int(x) for x in args.seeds.split(",")] if args.seeds else SEEDS
 
     os.makedirs(OUT, exist_ok=True)
     state = load_state()
-    todo = [(l, e, s) for l, e in cells(only) for s in SEEDS if not rendered(stem(l, e, s))]
-    print(f"roster {len(cells(only))} cells x {len(SEEDS)} seeds; {len(todo)} to render "
+    if args.cells:
+        picked = [(c.split(":")[0], int(c.split(":")[1])) for c in args.cells.split(",")]
+    else:
+        picked = cells(only)
+    todo = [(l, e, s) for l, e in picked for s in seeds if not rendered(stem(l, e, s))]
+    print(f"{len(picked)} cells x {len(seeds)} seeds; {len(todo)} to render "
           f"(~{len(todo) * 170 / 3600:.1f} h at 170 s/image)", flush=True)
     if args.plan:
         for l, e, s in todo:

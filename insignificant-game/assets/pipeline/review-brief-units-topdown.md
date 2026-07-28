@@ -105,6 +105,29 @@ Everything in `review-brief-units.md` still applies verbatim. Add these four, in
    field. Framing words cannot fix this — only a subject change can — so flag it as a
    subject-wording question for the human, not a re-roll.
 
+## Two rules the first pick gate produced
+
+Both came from the human's round-1 review and both are camera-specific, so they belong here rather
+than in the side-view brief.
+
+**A sprite must be a discrete object with visible ends.** The round-1 barrier suffix said the wall
+ran "from the top edge to the bottom edge of the frame", which instructed it to bleed off both
+edges. Five of the six `shield_wall` cells were rejected for exactly that: with no finished ends
+there is nothing telling the player where one wall segment starts and stops. This is worse than a
+composition wart, because freezing alpha-trims a sprite to its own bounding box — a subject that
+touches the frame edge gets an arbitrary crop rather than its silhouette. `shield_wall_e6` passed
+because its core said "a **segment** of modular barrier wall". The suffix now asks for one
+self-contained segment with both ends finished and bare ground above and below it. **Check that
+every cell's subject sits fully inside its frame**, and reject anything touching an edge.
+
+**Battlefield units must read as mobile, not emplaced.** These sprites move between stations during
+a battle, so a pose that only makes sense standing still is wrong regardless of how well it renders.
+Round 1 rejected `archers_e5` (both snipers kneeling behind a bipod) and `artillery_e5` (a crewman
+standing on a ladder against the hull) on this rule alone; both were clean by every other §8 check.
+Prefer striding, carrying, and levelled-forward poses. Applying it needs the §8.3 rung-2 move rather
+than a prohibition: `artillery_e5`'s crewman was removed by **occupying** the deck with lashed
+stowage and a tarpaulin, not by naming the crew in order to banish them.
+
 ## Judge at battle zoom, not at sheet size
 
 The units class had no equivalent of the icon rule (cookbook §8.4: icon expressiveness is judged at

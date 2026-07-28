@@ -464,6 +464,20 @@ Four corollaries:
 
 ## 9. Review loop, provenance, repo layout
 
+### Vocabulary (use these words; they have been muddled before)
+
+| Term | Means |
+|---|---|
+| **candidate** | One generated PNG. Lives outside the repo in `~/ComfyUI-Shared/output/<batch>/`. Never committed, never referenced by Godot. |
+| **cell** | One asset slot in the inventory — a subject at an era, e.g. `unit_archers_era4`. A cell is rendered as several candidates (one per seed) and exactly one is picked. |
+| **seed sweep** | The set of candidates for one cell: same prompt, different fixed seeds. The unit of choice at a gate. |
+| **contact sheet** | The committed review grid in `contact-sheets/`: a labelled montage of candidates with their manifest ids under each cell. **This is the review unit** — the human replies with picks and rejections against it. Cells stay ≥ 640 px on the raw's long side, because the human zooms in. |
+| **pick gate** | The human review step itself. Nothing enters `approved/` without one. |
+| **freeze** | Copying a picked candidate into `approved/<class>/` under its inventory id, applying the class's post-process (key to transparent, or full-frame), and writing its `manifest.jsonl` row. |
+| **background plate** | A full-frame scene image that renders *behind* the sprites, id scheme `bg_*`, asset class "Backgrounds" in `inventory.md`. **"Backdrop" and "plate" are prose synonyms for this and nothing else** — prefer "background plate" in new writing. A plate is not a sprite: it ships full-frame, never keyed, and carries an empty band where sprites composite. |
+| **frozen template** | A structural asset generated once and never regenerated (§6): card frame, panel, button, divider, icon plate. Distinct from a picked asset, which is merely approved. |
+
+
 ```
 insignificant-game/assets/
   pipeline/            # style-bible.md, inventory.md, style-refs/, workflows/*.json, manifest.jsonl, batch/sheet/freeze scripts

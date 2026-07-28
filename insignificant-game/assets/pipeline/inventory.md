@@ -110,12 +110,12 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 > tiers below — were rendered side-view and are superseded by the camera change. They stay on disk
 > and stay wired through `core/data/asset_paths.gd` until the re-render replaces them, so nothing
 > is missing in the meantime; they are simply the wrong camera. The ids, counts, subjects and era
-> forms below are unchanged and are the brief for the re-render: same 69 assets, overhead framing
-> per `style-bible.md` §3.
+> forms below are the brief for the re-render, overhead framing per `style-bible.md` §3.
 >
-> The re-render is PLAN.md **W14.8**. It renders **70 cells**, the 69 ids above plus
+> The re-render is PLAN.md **W14.8**, and it renders **67 cells**, not 69. It adds
 > `unit_infantry_era4`, whose side-view cell closed short as a known gap (cookbook §14) and which
-> the top-down wording renders cleanly — so the wave also closes that hole. Prompts are in
+> the top-down wording renders cleanly, and it drops the three retired `fort_anti_air_era1..3`
+> forms (see Fortifications below). Prompts are in
 > `phase3_units_topdown_batch.py`, the sweep in `phase3_units_topdown_sweep.py`, the pick-gate
 > sheets in `phase3_units_topdown_sheets.py`, and the camera-specific review rules in
 > `review-brief-units-topdown.md`. Nothing here is approved until the human picks: `approved/`
@@ -166,6 +166,11 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 
 ### Fortifications (`fort_<type>_era<n>`) — source: 卡牌 工事卡的時代演化表
 
+`anti_air` has **no era 1-3 asset**. ADR-0006 retired the 擋箭棚/箭樓/城防塔 forms outright — "no air
+exists before 工業, so no anti-air exists either" — and `core/data/cards.gd` agrees
+(`era_names ["", "", "", "高射砲", "防空飛彈", "雷射攔截網"]`). The three side-view sprites already in
+`approved/units/` are knowingly stranded and are **not** re-rendered by W14.8.
+
 | id | subject (era form) |
 |---|---|
 | fort_shield_wall_era1 | 木盾牆 |
@@ -174,9 +179,6 @@ named civ; abstract enemy tiers get their own generic sprites (below).
 | fort_shield_wall_era4 | 沙包工事 |
 | fort_shield_wall_era5 | 電網 |
 | fort_shield_wall_era6 | 複合裝甲牆 |
-| fort_anti_air_era1 | 擋箭棚 |
-| fort_anti_air_era2 | 箭樓 |
-| fort_anti_air_era3 | 城防塔 |
 | fort_anti_air_era4 | 高射砲 |
 | fort_anti_air_era5 | 防空飛彈 |
 | fort_anti_air_era6 | 雷射攔截網 |

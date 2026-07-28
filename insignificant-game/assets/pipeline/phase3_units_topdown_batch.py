@@ -21,6 +21,13 @@
 #     nose-right too. The clause is kept because it is harmless and makes the roster consistent,
 #     but do not cite the bombers as evidence that suffix headings fail.
 #
+# anti_air starts at era 4, not era 1: ADR-0006 retired the era 1-3 forms (擋箭棚/箭樓/城防塔)
+# outright — "no air exists before 工業, so no anti-air exists either" — and core/data/cards.gd
+# agrees (era_names ["", "", "", "高射砲", "防空飛彈", "雷射攔截網"]). The exploration table this
+# module lifted its wording from still carried the three stranded cells, so the first sweep
+# rendered 12 candidates for forms that do not exist in the game. They are not re-rendered and
+# not picked.
+#
 # Constants are imported by phase3_units_topdown_wave.py (the era-gated driver).
 import os
 
@@ -42,7 +49,7 @@ SUFFIX = {
     "figure_one":   f", game unit sprite, {_OVERHEAD}, the figure oriented toward the {{edge}} edge of the frame, body and weapon pointing {{edge}}, {_ISO}",
     "vehicle":      f", game unit sprite, {_OVERHEAD}, the vehicle oriented toward the {{edge}} edge of the frame, its barrel pointing {{edge}}, {_ISO}",
     "air":          f", game unit sprite, {_OVERHEAD}, the aircraft oriented toward the {{edge}} edge of the frame, its nose pointing {{edge}}, {_ISO}",
-    "barrier":      f", game fortification sprite, {_OVERHEAD}, the barrier running vertically from the top edge to the bottom edge of the frame, {_ISO}",
+    "barrier":      f", game fortification sprite, {_OVERHEAD}, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, {_ISO}",
     "emplacement":  f", game fortification sprite, {_OVERHEAD}, the emplacement oriented toward the {{edge}} edge of the frame, {_ISO}",
     "fort_vehicle": f", game fortification sprite, {_OVERHEAD}, the vehicle oriented toward the {{edge}} edge of the frame, its barrel pointing {{edge}}, {_ISO}",
 }
@@ -76,11 +83,11 @@ LINES = {
         "three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, simplified stylized figures with rounded chunky bodies and no facial features",
     ],
     "archers": [
-        "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features",
+        "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features",
         "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features",
-        "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features",
+        "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features",
         "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features",
-        "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features",
+        "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features",
         "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features",
     ],
     "cavalry": [
@@ -109,7 +116,7 @@ LINES = {
     "artillery": [
         "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail",
         "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail",
-        "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail",
+        "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail",
         "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail",
     ],
     "bomber": [
@@ -126,17 +133,14 @@ LINES = {
         "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features",
     ],
     "shield_wall": [
-        "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail",
-        "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail",
-        "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail",
-        "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail",
-        "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail",
         "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail",
     ],
     "anti_air": [
-        "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, a simplified chunky shape with minimal surface detail",
-        "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post, a simplified chunky shape with minimal surface detail",
-        "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, a simplified chunky shape with minimal surface detail",
         "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, a simplified chunky shape with minimal surface detail",
         "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, a simplified chunky vehicle shape with minimal surface detail",
         "a boxy laser interception turret on a rotating gimbal mount, a single large circular optical lens aperture aimed skyward, two small camera pods mounted beside the aperture, matte olive drab armor housing with a single solid unbroken white disc of flat colour painted on its side, the disc a complete circle with no notch and no crescent cut into it, a simplified chunky vehicle shape with minimal surface detail",
@@ -178,7 +182,7 @@ KINDS = {
     "holy_warriors": ["figure_multi"],
     "privateers": ["figure_one", "figure_one", "figure_one"],
     "shield_wall": ["barrier", "barrier", "barrier", "barrier", "barrier", "barrier"],
-    "anti_air": ["emplacement", "emplacement", "emplacement", "emplacement", "vehicle", "vehicle"],
+    "anti_air": ["emplacement", "vehicle", "vehicle"],
     "enemy_weak": ["figure_one", "figure_one", "figure_one", "figure_one", "figure_one", "figure_one"],
     "enemy_mid": ["figure_multi", "figure_multi", "figure_multi", "figure_multi", "figure_multi", "figure_multi"],
     "enemy_hard": ["figure_one", "figure_one", "figure_one", "figure_one", "vehicle", "figure_one"],
@@ -186,4 +190,4 @@ KINDS = {
 
 # lines that unlock later start their chain at this era (txt2img root there), per the
 # pick-gate design rulings recorded in phase3_units_batch.py.
-START_ERA = {"elite_forces": 2, "artillery": 3, "bomber": 4, "holy_warriors": 4, "privateers": 3}
+START_ERA = {"elite_forces": 2, "artillery": 3, "bomber": 4, "holy_warriors": 4, "privateers": 3, "anti_air": 4}
