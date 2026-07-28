@@ -445,12 +445,13 @@ Four corollaries:
   "era"). The suffix cannot be reworded, so occupy the surface instead.
 - **Insignia are desirable on card hero art and rejected on sprites.** Same mark, opposite verdict —
   judge against the class, not a global rule.
-- **A heading stated only in the framing suffix is not reliably obeyed; front-load it into the
-  subject clause.** Established twice: the top-down exploration found "facing toward the right" as a
-  trailing clause ignored across a whole line, and a later roster audit found aircraft rendering
-  nose-left and lone figures facing the camera under suffixes that named the opposite. Suffixes carry
-  camera and style; only the subject clause reliably carries direction, and a subject with no stated
-  heading (a single figure with no rank geometry) has nothing else to fall back on.
+- **A heading stated only in the framing suffix is not reliably obeyed by a SINGLE-figure subject;
+  front-load it into the subject clause.** The top-down exploration found "facing toward the right"
+  as a trailing clause ignored across a whole line, and the W14.8 roster audit found lone figures
+  rendering face-on to the camera under a suffix naming the opposite, fixed 4/4 seeds by moving the
+  heading into the subject ("striding toward the right edge of the frame"). Multi-figure groups and
+  vehicles do not need it — the rank or the hull already states a direction — so this is a rule about
+  subjects with no internal geometry to imply heading, not about suffixes in general.
 - **Icon expressiveness is judged at 44 px HUD size**, never at sheet size.
 - **Three freeze patterns; do not mix them up.** Icons, buildings, and units **key** to transparent.
   Cards and portraits ship **full-frame** — cards because they are dramatic scenes whose bottom band

@@ -12,10 +12,14 @@
 # tail's count or the model invents a crowd. The 18 abstract enemy tiers had no top-down wording,
 # so their cores are the pick-gated side-view subjects re-framed left-facing.
 #
-# Five cores carry fixes for defects the exploration raws still show (review-brief-units-topdown.md):
-# bomber e4-e6 rendered nose-LEFT under a suffix that says nose-right, and privateers e4/e5
-# rendered facing the camera. Both are fixed by front-loading the heading into the subject clause
-# instead of trusting the suffix — the same fix the exploration needed for figures.
+# Five cores carry a heading clause front-loaded into the subject instead of left to the framing
+# suffix (review-brief-units-topdown.md). It was authored for two cells and is inert on three:
+#   - privateers e4/e5 GENUINELY needed it. The exploration rolls face the camera, because a lone
+#     figure has no rank geometry to imply a heading and the suffix alone is too weak. The sweep
+#     confirms the fix: all four seeds of each now stride right.
+#   - bomber e4/e5/e6 did NOT need it. They already rendered nose-right, and the sweep renders them
+#     nose-right too. The clause is kept because it is harmless and makes the roster consistent,
+#     but do not cite the bombers as evidence that suffix headings fail.
 #
 # Constants are imported by phase3_units_topdown_wave.py (the era-gated driver).
 import os

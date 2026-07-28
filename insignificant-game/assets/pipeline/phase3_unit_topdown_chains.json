@@ -1,0 +1,1850 @@
+{
+ "infantry": {
+  "1": {
+   "91": {
+    "stem": "p3_td_infantry_e1_s91",
+    "seed": 91,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e1_s92",
+    "seed": 92,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e1_s93",
+    "seed": 93,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e1_s94",
+    "seed": 94,
+    "prompt": "three identical tribal warriors in fur and hide swinging heavy wooden clubs, red war paint stripes on their arms, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_infantry_e2_s91",
+    "seed": 91,
+    "prompt": "three identical spearmen standing in a tight rank, each of the three men gripping his own single spear in one hand and a round shield in the other, bronze helmets with red horsehair crests, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e2_s92",
+    "seed": 92,
+    "prompt": "three identical spearmen standing in a tight rank, each of the three men gripping his own single spear in one hand and a round shield in the other, bronze helmets with red horsehair crests, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e2_s93",
+    "seed": 93,
+    "prompt": "three identical spearmen standing in a tight rank, each of the three men gripping his own single spear in one hand and a round shield in the other, bronze helmets with red horsehair crests, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e2_s94",
+    "seed": 94,
+    "prompt": "three identical spearmen standing in a tight rank, each of the three men gripping his own single spear in one hand and a round shield in the other, bronze helmets with red horsehair crests, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_infantry_e3_s91",
+    "seed": 91,
+    "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e3_s92",
+    "seed": 92,
+    "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e3_s93",
+    "seed": 93,
+    "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e3_s94",
+    "seed": 94,
+    "prompt": "three identical foot soldiers in chainmail and open helmets with swords raised, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_infantry_e4_s91",
+    "seed": 91,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each of the three men holding his own separate musket with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e4_s92",
+    "seed": 92,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each of the three men holding his own separate musket with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e4_s93",
+    "seed": 93,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each of the three men holding his own separate musket with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e4_s94",
+    "seed": 94,
+    "prompt": "three identical musketeer soldiers standing in a staggered line, each of the three men holding his own separate musket with its fixed bayonet pointing straight up, plain dark blue wool coats with brass buttons over plain white waistcoats, tall black shako hats, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_infantry_e5_s91",
+    "seed": 91,
+    "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e5_s92",
+    "seed": 92,
+    "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e5_s93",
+    "seed": 93,
+    "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e5_s94",
+    "seed": 94,
+    "prompt": "three identical soldiers in olive drab uniforms and steel helmets with rifles, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_infantry_e6_s91",
+    "seed": 91,
+    "prompt": "three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_infantry_e6_s92",
+    "seed": 92,
+    "prompt": "three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_infantry_e6_s93",
+    "seed": 93,
+    "prompt": "three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_infantry_e6_s94",
+    "seed": 94,
+    "prompt": "three identical soldiers in bulky powered armor suits with infrared visor slits and oversized metal gauntlets, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "archers": {
+  "1": {
+   "91": {
+    "stem": "p3_td_archers_e1_s91",
+    "seed": 91,
+    "prompt": "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e1_s92",
+    "seed": 92,
+    "prompt": "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e1_s93",
+    "seed": 93,
+    "prompt": "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e1_s94",
+    "seed": 94,
+    "prompt": "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_archers_e2_s91",
+    "seed": 91,
+    "prompt": "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e2_s92",
+    "seed": 92,
+    "prompt": "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e2_s93",
+    "seed": 93,
+    "prompt": "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e2_s94",
+    "seed": 94,
+    "prompt": "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_archers_e3_s91",
+    "seed": 91,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e3_s92",
+    "seed": 92,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e3_s93",
+    "seed": 93,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e3_s94",
+    "seed": 94,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_archers_e4_s91",
+    "seed": 91,
+    "prompt": "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e4_s92",
+    "seed": 92,
+    "prompt": "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e4_s93",
+    "seed": 93,
+    "prompt": "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e4_s94",
+    "seed": 94,
+    "prompt": "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_archers_e5_s91",
+    "seed": 91,
+    "prompt": "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e5_s92",
+    "seed": 92,
+    "prompt": "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e5_s93",
+    "seed": 93,
+    "prompt": "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e5_s94",
+    "seed": 94,
+    "prompt": "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_archers_e6_s91",
+    "seed": 91,
+    "prompt": "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_archers_e6_s92",
+    "seed": 92,
+    "prompt": "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_archers_e6_s93",
+    "seed": 93,
+    "prompt": "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_archers_e6_s94",
+    "seed": 94,
+    "prompt": "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "cavalry": {
+  "1": {
+   "91": {
+    "stem": "p3_td_cavalry_e1_s91",
+    "seed": 91,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e1_s92",
+    "seed": 92,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e1_s93",
+    "seed": 93,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e1_s94",
+    "seed": 94,
+    "prompt": "three identical tribal riders in furs mounted on shaggy horned beasts with red cloth harnesses, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_cavalry_e2_s91",
+    "seed": 91,
+    "prompt": "a wooden war chariot pulled by two horses, a driver and a spearman aboard, a plain red pennant streaming from the chariot rail, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e2_s92",
+    "seed": 92,
+    "prompt": "a wooden war chariot pulled by two horses, a driver and a spearman aboard, a plain red pennant streaming from the chariot rail, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e2_s93",
+    "seed": 93,
+    "prompt": "a wooden war chariot pulled by two horses, a driver and a spearman aboard, a plain red pennant streaming from the chariot rail, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e2_s94",
+    "seed": 94,
+    "prompt": "a wooden war chariot pulled by two horses, a driver and a spearman aboard, a plain red pennant streaming from the chariot rail, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_cavalry_e3_s91",
+    "seed": 91,
+    "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e3_s92",
+    "seed": 92,
+    "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e3_s93",
+    "seed": 93,
+    "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e3_s94",
+    "seed": 94,
+    "prompt": "exactly two identical armored knights in plain bare steel helmets, each gripping one raised lance in the fist and the reins in the other hand, each mounted on one horse draped in a plain red cloth caparison, the horses wearing smooth plain rounded steel face plates, the pair riding alone across open bare ground, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_cavalry_e4_s91",
+    "seed": 91,
+    "prompt": "two identical dragoon cavalrymen galloping forward, bare-headed horses with plain leather bridles, each rider wearing a brass comb-crested helmet with a black horsehair mane, plain green coats with red cuffs, each rider gripping exactly one short flintlock carbine one-handed and angled forward, his other hand holding only the reins, both riders otherwise empty-handed, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e4_s92",
+    "seed": 92,
+    "prompt": "two identical dragoon cavalrymen galloping forward, bare-headed horses with plain leather bridles, each rider wearing a brass comb-crested helmet with a black horsehair mane, plain green coats with red cuffs, each rider gripping exactly one short flintlock carbine one-handed and angled forward, his other hand holding only the reins, both riders otherwise empty-handed, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e4_s93",
+    "seed": 93,
+    "prompt": "two identical dragoon cavalrymen galloping forward, bare-headed horses with plain leather bridles, each rider wearing a brass comb-crested helmet with a black horsehair mane, plain green coats with red cuffs, each rider gripping exactly one short flintlock carbine one-handed and angled forward, his other hand holding only the reins, both riders otherwise empty-handed, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e4_s94",
+    "seed": 94,
+    "prompt": "two identical dragoon cavalrymen galloping forward, bare-headed horses with plain leather bridles, each rider wearing a brass comb-crested helmet with a black horsehair mane, plain green coats with red cuffs, each rider gripping exactly one short flintlock carbine one-handed and angled forward, his other hand holding only the reins, both riders otherwise empty-handed, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_cavalry_e5_s91",
+    "seed": 91,
+    "prompt": "a heavy battle tank standing alone on open bare ground with its long cannon barrel pointing forward, riveted armor plates, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e5_s92",
+    "seed": 92,
+    "prompt": "a heavy battle tank standing alone on open bare ground with its long cannon barrel pointing forward, riveted armor plates, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e5_s93",
+    "seed": 93,
+    "prompt": "a heavy battle tank standing alone on open bare ground with its long cannon barrel pointing forward, riveted armor plates, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e5_s94",
+    "seed": 94,
+    "prompt": "a heavy battle tank standing alone on open bare ground with its long cannon barrel pointing forward, riveted armor plates, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_cavalry_e6_s91",
+    "seed": 91,
+    "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome, a gunmetal hull with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_cavalry_e6_s92",
+    "seed": 92,
+    "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome, a gunmetal hull with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_cavalry_e6_s93",
+    "seed": 93,
+    "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome, a gunmetal hull with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_cavalry_e6_s94",
+    "seed": 94,
+    "prompt": "a sleek unmanned tracked combat vehicle with a sensor dome, a gunmetal hull with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "engineers": {
+  "1": {
+   "91": {
+    "stem": "p3_td_engineers_e1_s91",
+    "seed": 91,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e1_s92",
+    "seed": 92,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e1_s93",
+    "seed": 93,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e1_s94",
+    "seed": 94,
+    "prompt": "three identical tribal laborers in hide tunics carrying log beams and stone hammers, coils of rope over their shoulders, red cloth headbands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_engineers_e2_s91",
+    "seed": 91,
+    "prompt": "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam with a plain red cloth strip tied around its end, one swinging a big wooden mallet, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e2_s92",
+    "seed": 92,
+    "prompt": "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam with a plain red cloth strip tied around its end, one swinging a big wooden mallet, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e2_s93",
+    "seed": 93,
+    "prompt": "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam with a plain red cloth strip tied around its end, one swinging a big wooden mallet, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e2_s94",
+    "seed": 94,
+    "prompt": "three identical builders in leather aprons, one laying stone blocks with a trowel, one carrying a wooden beam with a plain red cloth strip tied around its end, one swinging a big wooden mallet, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_engineers_e3_s91",
+    "seed": 91,
+    "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on cart fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e3_s92",
+    "seed": 92,
+    "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on cart fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e3_s93",
+    "seed": 93,
+    "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on cart fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e3_s94",
+    "seed": 94,
+    "prompt": "three identical sappers in iron kettle helmets and brown leather jerkins pushing a tall standing shield wall of rough wooden planks that rests on the ground on cart fixed at its lower edge, one carrying a pickaxe, one a bundle of sticks, plain red shoulder sashes, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_engineers_e4_s91",
+    "seed": 91,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e4_s92",
+    "seed": 92,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e4_s93",
+    "seed": 93,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e4_s94",
+    "seed": 94,
+    "prompt": "three identical soldiers in plain gray uniforms with red collar trim and soft gray field caps, one carrying a short flat wooden plank bridge section tucked upright under one arm, one shouldering a shovel, one carrying a coil of wire in both hands, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_engineers_e5_s91",
+    "seed": 91,
+    "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers sit inside the vehicle in olive uniforms and steel helmets with head out, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e5_s92",
+    "seed": 92,
+    "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers sit inside the vehicle in olive uniforms and steel helmets with head out, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e5_s93",
+    "seed": 93,
+    "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers sit inside the vehicle in olive uniforms and steel helmets with head out, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e5_s94",
+    "seed": 94,
+    "prompt": "a yellow armored engineering vehicle with a bulldozer blade and a crane arm and a single white circle on its hull side, two identical soldiers sit inside the vehicle in olive uniforms and steel helmets with head out, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_engineers_e6_s91",
+    "seed": 91,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_engineers_e6_s92",
+    "seed": 92,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_engineers_e6_s93",
+    "seed": 93,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_engineers_e6_s94",
+    "seed": 94,
+    "prompt": "two identical soldiers in powered exo-frame suits with hydraulic arms, one carrying a folded bridge girder, one a heavy cutting torch with a glowing orange tip, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "elite_forces": {
+  "2": {
+   "91": {
+    "stem": "p3_td_elite_forces_e2_s91",
+    "seed": 91,
+    "prompt": "two identical royal guards, in gilded bronze armor and tall red-plumed helmets holding ornate halberds angled forward, plain purple cloaks, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_elite_forces_e2_s92",
+    "seed": 92,
+    "prompt": "two identical royal guards, in gilded bronze armor and tall red-plumed helmets holding ornate halberds angled forward, plain purple cloaks, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_elite_forces_e2_s93",
+    "seed": 93,
+    "prompt": "two identical royal guards, in gilded bronze armor and tall red-plumed helmets holding ornate halberds angled forward, plain purple cloaks, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_elite_forces_e2_s94",
+    "seed": 94,
+    "prompt": "two identical royal guards, in gilded bronze armor and tall red-plumed helmets holding ornate halberds angled forward, plain purple cloaks, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_elite_forces_e3_s91",
+    "seed": 91,
+    "prompt": "two identical temple knights, in white surcoats over chainmail holding greatswords raised high, each surcoat bearing a single golden tree emblem, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_elite_forces_e3_s92",
+    "seed": 92,
+    "prompt": "two identical temple knights, in white surcoats over chainmail holding greatswords raised high, each surcoat bearing a single golden tree emblem, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_elite_forces_e3_s93",
+    "seed": 93,
+    "prompt": "two identical temple knights, in white surcoats over chainmail holding greatswords raised high, each surcoat bearing a single golden tree emblem, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_elite_forces_e3_s94",
+    "seed": 94,
+    "prompt": "two identical temple knights, in white surcoats over chainmail holding greatswords raised high, each surcoat bearing a single golden tree emblem, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_elite_forces_e4_s91",
+    "seed": 91,
+    "prompt": "two identical grenadier soldiers, in plain dark blue coats and helmets, each with a plain musket slung on a strap across his back, one holding a round dark-green grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_elite_forces_e4_s92",
+    "seed": 92,
+    "prompt": "two identical grenadier soldiers, in plain dark blue coats and helmets, each with a plain musket slung on a strap across his back, one holding a round dark-green grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_elite_forces_e4_s93",
+    "seed": 93,
+    "prompt": "two identical grenadier soldiers, in plain dark blue coats and helmets, each with a plain musket slung on a strap across his back, one holding a round dark-green grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_elite_forces_e4_s94",
+    "seed": 94,
+    "prompt": "two identical grenadier soldiers, in plain dark blue coats and helmets, each with a plain musket slung on a strap across his back, one holding a round dark-green grenade with a short sputtering fuse, the other shielding that fuse with a cupped gloved hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_elite_forces_e5_s91",
+    "seed": 91,
+    "prompt": "two commandos standing one behind the other, in black tactical armor, night-vision goggles with green lenses, each with both hands on his own compact rifle held angled down, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_elite_forces_e5_s92",
+    "seed": 92,
+    "prompt": "two commandos standing one behind the other, in black tactical armor, night-vision goggles with green lenses, each with both hands on his own compact rifle held angled down, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_elite_forces_e5_s93",
+    "seed": 93,
+    "prompt": "two commandos standing one behind the other, in black tactical armor, night-vision goggles with green lenses, each with both hands on his own compact rifle held angled down, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_elite_forces_e5_s94",
+    "seed": 94,
+    "prompt": "two commandos standing one behind the other, in black tactical armor, night-vision goggles with green lenses, each with both hands on his own compact rifle held angled down, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_elite_forces_e6_s91",
+    "seed": 91,
+    "prompt": "two identical cyborg super soldiers standing one behind the other, sleek chrome cybernetic arms and legs joined to armored torsos, each shoulder pauldron painted with a single solid unbroken white disc of flat colour with no notch, no crescent and no ring cut into or around it, a thin red accent line traces each side of the neck matching the suit's other red piping and nothing else on the neck, glowing blue eye implants and nothing else glowing anywhere on his body, each gripping one single heavy rifle with both hands and no second barrel, tube or weapon attached to it or resting anywhere near it, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_elite_forces_e6_s92",
+    "seed": 92,
+    "prompt": "two identical cyborg super soldiers standing one behind the other, sleek chrome cybernetic arms and legs joined to armored torsos, each shoulder pauldron painted with a single solid unbroken white disc of flat colour with no notch, no crescent and no ring cut into or around it, a thin red accent line traces each side of the neck matching the suit's other red piping and nothing else on the neck, glowing blue eye implants and nothing else glowing anywhere on his body, each gripping one single heavy rifle with both hands and no second barrel, tube or weapon attached to it or resting anywhere near it, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_elite_forces_e6_s93",
+    "seed": 93,
+    "prompt": "two identical cyborg super soldiers standing one behind the other, sleek chrome cybernetic arms and legs joined to armored torsos, each shoulder pauldron painted with a single solid unbroken white disc of flat colour with no notch, no crescent and no ring cut into or around it, a thin red accent line traces each side of the neck matching the suit's other red piping and nothing else on the neck, glowing blue eye implants and nothing else glowing anywhere on his body, each gripping one single heavy rifle with both hands and no second barrel, tube or weapon attached to it or resting anywhere near it, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_elite_forces_e6_s94",
+    "seed": 94,
+    "prompt": "two identical cyborg super soldiers standing one behind the other, sleek chrome cybernetic arms and legs joined to armored torsos, each shoulder pauldron painted with a single solid unbroken white disc of flat colour with no notch, no crescent and no ring cut into or around it, a thin red accent line traces each side of the neck matching the suit's other red piping and nothing else on the neck, glowing blue eye implants and nothing else glowing anywhere on his body, each gripping one single heavy rifle with both hands and no second barrel, tube or weapon attached to it or resting anywhere near it, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "artillery": {
+  "3": {
+   "91": {
+    "stem": "p3_td_artillery_e3_s91",
+    "seed": 91,
+    "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_artillery_e3_s92",
+    "seed": 92,
+    "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_artillery_e3_s93",
+    "seed": 93,
+    "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_artillery_e3_s94",
+    "seed": 94,
+    "prompt": "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_artillery_e4_s91",
+    "seed": 91,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_artillery_e4_s92",
+    "seed": 92,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_artillery_e4_s93",
+    "seed": 93,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_artillery_e4_s94",
+    "seed": 94,
+    "prompt": "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_artillery_e5_s91",
+    "seed": 91,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_artillery_e5_s92",
+    "seed": 92,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_artillery_e5_s93",
+    "seed": 93,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_artillery_e5_s94",
+    "seed": 94,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_artillery_e6_s91",
+    "seed": 91,
+    "prompt": "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_artillery_e6_s92",
+    "seed": 92,
+    "prompt": "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_artillery_e6_s93",
+    "seed": 93,
+    "prompt": "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_artillery_e6_s94",
+    "seed": 94,
+    "prompt": "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "bomber": {
+  "4": {
+   "91": {
+    "stem": "p3_td_bomber_e4_s91",
+    "seed": 91,
+    "prompt": "a short stubby silver-gray rigid airship with a broad rounded hull, a blunt nose at the right edge of the frame, a deep rounded tail with four cruciform fins at the left edge and a large gondola slung beneath the hull, the hull covered in a fine repeating grid of rivets and thin horizontal panel seams, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the craft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_bomber_e4_s92",
+    "seed": 92,
+    "prompt": "a short stubby silver-gray rigid airship with a broad rounded hull, a blunt nose at the right edge of the frame, a deep rounded tail with four cruciform fins at the left edge and a large gondola slung beneath the hull, the hull covered in a fine repeating grid of rivets and thin horizontal panel seams, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the craft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_bomber_e4_s93",
+    "seed": 93,
+    "prompt": "a short stubby silver-gray rigid airship with a broad rounded hull, a blunt nose at the right edge of the frame, a deep rounded tail with four cruciform fins at the left edge and a large gondola slung beneath the hull, the hull covered in a fine repeating grid of rivets and thin horizontal panel seams, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the craft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_bomber_e4_s94",
+    "seed": 94,
+    "prompt": "a short stubby silver-gray rigid airship with a broad rounded hull, a blunt nose at the right edge of the frame, a deep rounded tail with four cruciform fins at the left edge and a large gondola slung beneath the hull, the hull covered in a fine repeating grid of rivets and thin horizontal panel seams, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the craft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_bomber_e5_s91",
+    "seed": 91,
+    "prompt": "a heavy four-engine propeller bomber aircraft with the nose and cockpit at the right edge of the frame and the tail at the left edge, four propeller engines along its wings, painted a continuous plain olive drab colour with a fine repeating grid of rivets and thin panel seam lines covering the fuselage and tail fin edge to edge, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_bomber_e5_s92",
+    "seed": 92,
+    "prompt": "a heavy four-engine propeller bomber aircraft with the nose and cockpit at the right edge of the frame and the tail at the left edge, four propeller engines along its wings, painted a continuous plain olive drab colour with a fine repeating grid of rivets and thin panel seam lines covering the fuselage and tail fin edge to edge, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_bomber_e5_s93",
+    "seed": 93,
+    "prompt": "a heavy four-engine propeller bomber aircraft with the nose and cockpit at the right edge of the frame and the tail at the left edge, four propeller engines along its wings, painted a continuous plain olive drab colour with a fine repeating grid of rivets and thin panel seam lines covering the fuselage and tail fin edge to edge, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_bomber_e5_s94",
+    "seed": 94,
+    "prompt": "a heavy four-engine propeller bomber aircraft with the nose and cockpit at the right edge of the frame and the tail at the left edge, four propeller engines along its wings, painted a continuous plain olive drab colour with a fine repeating grid of rivets and thin panel seam lines covering the fuselage and tail fin edge to edge, no roundel, no insignia, no squadron marking, no tail flash, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_bomber_e6_s91",
+    "seed": 91,
+    "prompt": "a black angular flying-wing stealth bomber in flight toward the right edge of the frame, its nose at the right edge and its trailing edge at the left, its cockpit spine and every fuselage and wing surface a continuous plain matte black colour with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_bomber_e6_s92",
+    "seed": 92,
+    "prompt": "a black angular flying-wing stealth bomber in flight toward the right edge of the frame, its nose at the right edge and its trailing edge at the left, its cockpit spine and every fuselage and wing surface a continuous plain matte black colour with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_bomber_e6_s93",
+    "seed": 93,
+    "prompt": "a black angular flying-wing stealth bomber in flight toward the right edge of the frame, its nose at the right edge and its trailing edge at the left, its cockpit spine and every fuselage and wing surface a continuous plain matte black colour with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_bomber_e6_s94",
+    "seed": 94,
+    "prompt": "a black angular flying-wing stealth bomber in flight toward the right edge of the frame, its nose at the right edge and its trailing edge at the left, its cockpit spine and every fuselage and wing surface a continuous plain matte black colour with a fine repeating grid of recessed panel seam lines and no other surface detail, no roundel, no insignia, no squadron marking, no badge, no lettering and no stencil anywhere on the aircraft, a simplified chunky aircraft shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the aircraft oriented toward the right edge of the frame, its nose pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "holy_warriors": {
+  "4": {
+   "91": {
+    "stem": "p3_td_holy_warriors_e4_s91",
+    "seed": 91,
+    "prompt": "two identical musketeers in white coats standing close together, each aiming his own musket levelled forward with both hands on it and the barrel pointing toward the right edge of the frame, a single golden tree emblem on each chest, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_holy_warriors_e4_s92",
+    "seed": 92,
+    "prompt": "two identical musketeers in white coats standing close together, each aiming his own musket levelled forward with both hands on it and the barrel pointing toward the right edge of the frame, a single golden tree emblem on each chest, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_holy_warriors_e4_s93",
+    "seed": 93,
+    "prompt": "two identical musketeers in white coats standing close together, each aiming his own musket levelled forward with both hands on it and the barrel pointing toward the right edge of the frame, a single golden tree emblem on each chest, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_holy_warriors_e4_s94",
+    "seed": 94,
+    "prompt": "two identical musketeers in white coats standing close together, each aiming his own musket levelled forward with both hands on it and the barrel pointing toward the right edge of the frame, a single golden tree emblem on each chest, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "privateers": {
+  "3": {
+   "91": {
+    "stem": "p3_td_privateers_e3_s91",
+    "seed": 91,
+    "prompt": "a single lone bandit in a dark leather jerkin standing alone in an otherwise empty frame, gripping his short curved sword held forward, a small closed brown loot sack tied at his belt, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_privateers_e3_s92",
+    "seed": 92,
+    "prompt": "a single lone bandit in a dark leather jerkin standing alone in an otherwise empty frame, gripping his short curved sword held forward, a small closed brown loot sack tied at his belt, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_privateers_e3_s93",
+    "seed": 93,
+    "prompt": "a single lone bandit in a dark leather jerkin standing alone in an otherwise empty frame, gripping his short curved sword held forward, a small closed brown loot sack tied at his belt, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_privateers_e3_s94",
+    "seed": 94,
+    "prompt": "a single lone bandit in a dark leather jerkin standing alone in an otherwise empty frame, gripping his short curved sword held forward, a small closed brown loot sack tied at his belt, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_privateers_e4_s91",
+    "seed": 91,
+    "prompt": "a single lone thief in a dark hooded coat and neck scarf striding toward the right edge of the frame, alone in an otherwise empty frame, gripping his short dagger held forward, a brass-cornered suitcase carried under his other arm, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_privateers_e4_s92",
+    "seed": 92,
+    "prompt": "a single lone thief in a dark hooded coat and neck scarf striding toward the right edge of the frame, alone in an otherwise empty frame, gripping his short dagger held forward, a brass-cornered suitcase carried under his other arm, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_privateers_e4_s93",
+    "seed": 93,
+    "prompt": "a single lone thief in a dark hooded coat and neck scarf striding toward the right edge of the frame, alone in an otherwise empty frame, gripping his short dagger held forward, a brass-cornered suitcase carried under his other arm, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_privateers_e4_s94",
+    "seed": 94,
+    "prompt": "a single lone thief in a dark hooded coat and neck scarf striding toward the right edge of the frame, alone in an otherwise empty frame, gripping his short dagger held forward, a brass-cornered suitcase carried under his other arm, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_privateers_e5_s91",
+    "seed": 91,
+    "prompt": "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_privateers_e5_s92",
+    "seed": 92,
+    "prompt": "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_privateers_e5_s93",
+    "seed": 93,
+    "prompt": "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_privateers_e5_s94",
+    "seed": 94,
+    "prompt": "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the right edge of the frame, body and weapon pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "shield_wall": {
+  "1": {
+   "91": {
+    "stem": "p3_td_shield_wall_e1_s91",
+    "seed": 91,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e1_s92",
+    "seed": 92,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e1_s93",
+    "seed": 93,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e1_s94",
+    "seed": 94,
+    "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_shield_wall_e2_s91",
+    "seed": 91,
+    "prompt": "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e2_s92",
+    "seed": 92,
+    "prompt": "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e2_s93",
+    "seed": 93,
+    "prompt": "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e2_s94",
+    "seed": 94,
+    "prompt": "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_shield_wall_e3_s91",
+    "seed": 91,
+    "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e3_s92",
+    "seed": 92,
+    "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e3_s93",
+    "seed": 93,
+    "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e3_s94",
+    "seed": 94,
+    "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_shield_wall_e4_s91",
+    "seed": 91,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e4_s92",
+    "seed": 92,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e4_s93",
+    "seed": 93,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e4_s94",
+    "seed": 94,
+    "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_shield_wall_e5_s91",
+    "seed": 91,
+    "prompt": "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e5_s92",
+    "seed": 92,
+    "prompt": "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e5_s93",
+    "seed": 93,
+    "prompt": "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e5_s94",
+    "seed": 94,
+    "prompt": "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_shield_wall_e6_s91",
+    "seed": 91,
+    "prompt": "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_shield_wall_e6_s92",
+    "seed": 92,
+    "prompt": "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_shield_wall_e6_s93",
+    "seed": 93,
+    "prompt": "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_shield_wall_e6_s94",
+    "seed": 94,
+    "prompt": "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "anti_air": {
+  "1": {
+   "91": {
+    "stem": "p3_td_anti_air_e1_s91",
+    "seed": 91,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e1_s92",
+    "seed": 92,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e1_s93",
+    "seed": 93,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e1_s94",
+    "seed": 94,
+    "prompt": "a slanted shelter roof of plain overlapping brown and tan raw hides on stout timber posts, several arrows stuck in the hide roof, bare trampled earth below, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_anti_air_e2_s91",
+    "seed": 91,
+    "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e2_s92",
+    "seed": 92,
+    "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e2_s93",
+    "seed": 93,
+    "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e2_s94",
+    "seed": 94,
+    "prompt": "a tall timber arrow tower with a roofed shooting platform and wooden hoardings, a red cloth strip tied to a corner post, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_anti_air_e3_s91",
+    "seed": 91,
+    "prompt": "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e3_s92",
+    "seed": 92,
+    "prompt": "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e3_s93",
+    "seed": 93,
+    "prompt": "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e3_s94",
+    "seed": 94,
+    "prompt": "a round stone defense tower with machicolations and an open flat unroofed stone top with no roof and no tiles and no timber shelter, a mounted ballista aimed skyward on it loaded with a plain wooden bolt that does not glow, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_anti_air_e4_s91",
+    "seed": 91,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e4_s92",
+    "seed": 92,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e4_s93",
+    "seed": 93,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e4_s94",
+    "seed": 94,
+    "prompt": "an anti-aircraft flak cannon with a long barrel angled skyward on a cross-shaped steel mount resting directly on flat bare ground, a ring gunsight, stacked shell crates beside it, painted plain olive drab, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the emplacement oriented toward the right edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_anti_air_e5_s91",
+    "seed": 91,
+    "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e5_s92",
+    "seed": 92,
+    "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e5_s93",
+    "seed": 93,
+    "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e5_s94",
+    "seed": 94,
+    "prompt": "a tracked vehicle painted plain olive drab with a single white circle on the hull, carrying four white surface-to-air missiles on rails angled skyward, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_anti_air_e6_s91",
+    "seed": 91,
+    "prompt": "a boxy laser interception turret on a rotating gimbal mount, a single large circular optical lens aperture aimed skyward, two small camera pods mounted beside the aperture, matte olive drab armor housing with a single solid unbroken white disc of flat colour painted on its side, the disc a complete circle with no notch and no crescent cut into it, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_anti_air_e6_s92",
+    "seed": 92,
+    "prompt": "a boxy laser interception turret on a rotating gimbal mount, a single large circular optical lens aperture aimed skyward, two small camera pods mounted beside the aperture, matte olive drab armor housing with a single solid unbroken white disc of flat colour painted on its side, the disc a complete circle with no notch and no crescent cut into it, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_anti_air_e6_s93",
+    "seed": 93,
+    "prompt": "a boxy laser interception turret on a rotating gimbal mount, a single large circular optical lens aperture aimed skyward, two small camera pods mounted beside the aperture, matte olive drab armor housing with a single solid unbroken white disc of flat colour painted on its side, the disc a complete circle with no notch and no crescent cut into it, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_anti_air_e6_s94",
+    "seed": 94,
+    "prompt": "a boxy laser interception turret on a rotating gimbal mount, a single large circular optical lens aperture aimed skyward, two small camera pods mounted beside the aperture, matte olive drab armor housing with a single solid unbroken white disc of flat colour painted on its side, the disc a complete circle with no notch and no crescent cut into it, a simplified chunky vehicle shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "enemy_weak": {
+  "1": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e1_s91",
+    "seed": 91,
+    "prompt": "a lone tribal levy warrior in a plain dark hide tunic and a simple leather cap, gripping a wooden spear with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e1_s92",
+    "seed": 92,
+    "prompt": "a lone tribal levy warrior in a plain dark hide tunic and a simple leather cap, gripping a wooden spear with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e1_s93",
+    "seed": 93,
+    "prompt": "a lone tribal levy warrior in a plain dark hide tunic and a simple leather cap, gripping a wooden spear with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e1_s94",
+    "seed": 94,
+    "prompt": "a lone tribal levy warrior in a plain dark hide tunic and a simple leather cap, gripping a wooden spear with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e2_s91",
+    "seed": 91,
+    "prompt": "a lone militia spearman in a plain dark linen tunic and a simple leather helmet, holding a spear in one hand and a small round wooden shield in the other, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e2_s92",
+    "seed": 92,
+    "prompt": "a lone militia spearman in a plain dark linen tunic and a simple leather helmet, holding a spear in one hand and a small round wooden shield in the other, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e2_s93",
+    "seed": 93,
+    "prompt": "a lone militia spearman in a plain dark linen tunic and a simple leather helmet, holding a spear in one hand and a small round wooden shield in the other, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e2_s94",
+    "seed": 94,
+    "prompt": "a lone militia spearman in a plain dark linen tunic and a simple leather helmet, holding a spear in one hand and a small round wooden shield in the other, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e3_s91",
+    "seed": 91,
+    "prompt": "a lone levy crossbowman in a plain dark padded gambeson and a simple iron cap, aiming a light crossbow toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e3_s92",
+    "seed": 92,
+    "prompt": "a lone levy crossbowman in a plain dark padded gambeson and a simple iron cap, aiming a light crossbow toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e3_s93",
+    "seed": 93,
+    "prompt": "a lone levy crossbowman in a plain dark padded gambeson and a simple iron cap, aiming a light crossbow toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e3_s94",
+    "seed": 94,
+    "prompt": "a lone levy crossbowman in a plain dark padded gambeson and a simple iron cap, aiming a light crossbow toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e4_s91",
+    "seed": 91,
+    "prompt": "a lone militiaman in a plain dark brown coat and a soft cap, aiming a musket toward the left edge of the frame, the musket's muzzle end a single round barrel tip capped with one plain front sight nub, a long bayonet blade mounted flush against the barrel in one thin metal socket ring and no other stud, tube or second barrel anywhere beside it, a rolled gray blanket strapped diagonally across his back, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e4_s92",
+    "seed": 92,
+    "prompt": "a lone militiaman in a plain dark brown coat and a soft cap, aiming a musket toward the left edge of the frame, the musket's muzzle end a single round barrel tip capped with one plain front sight nub, a long bayonet blade mounted flush against the barrel in one thin metal socket ring and no other stud, tube or second barrel anywhere beside it, a rolled gray blanket strapped diagonally across his back, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e4_s93",
+    "seed": 93,
+    "prompt": "a lone militiaman in a plain dark brown coat and a soft cap, aiming a musket toward the left edge of the frame, the musket's muzzle end a single round barrel tip capped with one plain front sight nub, a long bayonet blade mounted flush against the barrel in one thin metal socket ring and no other stud, tube or second barrel anywhere beside it, a rolled gray blanket strapped diagonally across his back, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e4_s94",
+    "seed": 94,
+    "prompt": "a lone militiaman in a plain dark brown coat and a soft cap, aiming a musket toward the left edge of the frame, the musket's muzzle end a single round barrel tip capped with one plain front sight nub, a long bayonet blade mounted flush against the barrel in one thin metal socket ring and no other stud, tube or second barrel anywhere beside it, a rolled gray blanket strapped diagonally across his back, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e5_s91",
+    "seed": 91,
+    "prompt": "a lone reservist soldier in a plain dark gray uniform and a soft field cap, both hands on his own rifle held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e5_s92",
+    "seed": 92,
+    "prompt": "a lone reservist soldier in a plain dark gray uniform and a soft field cap, both hands on his own rifle held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e5_s93",
+    "seed": 93,
+    "prompt": "a lone reservist soldier in a plain dark gray uniform and a soft field cap, both hands on his own rifle held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e5_s94",
+    "seed": 94,
+    "prompt": "a lone reservist soldier in a plain dark gray uniform and a soft field cap, both hands on his own rifle held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_enemy_weak_e6_s91",
+    "seed": 91,
+    "prompt": "a lone volunteer soldier in a plain dark gray jacket with a few plain dull metal studs on the chest and a compact visor over his eyes, both hands on his own compact energy carbine held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_weak_e6_s92",
+    "seed": 92,
+    "prompt": "a lone volunteer soldier in a plain dark gray jacket with a few plain dull metal studs on the chest and a compact visor over his eyes, both hands on his own compact energy carbine held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_weak_e6_s93",
+    "seed": 93,
+    "prompt": "a lone volunteer soldier in a plain dark gray jacket with a few plain dull metal studs on the chest and a compact visor over his eyes, both hands on his own compact energy carbine held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_weak_e6_s94",
+    "seed": 94,
+    "prompt": "a lone volunteer soldier in a plain dark gray jacket with a few plain dull metal studs on the chest and a compact visor over his eyes, both hands on his own compact energy carbine held angled down toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "enemy_mid": {
+  "1": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e1_s91",
+    "seed": 91,
+    "prompt": "two identical disciplined warriors in matching dark hide-and-bone armor, each holding one stone-tipped spear in his own fist, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e1_s92",
+    "seed": 92,
+    "prompt": "two identical disciplined warriors in matching dark hide-and-bone armor, each holding one stone-tipped spear in his own fist, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e1_s93",
+    "seed": 93,
+    "prompt": "two identical disciplined warriors in matching dark hide-and-bone armor, each holding one stone-tipped spear in his own fist, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e1_s94",
+    "seed": 94,
+    "prompt": "two identical disciplined warriors in matching dark hide-and-bone armor, each holding one stone-tipped spear in his own fist, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e2_s91",
+    "seed": 91,
+    "prompt": "two identical professional soldiers in matching dark iron scale armor and plain dark helmets, each with one short sword in his own fist and a round shield in the other hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e2_s92",
+    "seed": 92,
+    "prompt": "two identical professional soldiers in matching dark iron scale armor and plain dark helmets, each with one short sword in his own fist and a round shield in the other hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e2_s93",
+    "seed": 93,
+    "prompt": "two identical professional soldiers in matching dark iron scale armor and plain dark helmets, each with one short sword in his own fist and a round shield in the other hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e2_s94",
+    "seed": 94,
+    "prompt": "two identical professional soldiers in matching dark iron scale armor and plain dark helmets, each with one short sword in his own fist and a round shield in the other hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e3_s91",
+    "seed": 91,
+    "prompt": "two identical men-at-arms in blackened chainmail and dark kettle helmets, each holding one poleaxe upright in his own hands, a kite shield slung on each back, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e3_s92",
+    "seed": 92,
+    "prompt": "two identical men-at-arms in blackened chainmail and dark kettle helmets, each holding one poleaxe upright in his own hands, a kite shield slung on each back, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e3_s93",
+    "seed": 93,
+    "prompt": "two identical men-at-arms in blackened chainmail and dark kettle helmets, each holding one poleaxe upright in his own hands, a kite shield slung on each back, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e3_s94",
+    "seed": 94,
+    "prompt": "two identical men-at-arms in blackened chainmail and dark kettle helmets, each holding one poleaxe upright in his own hands, a kite shield slung on each back, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e4_s91",
+    "seed": 91,
+    "prompt": "two identical line soldiers in matching dark gray uniforms and black shakos, each aiming his own musket, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e4_s92",
+    "seed": 92,
+    "prompt": "two identical line soldiers in matching dark gray uniforms and black shakos, each aiming his own musket, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e4_s93",
+    "seed": 93,
+    "prompt": "two identical line soldiers in matching dark gray uniforms and black shakos, each aiming his own musket, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e4_s94",
+    "seed": 94,
+    "prompt": "two identical line soldiers in matching dark gray uniforms and black shakos, each aiming his own musket, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e5_s91",
+    "seed": 91,
+    "prompt": "two identical soldiers in matching dark combat uniforms, armor vests and helmets, each with both hands on his own rifle held angled down, a plain orange armband of unbroken solid colour on each upper sleeve, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e5_s92",
+    "seed": 92,
+    "prompt": "two identical soldiers in matching dark combat uniforms, armor vests and helmets, each with both hands on his own rifle held angled down, a plain orange armband of unbroken solid colour on each upper sleeve, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e5_s93",
+    "seed": 93,
+    "prompt": "two identical soldiers in matching dark combat uniforms, armor vests and helmets, each with both hands on his own rifle held angled down, a plain orange armband of unbroken solid colour on each upper sleeve, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e5_s94",
+    "seed": 94,
+    "prompt": "two identical soldiers in matching dark combat uniforms, armor vests and helmets, each with both hands on his own rifle held angled down, a plain orange armband of unbroken solid colour on each upper sleeve, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_enemy_mid_e6_s91",
+    "seed": 91,
+    "prompt": "two identical soldiers in matte black powered vests, each with both hands on his own solid matte black heavy rifle held angled down, the rifle body plain metal with no lit parts, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_mid_e6_s92",
+    "seed": 92,
+    "prompt": "two identical soldiers in matte black powered vests, each with both hands on his own solid matte black heavy rifle held angled down, the rifle body plain metal with no lit parts, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_mid_e6_s93",
+    "seed": 93,
+    "prompt": "two identical soldiers in matte black powered vests, each with both hands on his own solid matte black heavy rifle held angled down, the rifle body plain metal with no lit parts, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_mid_e6_s94",
+    "seed": 94,
+    "prompt": "two identical soldiers in matte black powered vests, each with both hands on his own solid matte black heavy rifle held angled down, the rifle body plain metal with no lit parts, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the left edge of the frame, bodies and weapons pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ },
+ "enemy_hard": {
+  "1": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e1_s91",
+    "seed": 91,
+    "prompt": "a towering elite champion in heavy dark bone-and-hide armor swinging a massive stone maul with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e1_s92",
+    "seed": 92,
+    "prompt": "a towering elite champion in heavy dark bone-and-hide armor swinging a massive stone maul with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e1_s93",
+    "seed": 93,
+    "prompt": "a towering elite champion in heavy dark bone-and-hide armor swinging a massive stone maul with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e1_s94",
+    "seed": 94,
+    "prompt": "a towering elite champion in heavy dark bone-and-hide armor swinging a massive stone maul with both hands, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "2": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e2_s91",
+    "seed": 91,
+    "prompt": "a towering elite champion in heavy dark bronze plate armor holding a huge two-handed cleaver blade, a tower shield embossed with a plain raised ring pattern standing at his side, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e2_s92",
+    "seed": 92,
+    "prompt": "a towering elite champion in heavy dark bronze plate armor holding a huge two-handed cleaver blade, a tower shield embossed with a plain raised ring pattern standing at his side, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e2_s93",
+    "seed": 93,
+    "prompt": "a towering elite champion in heavy dark bronze plate armor holding a huge two-handed cleaver blade, a tower shield embossed with a plain raised ring pattern standing at his side, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e2_s94",
+    "seed": 94,
+    "prompt": "a towering elite champion in heavy dark bronze plate armor holding a huge two-handed cleaver blade, a tower shield embossed with a plain raised ring pattern standing at his side, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "3": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e3_s91",
+    "seed": 91,
+    "prompt": "a towering elite knight in polished black plate armor with a smooth rounded greathelm, both hands swinging a massive two-handed flail, a dark cape, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e3_s92",
+    "seed": 92,
+    "prompt": "a towering elite knight in polished black plate armor with a smooth rounded greathelm, both hands swinging a massive two-handed flail, a dark cape, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e3_s93",
+    "seed": 93,
+    "prompt": "a towering elite knight in polished black plate armor with a smooth rounded greathelm, both hands swinging a massive two-handed flail, a dark cape, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e3_s94",
+    "seed": 94,
+    "prompt": "a towering elite knight in polished black plate armor with a smooth rounded greathelm, both hands swinging a massive two-handed flail, a dark cape, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "4": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e4_s91",
+    "seed": 91,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e4_s92",
+    "seed": 92,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e4_s93",
+    "seed": 93,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e4_s94",
+    "seed": 94,
+    "prompt": "a hulking soldier in a heavy dark iron cuirass and a smooth rounded steel helmet, both hands carrying a hand-cranked multi-barrel gun, ammunition belts across his chest, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "5": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e5_s91",
+    "seed": 91,
+    "prompt": "a heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, a single flat solid orange stripe of one plain colour and no other colour painted on the turret, a simplified chunky shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the left edge of the frame, its barrel pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e5_s92",
+    "seed": 92,
+    "prompt": "a heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, a single flat solid orange stripe of one plain colour and no other colour painted on the turret, a simplified chunky shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the left edge of the frame, its barrel pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e5_s93",
+    "seed": 93,
+    "prompt": "a heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, a single flat solid orange stripe of one plain colour and no other colour painted on the turret, a simplified chunky shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the left edge of the frame, its barrel pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e5_s94",
+    "seed": 94,
+    "prompt": "a heavy dark battle tank freshly painted in glossy showroom-new black enamel, every hull and turret plate smooth and bright with clean crisp reflections, a single flat solid orange stripe of one plain colour and no other colour painted on the turret, a simplified chunky shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the left edge of the frame, its barrel pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  },
+  "6": {
+   "91": {
+    "stem": "p3_td_enemy_hard_e6_s91",
+    "seed": 91,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, every armor plate and pod housing a plain unmarked matte black surface with no lettering and no stencilled text anywhere, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "92": {
+    "stem": "p3_td_enemy_hard_e6_s92",
+    "seed": 92,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, every armor plate and pod housing a plain unmarked matte black surface with no lettering and no stencilled text anywhere, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "93": {
+    "stem": "p3_td_enemy_hard_e6_s93",
+    "seed": 93,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, every armor plate and pod housing a plain unmarked matte black surface with no lettering and no stencilled text anywhere, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "94": {
+    "stem": "p3_td_enemy_hard_e6_s94",
+    "seed": 94,
+    "prompt": "a towering black combat mech with glowing orange eye sensors, massive clawed arms and missile pods on its shoulders, every armor plate and pod housing a plain unmarked matte black surface with no lettering and no stencilled text anywhere, striding toward the left edge of the frame, alone in an otherwise empty frame, a simplified stylized figure with a rounded chunky body and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the figure oriented toward the left edge of the frame, body and weapon pointing left, centered, isolated on a plain light gray background",
+    "root": true
+   }
+  }
+ }
+}

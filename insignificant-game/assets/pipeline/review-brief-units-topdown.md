@@ -35,10 +35,29 @@ in doubt. The drift is confined to:
 | `artillery_e4` | the wheeled gun carriage reads side-on, wheels in profile |
 | `anti_air_e1`, `anti_air_e2` | era-1/2 timber structures read ¾ rather than overhead |
 
-Five cells out of 52. Treat drift as a **§8 reject on those cells only**, and re-roll on seed
-before touching wording: the exploration proved the steep-angle clause works everywhere else in the
-roster under identical wording, which makes this seed luck rather than a wording bug (cookbook §8.2,
-overlapped-rank occlusion, same reasoning).
+Five cells out of 52 (`cavalry_e2`'s chariot is a mild sixth). **Drift on these cells is accepted by
+human ruling and is not a reject.** Do not re-roll them, do not re-word them, and do not raise them
+at the pick gate as defects.
+
+The ruling rests on a measurement, not on taste alone. The W14.8 sweep rendered four fresh seeds of
+each drifting cell under identical wording: **20 renders, 20 drifts, zero exceptions**, with the four
+seeds of each cell near-identical to one another. That is cookbook §8.3 rung 4's stop signal — a
+stable checkpoint preference, not seed luck — so more seeds and more wordings are both waste. The
+mechanism: **the camera drifts wherever the subject's readable identity lives on a vertical face.** A
+tank is identified by its roof outline and renders overhead happily; a horse from directly above is
+an oval, a spoked wheel from above is a line, and a watchtower's whole point is its height. The model
+is resolving a conflict between the camera and recognizability in favour of recognizability.
+
+What the acceptance costs is **set coherence, not readability**: a side-on horse pointing right still
+reads as cavalry at on-field size, it simply sits at a different camera from the tank beside it.
+Reopening this needs a tooling lever (img2img pose reference, ControlNet region lock) as ADR-0009
+anticipated — a §12 escalation, never another wording round.
+
+The same line contains the counter-example that proves this is subject-driven rather than a limit of
+the recipe: `anti_air_e3` renders a genuinely overhead circular tower top, because its prompt names
+*the top* ("its top an open flat circle of bare stone paving"), while `anti_air_e2` names *height*
+("a tall timber arrow tower"). Naming what is visible from above is what works — the accepted cells
+are the ones where nothing useful is.
 
 ## The defect the audit did not name: orientation is not free
 
@@ -47,23 +66,25 @@ side-view checklist. On a top-down field the two armies face each other across a
 axis, so a sprite pointing anywhere else is wrong for *both* sides, and an X-flip cannot rescue it:
 flipping a figure that points at the top of the frame leaves it pointing at the top of the frame.
 
-Three cells in the exploration set fail this way, and all three are cases where the orientation
-clause sits only in the framing **suffix**:
+**The cells that fail this way are the single-figure ones.** `privateers_e4` and `privateers_e5`
+render facing the **camera**, with no left-right heading at all: a lone figure has no rank geometry
+to imply a heading, so the framing suffix is the only cue and it is too weak. Multi-figure groups
+never fail it, because the rank itself states a direction.
 
-- `bomber_e4`, `bomber_e5` render **nose-left** under a suffix that says `its nose pointing right`.
-- `bomber_e6` renders nose-up.
-- `privateers_e4`, `privateers_e5` render facing the **camera**, with no left-right heading at all.
-  A lone figure has no rank geometry to imply a heading, so the suffix is the only cue and it is
-  too weak.
+`phase3_units_topdown_batch.py` fixes both by **front-loading the heading into the subject clause**
+("striding toward the right edge of the frame") rather than trusting the suffix — the fix the
+exploration itself needed for figures, recorded in `docs/explore-topdown-battle-and-units.md` §4:
+*"appending 'facing toward the right' as a suffix clause was not reliably obeyed — front-load the
+direction cue instead."* The W14.8 sweep confirms it: all four seeds of each privateer cell now
+stride right.
 
-`phase3_units_topdown_batch.py` carries the fix for all five: **front-load the heading into the
-subject clause** ("the nose and cockpit at the right edge of the frame and the tail at the left
-edge", "striding toward the right edge of the frame") rather than trusting the suffix. This is the
-same fix the exploration itself needed for figures, recorded in
-`docs/explore-topdown-battle-and-units.md` §4: *"appending 'facing toward the right' as a suffix
-clause was not reliably obeyed — front-load the direction cue instead."* The fix was applied to the
-prompts but has not been re-rendered yet, so **verify the heading on every bomber and privateer
-cell of this wave before picking one.**
+**Do not cite the bombers here.** An earlier pass of this brief claimed `bomber_e4/e5/e6` rendered
+nose-left under a nose-right suffix. That was a misread of a thumbnail in a 7-column sheet: at full
+size the exploration rolls point nose-**right**, and so does every seed of the sweep. The bomber
+cores carry the front-loaded clause anyway for roster consistency, but they are not evidence of
+anything. The lesson is the cheap one — **verify an orientation call at full size, never from a
+contact-sheet thumbnail**, which is the same zoom-before-verdict rule §8.1 already states for
+micro-objects, applied to whole-subject geometry.
 
 ## What a reviewer checks that the side-view brief does not
 

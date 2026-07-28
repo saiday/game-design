@@ -1,0 +1,156 @@
+{
+ "battle_tax": {
+  "61": {
+   "stem": "p3_bgtd_battle_tax_s61",
+   "seed": 61,
+   "prompt": "open farmland seen from directly above, golden wheat plots in neat rectangles and round hay bales, a low wooden fence running along one side, cart ruts in brown earth, a wide band of bare flat dirt running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_tax_s62",
+   "seed": 62,
+   "prompt": "open farmland seen from directly above, golden wheat plots in neat rectangles and round hay bales, a low wooden fence running along one side, cart ruts in brown earth, a wide band of bare flat dirt running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_tax_s63",
+   "seed": 63,
+   "prompt": "open farmland seen from directly above, golden wheat plots in neat rectangles and round hay bales, a low wooden fence running along one side, cart ruts in brown earth, a wide band of bare flat dirt running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_tax_s64",
+   "seed": 64,
+   "prompt": "open farmland seen from directly above, golden wheat plots in neat rectangles and round hay bales, a low wooden fence running along one side, cart ruts in brown earth, a wide band of bare flat dirt running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_field": {
+  "61": {
+   "stem": "p3_bgtd_battle_field_s61",
+   "seed": 61,
+   "prompt": "open countryside seen from directly above, rolling grass meadow with the round crowns of sparse trees and their shadows, patches of heather and bare soil, a wide band of trampled flat grass running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_field_s62",
+   "seed": 62,
+   "prompt": "open countryside seen from directly above, rolling grass meadow with the round crowns of sparse trees and their shadows, patches of heather and bare soil, a wide band of trampled flat grass running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_field_s63",
+   "seed": 63,
+   "prompt": "open countryside seen from directly above, rolling grass meadow with the round crowns of sparse trees and their shadows, patches of heather and bare soil, a wide band of trampled flat grass running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_field_s64",
+   "seed": 64,
+   "prompt": "open countryside seen from directly above, rolling grass meadow with the round crowns of sparse trees and their shadows, patches of heather and bare soil, a wide band of trampled flat grass running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_hidden": {
+  "61": {
+   "stem": "p3_bgtd_battle_hidden_s61",
+   "seed": 61,
+   "prompt": "a scorched clearing seen from directly above, tall alien monolith stones casting long shadows across cracked ground, faint glowing mist pooling in the hollows, the bare crowns of twisted leafless trees around the edges, a wide band of flat empty ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_hidden_s62",
+   "seed": 62,
+   "prompt": "a scorched clearing seen from directly above, tall alien monolith stones casting long shadows across cracked ground, faint glowing mist pooling in the hollows, the bare crowns of twisted leafless trees around the edges, a wide band of flat empty ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_hidden_s63",
+   "seed": 63,
+   "prompt": "a scorched clearing seen from directly above, tall alien monolith stones casting long shadows across cracked ground, faint glowing mist pooling in the hollows, the bare crowns of twisted leafless trees around the edges, a wide band of flat empty ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_hidden_s64",
+   "seed": 64,
+   "prompt": "a scorched clearing seen from directly above, tall alien monolith stones casting long shadows across cracked ground, faint glowing mist pooling in the hollows, the bare crowns of twisted leafless trees around the edges, a wide band of flat empty ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_riot": {
+  "61": {
+   "stem": "p3_bgtd_battle_riot_s61",
+   "seed": 61,
+   "prompt": "a narrow city street seen from directly above, the pitched roofs of plain stone houses along both sides, makeshift barricades of overturned carts, crates and sandbags across the roadway, cloth banners each painted with a single large red fist emblem lying flat, thin smoke drifting over the cobblestones, a wide band of empty cobblestone roadway running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_riot_s62",
+   "seed": 62,
+   "prompt": "a narrow city street seen from directly above, the pitched roofs of plain stone houses along both sides, makeshift barricades of overturned carts, crates and sandbags across the roadway, cloth banners each painted with a single large red fist emblem lying flat, thin smoke drifting over the cobblestones, a wide band of empty cobblestone roadway running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_riot_s63",
+   "seed": 63,
+   "prompt": "a narrow city street seen from directly above, the pitched roofs of plain stone houses along both sides, makeshift barricades of overturned carts, crates and sandbags across the roadway, cloth banners each painted with a single large red fist emblem lying flat, thin smoke drifting over the cobblestones, a wide band of empty cobblestone roadway running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_riot_s64",
+   "seed": 64,
+   "prompt": "a narrow city street seen from directly above, the pitched roofs of plain stone houses along both sides, makeshift barricades of overturned carts, crates and sandbags across the roadway, cloth banners each painted with a single large red fist emblem lying flat, thin smoke drifting over the cobblestones, a wide band of empty cobblestone roadway running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_democracy": {
+  "61": {
+   "stem": "p3_bgtd_battle_democracy_s61",
+   "seed": 61,
+   "prompt": "a vast abandoned monumental plaza seen from directly above in the cold light of early morning, a circular marble fountain and the roofs of stone colonnades along the edges, cloth banners each painted with a single large golden balance scale emblem lying flat on the paving, a toppled bronze statue lying beside the fountain, scattered dead leaves drifting over the stones, a wide band of flat empty paving running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_democracy_s62",
+   "seed": 62,
+   "prompt": "a vast abandoned monumental plaza seen from directly above in the cold light of early morning, a circular marble fountain and the roofs of stone colonnades along the edges, cloth banners each painted with a single large golden balance scale emblem lying flat on the paving, a toppled bronze statue lying beside the fountain, scattered dead leaves drifting over the stones, a wide band of flat empty paving running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_democracy_s63",
+   "seed": 63,
+   "prompt": "a vast abandoned monumental plaza seen from directly above in the cold light of early morning, a circular marble fountain and the roofs of stone colonnades along the edges, cloth banners each painted with a single large golden balance scale emblem lying flat on the paving, a toppled bronze statue lying beside the fountain, scattered dead leaves drifting over the stones, a wide band of flat empty paving running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_democracy_s64",
+   "seed": 64,
+   "prompt": "a vast abandoned monumental plaza seen from directly above in the cold light of early morning, a circular marble fountain and the roofs of stone colonnades along the edges, cloth banners each painted with a single large golden balance scale emblem lying flat on the paving, a toppled bronze statue lying beside the fountain, scattered dead leaves drifting over the stones, a wide band of flat empty paving running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_civwar": {
+  "61": {
+   "stem": "p3_bgtd_battle_civwar_s61",
+   "seed": 61,
+   "prompt": "a vast war plain seen from directly above, scarred with long trenches and earthworks cutting across the ground, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, churned brown mud and standing water in the trench lines, a wide band of flat open ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_civwar_s62",
+   "seed": 62,
+   "prompt": "a vast war plain seen from directly above, scarred with long trenches and earthworks cutting across the ground, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, churned brown mud and standing water in the trench lines, a wide band of flat open ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_civwar_s63",
+   "seed": 63,
+   "prompt": "a vast war plain seen from directly above, scarred with long trenches and earthworks cutting across the ground, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, churned brown mud and standing water in the trench lines, a wide band of flat open ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_civwar_s64",
+   "seed": 64,
+   "prompt": "a vast war plain seen from directly above, scarred with long trenches and earthworks cutting across the ground, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, churned brown mud and standing water in the trench lines, a wide band of flat open ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ },
+ "battle_worldwar": {
+  "61": {
+   "stem": "p3_bgtd_battle_worldwar_s61",
+   "seed": 61,
+   "prompt": "a scorched battlefield seen from directly above, cratered black earth and drifting ash, the collapsed footprints of burning ruins and shattered walls, rubble scattered in dark fans around each crater, a wide band of flat cratered ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "62": {
+   "stem": "p3_bgtd_battle_worldwar_s62",
+   "seed": 62,
+   "prompt": "a scorched battlefield seen from directly above, cratered black earth and drifting ash, the collapsed footprints of burning ruins and shattered walls, rubble scattered in dark fans around each crater, a wide band of flat cratered ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "63": {
+   "stem": "p3_bgtd_battle_worldwar_s63",
+   "seed": 63,
+   "prompt": "a scorched battlefield seen from directly above, cratered black earth and drifting ash, the collapsed footprints of burning ruins and shattered walls, rubble scattered in dark fans around each crater, a wide band of flat cratered ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "64": {
+   "stem": "p3_bgtd_battle_worldwar_s64",
+   "seed": 64,
+   "prompt": "a scorched battlefield seen from directly above, cratered black earth and drifting ash, the collapsed footprints of burning ruins and shattered walls, rubble scattered in dark fans around each crater, a wide band of flat cratered ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  }
+ }
+}
