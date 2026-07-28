@@ -65,8 +65,8 @@
 
   <h2>Core build (production waves)</h2>
   <div class="tiles">
-    <div class="tile"><div class="n">19 / 22</div><div class="l">waves closed (W0–W14.6 incl. W12.5/W13.5; W14.7 core+demo, W14.8 art re-render, W15 view remain)</div></div>
-    <div class="tile"><div class="n">234 / 234</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
+    <div class="tile"><div class="n">20 / 22</div><div class="l">waves closed (W0–W14.7 incl. W12.5/W13.5; W14.8 art re-render and W15 view remain)</div></div>
+    <div class="tile"><div class="n">240 / 240</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
   </div>
@@ -94,9 +94,9 @@
     <tr><td>W14.6</td><td>Corpus round: cover chain + top-down pivot (ADR-0008/0009 — docs only, no code)</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-27: 自動佈陣 is now an ordered cover chain (近戰列 → 工事線 → 遠程列 → 空域, each layer screening the one behind it), 盾陣 rescoped from any 地面單位 to the 遠程列, 工兵團 moved behind the wall it repairs, 正規軍 field screens of their own that never repair (making 帶攻城 live for the first time), and the battle scene becomes top-down. The full timeline event contract is pinned in architecture.md now that two replayers depend on it. Gate: check_design_graph.py exit 0 — 14 system docs, 62 feed edges, 57 code: mappings, 0 errors, 0 warnings</span></td></tr>
     <tr><td>W14.7</td><td>Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009)</td>
-        <td><span class="status todo"><span class="dot todo"></span>not started — battle.gd shield branch narrows to the ranged row, 正規軍 screens fill the never-appended enemy_forts array, new take_station event, timeline exporter, and the HTML demo loses all rule code so it cannot drift from the rules again</span></td></tr>
+        <td><span class="status done"><span class="dot done"></span>closed 2026-07-28: the 盾陣 branch narrows to the 遠程列, 工兵團 stations behind the wall it repairs, 正規軍 screens now fill the never-appended enemy_forts array (帶攻城 is live at last), and units announce their place in the chain as a new take_station event. Timeline events gained a <code>side</code> key — labels are card ids, so no replayer could tell the camps apart without it. New tools/export_timeline.gd exports one full-roster battle per era, and the HTML demo is now a <b>replayer with zero rule code</b>; Part A grew an exporter diff plus a renderer check. Gate: 21 suites / 240 cases exit 0, exporter byte-stable, renderer check exit 0. Batch re-run: aggregate movement inside stream-reshuffle noise (hard WW 86%), money pile down ~10%, and a collapse fired outside the opening trap for the first time (gen 13) — PM calls in balance-report.md</span></td></tr>
     <tr><td>W14.8</td><td>Top-down battlefield art re-render (ADR-0009)</td>
-        <td><span class="status todo"><span class="dot todo"></span>not started — 69 unit/fort sprites + 7 battle backdrops re-rendered overhead, strictly sequential, after W14.7 so the replayer informs the brief. Open risks: mirror-safety on asymmetric figures, eye-level drift on mounted and multi-figure groups</span></td></tr>
+        <td><span class="status todo"><span class="dot todo"></span>not started — 69 unit/fort sprites + 7 battle backdrops re-rendered overhead, strictly sequential, after W14.7 (now closed) so the replayer informs the brief. Open risks: mirror-safety on asymmetric figures, eye-level drift on mounted and multi-figure groups</span></td></tr>
     <tr><td>W15</td><td>Three-scene view revamp, top-down battle (operations panorama / fog-map / battle scene)</td>
         <td><span class="status todo"><span class="dot todo"></span>not started — Part B returns here; the battle scene is a top-down replayer of the tick timeline (intercept / disable / repair / shootdown / take_station), the city stays a side-view panorama</span></td></tr>
   </table>
@@ -133,7 +133,7 @@
         <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5; the 2026-07-27 cover-chain round (ADR-0008/0009) landed in the corpus as W14.6 and awaits its code delta in W14.7 — no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-07-27 (W14.6 corpus round closed, docs only: the formation is an ordered cover chain and the battle scene is top-down, ADR-0008/0009. check_design_graph.py exit 0, 0 errors, 0 warnings. Three waves now remain: W14.7 core+demo, W14.8 art re-render, W15 view. The 69 unit sprites and 7 battle backdrops are superseded pending W14.8) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-07-28 (W14.7 closed: cover chain in core, 21 suites / 240 cases exit 0; the HTML demo is now a replayer of the core's exported timeline with every rule deleted; balance batch re-run and balance-report.md refreshed. Two waves remain: W14.8 art re-render, W15 view. The 69 unit sprites and 7 battle backdrops are superseded pending W14.8) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>

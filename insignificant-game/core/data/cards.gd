@@ -119,7 +119,10 @@ const CARDS: Dictionary = {
 		"military_cost": 2,
 		"attack": 0,
 		"hp": 3,
-		"row": &"melee",
+		# 遠程列: the engineer stations BEHIND the wall it maintains and works at the 工事線
+		#   (ADR-0008 掩護鏈). lane_stat checks no_attack before the row, so this move leaves
+		#   閃避率 and the 老兵/勳章 lanes untouched.
+		"row": &"ranged",
 		"evolves": true,
 		"era_names": ["修路隊", "築城匠", "攻城工兵", "工兵營", "機械化工兵", "戰鬥工程隊"],
 		"disband_pop": 2,
@@ -191,10 +194,12 @@ const CARDS: Dictionary = {
 		"era_names": ["木盾牆", "盾陣", "城垛", "沙包工事", "電網", "複合裝甲牆"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		# blocks_melee_once: ignores attack value; intercepts one melee attack aimed at a
-		# friendly GROUND unit and is disabled by the interception — never removed, never
-		# consumed, repairable by engineers (ADR-0007). Also disabled by siege/air strikes.
-		"flags": [&"blocks_melee_once"],
+		# screens_ranged_row: 盾陣＝遠程列的掩體 (ADR-0008). One card is one wall segment spanning
+		# the ranged row's frontage, not a shield on one named unit. It ignores attack value,
+		# intercepts one melee attack aimed at a unit in the 遠程列 — and nothing else — and is
+		# disabled by the interception: never removed, never consumed, repairable by engineers
+		# (ADR-0007). Also disabled by siege/air strikes.
+		"flags": [&"screens_ranged_row"],
 	},
 	&"anti_air": {
 		"zh": "防空飛彈",

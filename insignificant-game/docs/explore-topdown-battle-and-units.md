@@ -68,7 +68,7 @@ How each objection stands after the decision:
 - **O2 stands, and is honoured.** The battle core still has no coordinates, no distance, no velocity
   and no movement. A station is a categorical place in the cover chain, and ADR-0008 adds it without
   adding space. Unit motion in the view remains decoration over a position-less model, which is why
-  the demo becomes a replayer of the core's timeline rather than a simulator (W14.7).
+  the demo is now a replayer of the core's timeline rather than a simulator (W14.7).
 - **O3 stands and is accepted as a cost, not refuted.** The multipliers are real and they are now
   recorded in ADR-0009 so the expense cannot be quietly forgotten.
 - **O4 stands and is still open.** Mirror-safety on asymmetric illustrated figures is untested; it is
@@ -83,12 +83,14 @@ recommendation. It became one: the sandbox is the characterisation the 2026-07-2
 for, and ADR-0009 cites it. Open it directly in a browser; it is one self-contained file at 1.12 MB
 with 60 sprites embedded as data URIs.
 
-**Its next revision is a rewrite, not a patch (PLAN.md W14.7):** the sandbox re-implements the battle
-rules in JS, which is exactly how it drifted from them once before. It becomes a **replayer** of the
-timeline `core/battle.gd` exports, with all rule code deleted, so it cannot diverge again. The
-roll-order description below is a record of the simulator, and it retires with it.
+**It was rewritten rather than patched (PLAN.md W14.7, closed 2026-07-28):** the sandbox
+re-implemented the battle rules in JS, which is exactly how it drifted from them once before. It is
+now a **replayer** of the timeline `core/battle.gd` exports (`tools/export_timeline.gd` →
+`docs/fixtures/battle_timeline.json`), with all rule code deleted, so it cannot diverge again. The
+roll-order description below is a record of the retired simulator, kept because the objections in §3
+were raised against it.
 
-What it does:
+What the simulator did:
 
 - **Full roster, all 6 eras**, with an era selector. 11 classes.
 - **Stats are transcribed from the game, not invented.** 攻/血 are `core/data/cards.gd` catalog
@@ -103,11 +105,12 @@ What it does:
   ground-only); then 盾陣 intercepting one melee attack aimed at a ground unit; then accuracy,
   then dodge. Engineers never attack and repair one disabled fortification per round, round-robin.
   Fortifications are the player side's alone, as in core, and 防空飛彈 exists from 工業 onward only.
-  **`docs/tools/check_motion_demo.js` pins all of that**: it boots the page's own JS headless and
-  fails if the sandbox drifts from the rules again (`node insignificant-game/docs/tools/check_motion_demo.js`).
-  ADR-0008 has since narrowed the interception to the 遠程列 and given 正規軍 screens of their own, so
-  this roll order is one wave out of date on purpose: W14.7 deletes it rather than patching it, and
-  the checker becomes a renderer check because there will be no rules left in the page to pin.
+  ADR-0008 then narrowed the interception to the 遠程列 and gave 正規軍 screens of their own, and
+  W14.7 deleted this whole roll order from the page instead of patching it. What replaced it: the
+  page reads a tick-stamped event list and animates each entry where it stands, and
+  `docs/tools/check_motion_demo.js` became a renderer check — fixture freshness, cover-chain
+  staging, and a grep that fails if any rule code comes back
+  (`node insignificant-game/docs/tools/check_motion_demo.js`).
 - **Per-unit metric tags on the field:** era form name, live HP, 攻/命中率/閃避率/攻速, placed in
   free lanes with a leader line back to the unit. The full table sits below the canvas.
 - **Per-class attack motion:** melee lunges, cavalry charges with a roll, muskets and rifles
@@ -116,7 +119,7 @@ What it does:
   falls straight down.
 - **Flying weapons are generated art:** 8 projectile sprites (stone, arrow, bolt, bullet, missile,
   cannonball, shell, bomb) mapped per class and era, authored pointing right, the bomb nose-down.
-- **Approximations are listed on the page itself** (its `.note` block), not hidden: continuous
+- **Approximations were listed on the page itself** (its `.note` block), not hidden: continuous
   movement stands in for a model with no positions, nearest-enemy targeting stands in for
   deploy-order focus fire within each band of the matrix, both sides carry the quality triple
   where the real game gives it to player units only, the battery's shot is given flight time
@@ -204,7 +207,7 @@ space: that ruling is unchanged and ADR-0008 was designed around it. See `docs/a
 five objections below are answered by the rules themselves rather than by the demo: 防空飛彈's
 affordance problem is gone because the battery now genuinely fires, and air now has a counter.
 The sandbox stopped being merely a sandbox on 2026-07-27: it is the evidence ADR-0009 rests on, and
-it is being rebuilt as a timeline replayer in W14.7. O1, O2, O4 and O5 all still stand as written
+W14.7 rebuilt it as a timeline replayer with no rules of its own. O1, O2, O4 and O5 all still stand as written
 (see §1); the camera was adopted despite them, not by refuting them.
 
 The original handoff, in cost order:

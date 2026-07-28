@@ -1,32 +1,72 @@
 #!/usr/bin/env node
-// Rule checker for docs/explore-topdown-motion-demo.html.
+// Renderer check for docs/explore-topdown-motion-demo.html.
 //
-// The sandbox asserts the battle rules on screen, so when the rules move it goes quietly stale —
-// which is exactly what happened between the 2026-07-25 demo session and ADR-0006/0007. This
-// stubs out the DOM, runs the page's own combat code headless, and fails if the sandbox stops
-// modelling what `core/battle.gd` actually does.
+// The page used to simulate the battle rules in its own JS, so this checker used to assert 46 of
+// them. Since W14.7 the page is a REPLAYER: it holds no rule and can only be wrong about the
+// picture. So this file checks two different things instead.
 //
 //   node insignificant-game/docs/tools/check_motion_demo.js
 //
-// It reads the page's JS in place, so it checks the file that ships, not a copy. It does NOT
-// check the rendering; it drives every draw call once per frame only so a stale field reference
-// in a draw function throws here instead of in someone's browser.
-//
-// What it pins (design/戰鬥.md, docs/adr/0006 + 0007):
-//   - 近戰列 and 空襲 can never resolve an attack against a 空域 unit; 遠程列 can.
-//   - 防空飛彈 exists from 工業 (era 4) onward only, fires once per 回合, and a hit destroys.
-//   - Fortifications disable and repair; they are never removed, and never enemy-side.
-//   - 攻城／空襲 prefer an ACTIVE fort and never re-hit a disabled one.
-//   - 僅剩空軍 never claims the field, for either side.
-//   - Every era terminates.
+// 1. FRESHNESS. The embedded @TIMELINE block must carry the same values as
+//    docs/fixtures/battle_timeline.json. Part A re-runs tools/export_timeline.gd and
+//    docs/tools/build_motion_demo.py and diffs, so a rule change that moves the timeline cannot
+//    leave the page replaying a stale battle. This catches the other half: an edited page.
+// 2. THE RENDERER. It stubs out the DOM, boots the page headless, and replays every era
+//    frame by frame with every draw call live, asserting that
+//      - no rule code came back (no roll, no target choice, no outcome decision),
+//      - every event in every fixture resolves to something on screen (unresolved === 0),
+//      - each era plays to its recorded end and reports the core's own outcome,
+//      - the 掩護鏈 stages front to back: 近戰列 → 工事線 → 遠程列 → 空域, mirrored per side,
+//      - forts are never removed and never gain hit points,
+//      - a stale field reference in a draw function throws here, not in someone's browser.
 
 const fs = require('fs'), vm = require('vm'), path = require('path');
 
 const PAGE = process.argv[2] ||
   path.join(__dirname, '..', 'explore-topdown-motion-demo.html');
-const BODY = fs.readFileSync(PAGE, 'utf8').split('<script>')[1].split('</script>')[0];
+const FIXTURE = path.join(__dirname, '..', 'fixtures', 'battle_timeline.json');
+const RAW = fs.readFileSync(PAGE, 'utf8');
+const BODY = RAW.split('<script>')[1].split('</script>')[0];
 
-// --- the thinnest DOM/canvas that lets the page boot -------------------------------------
+let fails = 0;
+function check(name, ok, detail){
+  if(ok) console.log('  ok    ' + name);
+  else { fails++; console.log('  FAIL  ' + name + (detail ? '  — ' + detail : '')); }
+}
+
+// --- 1. freshness ---------------------------------------------------------------------------
+console.log('embedded fixture');
+const embedded = BODY.split('/* @TIMELINE-BEGIN */')[1].split('/* @TIMELINE-END */')[0];
+const embeddedJson = embedded.slice(embedded.indexOf('const TIMELINE = ') + 17).trim().replace(/;$/, '');
+// Compare the PARSED values, not the two texts: Python and V8 render floats differently, so a
+// byte compare would fail on a fixture that is in fact identical.
+const canon = (v) => JSON.stringify(v, (k, x) =>
+  (x && typeof x === 'object' && !Array.isArray(x))
+    ? Object.fromEntries(Object.keys(x).sort().map(kk => [kk, x[kk]])) : x);
+check('the @TIMELINE block matches docs/fixtures/battle_timeline.json',
+  canon(JSON.parse(embeddedJson)) === canon(JSON.parse(fs.readFileSync(FIXTURE, 'utf8'))),
+  'rebuild it: python3 docs/tools/build_motion_demo.py');
+
+// --- 2. no rule code ------------------------------------------------------------------------
+// A replayer that starts rolling dice or choosing targets again is the exact regression this
+// rewrite exists to prevent, so name the code that must stay gone.
+const BANNED = [
+  ['Math.random', 'a roll'],
+  ['chooseTarget', 'target selection'],
+  ['planAttack', 'attack planning'],
+  ['firstActiveFort', 'fort selection'],
+  ['canAct(', 'a reachability rule'],
+  ['checkOutcome', 'an outcome rule'],
+  ['settleDeadlock', 'a deadlock rule'],
+  ['repairPass', 'a repair rule'],
+  ['fireBatteries', 'a firing rule'],
+  ['hasEngineer', 'a repair precondition'],
+];
+console.log('\nno rule code on the page');
+for(const [needle, what] of BANNED)
+  check(`no ${needle} (${what})`, !BODY.includes(needle));
+
+// --- the thinnest DOM/canvas that lets the page boot -----------------------------------------
 function noop(){}
 const ctxStub = new Proxy({}, {
   get(t, k){
@@ -59,129 +99,81 @@ vm.createContext(sandbox);
 vm.runInContext(BODY, sandbox, {filename: path.basename(PAGE)});
 const run = (code) => vm.runInContext(code, sandbox);
 
-let fails = 0;
-function check(name, ok, detail){
-  if(ok) console.log('  ok    ' + name);
-  else { fails++; console.log('  FAIL  ' + name + (detail ? '  — ' + detail : '')); }
-}
 function drawOnce(){
   run(`drawField(); forts.forEach(drawFort);
        units.filter(u=>u.row!=='air').sort((a,b)=>a.y-b.y).forEach(drawUnit);
        units.filter(u=>u.row==='air').forEach(drawUnit);
        drawHealthBars(); drawStatTags(); drawProjectiles(); drawFlashes(); drawFloaters();
-       drawHoverRing(); drawWinner(); paintTables();`);
+       drawHoverRing(); drawClock(); drawWinner(); paintTables();`);
 }
-function stepFor(seconds, draw){
+// Replay one era at 60 fps with every draw call live, stopping when the page settles on its
+// closing card. The cap is generous: a fixture round is 4.5 s and no era runs long.
+function replay(seconds){
   for(let i=0; i<seconds*60; i++){
     run('step(1/60)');
-    if(draw) drawOnce();
-    if(run('!!winner')) return true;
+    drawOnce();
+    if(run('ended > 0.5')) return true;
   }
   return false;
 }
 
-// Observe what actually resolves, rather than trusting the plan that was made.
-run(`
-  _log = [];
-  const _applyAttack = applyAttack;
-  applyAttack = function(u, plan){
-    _log.push({mode: plan.mode, kind: attackKind(u),
-               targetAir: plan.target ? isAir(plan.target) : false});
-    return _applyAttack(u, plan);
-  };
-  const _applyBatteryShot = applyBatteryShot;
-  applyBatteryShot = function(f, plan){
-    const alive = plan.target.alive;
-    _applyBatteryShot(f, plan);
-    _log.push({mode:'battery', killed: alive && !plan.target.alive});
-  };
-`);
-
-console.log('full-roster runs, one per era');
-for(const era of [1,2,3,4,5,6]){
-  run(`currentEra = ${era}; _log = []; reset();`);
+// --- 3. every era replays -------------------------------------------------------------------
+const eras = run('ERAS.map(e=>e.era)');
+console.log('\nfull-roster replay, one per era');
+for(const era of eras){
+  run(`currentEra = ${era}; reset();`);
+  const fixtureRounds = run('FX.rounds.length');
+  const events = run('plan.length');
   const fortCount = run('forts.length');
-  const ended = stepFor(180, true);
-  const log = run('_log');
-  const illegal = log.filter(e => e.mode === 'unit' && e.targetAir && e.kind !== 'ranged');
-  const hasBattery = run(`fortLineFor(${era}).includes('anti_air')`);
-  const hasAir = run(`rosterFor(${era}).includes('bomber')`);
+  const staged = run('units.filter(u=>u.staged).length');
+  const settled = replay(60);
 
-  check(`era ${era}: 近戰／空襲 never resolved against 空域`, illegal.length === 0,
-    illegal.length + ' illegal strikes');
+  check(`era ${era}: the whole timeline plays out (${events} events, ${fixtureRounds} rounds)`,
+    settled && run('cursor') === events, run('cursor') + '/' + events + ' consumed');
+  check(`era ${era}: every event resolved to something on screen`, run('unresolved') === 0,
+    run('unresolved') + ' unresolved');
+  check(`era ${era}: nobody is staged before 自動佈陣 says so`, staged === 0, staged + ' pre-staged');
   check(`era ${era}: 工事永不移除 (count unchanged)`, run('forts.length') === fortCount);
-  check(`era ${era}: 工事只在我方`, run('forts.every(f=>f.side===0)'));
-  check(`era ${era}: 防空飛彈 present iff era >= 4`, hasBattery === (era >= 4));
-  check(`era ${era}: the battle terminates`, ended, 'still running after 180s');
-  if(hasAir && hasBattery)
-    check(`era ${era}: a battery shot an aircraft down`, log.some(e => e.mode === 'battery' && e.killed));
+  check(`era ${era}: 工事沒有血量 (state is 運作中／被禁用 only)`,
+    run('forts.every(f=>f.hp===undefined && f.maxhp===undefined)'));
+  check(`era ${era}: the closing card reports core's own outcome`,
+    ['win', 'loss', 'retreat', 'defected'].includes(run('FX.outcome')), run('FX.outcome'));
 }
 
-console.log('\ntargeted scenarios');
-const SETUP = 'currentEra = 4; reset(); projectiles.length = 0;';
-const kill = (pred) => `units.filter(u=>${pred}).forEach(u=>{u.alive=false; u.hp=0;});`;
-
-run(`${SETUP} forts.forEach(f=>f.disabled=true); ${kill("u.side===1 && u.cls!=='bomber'")}`);
-stepFor(30);
-check('敵方僅剩空軍 + 我方有陸軍 → 我方拿下戰場',
-  run('winner') === 'BLUE' && run('winNote') === '', run('winner + " / " + winNote'));
-
-run(`${SETUP} forts.forEach(f=>f.disabled=true); ${kill("u.cls!=='bomber'")}`);
-stepFor(30);
-check('雙方僅剩空軍 → 無人拿下戰場, 僵局判定我方判敗',
-  run('winner') === 'RED' && /判敗/.test(run('winNote')), run('winner + " / " + winNote'));
-
-run(`${SETUP} forts.forEach(f=>f.disabled=true);
-     ${kill("u.side===0 && u.cls!=='infantry'")} ${kill("u.side===1 && u.cls!=='bomber'")}`);
-run('step(1/60)');
-check('近戰對上只剩空軍的敵方 = 無合法目標', run('canAct(0)') === false);
-check('無合法目標的近戰單位原地不動', run('units.filter(u=>u.alive && u.side===0)[0].moving') === false);
-check('但對手的空襲打得到地面, 戰局沒有凍結', run('canAct(1)') === true);
-stepFor(60);
-check('空軍清完場也不算拿下戰場 → 我方判敗',
-  run('winner') === 'RED' && /判敗/.test(run('winNote')), run('winner + " / " + winNote'));
-
-run(`${SETUP} forts.forEach(f=>f.disabled=true); ${kill("u.cls!=='engineers'")}`);
-run('step(1/60)');
-check('雙方都只剩工兵團 → 兩邊都無法行動', run('canAct(0)') === false && run('canAct(1)') === false);
-stepFor(30);
-check('凍結戰局立即結算', run('winner') === 'RED' && /凍結/.test(run('winNote')),
-  run('winner + " / " + winNote'));
-
-run(`${SETUP} ${kill("u.side===0 && u.cls!=='infantry'")} ${kill("u.side===1 && u.cls!=='bomber'")}`);
-check('運作中的防空飛彈 + 敵方有空域目標 → 我方仍能行動', run('canAct(0)') === true);
-
-// 攻城／空襲 target selection, driven directly so it does not depend on the fight going a
-// particular way: every active fort first, then units, and never the same fort twice.
-run(`${SETUP}
-     _plans = [];
-     const bomber = units.filter(u=>u.side===1 && u.cls==='bomber')[0];
-     for(let k=0;k<50;k++){
-       const p = planAttack(bomber, attackKind(bomber));
-       _plans.push(p ? p.mode + (p.fort ? ':' + p.fort.cls + (p.fort.disabled ? ':disabled' : '') : '')
-                     : 'none');
-       if(p && p.mode === 'disable') p.fort.disabled = true;
-     }`);
-const plans = run('_plans');
-check('空襲 disables every active fort first, then moves to units',
-  plans[0].startsWith('disable') && plans[1].startsWith('disable') && plans[2] === 'unit',
-  plans.slice(0, 4).join(' | '));
-check('已失效的工事不再是目標', !plans.some(p => p.includes(':disabled')));
-
-// The suppression exchange: 攻城/空襲 disable, 工兵 repairs, and the line never shrinks.
-run(`${SETUP} _n = forts.length;`);
-let disables = 0, repairs = 0, prev = run('forts.map(f=>f.disabled)');
-for(let i=0; i<60*40; i++){
-  run('step(1/60)');
-  const now = run('forts.map(f=>f.disabled)');
-  now.forEach((d, k) => { if(d && !prev[k]) disables++; if(!d && prev[k]) repairs++; });
-  prev = now;
-  if(run('!!winner')) break;
+// --- 4. the cover chain stages front to back ------------------------------------------------
+console.log('\n掩護鏈 staging (ADR-0008), mirrored per side');
+run('currentEra = 4; reset();');
+const mid = run('W/2');
+for(const side of [0, 1]){
+  const depth = (row) => {
+    const xs = run(`units.filter(u=>u.side===${side} && u.row==='${row}').map(u=>u.sx)`);
+    return xs.length ? Math.abs(xs[0] - mid) : null;
+  };
+  const wallX = run(`forts.filter(f=>f.side===${side} && f.wall).map(f=>f.x)`);
+  const wall = wallX.length ? Math.abs(wallX[0] - mid) : null;
+  const melee = depth('melee'), ranged = depth('ranged'), air = depth('air');
+  check(`side ${side}: 近戰列 is the front layer`, melee !== null && melee < wall,
+    `melee ${melee} vs 工事線 ${wall}`);
+  check(`side ${side}: 工事線 stands in front of the 遠程列`, wall !== null && wall < ranged,
+    `工事線 ${wall} vs ranged ${ranged}`);
+  if(air !== null)
+    check(`side ${side}: 空域 sits behind the 遠程列`, ranged < air, `ranged ${ranged} vs air ${air}`);
+  const sameSide = run(`units.filter(u=>u.side===${side}).every(u=>` +
+    (side === 0 ? 'u.sx < W/2' : 'u.sx > W/2') + ')');
+  check(`side ${side}: every station is on its own half of the field`, sameSide);
 }
-check('工事被癱瘓過', disables > 0, 'disables=' + disables);
-check('工兵把工事修回運作中', repairs > 0, 'repairs=' + repairs);
-check('工事數量從頭到尾不變', run('forts.length') === run('_n'));
+// A wall is a segment spanning the frontage of the row it screens, not a block on one unit.
+const span = run(`forts.filter(f=>f.wall)[0].span`);
+const rangedYs = run(`units.filter(u=>u.side===0 && u.row==='ranged').map(u=>u.sy)`);
+check('a 盾陣 spans the frontage of the row it screens',
+  span && span[0] <= Math.min(...rangedYs) && span[1] >= Math.max(...rangedYs),
+  JSON.stringify(span) + ' vs ' + JSON.stringify(rangedYs));
+check('a 防空飛彈 is an emplacement, not a segment',
+  run(`forts.filter(f=>f.battery).every(f=>f.span === null)`));
+run('step(1/60)');   // tick-0 &"take_station" events land on the first frame
+check('the 遠程列 knows which wall covers it',
+  run(`units.filter(u=>u.side===0 && u.row==='ranged').every(u=>u.screen === 'shield_wall')`));
 
-console.log(fails === 0 ? '\nOK — the sandbox still matches ADR-0006/0007'
-                        : `\n${fails} FAILED — the sandbox has drifted from the rules`);
+console.log(fails === 0 ? '\nOK — the replayer stages the timeline it was given'
+                        : `\n${fails} FAILED — the page has drifted from its fixture`);
 process.exit(fails === 0 ? 0 : 1);

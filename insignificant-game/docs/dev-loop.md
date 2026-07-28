@@ -20,6 +20,27 @@ export GODOT_DISABLE_LEAK_CHECKS=1
 - Reports: `reports/report_N/{results.xml,index.html}`. Failure detail is in the XML.
 - Benign noise: `ERROR: The remote port number must be between 1 and 65535` (runtest.sh's debugger trap).
 
+### Timeline fixture + replayer check (run after ANY `core/battle.gd` or timeline change)
+
+The HTML battle replayer holds no rules: it plays back a fixture exported from the real engine. So
+a rule change that moves the timeline must move the fixture, and staleness is caught by re-running
+the exporter and diffing rather than by trusting anyone to remember.
+
+```bash
+"$GODOT_BIN" --headless --path . -s tools/export_timeline.gd   # 6 eras -> docs/fixtures/battle_timeline.json
+python3 docs/tools/build_motion_demo.py                        # re-embeds the fixture in the page
+git diff --exit-code -- docs/fixtures/battle_timeline.json docs/explore-topdown-motion-demo.html
+node docs/tools/check_motion_demo.js                           # renderer + freshness, exit 1 on drift
+```
+
+- The exporter is deterministic (fixed seed, `state.rng` tracks): a re-run on unchanged rules
+  produces a byte-identical fixture, so the `git diff` is the staleness gate. A non-empty diff after
+  a battle change is expected — **commit the regenerated fixture and page with it.**
+- `check_motion_demo.js` needs no Godot. It fails if the page's embedded fixture drifts from the
+  file, if rule code reappears on the page (it greps for rolls, target selection, outcome rules), if
+  any event fails to resolve to something on screen, or if the 掩護鏈 stops staging front to back.
+- Pillow is required by the builder (`python3 -m pip install Pillow`).
+
 ### Design-graph check (run after ANY `design/`, doc, or module-header change)
 
 ```bash
@@ -73,7 +94,7 @@ Compare against `docs/balance-report.md` before/after a knob change.
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   21 suites / 234 cases, exit 0 (update this pin when suites or cases are added).
+   21 suites / 240 cases, exit 0 (update this pin when suites or cases are added).
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
 3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show

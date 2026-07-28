@@ -16,7 +16,10 @@
 3. **`view/` — Godot scenes/UI.** Reads GameState, calls core functions on click, renders with
    placeholder visuals (ColorRect/Label/Button only). View never computes rules.
 4. **`test/` — gdUnit4 suites**, one per core module (`test/economy_test.gd` for `core/economy.gd`).
-5. **`tools/` — capture script for Part B.**
+5. **`tools/` — headless `SceneTree` scripts** run with `-s`, never part of the game: the balance
+   batch (`balance_batch.gd` → `reports/`) and the timeline exporter (`export_timeline.gd` →
+   `docs/fixtures/battle_timeline.json`, replayed by the HTML battle replayer). They read core the
+   same way a test does and write only under `reports/` or `docs/fixtures/`.
 
 **Static typing everywhere** (`var x: int`, `func f(state: GameState) -> int`). Godot 4.6 idioms:
 `await` not `yield`, typed arrays (`Array[int]`), `StringName` for enum-like keys.
@@ -116,57 +119,94 @@ Derived values are functions, not stored fields: `Operations.bp_income(state)`,
 
 ## Glossary (design term → code name; use these exactly)
 
+**This is the repo's only glossary.** Every doc that needs the vocabulary links here rather than
+restating it; a second copy drifts from the code the moment one side is edited alone. `design/` owns
+what a term *means in the game*, this owns what it is *called in code*, and the two are joined by the
+`code:` frontmatter the graph checker verifies. Don't create a root `CONTEXT.md` (`/domain-modeling`
+will try).
+
 代 generation · 時代 era (tribal/classical/faith/industrial/modern/information) · 時代係數 `Era.coeff()`
 · BP build points · 營運 operations · 國策 policy · 幸福 happiness · 內亂 unrest · 讓步 concession
 · 戒嚴 martial law · 政權崩潰 regime collapse · 軍費 military spend · 賠償 reparations · 戰功 war_merit
 · 宣戰 declare_war · 心戰 psyops · 併吞 annex · 退場 rival exit · 影響力 influence · 貴族資金 noble funds
 (democracy rename of treasury, same pool) · 資本利得 capital gains · 國寶 national treasure
-· 工事 fortification · 人數型/機械型/技能 personnel/mechanical/skill cards.
+· 人數型/機械型/技能 personnel/mechanical/skill cards.
 
 ### Battle model terms (see `docs/plan-battle-model-rewrite.md` for the locked design)
 
-攻 `attack` (**= power**; one concept, fixed per card type+era, never rolls) · 血 `hp` (fixed per
-type+era; "how many men") · **innate three** `accuracy` / `dodge` / `speed` (rolled per card
-*instance* at acquisition; "how good these particular men are") · 勳章 `medal` (a growth award,
-never called a card) · 老兵 `veterancy` (軍事區's 基礎被動) · **wave** (one scheduled enemy
-commitment inside a battle) · **tick** (atomic time unit inside a 回合) · **timeline** (the
-complete tick-stamped event list core emits per round; the view replays it and decides nothing) ·
-**exhaustion** (the defeat condition: field empty AND nothing left to commit) · 回合 `round` (a
-fixed tick window; deployment, 軍費, and wave arrival all happen at its boundary) ·
-**掩護鏈 cover chain** (the ordered formation 近戰列 → 工事線 → 遠程列 → 空域, each layer screening
-the one behind it; ADR-0008) · **station** (a unit's place in that chain: still the categorical `row`
-plus, for a fort, which layer it screens. **Not a coordinate and not a slot** — the core holds no
-positions, and stations are assigned by 自動佈陣, never chosen).
+These carry traps, so they get rows instead of a run. **Code** is the identifier actually in the
+source, not a translation of the 中文. **Avoid** is normative: those words are wrong here, either
+because they name a different concept or because no identifier uses them.
 
-**Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots), 同時結算 (simultaneous resolution).
-If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003.
+| Term | Code | What it is | Avoid |
+|---|---|---|---|
+| 攻 attack | `attack` | How hard a card's type hits. Fixed per type and era; never rolls. | **power** — in this codebase that is the civilization scalar below, not a card stat |
+| 血 hp | `hp` | How many men the regiment has. Fixed per type and era; never rolls. | health, damage pool |
+| **innate three** | `accuracy` / `dodge` / `speed` | The three stats rolled per card *instance* at acquisition: how good these particular men are. | stats (ambiguous with 攻/血, which never roll) |
+| 勳章 medal | `medal`, `medals`, `award_medal`, `assign_medal` | A growth award of +1 level on one stat. | card (a 勳章 is never a card) |
+| 老兵 veterancy | `veterans`, `veteran_bonus`, `veteran_levels` | 軍事區's 基礎被動: an always-on +1 growth level on the recipient's lane stat. | `veterancy` as an identifier (no identifier uses it) |
+| **lane** | `Cards.lane_stat()` | The category deciding *which* stat a 勳章 or 老兵 level lands on. | `row`: they diverge at 工兵團, which stations in the 遠程列 but keeps the 閃避率 lane |
+| 回合 round | `round`, `end_round` | A fixed tick window; deployment, 軍費 and wave arrival all happen at its boundary. | turn (that is 代 / `generation`) |
+| **tick** | `tick`, `TICKS_PER_ROUND` | The atomic time unit inside a 回合. | frame, step |
+| **wave** | `_roll_waves`, `prepared_waves`, `next_wave` | One scheduled enemy commitment inside a battle. | spawn, reinforcement |
+| **exhaustion** | `exhausted`, `_check_exhaustion` | The defeat condition: field empty AND nothing left to commit. Per camp in 世界大戰. | rout, wipe |
+| 掩護鏈 cover chain | none: the ordering is implied by each unit's `row` | The formation 近戰列 → 工事線 → 遠程列 → 空域, each layer screening the one behind it (ADR-0008). | formation, front line, 部隊位 (retired) |
+| **station** | `row` (`melee`/`ranged`/`air`/`fortification`/`global`) + `stationed` + `screened_by` | A unit's place in the chain: its row, plus which wall screens it (遠程列 only). Assigned by 自動佈陣, never chosen. | slot, coordinate, position (the core holds none) |
+| 掩護 screen | `screens_ranged_row`, `regular_screens`, `screened_by` | What one layer of the chain does for the layer behind it. Only the 遠程列 is ever screened. | cover, block, absorb |
+| 工事 fortification | `fort`, `forts`, `enemy_forts`, `FORT_LIMIT` | A structure occupying the 工事線: disabled and repaired, never removed (ADR-0007). | works; `fortification` as an identifier (no identifier uses it) |
+| 盾陣 wall | `shield_wall` | The screening fort: one card is one segment spanning the 遠程列's frontage. | shield, barrier; not a synonym for 工事 (防空飛彈 is a fort too) |
+| 防空飛彈 battery | `anti_air`, `_fire_anti_air` | The air-defence fort: destroys an aircraft on hit (ADR-0006). | flak, AA, SAM |
+| **power** | `RivalState.power`, `Rivals.player_power` | A civilization's strength scalar, and the only rival state there is. 正規軍 converts it into units when a battle starts. | 攻 / `attack`, a card stat with no relation to it |
+| 正規軍 regular army | `regular`, `regular_unit`, `regular_roster_desc`, `regular_screens` | A civilization's power converted into on-field units at baseline stats. Per battle. | rival deck (there is none; the scalar is the only rival state) |
+| 非正規軍 irregulars | `irregular`, `_irregular_unit`, `grade` | The anonymous 弱/中/硬 tiers and thematic monsters: the 5 non-civ battle types. | mob, trash, tier |
+| **timeline** | `last_timeline` | The complete tick-stamped event list core emits per round. The view replays it and decides nothing. | log, history |
+| **timeline fixture** | `docs/fixtures/battle_timeline.json` | One exported battle per era: the replayers' input and Part A's staleness gate. | sample, dump |
+| **replayer** | none | Anything that turns a timeline back into motion and decides nothing: `view/`'s battle scene and the HTML page. | simulator (a replayer holds no rule code) |
+| **label** | `_unit_label` | A unit's handle inside a timeline entry: its `card_id`, or its anonymous `grade`. **Not an identity** (see the contract below). | id, name, identity |
+| **side** | `side` | On a timeline entry, the side of the party its actor field names. | `faction`, which also exists on `death` but means the *victim's* side |
+
+**Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots; replaced by assignable 勳章),
+同時結算 (simultaneous resolution; units act on their own attack speed),
+`blocks_melee_once` (a 盾陣 absorbing *any* melee attack; it only intercepts one aimed at the row it
+screens, and the flag is `screens_ranged_row`).
+If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003/0008.
 The 掩護鏈 is **not** a revival of 部隊位: slots were a bounded set of play positions the player
 filled, the chain is an ordering the engine derives from each unit's row.
 
 #### Timeline event contract
 
 `battle.last_timeline` is an `Array[Dictionary]`, one entry per event, tick-ordered within the round.
-Every entry carries `tick: int` and `type: StringName`; the rest is per-type. **This table is the
-contract, not documentation of it.** Two independent replayers consume it (`view/`'s battle scene and
-the HTML timeline replayer), so a rename here breaks both: W14.5 already renamed `absorb` → `intercept`
-and `demolish` → `disable` once.
+Every entry carries `tick: int`, `type: StringName` and `side: StringName`; the rest is per-type.
+**This table is the contract, not documentation of it.** Two independent replayers consume it
+(`view/`'s battle scene and the HTML timeline replayer), so a rename here breaks both: W14.5 already
+renamed `absorb` → `intercept` and `demolish` → `disable` once.
+
+`side` is the side (`&"player"` / `&"enemy"`) of the party the entry's **actor field** names — `by`,
+or `unit` where there is no `by`. Every attack in the game is cross-side, so the other party in the
+same entry is on the opposite side, and a fort named by `card_id` belongs to the side being attacked.
+W14.7 added it: labels are card ids, so both camps' 步兵團 answer to one label and no replayer could
+attribute a strike to a camp without it.
 
 | `type` | Payload keys | Meaning |
 |---|---|---|
 | `hit` | `by`, `target`, `damage` | An attack landed. `damage` already includes the 軍歌 +1. |
 | `miss` | `by`, `target` | Accuracy roll failed. A miss accrues no 閃避率 XP: the attack never reached the unit. |
-| `dodge` | `by`, `attacker` | Dodge roll succeeded. **`by` is the unit that dodged**, not the attacker (the only entry where `by` is the defender). |
-| `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill, or a fort's `card_id` for a shootdown. `faction` is the victim's, for 戰功 attribution. |
+| `dodge` | `by`, `attacker` | Dodge roll succeeded. **`by` is the unit that dodged**, not the attacker (the only entry where `by` is the defender, so `side` is the dodger's). |
+| `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill, or a fort's `card_id` for a shootdown; `side` is the clearer's, so the victim is on the other one. `faction` is the victim's, for 戰功 attribution. |
 | `intercept` | `by`, `card_id` | A 盾陣 intercepted one melee attack (ADR-0008: aimed at the 遠程列) and is now disabled. No accuracy or dodge roll happens. |
 | `disable` | `by`, `card_id` | A 帶攻城／空襲 attacker disabled an **active** fort. No roll; the fort is never removed. |
-| `shootdown` | `by`, `target` | A 防空飛彈 destroyed an aircraft. `by` is the fort's `card_id`. Always followed by a `death` at the same tick. |
+| `shootdown` | `by`, `target` | A 防空飛彈 destroyed an aircraft. `by` is the fort's `card_id` and `side` is the fort's. Always followed by a `death` at the same tick. |
 | `repair` | `card_id` | 工兵團 restored one disabled fort. Always `tick: 0` (repair opens the window, ahead of the strikes that suppress it). |
 | `medal` | `unit`, `stat`, `level` | A stat's XP filled and the 勳章 landed 當場 at this tick. `level` is the new level. **XP accrual itself emits nothing** — only the medal is visible. |
-| `take_station` | `unit`, `row`, `screened_by` | W14.7. A unit took its place in the 掩護鏈. `screened_by` is the `card_id` of the fort covering it, or `&""` when nothing does. Re-emitted when a `repair` restores a wall, because the screen relationship changed. |
+| `take_station` | `unit`, `row`, `screened_by` | A unit took its place in the 掩護鏈, at `tick: 0` of the round it joins the field. `screened_by` is the `card_id` of the fort covering it, or `&""` when nothing does (only the 遠程列 is ever screened). Re-emitted for that row whenever its cover changes: a `repair` restores a wall, a deploy adds one, an interception strips one. |
 
 Labels (`by` / `target` / `victim` / `unit`) come from `_unit_label`: a unit's `card_id`, or its
-anonymous `grade` for irregulars. **Labels are not identities** — two 步兵團 on the same field share
-one label, so a replayer must track its own per-unit handles and must not key state off the label.
+anonymous `grade` for irregulars. **Labels are not identities** — two 步兵團 on the same *side* share
+one label, so a replayer must track its own per-unit handles and must not key state off the label
+alone. `(side, label)` is a handle only in a field with one unit per class per side, which is exactly
+what `tools/export_timeline.gd` composes and why (docs/decisions.md, W14.7). A replayer that must
+handle repeats — the W15 battle scene over a real 正規軍 roster — needs per-unit identity added here
+first; nothing in the contract provides it today.
 
 ## Canonical IDs (StringName; use these exactly — never invent variants)
 

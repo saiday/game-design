@@ -229,3 +229,34 @@
   unit with it rather than looking stuck; (3) the batch shows hard-difficulty world wars
   dropping to 79% because the bot never answers air — a fort-and-ranged bot archetype is the
   missing instrument, see the report's caveats.
+- **W14.7 (cover chain in core + the timeline replayer): done 2026-07-28.** Files:
+  `core/battle.gd` (interception narrowed to `target["row"] == &"ranged"`, flag rename,
+  `regular_screens`/`_screen_fort` + wave-borne enemy forts in `_arrive_waves`,
+  `_take_stations`/`_station_side`, `side` on every event, `regular_unit` and
+  `regular_roster_desc` made public), `core/data/cards.gd` (工兵團 row → `&"ranged"`,
+  `blocks_melee_once` → `screens_ranged_row`), `test/battle_test.gd` (+7 cases),
+  new `tools/export_timeline.gd` + `docs/fixtures/battle_timeline.json`,
+  `docs/explore-topdown-motion-demo.html` (all rule code deleted; now a replayer),
+  `docs/tools/build_motion_demo.py` (owns the `@TIMELINE` block too),
+  `docs/tools/check_motion_demo.js` (rewritten: freshness + no-rule-code + renderer + staging).
+  Gate met: full suite **exit 0, 21/21 suites, 240/240 cases**; exporter byte-stable across
+  re-runs; renderer check exit 0; `check_design_graph.py` exit 0.
+  Conventions worth carrying:
+  1. **Every event carries `side`** — the side of the party its actor field names (`by`, or
+     `unit` where there is no `by`). Labels are card ids, so both camps' 步兵團 share one and
+     nothing could be attributed to a camp without it. `(side, label)` is still only a handle in
+     a field with one unit per class per side; two same-class units on ONE side remain
+     indistinguishable, which the W15 battle scene must close before it replays a real 正規軍
+     roster (architecture.md states the hole; decisions.md W14.7 records why it was left).
+  2. **A station is a row plus a cover, never a coordinate.** `take_station` fires at tick 0 of
+     the round a unit joins the field, and again for the 遠程列 whenever the wall covering it
+     changes. Units carry `stationed` + `screened_by` purely as the change detector; nothing in
+     core reads a position.
+  3. **Enemy walls ride in with their wave.** `regular_screens` returns a screen only for
+     `&"enemy"` waves that carry a 遠程列 regular, and `_arrive_waves` enforces `FORT_LIMIT`
+     across the whole battle. `regular_force` still returns units only — a roster is types, a
+     wall is a wave's baggage.
+  4. **The replayer is the contract's first real consumer, and it found a defect.** Anything the
+     W15 view needs from the timeline should be checked against
+     `docs/fixtures/battle_timeline.json` first: if the fixture can't express it, the contract
+     can't either.

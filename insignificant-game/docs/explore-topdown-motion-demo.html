@@ -1,4 +1,4 @@
-<title>Unit roster sandbox · Insignificant battle presentation</title>
+<title>Battle timeline replayer · Insignificant</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
   :root{
@@ -205,24 +205,24 @@
 
 <div class="wrap">
   <header>
-    <p class="eyebrow">Insignificant · presentation sandbox</p>
-    <h1>The whole roster, fighting by its own numbers</h1>
-    <p class="lede">Every unit class the game ships, at the era you pick, resolving attacks with the <b>real catalog stats</b> from <code>core/data/cards.gd</code> and the <b>real roll order</b> from <code>core/battle.gd</code>: accuracy, then dodge, under the targeting matrix of <b>ADR-0006</b> (who may shoot at 空域) and the disable–repair fortification model of <b>ADR-0007</b>. Each fighter is <b>one static sprite</b>; all the motion is cheap transforms. This is a visualization sandbox for watching the numbers, <b>not</b> a proposal for the game's camera.</p>
+    <p class="eyebrow">Insignificant · battle timeline replayer</p>
+    <h1>The whole roster, replayed from the core's own timeline</h1>
+    <p class="lede">One full-roster battle per era, <b>replayed</b>. Every hit, miss, dodge, interception, disable, repair and shoot-down below was resolved by <code>core/battle.gd</code> in a headless run, exported to a tick-stamped timeline by <code>tools/export_timeline.gd</code>, and embedded in this file. <b>There is no combat code on this page.</b> It stages the 掩護鏈 of <b>ADR-0008</b> — 近戰列 → 工事線 → 遠程列 → 空域, each layer screening the one behind it — under the top-down camera of <b>ADR-0009</b>, and it plays back what the engine did. Each fighter is <b>one static sprite</b>; all the motion is cheap transforms.</p>
   </header>
 
   <div class="board">
     <section class="stage">
       <div class="stage-head">
-        <h2>Live battle</h2>
+        <h2>Timeline playback</h2>
         <div class="eras" id="eras"></div>
         <span class="verdict" id="verdict"></span>
       </div>
       <div class="canvas-hold">
-        <canvas id="field" width="1840" height="900" aria-label="Top-down battle simulation"></canvas>
+        <canvas id="field" width="1840" height="900" aria-label="Top-down battle timeline replay"></canvas>
       </div>
       <div class="controls" id="controls">
         <button class="chip" data-key="facing" aria-pressed="true"><span class="dot"></span>L/R facing flip</button>
-        <button class="chip" data-key="walk" aria-pressed="true"><span class="dot"></span>Walk = position tween</button>
+        <button class="chip" data-key="walk" aria-pressed="true"><span class="dot"></span>Walk to station</button>
         <button class="chip" data-key="bob" aria-pressed="true"><span class="dot"></span>Procedural bob</button>
         <button class="chip" data-key="lunge" aria-pressed="true"><span class="dot"></span>Attack lunge</button>
         <button class="chip" data-key="proj" aria-pressed="true"><span class="dot"></span>Projectiles</button>
@@ -234,7 +234,7 @@
     </section>
 
     <aside class="metrics" id="metrics">
-      <h2>單位數值 (same numbers as the tags on the field)</h2>
+      <h2>單位數值 (straight out of the fixture, same numbers as the tags on the field)</h2>
       <div class="tables">
         <div>
           <p class="side-head blue">我方</p>
@@ -250,58 +250,58 @@
 
   <div class="legend">
     <div class="cell">
-      <h3>Real catalog stats</h3>
-      <p>攻 and 血 come from the card catalog, multiplied by that era's cost coefficient (1/2/3/5/8/12). Switch era and every number rescales exactly as the game does.</p>
-      <span class="cost">source: cards.gd + era.gd</span>
+      <h3>A replayer, not a simulator</h3>
+      <p>The page holds no rule. It reads a tick-stamped event list — <code>take_station</code>, <code>hit</code>, <code>miss</code>, <code>dodge</code>, <code>death</code>, <code>intercept</code>, <code>disable</code>, <code>shootdown</code>, <code>repair</code>, <code>medal</code> — and animates each entry at the tick it carries. It cannot drift from the rules, because it has nothing to drift with.</p>
+      <span class="cost">source: docs/fixtures/battle_timeline.json</span>
     </div>
     <div class="cell">
-      <h3>Accuracy, then dodge</h3>
-      <p>Every strike rolls 命中率 first; a hit then rolls the target's 閃避率. Two separate rolls in that fixed order, mirroring <code>Battle._fire</code>. Misses and dodges are labelled on the field.</p>
-      <span class="cost">MISS · 閃避 · -N</span>
+      <h3>掩護鏈: front to back</h3>
+      <p>自動佈陣 places four layers, front (midline) to back: <b>近戰列 → 工事線 → 遠程列 → 空域</b>, and each screens the one behind it. Units walk to their station and hold it — nobody chases anything here, because the standing arrangement <i>is</i> the cover.</p>
+      <span class="cost">ADR-0008</span>
     </div>
     <div class="cell">
-      <h3>Who may shoot at 空域</h3>
-      <p>近戰列 fights the enemy melee row, then its ground backline, and can <b>never</b> reach 空域. 遠程列 selects freely, air included. 空襲 hits ground only, so nothing in the game is air-to-air. A unit with no legal target simply holds position.</p>
-      <span class="cost">ADR-0006</span>
-    </div>
-    <div class="cell">
-      <h3>防空飛彈 fires, and a hit kills</h3>
-      <p>Each active battery fires once per 回合 at one aircraft. It has no attack value, so it ignores hit points exactly as it ignores attack values when it blocks: 一發飛彈就是一架飛機. 命中 100%, no 品質三項, and the target's 閃避率 still rolls. It exists from 工業 onward only.</p>
-      <span class="cost">擊落 · 有空軍才有防空</span>
-    </div>
-    <div class="cell">
-      <h3>Fortifications disable and repair</h3>
-      <p>One hit and a fort is <b>被禁用</b>, but it is <b>never removed</b>: it stays on the field until a 工兵團 repairs it, one per round, taking turns over the whole line. 盾陣 intercepts one melee attack aimed at a ground unit, and the interception is what disables it. Fortifications are <b>我方's alone</b>: a 正規軍 roster is built from unit cards only, and core's <code>battle.enemy_forts</code> is declared and never filled.</p>
+      <h3>盾陣 screens the 遠程列</h3>
+      <p>One card is one wall <b>segment</b> spanning the ranged row's frontage, which is why it draws as a run of wall rather than a single block. It intercepts one 近戰 attack aimed at that row and nothing else: an attack on the 近戰列 lands in front of it, and a shot at 空域 bypasses the 工事線 entirely.</p>
       <span class="cost">攔截 · 失效 · 修復</span>
     </div>
     <div class="cell">
-      <h3>Siege and air suppress</h3>
-      <p>火砲 (攻城) and 轟炸機 (空襲) prefer an <b>active</b> enemy fortification over any unit: one hit disables it, no roll. A disabled fort is inert and no longer a target, so the exchange is their strikes suppressing your line against your engineer repairing it.</p>
-      <span class="cost">no roll, one hit</span>
+      <h3>工兵團 stands behind the wall</h3>
+      <p>The engineer stations in the <b>遠程列</b> and works at the 工事線: the wall it repairs is the wall covering it. One repair per round, taking turns over the line, and it never attacks.</p>
+      <span class="cost">ADR-0007 + ADR-0008</span>
     </div>
     <div class="cell">
-      <h3>攻速 sets cadence</h3>
-      <p>A unit's 攻速 is attacks per 回合, so a 4.5-second demo round gives 攻速 1.4 a strike every 3.2s and 攻速 0.65 one every 6.9s. 工兵團 never attacks at all.</p>
-      <span class="cost">回合 = 4.5s</span>
+      <h3>正規軍 field screens too</h3>
+      <p>A 正規軍 wave that brings a 遠程列 unit brings the 盾陣 that covers it, so 火砲's 「可癱瘓敵方工事」 finally has something to bust. They field no 防空飛彈 and have no 工兵團 — strip an enemy screen and it stays down. That asymmetry is the engineer line's whole value.</p>
+      <span class="cost">敵方的工事永不修復</span>
+    </div>
+    <div class="cell">
+      <h3>Cover reads by position alone</h3>
+      <p>No cover indicator, no label, no highlight. The top-down camera exists so that 「this wall stands in front of those archers」 is something you simply see. If the arrangement does not read, that is a finding, not a missing overlay.</p>
+      <span class="cost">ADR-0009</span>
+    </div>
+    <div class="cell">
+      <h3>Real numbers, real rolls</h3>
+      <p>攻 and 血 are the catalog's values × that era's coefficient (1/2/3/5/8/12). The quality three are a real acquisition roll on the <code>cards</code> track; the enemy carries the engine defaults (命中 100%, 閃避 0%, 攻速 1.0) exactly as 戰鬥.md says every opponent does.</p>
+      <span class="cost">seeded, reproducible</span>
     </div>
     <div class="cell">
       <h3>Static sprite, cheap motion</h3>
-      <p>Each unit is a single PNG. Facing is an X flip, walking is a position tween, and liveliness is a sine bob. No walk-cycle frames exist, which is the point.</p>
+      <p>Each unit is a single PNG. Facing is an X flip, walking to station is a position tween, and liveliness is a sine bob. No walk-cycle frames exist, which is the point.</p>
       <span class="cost">0 animation frames</span>
     </div>
   </div>
 
   <div class="note">
-    <p><b>What this is.</b> A presentation sandbox for looking at units and their numbers. The top-down camera it started with <b>is now the game's battle camera</b>: this page is the evidence the decision rests on (<code>docs/adr/0009-the-battle-scene-is-top-down.md</code>, which overturned the 2026-07-25 stop; the exploration is logged in <code>explore-topdown-battle-and-units.md</code>). Watching the roster resolve here is also what surfaced the cover defect that became the ordered cover chain, <code>docs/adr/0008</code>: 盾陣 now screens the 遠程列 and 工兵團 stands behind the wall it repairs.</p>
-    <p><b>This page is one wave out of date, deliberately.</b> It still simulates the rules in its own JS, which is how it drifted from them once before. PLAN.md <b>W14.7</b> rewrites it as a <b>replayer</b> of the tick timeline <code>core/battle.gd</code> exports, with every rule deleted from the page, so it cannot diverge again. The approximations below describe the simulator and retire with it.</p>
-    <p><b>Deliberate approximations</b> (the numbers are the game's, the staging is not):</p>
+    <p><b>What this is.</b> The prototype of the battle scene W15 builds in-engine. Its top-down camera <b>is</b> the game's battle camera (<code>docs/adr/0009-the-battle-scene-is-top-down.md</code>), and watching the roster resolve on an earlier build of this page is what surfaced the cover defect that became the ordered cover chain (<code>docs/adr/0008</code>). The Godot battle scene will replay the same event contract from the same core, so anything that reads badly here reads badly there.</p>
+    <p><b>How the fixture is made.</b> <code>tools/export_timeline.gd</code> runs one 世界大戰-typed battle per era — the uncapped type, so it settles the moment the field can no longer change — with the player fielding one card per era-legal unit class plus its whole 工事線, and the enemy fielding one 正規軍 per era-legal roster type plus the 盾陣 its wave brings. Skill cards are left out: they have no station in the chain and nothing to render. Re-running the exporter and diffing is part of Part A, so a rule change that moves the timeline cannot leave this page stale.</p>
+    <p><b>One unit per class per side is load-bearing.</b> Timeline labels are card ids, so two 步兵團 on one side would share one label — <code>architecture.md</code> is explicit that labels are not identities. The fixtures give every unit a unique label per side, which is what lets this page key its handles off <code>(side, label)</code> at all.</p>
+    <p><b>Deliberate presentation choices</b> (the events are the game's, the staging is this page's):</p>
     <ul>
-      <li><b>Continuous movement replaces the row model.</b> <code>core/battle.gd</code> has no positions at all: a unit's only spatial attribute is a categorical row (melee / ranged / air). The columns and the walking here are invented by this view. A unit walks toward whatever it may legally hit, so an infantry line stands still once the only enemy left is airborne.</li>
-      <li><b>Nearest-enemy targeting replaces deploy-order focus fire.</b> Within each band of the matrix, core picks the first living defender in deploy order. This picks the nearest instead, keeping the bands themselves exact.</li>
-      <li><b>Both sides carry the quality triple.</b> In the real game only player units roll 命中率 / 閃避率 / 攻速; every enemy fights at accuracy 100, dodge 0, speed 1.0 (<code>battle.gd</code> engine defaults). Here both sides use the medium-band midpoints so misses and dodges are visible on both teams. The 防空飛彈 is the exception and matches core exactly: a 工事 has no quality triple, so it fires at the engine defaults.</li>
-      <li><b>The battery's shot is given flight time.</b> Core fires every battery atomically on the first tick of the round window, ahead of the strikes that suppress it. Here the missile is launched on the round boundary and resolves when it arrives, so you can see it; a missile already in the air still resolves even if the battery is disabled behind it.</li>
-      <li><b>僅剩空軍 ends the sandbox on 世界大戰's 僵局判定.</b> In the real game an air-only remnant does not end the battle — either side may still land ground forces, the player by deploying and the enemy by pending waves. This page has neither, so a field that can no longer change is settled immediately: the side holding 陸軍 wins, nobody holding 陸軍 = 我方判敗.</li>
-      <li><b>One unit per class, one battle.</b> No waves, no 軍費, no skill cards, no growth or medals, no difficulty scaling. Rolls use <code>Math.random</code>: determinism is the core's contract, not this sandbox's. 我方 wins most matchups here purely because it is the only side with fortifications — this is a legibility sandbox, not a balance test.</li>
+      <li><b>Positions are invented here.</b> <code>core/battle.gd</code> has no coordinates: a unit's only spatial attribute is its categorical row, plus — for the 遠程列 — the card id of the wall screening it, which arrives as <code>take_station</code>. The columns, the lanes, the walk-in and the wall's tiled frontage are all this page's staging of that.</li>
+      <li><b>A round is stretched to 4.5 s.</b> 攻 and 血 both scale by the era coefficient, so a strike is worth one or two units' whole HP at every era. Ticks map linearly onto those 4.5 s, so an event at tick 74 lands three quarters of the way through the window.</li>
+      <li><b>Flight time is cosmetic.</b> Core resolves a strike atomically at its tick. Here a thrown weapon gets travel time and its damage number lands on impact; a death waits for the projectile that killed it so an aircraft is not gone before the missile arrives.</li>
+      <li><b>No 軍費 decisions, no waves, no growth loop.</b> The whole roster is committed at the opening boundary and the battle runs to its end. What the fixture does record — 本場已燒軍費 and 戰功 — is shown on the closing card.</li>
+      <li><b>The enemy's era forms are drawn with the same sprites as ours,</b> mirrored. A per-side art split is a W14.8 question, not a rule.</li>
     </ul>
   </div>
 
@@ -314,12 +314,13 @@
       euler/simple, 8 steps, cfg 1.0) at seed 501, plus five review re-rolls at seed 403; prompt
       and seed for all 60 are recorded in <code>docs/tools/topdown_demo_sprites.json</code>.
       Embedded here at 256px and
-      128 colours with the grey render background keyed out. Columns are the card catalog's
-      per-class form names (<code>core/data/cards.gd</code>); a dash means that class has no form
-      in that era, so no sprite was rendered. The three exceptions are 防空飛彈 era 1–3
+      128 colours with the grey render background keyed out. Columns are the per-class era forms the
+      fixtures actually put on the field (so this table, like the field, holds no catalog
+      transcription of its own); a dash means that class has no form in that era, so no sprite
+      was rendered. The three exceptions are 防空飛彈 era 1–3
       (擋箭棚／箭樓／城防塔): those renders exist and are still embedded in this file, but the forms
-      themselves were retired by ADR-0006 (有空軍才有防空), so the table shows a dash and the demo
-      never places them.</p>
+      themselves were retired by ADR-0006 (有空軍才有防空), so the table shows a dash and no
+      fixture ever places them.</p>
     <div class="tscroll"><table id="asset-table"></table></div>
     <h2 class="sep">Flying weapons</h2>
     <p class="sub">Projectile art has no era of its own: one sprite per ammunition type, mapped
@@ -332,7 +333,7 @@
     <!-- @CREDITS-BEGIN -->
     sprites: 60 exploratory top-down raws (256px, 128-colour, background keyed to transparent) from assets/exploration/topdown-demo/ · raws only, never pipeline assets.
     <!-- @CREDITS-END --><br>
-    exploratory prototype · view-layer only; the deterministic tick core is untouched.
+    timeline replayer · view-layer only, zero rule code; the deterministic tick core is the only source of events.
   </footer>
 </div>
 
@@ -466,6 +467,26 @@ const SPRITE_SRC = {
 };
 /* @SPRITES-END */
 
+/* @TIMELINE-BEGIN */
+// generated by docs/tools/build_motion_demo.py from docs/fixtures/battle_timeline.json
+// (produced by tools/export_timeline.gd; do not hand-edit)
+const TIMELINE = {"eras":[{"battle_type":"world_war","coeff":1,"era":1,"era_id":"tribal","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"木盾牆","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"木盾牆","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":1,"guarded":false,"merit":9,"outcome":"win","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"cavalry","damage":2,"side":"player","target":"cavalry","tick":64,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":64,"type":"death","victim":"cavalry"},{"by":"infantry","damage":1,"side":"player","target":"infantry","tick":89,"type":"hit"},{"by":"infantry","damage":1,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"archers","damage":1,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"archers","faction":"player","side":"enemy","tick":100,"type":"death","victim":"infantry"}],"round":1},{"events":[{"by":"archers","damage":1,"side":"player","target":"infantry","tick":2,"type":"hit"},{"by":"archers","faction":"enemy","side":"player","tick":2,"type":"death","victim":"infantry"},{"by":"cavalry","card_id":"shield_wall","side":"player","tick":28,"type":"intercept"},{"by":"cavalry","damage":2,"side":"player","target":"archers","tick":91,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":91,"type":"death","victim":"archers"}],"round":2}],"spent":12,"units":[{"accuracy":86.5765687823296,"attack":1,"card_id":"infantry","dodge":13.2691818475723,"flags":[],"form":"棍棒戰團","hp":2,"label":"infantry","regular":false,"row":"melee","side":"player","speed":1.12691935300827,"zh":"步兵團"},{"accuracy":71.4959645271301,"attack":1,"card_id":"archers","dodge":15.8622565865517,"flags":[],"form":"投石手","hp":1,"label":"archers","regular":false,"row":"ranged","side":"player","speed":0.988884377479553,"zh":"弓箭團"},{"accuracy":93.0016613006592,"attack":2,"card_id":"cavalry","dodge":40.9942826628685,"flags":[],"form":"馭獸騎手","hp":2,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.57382488250732,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":5.55813994258642,"flags":["repairs_fortifications","no_attack"],"form":"修路隊","hp":3,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":100.0,"attack":2,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"馭獸騎手","hp":2,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":1,"card_id":"infantry","dodge":0.0,"flags":[],"form":"棍棒戰團","hp":2,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":1,"card_id":"archers","dodge":0.0,"flags":[],"form":"投石手","hp":1,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"player"},{"battle_type":"world_war","coeff":2,"era":2,"era_id":"classical","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"盾陣","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"盾陣","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":9,"guarded":false,"merit":0,"outcome":"loss","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"elite_forces","damage":6,"side":"player","target":"elite_forces","tick":67,"type":"hit"},{"by":"cavalry","side":"player","target":"elite_forces","tick":78,"type":"miss"},{"by":"elite_forces","damage":6,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"elite_forces","faction":"player","side":"enemy","tick":100,"type":"death","victim":"infantry"},{"by":"cavalry","damage":4,"side":"enemy","target":"cavalry","tick":100,"type":"hit"},{"by":"cavalry","faction":"player","side":"enemy","tick":100,"type":"death","victim":"cavalry"},{"by":"infantry","damage":2,"side":"enemy","target":"elite_forces","tick":100,"type":"hit"},{"by":"archers","damage":2,"side":"enemy","target":"archers","tick":100,"type":"hit"},{"by":"archers","faction":"player","side":"enemy","tick":100,"type":"death","victim":"archers"}],"round":1},{"events":[{"by":"elite_forces","side":"player","target":"elite_forces","tick":34,"type":"miss"},{"by":"elite_forces","damage":6,"side":"enemy","target":"elite_forces","tick":100,"type":"hit"},{"by":"elite_forces","faction":"player","side":"enemy","tick":100,"type":"death","victim":"elite_forces"},{"by":"cavalry","card_id":"shield_wall","side":"enemy","tick":100,"type":"intercept"},{"by":"infantry","damage":2,"side":"enemy","target":"engineers","tick":100,"type":"hit"},{"by":"archers","damage":2,"side":"enemy","target":"engineers","tick":100,"type":"hit"}],"round":2},{"events":[{"card_id":"shield_wall","side":"player","tick":0,"type":"repair"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"by":"elite_forces","card_id":"shield_wall","side":"enemy","tick":100,"type":"intercept"},{"by":"cavalry","damage":4,"side":"enemy","target":"engineers","tick":100,"type":"hit"},{"by":"cavalry","faction":"player","side":"enemy","tick":100,"type":"death","victim":"engineers"}],"round":3}],"spent":34,"units":[{"accuracy":90.2127087116241,"attack":2,"card_id":"infantry","dodge":14.1678839921951,"flags":[],"form":"長矛方陣","hp":4,"label":"infantry","regular":false,"row":"melee","side":"player","speed":0.923941089212894,"zh":"步兵團"},{"accuracy":60.4240791127086,"attack":2,"card_id":"archers","dodge":11.486586406827,"flags":[],"form":"弓箭團","hp":2,"label":"archers","regular":false,"row":"ranged","side":"player","speed":0.904480436444283,"zh":"弓箭團"},{"accuracy":84.835367500782,"attack":4,"card_id":"cavalry","dodge":24.7397017478943,"flags":[],"form":"戰車騎兵","hp":4,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.28556835651398,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":8.64124894142151,"flags":["repairs_fortifications","no_attack"],"form":"築城匠","hp":6,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":90.799719274044,"attack":6,"card_id":"elite_forces","dodge":33.9469450712204,"flags":[],"form":"禁衛軍","hp":8,"label":"elite_forces","regular":false,"row":"melee","side":"player","speed":1.49441685676575,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":6,"card_id":"elite_forces","dodge":0.0,"flags":[],"form":"禁衛軍","hp":8,"label":"elite_forces","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":4,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"戰車騎兵","hp":4,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":2,"card_id":"infantry","dodge":0.0,"flags":[],"form":"長矛方陣","hp":4,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":2,"card_id":"archers","dodge":0.0,"flags":[],"form":"弓箭團","hp":2,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"enemy"},{"battle_type":"world_war","coeff":3,"era":3,"era_id":"faith","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"城垛","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"城垛","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":17,"guarded":false,"merit":66,"outcome":"win","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"privateers"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"artillery"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"cavalry","damage":6,"side":"player","target":"elite_forces","tick":60,"type":"hit"},{"by":"privateers","damage":6,"side":"player","target":"elite_forces","tick":98,"type":"hit"},{"by":"privateers","faction":"enemy","side":"player","tick":98,"type":"death","victim":"elite_forces"},{"by":"elite_forces","damage":9,"side":"player","target":"cavalry","tick":100,"type":"hit"},{"by":"elite_forces","faction":"enemy","side":"player","tick":100,"type":"death","victim":"cavalry"},{"by":"artillery","card_id":"shield_wall","side":"enemy","tick":100,"type":"disable"},{"by":"infantry","damage":3,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"attacker":"archers","by":"infantry","side":"player","tick":100,"type":"dodge"}],"round":1},{"events":[{"card_id":"shield_wall","side":"player","tick":0,"type":"repair"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"by":"infantry","damage":3,"side":"player","target":"infantry","tick":8,"type":"hit"},{"by":"cavalry","damage":6,"side":"player","target":"infantry","tick":20,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":20,"type":"death","victim":"infantry"},{"by":"archers","side":"player","target":"artillery","tick":79,"type":"miss"},{"by":"cavalry","card_id":"shield_wall","side":"player","tick":80,"type":"intercept"},{"by":"privateers","damage":6,"side":"player","target":"artillery","tick":95,"type":"hit"},{"by":"privateers","faction":"enemy","side":"player","tick":95,"type":"death","victim":"artillery"},{"by":"elite_forces","side":"player","target":"archers","tick":100,"type":"miss"},{"by":"archers","damage":3,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"archers","faction":"player","side":"enemy","tick":100,"type":"death","victim":"infantry"}],"round":2},{"events":[{"row":"ranged","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"cavalry","damage":6,"side":"player","target":"archers","tick":39,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":39,"type":"death","victim":"archers"}],"round":3}],"spent":81,"units":[{"accuracy":90.6010460853577,"attack":3,"card_id":"infantry","dodge":9.19949263334274,"flags":[],"form":"劍盾步兵","hp":6,"label":"infantry","regular":false,"row":"melee","side":"player","speed":0.932329116761684,"zh":"步兵團"},{"accuracy":40.3864562883973,"attack":3,"card_id":"archers","dodge":4.05426859855652,"flags":[],"form":"弩手連","hp":3,"label":"archers","regular":false,"row":"ranged","side":"player","speed":0.558823485672474,"zh":"弓箭團"},{"accuracy":90.7105159014463,"attack":6,"card_id":"cavalry","dodge":42.7976444363594,"flags":[],"form":"重裝騎士團","hp":6,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.67374956607819,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":6.53604164719582,"flags":["repairs_fortifications","no_attack"],"form":"攻城工兵","hp":9,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":87.2858753204346,"attack":9,"card_id":"elite_forces","dodge":11.1839786171913,"flags":[],"form":"聖殿武士","hp":12,"label":"elite_forces","regular":false,"row":"melee","side":"player","speed":1.00388593673706,"zh":"菁英特種部隊"},{"accuracy":49.6173524856567,"attack":12,"card_id":"artillery","dodge":0.0,"flags":["siege"],"form":"射石砲","hp":6,"label":"artillery","regular":false,"row":"ranged","side":"player","speed":0.327039780467749,"zh":"火砲"},{"accuracy":83.6967301368713,"attack":6,"card_id":"privateers","dodge":19.9520674347878,"flags":["plunder"],"form":"盜匪","hp":9,"label":"privateers","regular":false,"row":"melee","side":"player","speed":1.026987785846,"zh":"私掠傭兵"},{"accuracy":100.0,"attack":9,"card_id":"elite_forces","dodge":0.0,"flags":[],"form":"聖殿武士","hp":12,"label":"elite_forces","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":12,"card_id":"artillery","dodge":0.0,"flags":["siege"],"form":"射石砲","hp":6,"label":"artillery","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"火砲"},{"accuracy":100.0,"attack":6,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"重裝騎士團","hp":6,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":3,"card_id":"infantry","dodge":0.0,"flags":[],"form":"劍盾步兵","hp":6,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":3,"card_id":"archers","dodge":0.0,"flags":[],"form":"弩手連","hp":3,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"player"},{"battle_type":"world_war","coeff":5,"era":4,"era_id":"industrial","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"沙包工事","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"anti_air","flags":["fires_at_air"],"form":"高射砲","label":"anti_air","side":"player","zh":"防空飛彈"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"沙包工事","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":25,"guarded":false,"merit":150,"outcome":"win","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"row":"air","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"bomber"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"holy_warriors"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"privateers"},{"row":"air","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"bomber"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"artillery"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"anti_air","side":"player","target":"bomber","tick":1,"type":"shootdown"},{"by":"anti_air","faction":"enemy","side":"player","tick":1,"type":"death","victim":"bomber"},{"by":"holy_warriors","damage":20,"side":"player","target":"elite_forces","tick":74,"type":"hit"},{"by":"holy_warriors","faction":"enemy","side":"player","tick":74,"type":"death","victim":"elite_forces"},{"by":"cavalry","damage":10,"side":"player","target":"cavalry","tick":80,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":80,"type":"death","victim":"cavalry"},{"by":"elite_forces","damage":15,"side":"player","target":"infantry","tick":84,"type":"hit"},{"by":"elite_forces","faction":"enemy","side":"player","tick":84,"type":"death","victim":"infantry"},{"by":"privateers","card_id":"shield_wall","side":"player","tick":84,"type":"intercept"},{"by":"archers","side":"player","target":"artillery","tick":94,"type":"miss"},{"by":"infantry","damage":5,"side":"player","target":"artillery","tick":96,"type":"hit"},{"by":"artillery","card_id":"shield_wall","side":"enemy","tick":100,"type":"disable"},{"by":"archers","damage":5,"side":"enemy","target":"infantry","tick":100,"type":"hit"}],"round":1},{"events":[{"card_id":"shield_wall","side":"player","tick":0,"type":"repair"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"row":"ranged","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"artillery"},{"row":"ranged","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"holy_warriors","damage":20,"side":"player","target":"artillery","tick":48,"type":"hit"},{"by":"holy_warriors","faction":"enemy","side":"player","tick":48,"type":"death","victim":"artillery"},{"by":"artillery","damage":20,"side":"player","target":"archers","tick":50,"type":"hit"},{"by":"artillery","faction":"enemy","side":"player","tick":50,"type":"death","victim":"archers"}],"round":2}],"spent":215,"units":[{"accuracy":94.7085857391357,"attack":5,"card_id":"infantry","dodge":13.3990234136581,"flags":[],"form":"線列步兵","hp":10,"label":"infantry","regular":false,"row":"melee","side":"player","speed":1.04313011169434,"zh":"步兵團"},{"accuracy":76.0858869552612,"attack":5,"card_id":"archers","dodge":22.4446272850037,"flags":[],"form":"火槍散兵","hp":5,"label":"archers","regular":false,"row":"ranged","side":"player","speed":1.07011416554451,"zh":"弓箭團"},{"accuracy":80.2907167002559,"attack":10,"card_id":"cavalry","dodge":21.1930574476719,"flags":[],"form":"龍騎兵","hp":10,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.25300121307373,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":12.4884033203125,"flags":["repairs_fortifications","no_attack"],"form":"工兵營","hp":15,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":97.9207162857056,"attack":15,"card_id":"elite_forces","dodge":25.0367379188538,"flags":[],"form":"擲彈兵","hp":20,"label":"elite_forces","regular":false,"row":"melee","side":"player","speed":1.19399868249893,"zh":"菁英特種部隊"},{"accuracy":56.5651586651802,"attack":20,"card_id":"artillery","dodge":8.60075950622559,"flags":["siege"],"form":"野戰砲","hp":10,"label":"artillery","regular":false,"row":"ranged","side":"player","speed":0.670554873347282,"zh":"火砲"},{"accuracy":78.998586833477,"attack":25,"card_id":"bomber","dodge":8.13831597566605,"flags":["air_strike","non_land"],"form":"飛船轟炸隊","hp":15,"label":"bomber","regular":false,"row":"air","side":"player","speed":0.579684665799141,"zh":"轟炸機"},{"accuracy":92.4695354700089,"attack":20,"card_id":"holy_warriors","dodge":0.639976859092712,"flags":["fanatic"],"form":"神權火槍旅","hp":5,"label":"holy_warriors","regular":false,"row":"melee","side":"player","speed":1.35662981271744,"zh":"聖戰士團"},{"accuracy":89.6729093790054,"attack":10,"card_id":"privateers","dodge":24.7689116001129,"flags":["plunder"],"form":"竊賊","hp":15,"label":"privateers","regular":false,"row":"melee","side":"player","speed":1.20347378849983,"zh":"私掠傭兵"},{"accuracy":100.0,"attack":25,"card_id":"bomber","dodge":0.0,"flags":["air_strike","non_land"],"form":"飛船轟炸隊","hp":15,"label":"bomber","regular":true,"row":"air","side":"enemy","speed":1.0,"zh":"轟炸機"},{"accuracy":100.0,"attack":15,"card_id":"elite_forces","dodge":0.0,"flags":[],"form":"擲彈兵","hp":20,"label":"elite_forces","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":20,"card_id":"artillery","dodge":0.0,"flags":["siege"],"form":"野戰砲","hp":10,"label":"artillery","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"火砲"},{"accuracy":100.0,"attack":10,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"龍騎兵","hp":10,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":5,"card_id":"infantry","dodge":0.0,"flags":[],"form":"線列步兵","hp":10,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":5,"card_id":"archers","dodge":0.0,"flags":[],"form":"火槍散兵","hp":5,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"player"},{"battle_type":"world_war","coeff":8,"era":5,"era_id":"modern","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"電網","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"anti_air","flags":["fires_at_air"],"form":"防空飛彈","label":"anti_air","side":"player","zh":"防空飛彈"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"電網","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":33,"guarded":false,"merit":240,"outcome":"win","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"row":"air","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"bomber"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"privateers"},{"row":"air","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"bomber"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"artillery"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"anti_air","side":"player","target":"bomber","tick":1,"type":"shootdown"},{"by":"anti_air","faction":"enemy","side":"player","tick":1,"type":"death","victim":"bomber"},{"by":"cavalry","damage":16,"side":"player","target":"elite_forces","tick":56,"type":"hit"},{"by":"elite_forces","damage":24,"side":"player","target":"elite_forces","tick":68,"type":"hit"},{"by":"elite_forces","faction":"enemy","side":"player","tick":68,"type":"death","victim":"elite_forces"},{"by":"privateers","damage":16,"side":"player","target":"cavalry","tick":80,"type":"hit"},{"by":"privateers","faction":"enemy","side":"player","tick":80,"type":"death","victim":"cavalry"},{"by":"artillery","card_id":"shield_wall","side":"enemy","tick":100,"type":"disable"},{"by":"infantry","damage":8,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"archers","damage":8,"side":"enemy","target":"infantry","tick":100,"type":"hit"},{"by":"archers","faction":"player","side":"enemy","tick":100,"type":"death","victim":"infantry"}],"round":1},{"events":[{"card_id":"shield_wall","side":"player","tick":0,"type":"repair"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"by":"archers","side":"player","target":"artillery","tick":11,"type":"miss"},{"by":"cavalry","damage":16,"side":"player","target":"infantry","tick":12,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":12,"type":"death","victim":"infantry"},{"by":"elite_forces","card_id":"shield_wall","side":"player","tick":35,"type":"intercept"},{"by":"artillery","side":"player","target":"artillery","tick":42,"type":"miss"},{"by":"privateers","damage":16,"side":"player","target":"artillery","tick":59,"type":"hit"},{"by":"privateers","faction":"enemy","side":"player","tick":59,"type":"death","victim":"artillery"},{"by":"cavalry","damage":16,"side":"player","target":"archers","tick":67,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":67,"type":"death","victim":"archers"}],"round":2}],"spent":312,"units":[{"accuracy":81.5984916687012,"attack":8,"card_id":"infantry","dodge":2.3283426463604,"flags":[],"form":"摩托化步兵","hp":16,"label":"infantry","regular":false,"row":"melee","side":"player","speed":0.692379972338677,"zh":"步兵團"},{"accuracy":64.9206814169884,"attack":8,"card_id":"archers","dodge":17.9418125748634,"flags":[],"form":"狙擊小隊","hp":8,"label":"archers","regular":false,"row":"ranged","side":"player","speed":0.906506219506264,"zh":"弓箭團"},{"accuracy":95.2684056758881,"attack":16,"card_id":"cavalry","dodge":33.4651927649975,"flags":[],"form":"坦克營","hp":16,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.79853091239929,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":13.9846086502075,"flags":["repairs_fortifications","no_attack"],"form":"機械化工兵","hp":24,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":93.0166733264923,"attack":24,"card_id":"elite_forces","dodge":20.4249660950154,"flags":[],"form":"特種部隊","hp":32,"label":"elite_forces","regular":false,"row":"melee","side":"player","speed":1.49075038433075,"zh":"菁英特種部隊"},{"accuracy":55.8080588281155,"attack":32,"card_id":"artillery","dodge":9.20113980770111,"flags":["siege"],"form":"自走砲","hp":16,"label":"artillery","regular":false,"row":"ranged","side":"player","speed":0.708054068684578,"zh":"火砲"},{"accuracy":73.5351561754942,"attack":40,"card_id":"bomber","dodge":14.0555018186569,"flags":["air_strike","non_land"],"form":"轟炸機聯隊","hp":24,"label":"bomber","regular":false,"row":"air","side":"player","speed":0.575579330325127,"zh":"轟炸機"},{"accuracy":82.6674845814705,"attack":16,"card_id":"privateers","dodge":17.1010182797909,"flags":["plunder"],"form":"網路駭客","hp":24,"label":"privateers","regular":false,"row":"melee","side":"player","speed":1.26444767713547,"zh":"私掠傭兵"},{"accuracy":100.0,"attack":40,"card_id":"bomber","dodge":0.0,"flags":["air_strike","non_land"],"form":"轟炸機聯隊","hp":24,"label":"bomber","regular":true,"row":"air","side":"enemy","speed":1.0,"zh":"轟炸機"},{"accuracy":100.0,"attack":24,"card_id":"elite_forces","dodge":0.0,"flags":[],"form":"特種部隊","hp":32,"label":"elite_forces","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":32,"card_id":"artillery","dodge":0.0,"flags":["siege"],"form":"自走砲","hp":16,"label":"artillery","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"火砲"},{"accuracy":100.0,"attack":16,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"坦克營","hp":16,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":8,"card_id":"infantry","dodge":0.0,"flags":[],"form":"摩托化步兵","hp":16,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":8,"card_id":"archers","dodge":0.0,"flags":[],"form":"狙擊小隊","hp":8,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"player"},{"battle_type":"world_war","coeff":12,"era":6,"era_id":"information","forts":[{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"複合裝甲牆","label":"shield_wall","side":"player","zh":"盾陣"},{"card_id":"anti_air","flags":["fires_at_air"],"form":"雷射攔截網","label":"anti_air","side":"player","zh":"防空飛彈"},{"card_id":"shield_wall","flags":["screens_ranged_row"],"form":"複合裝甲牆","label":"shield_wall","side":"enemy","zh":"盾陣"}],"generation":41,"guarded":false,"merit":360,"outcome":"win","rounds":[{"events":[{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"cavalry"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"melee","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"row":"air","screened_by":"","side":"player","tick":0,"type":"take_station","unit":"bomber"},{"row":"air","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"bomber"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"elite_forces"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"artillery"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"cavalry"},{"row":"melee","screened_by":"","side":"enemy","tick":0,"type":"take_station","unit":"infantry"},{"row":"ranged","screened_by":"shield_wall","side":"enemy","tick":0,"type":"take_station","unit":"archers"},{"by":"anti_air","side":"player","target":"bomber","tick":1,"type":"shootdown"},{"by":"anti_air","faction":"enemy","side":"player","tick":1,"type":"death","victim":"bomber"},{"by":"infantry","damage":12,"side":"player","target":"elite_forces","tick":67,"type":"hit"},{"by":"elite_forces","damage":36,"side":"player","target":"elite_forces","tick":73,"type":"hit"},{"by":"elite_forces","faction":"enemy","side":"player","tick":73,"type":"death","victim":"elite_forces"},{"by":"cavalry","damage":24,"side":"player","target":"cavalry","tick":88,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":88,"type":"death","victim":"cavalry"},{"by":"artillery","card_id":"shield_wall","side":"enemy","tick":100,"type":"disable"},{"attacker":"infantry","by":"infantry","side":"player","tick":100,"type":"dodge"},{"by":"archers","damage":12,"side":"enemy","target":"infantry","tick":100,"type":"hit"}],"round":1},{"events":[{"card_id":"shield_wall","side":"player","tick":0,"type":"repair"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"archers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"engineers"},{"row":"ranged","screened_by":"shield_wall","side":"player","tick":0,"type":"take_station","unit":"artillery"},{"by":"archers","damage":12,"side":"player","target":"artillery","tick":3,"type":"hit"},{"by":"infantry","damage":12,"side":"player","target":"infantry","tick":34,"type":"hit"},{"by":"artillery","card_id":"shield_wall","side":"player","tick":44,"type":"disable"},{"by":"elite_forces","damage":36,"side":"player","target":"infantry","tick":46,"type":"hit"},{"by":"elite_forces","faction":"enemy","side":"player","tick":46,"type":"death","victim":"infantry"},{"by":"bomber","damage":60,"side":"player","target":"artillery","tick":47,"type":"hit"},{"by":"bomber","faction":"enemy","side":"player","tick":47,"type":"death","victim":"artillery"},{"by":"cavalry","damage":24,"side":"player","target":"archers","tick":75,"type":"hit"},{"by":"cavalry","faction":"enemy","side":"player","tick":75,"type":"death","victim":"archers"}],"round":2}],"spent":420,"units":[{"accuracy":95.3291418775916,"attack":12,"card_id":"infantry","dodge":21.378111243248,"flags":[],"form":"動力裝甲兵","hp":24,"label":"infantry","regular":false,"row":"melee","side":"player","speed":1.49342222213745,"zh":"步兵團"},{"accuracy":65.0872427225113,"attack":12,"card_id":"archers","dodge":17.0417588949203,"flags":[],"form":"精準飛彈組","hp":12,"label":"archers","regular":false,"row":"ranged","side":"player","speed":0.975604116916657,"zh":"弓箭團"},{"accuracy":88.4975355863571,"attack":24,"card_id":"cavalry","dodge":29.2853933572769,"flags":[],"form":"無人戰車群","hp":24,"label":"cavalry","regular":false,"row":"melee","side":"player","speed":1.14777103662491,"zh":"騎兵團"},{"accuracy":0.0,"attack":0,"card_id":"engineers","dodge":10.5310618877411,"flags":["repairs_fortifications","no_attack"],"form":"戰鬥工程隊","hp":36,"label":"engineers","regular":false,"row":"ranged","side":"player","speed":0.0,"zh":"工兵團"},{"accuracy":93.3486788272858,"attack":36,"card_id":"elite_forces","dodge":33.1582522392273,"flags":[],"form":"生化超級士兵","hp":48,"label":"elite_forces","regular":false,"row":"melee","side":"player","speed":1.37801113128662,"zh":"菁英特種部隊"},{"accuracy":59.1177091002464,"attack":48,"card_id":"artillery","dodge":0.417588762938976,"flags":["siege"],"form":"電磁砲","hp":24,"label":"artillery","regular":false,"row":"ranged","side":"player","speed":0.696753707528114,"zh":"火砲"},{"accuracy":76.3809359073639,"attack":60,"card_id":"bomber","dodge":9.86310720443726,"flags":["air_strike","non_land"],"form":"匿蹤轟炸機","hp":36,"label":"bomber","regular":false,"row":"air","side":"player","speed":0.682642465829849,"zh":"轟炸機"},{"accuracy":100.0,"attack":60,"card_id":"bomber","dodge":0.0,"flags":["air_strike","non_land"],"form":"匿蹤轟炸機","hp":36,"label":"bomber","regular":true,"row":"air","side":"enemy","speed":1.0,"zh":"轟炸機"},{"accuracy":100.0,"attack":36,"card_id":"elite_forces","dodge":0.0,"flags":[],"form":"生化超級士兵","hp":48,"label":"elite_forces","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"菁英特種部隊"},{"accuracy":100.0,"attack":48,"card_id":"artillery","dodge":0.0,"flags":["siege"],"form":"電磁砲","hp":24,"label":"artillery","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"火砲"},{"accuracy":100.0,"attack":24,"card_id":"cavalry","dodge":0.0,"flags":[],"form":"無人戰車群","hp":24,"label":"cavalry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"騎兵團"},{"accuracy":100.0,"attack":12,"card_id":"infantry","dodge":0.0,"flags":[],"form":"動力裝甲兵","hp":24,"label":"infantry","regular":true,"row":"melee","side":"enemy","speed":1.0,"zh":"步兵團"},{"accuracy":100.0,"attack":12,"card_id":"archers","dodge":0.0,"flags":[],"form":"精準飛彈組","hp":12,"label":"archers","regular":true,"row":"ranged","side":"enemy","speed":1.0,"zh":"弓箭團"}],"winner":"player"}],"generated_by":"tools/export_timeline.gd","note":"One full-roster 世界大戰 per era, replayed from core's own tick timeline. Every unit label is unique per side by construction.","seed":20260728,"ticks_per_round":100};
+/* @TIMELINE-END */
+
+/* ==========================================================================================
+   A REPLAYER, NOT A SIMULATOR.
+
+   There is no combat code on this page. Every hit, miss, dodge, interception, disable, repair,
+   shoot-down and station below is read out of the tick timeline `core/battle.gd` emitted,
+   exported by `tools/export_timeline.gd` into `docs/fixtures/battle_timeline.json` and embedded
+   above by `docs/tools/build_motion_demo.py`. The page decides where things stand and how they
+   move; it decides nothing about what happens (PLAN.md W14.7, ADR-0008/0009).
+
+   The previous version of this file simulated the rules in its own JS and drifted from them
+   between the 2026-07-25 session and ADR-0006/0007. That is the failure mode this rewrite
+   removes: a replayer cannot diverge, because it has nothing to diverge with.
+   ========================================================================================== */
+
 const cv = document.getElementById('field');
 const ctx = cv.getContext('2d');
 const W = cv.width, H = cv.height;
@@ -497,448 +518,367 @@ function spriteKey(cls, era){
   return null;
 }
 
-// --- data layer -------------------------------------------------------------------------
-// Hand-transcribed from core/data/cards.gd (CARDS catalog + QUALITY medium bands) and
-// core/era.gd (COST_COEFF). atk/hp are the tier-1 catalog bases, scaled x the era coefficient.
-// acc/dodge/speed are the MIDPOINTS of each class's v1 medium quality band (cards.gd QUALITY);
-// the real game rolls a value inside the band per instance and only for player units.
-const ERA_COEFF = [1, 2, 3, 5, 8, 12];
+// --- presentation-only tables ---------------------------------------------------------------
+// Nothing here is a rule and nothing here is transcribed from the catalog. 攻/血, the quality
+// three, form names, rows and the fort line all arrive in the fixture; these tables only say how
+// big a sprite draws, how it moves, and what it throws.
 const ERA_LABEL = ['部落', '古典', '信仰', '工業', '現代', '資訊'];
+const ROW_TAG = {melee:'近戰列', ranged:'遠程列', air:'空域', fortification:'工事線'};
 
-const CLASSES = {
-  infantry:      {zh:'步兵團', row:'melee', atk:1, hp:2, acc:90,   dodge:10,   speed:1.05, flags:[],
-                  era_names:['棍棒戰團','長矛方陣','劍盾步兵','線列步兵','摩托化步兵','動力裝甲兵']},
-  archers:       {zh:'弓箭團', row:'ranged', atk:1, hp:1, acc:70,   dodge:17.5, speed:0.95, flags:[],
-                  era_names:['投石手','弓箭團','弩手連','火槍散兵','狙擊小隊','精準飛彈組']},
-  cavalry:       {zh:'騎兵團', row:'melee', atk:2, hp:2, acc:85,   dodge:22.5, speed:1.20, flags:[],
-                  era_names:['馭獸騎手','戰車騎兵','重裝騎士團','龍騎兵','坦克營','無人戰車群']},
-  engineers:     {zh:'工兵團', row:'melee', atk:0, hp:3, acc:null, dodge:10,   speed:null,
-                  flags:['no_attack','repairs_fortifications'],
-                  era_names:['修路隊','築城匠','攻城工兵','工兵營','機械化工兵','戰鬥工程隊']},
-  elite_forces:  {zh:'菁英特種部隊', row:'melee', atk:3, hp:4, acc:94, dodge:27.5, speed:1.30, flags:[],
-                  era_names:['','禁衛軍','聖殿武士','擲彈兵','特種部隊','生化超級士兵']},
-  artillery:     {zh:'火砲', row:'ranged', atk:4, hp:2, acc:65,   dodge:5,    speed:0.75, flags:['siege'],
-                  era_names:['','','射石砲','野戰砲','自走砲','電磁砲']},
-  bomber:        {zh:'轟炸機', row:'air', atk:5, hp:3, acc:77.5, dodge:10,   speed:0.65,
-                  flags:['air_strike','non_land'],
-                  era_names:['','','','飛船轟炸隊','轟炸機聯隊','匿蹤轟炸機']},
-  holy_warriors: {zh:'聖戰士團', row:'melee', atk:4, hp:1, acc:90, dodge:5,    speed:1.40, flags:['fanatic'],
-                  era_names:['','','','神權火槍旅','','']},
-  privateers:    {zh:'私掠傭兵', row:'melee', atk:2, hp:3, acc:85, dodge:17.5, speed:1.15, flags:['plunder'],
-                  era_names:['','','盜匪','竊賊','網路駭客','']},
-  // 工事卡 have no stats at all: 運作中／被禁用 is their whole state (ADR-0007).
-  shield_wall:   {zh:'盾陣', row:'fortification', atk:0, hp:0, acc:null, dodge:null, speed:null,
-                  flags:['blocks_melee_once'],
-                  era_names:['木盾牆','盾陣','城垛','沙包工事','電網','複合裝甲牆']},
-  // 防空飛彈始於工業時代——有空軍才有防空 (ADR-0006). The era 1-3 forms 擋箭棚／箭樓／城防塔 are
-  // retired along with the 「攔一次遠程」 job they used to do; their renders stay in the asset
-  // table below as a dash, knowingly stranded.
-  anti_air:      {zh:'防空飛彈', row:'fortification', atk:0, hp:0, acc:null, dodge:null, speed:null,
-                  flags:['fires_at_air'],
-                  era_names:['','','','高射砲','防空飛彈','雷射攔截網']},
-};
-
-// Display-only knobs: sprite draw width, walk speed in px/s, engagement range in px.
-// Nothing here comes from the game; the core has no distances at all.
-// atk = how the attack READS, per class. Not every unit swings: a musket line recoils, a
-// field gun kicks back hard, a bomber banks over its target and drops. Purely presentational.
+// atk = how the attack READS, per class: a swing throws the body forward, a musket line recoils,
+// a field gun kicks back hard, a bomber banks over its target. Purely presentational.
 const RENDER = {
-  infantry:      {w:122, mv:84,  range:92,  atk:'lunge'},
-  archers:       {w:116, mv:78,  range:620, atk:'recoil'},
-  cavalry:       {w:150, mv:118, range:100, atk:'charge'},
-  engineers:     {w:118, mv:72,  range:0,   atk:'none'},
-  elite_forces:  {w:128, mv:105, range:96,  atk:'lunge'},
-  artillery:     {w:152, mv:54,  range:700, atk:'heavy_recoil'},
-  // a bomber has to be OVER its target to bomb it, so its reach is short on purpose
-  bomber:        {w:170, mv:66,  range:70,  atk:'bank'},
-  holy_warriors: {w:122, mv:112, range:92,  atk:'lunge'},
-  // privateers is the roster's ONLY single-figure sprite — one operative, matching the
-  // approved side-view set (assets/approved/units/unit_privateers_era3-5 are all one man).
-  // Every other class draws 2-3 men in the same width, so the shared ~122 would render a
-  // lone privateer at roughly twice their per-man body scale. 70 keeps him in family.
-  // Re-roll the sprite as a group and this goes back to ~122; w is presentation-only
-  // (sprite box, shadow, bar width, lunge offset) and never reaches the rule engine.
-  privateers:    {w:70,  mv:94,  range:92,  atk:'lunge'},
+  infantry:      {w:122, mv:150, atk:'lunge'},
+  archers:       {w:116, mv:140, atk:'recoil'},
+  cavalry:       {w:150, mv:210, atk:'charge'},
+  engineers:     {w:118, mv:130, atk:'none'},
+  elite_forces:  {w:128, mv:180, atk:'lunge'},
+  artillery:     {w:152, mv:100, atk:'heavy_recoil'},
+  bomber:        {w:170, mv:190, atk:'bank'},
+  holy_warriors: {w:122, mv:200, atk:'lunge'},
+  // privateers is the roster's ONLY single-figure sprite — one operative, matching the approved
+  // side-view set. Every other class draws 2-3 men in the same width, so the shared ~122 would
+  // render a lone privateer at roughly twice their per-man body scale. 70 keeps him in family.
+  privateers:    {w:70,  mv:170, atk:'lunge'},
   shield_wall:   {w:172},
   anti_air:      {w:154},
 };
+const DEFAULT_RD = {w:120, mv:150, atk:'lunge'};
+function rdOf(cls){ return RENDER[cls] || DEFAULT_RD; }
 
-// Which flying weapon each ranged class throws, per era. Indexed era-1; null = that class has
-// no form that era. Sprites are the proj_* renders.
+// Which flying weapon each ranged class throws, per era. Indexed era-1; null = no sprite, so the
+// page draws a plain tracer line instead.
 const AMMO = {
   archers:   ['stone', 'arrow', 'bolt', 'bullet', 'bullet', 'missile'],
   artillery: [null, null, 'stone', 'cannonball', 'shell', 'shell'],
   bomber:    [null, null, null, 'bomb', 'bomb', 'bomb'],
 };
 function ammoFor(cls, era){ return (AMMO[cls] || [])[era-1] || null; }
+const PROJ_W = {stone:26, arrow:44, bolt:36, bullet:22, missile:46, cannonball:28, shell:34, bomb:40};
 
-// Demo knob: how long one 回合 lasts on screen. Deliberately slow, because 攻 and 血 both scale by
-// the era coefficient, so a strike is worth one or two units' whole HP at every era and the
-// exchange is over in a couple of volleys. Stretching the round makes it watchable.
-const ROUND_SEC = 4.5;
-const AIR_LIFT = 110;       // px the bomber sprite floats above its shadow
-// A 工事 resolves at the engine defaults, exactly like every enemy unit: 命中 100%, no 品質三項.
-// So a battery never misses on accuracy; only the target's 閃避率 can save it (ADR-0006).
-const BATTERY_ACC = 100;
+// The 掩護鏈 (ADR-0008), front (midline) to back: 近戰列 → 工事線 → 遠程列 → 空域. These offsets
+// from the midline are this page's own staging — the core holds no coordinates, and the timeline
+// only ever names a row. Reading the cover off the arrangement is the whole point of the top-down
+// camera (ADR-0009): no cover marker, no label, just the wall standing in front of the row.
+const LAYER = {melee:130, fortification:330, ranged:520, air:700};
+const ROUND_SEC = 4.5;      // how long one 回合 lasts on screen (demo knob)
+const AIR_LIFT = 110;       // px the air band floats above its shadow
+const STAGE_OFF = 260;      // how far off-station a unit starts before 自動佈陣 walks it in
+// A wall is drawn as a RUN of narrow segments rather than one big block, so it reads as a line of
+// cover across the frontage instead of a tower. Narrower than the class's sprite width on purpose:
+// at full width the tiles out-mass every unit on the field.
+const WALL_TILE_W = 96;
+const CAP = 60;             // hard cap on transient effect arrays
 
-function hasForm(cls, era){ return (CLASSES[cls].era_names[era-1] || '') !== ''; }
-function formName(cls, era){ return CLASSES[cls].era_names[era-1] || CLASSES[cls].zh; }
-function statsFor(cls, era){
-  const c = CLASSES[cls], k = ERA_COEFF[era-1];
-  return {atk:c.atk*k, hp:c.hp*k, acc:c.acc, dodge:c.dodge, speed:c.speed};
-}
-
-const UNIT_CLASSES = Object.keys(CLASSES).filter(c=>CLASSES[c].row!=='fortification');
-const FORT_CLASSES = Object.keys(CLASSES).filter(c=>CLASSES[c].row==='fortification');
-
-// --- theme snapshot (getComputedStyle is far too slow to call per draw) -------------------
+// --- theme snapshot (getComputedStyle is far too slow to call per draw) ----------------------
 let THEME = {};
 function snapTheme(){
   const cs = getComputedStyle(document.documentElement);
   for(const n of ['--ink','--ink-soft','--paper','--panel','--line','--field-1','--field-2',
-                  '--field-line','--amber','--blue','--red','--font-display']){
+                  '--field-line','--amber','--blue','--red','--font-display','--font-mono']){
     THEME[n] = cs.getPropertyValue(n).trim();
   }
 }
 snapTheme();
 window.matchMedia('(prefers-color-scheme:dark)').addEventListener('change', snapTheme);
-// the page also honours an explicit data-theme on :root, so re-snapshot when it is flipped
 new MutationObserver(snapTheme).observe(document.documentElement, {
   attributes:true, attributeFilter:['data-theme'],
 });
 function cssv(n){ return THEME[n] || ''; }
 function teamColor(side){ return side===0 ? cssv('--blue') : cssv('--red'); }
 
-// --- world state ------------------------------------------------------------------------
+// --- fixture ---------------------------------------------------------------------------------
+const ERAS = TIMELINE.eras.slice().sort((a,b)=>a.era-b.era);
+function fixtureFor(era){ return ERAS.find(e=>e.era===era) || ERAS[0]; }
+const TICKS = TIMELINE.ticks_per_round;
+function sideNum(s){ return s === 'player' ? 0 : 1; }
+
 let currentEra = 4;         // default: every class has a form, and holy_warriors' only era
+let FX = null;
 let units=[], forts=[], projectiles=[], flashes=[], floaters=[];
-let winner=null, winNote='', winTimer=0, roundNo=1, roundT=0;
+let plan=[], cursor=0, clock=0, roundShown=1, ended=0, unresolved=0;
 let hoverUnit=null;
 
-const CAP = 60;             // hard cap on transient effect arrays
-
-function rosterFor(era){ return UNIT_CLASSES.filter(c=>hasForm(c, era)); }
-function fortLineFor(era){ return FORT_CLASSES.filter(c=>hasForm(c, era)); }
-
-function makeSide(side, era){
-  const roster = rosterFor(era);
-  const melee  = roster.filter(c=>CLASSES[c].row==='melee');
-  const ranged = roster.filter(c=>CLASSES[c].row==='ranged');
-  const air    = roster.filter(c=>CLASSES[c].row==='air');
-  // 自動佈陣 order, front (midline) to back: 工事線 -> 近戰列 -> 遠程列 -> 空域.
-  const col = {fort:730, melee:540, ranged:330, air:150};
-  const mirror = x => side===0 ? x : W - x;
-  const made = [];
-
-  function place(list, baseX, stagger){
-    list.forEach((cls, i)=>{
-      const y = H*(i+1)/(list.length+1);
-      // stagger a crowded melee column into two sub-columns so sprites do not overlap
-      const back = (stagger && list.length>4 && i%2===1) ? 96 : 0;
-      made.push(newUnit(side, cls, era, mirror(baseX - back), y));
-    });
-  }
-  place(melee, col.melee, true);
-  place(ranged, col.ranged, false);
-  place(air, col.air, false);
-
-  // 工事卡 are the PLAYER's alone. `battle.enemy_forts` is declared in core and never filled:
-  // a 正規軍 roster is built from `Cards.is_unit`, which excludes 工事卡, so an opponent never
-  // fields 盾陣 or 防空飛彈. Mirroring them onto both sides used to be this sandbox's own
-  // invention, and with a destroy-on-hit battery it would shoot both bombers down on round 1
-  // and hide every rule this page is here to show.
-  if(side===0){
-    const line = fortLineFor(era);
-    line.forEach((cls, i)=>{
-      forts.push({
-        side, cls, era, flags:CLASSES[cls].flags,
-        x: mirror(col.fort), y: H*(i+1)/(line.length+1),
-        disabled:false, intercept:0, boom:0, fire:0,
-        key: spriteKey(cls, era), w: RENDER[cls].w,
-      });
-    });
-  }
-  return made;
-}
-
-function newUnit(side, cls, era, x, y){
-  const c = CLASSES[cls], st = statsFor(cls, era), rd = RENDER[cls];
+function makeUnit(row, era){
+  const rd = rdOf(row.card_id), side = sideNum(row.side);
   return {
-    side, cls, era, row:c.row, flags:c.flags, stats:st, rd,
-    name: formName(cls, era), key: spriteKey(cls, era),
-    atk: rd.atk || 'none', ammo: ammoFor(cls, era),
-    x, y, hp:st.hp, maxhp:st.hp, hpShown:st.hp, moving:false,
-    // cadence: 攻速 is attacks per 回合, so one attack every ROUND_SEC / speed seconds
-    cd: st.speed ? Math.random() * (ROUND_SEC/st.speed) : Infinity,
-    phase: Math.random()*6.28, lunge:0, dodgeAnim:0, flash:0, hover:0,
+    label: row.label, side, cls: row.card_id, row: row.row, flags: row.flags || [],
+    name: row.form || row.zh, zh: row.zh,
+    stats: {atk: row.attack, acc: row.accuracy, dodge: row.dodge, speed: row.speed},
+    regular: !!row.regular, hp: row.hp, maxhp: row.hp, hpShown: row.hp,
+    rd, key: spriteKey(row.card_id, era), atk: rd.atk || 'none',
+    ammo: ammoFor(row.card_id, era),
+    x:0, y:0, sx:0, sy:0, staged:false, moving:false, screen:'',
+    phase: 0, lunge:0, dodgeAnim:0, dodgeVec:null, flash:0, inbound:0, pendingDeath:false,
     alive:true, fade:1, face: side===0?1:-1, tds:null, tr:null,
   };
 }
+function makeFort(row, era){
+  const side = sideNum(row.side), fl = row.flags || [];
+  return {
+    label: row.label, side, cls: row.card_id, flags: fl,
+    name: row.form || row.zh, zh: row.zh,
+    wall: fl.includes('screens_ranged_row'), battery: fl.includes('fires_at_air'),
+    x:0, y:0, span:[0,0], disabled:false, intercept:0, boom:0, fire:0,
+    key: spriteKey(row.card_id, era), w: rdOf(row.card_id).w, tr:null, td:null,
+  };
+}
+
+function stationX(side, row){
+  const off = LAYER[row] !== undefined ? LAYER[row] : LAYER.melee;
+  return side===0 ? W/2 - off : W/2 + off;
+}
+function laneY(i, n){ return H*(i+1)/(n+1); }
+
+// 自動佈陣: rows become columns, front to back. A unit's y lane is this page's invention; its
+// column is the row the timeline gave it.
+function layout(era){
+  for(const side of [0,1]){
+    for(const row of ['melee','ranged','air']){
+      const group = units.filter(u=>u.side===side && u.row===row);
+      group.forEach((u,i)=>{
+        u.sx = stationX(side, row);
+        u.sy = laneY(i, group.length);
+        u.x = u.sx + (side===0 ? -STAGE_OFF : STAGE_OFF);
+        u.y = u.sy;
+      });
+    }
+    // The frontage a wall has to span: the y extent of the row it screens (工兵團 included —
+    // it stations in the 遠程列 and works at the 工事線).
+    const screened = units.filter(u=>u.side===side && u.row==='ranged');
+    const ys = screened.map(u=>u.sy);
+    const span = ys.length ? [Math.min(...ys)-60, Math.max(...ys)+60] : [H*0.3, H*0.7];
+    let wallDepth = 0;
+    for(const f of forts.filter(f=>f.side===side)){
+      if(f.battery){
+        // a battery is a single emplacement, not a segment: park it clear of the wall line, far
+        // enough down that a tall sprite is not clipped by the top edge of the field
+        f.x = stationX(side, 'fortification');
+        f.y = H*0.19;
+        f.span = null;
+      } else {
+        // one card = one wall segment spanning the frontage; a second wall nests behind the first
+        f.x = stationX(side, 'fortification') + (side===0 ? -wallDepth : wallDepth);
+        f.y = (span[0]+span[1])/2;
+        f.span = span;
+        wallDepth += 84;
+      }
+    }
+  }
+}
+
+// The whole battle as a time-stamped play list: round r, tick t -> (r-1 + t/TICKS) * ROUND_SEC.
+// Order inside a tick is the order core emitted, which is part of its determinism contract.
+function buildPlan(fx){
+  const out = [];
+  fx.rounds.forEach((r, i)=>{
+    for(const ev of r.events)
+      out.push({t: (i + ev.tick/TICKS) * ROUND_SEC, round: r.round, ev});
+  });
+  return out;
+}
 
 function reset(){
-  forts = []; repairCursor = 0;
-  units = makeSide(0, currentEra).concat(makeSide(1, currentEra));
-  projectiles=[]; flashes=[]; floaters=[]; winner=null; winNote=''; winTimer=0;
-  roundNo=1; roundT=0; hoverUnit=null;
+  FX = fixtureFor(currentEra);
+  const era = FX.era;
+  units = FX.units.map(u=>makeUnit(u, era));
+  forts = FX.forts.map(f=>makeFort(f, era));
+  layout(era);
+  plan = buildPlan(FX);
+  cursor = 0; clock = 0; roundShown = 1; ended = 0; unresolved = 0;
+  projectiles=[]; flashes=[]; floaters=[]; hoverUnit=null;
   snapTheme();
   buildTables();
   updateVerdict();
-  fireBatteries();   // round 1 opens with the batteries, exactly as every later round does
 }
 
-// --- combat: mirrors core/battle.gd _fire ------------------------------------------------
-function attackKind(u){
-  if(u.row==='ranged') return 'ranged';
-  if(u.row==='air' || u.flags.includes('air_strike')) return 'air';
-  return 'melee';
-}
-function livingFoes(u){ return units.filter(e=>e.alive && e.side!==u.side); }
-function isAir(u){ return u.row==='air' || u.flags.includes('non_land'); }
-// 已失效的工事是惰性的、不再是目標 (ADR-0007). Deploy order decides which one answers, so this
-// scans the fort array in order exactly as `Battle._first_active_fort` does.
-function firstActiveFort(side, flag){
-  return forts.find(f=>f.side===side && !f.disabled && (!flag || f.flags.includes(flag))) || null;
-}
-function hasEngineer(side){
-  return units.some(u=>u.alive && u.side===side && u.flags.includes('repairs_fortifications'));
-}
-function nearestOf(u, list){
-  let best=null, bd=Infinity;
-  for(const e of list){ const d=Math.hypot(e.x-u.x, e.y-u.y); if(d<bd){bd=d; best=e;} }
-  return best;
-}
-// The targeting matrix (ADR-0006). 近戰列 fights the enemy melee row, then its GROUND backline,
-// and can never reach 空域; 遠程列 selects freely, air included; 空襲 hits ground only, so there
-// is no air-to-air anywhere. No legal target = the strike simply does not happen.
-function chooseTarget(u, kind){
-  const foes = livingFoes(u);
-  if(!foes.length) return null;
-  if(kind==='melee'){
-    const m = foes.filter(e=>e.row==='melee');
-    if(m.length) return nearestOf(u, m);
+// --- event application: a dispatcher, not a rule engine -------------------------------------
+// Each branch moves the picture to match one line of the timeline. Nothing here chooses a
+// target, rolls anything, or decides an outcome.
+function unitAt(side, label){
+  let fallback = null;
+  for(const u of units){
+    if(u.side!==side || u.label!==label) continue;
+    if(u.alive) return u;
+    fallback = fallback || u;
   }
-  const legal = kind==='ranged' ? foes : foes.filter(e=>!isAir(e));
-  return legal.length ? nearestOf(u, legal) : null;
+  return fallback;
 }
+function fortAt(side, cardId, wantDisabled){
+  for(const f of forts)
+    if(f.side===side && f.cls===cardId && f.disabled===wantDisabled) return f;
+  for(const f of forts) if(f.side===side && f.cls===cardId) return f;
+  return null;
+}
+function other(side){ return 1-side; }
 
-// Decide WHAT this strike is aimed at (disabling a fort, or a unit — possibly one a 盾陣 steps
-// in front of). Rolls are not made here: a ranged strike resolves them at impact.
-function planAttack(u, kind){
-  const foeSide = 1-u.side;
-  // 帶攻城／空襲者優先癱瘓運作中的敵方工事: one hit disables it, no accuracy roll, and the fort
-  // STAYS on the field. Fort-busting is suppression now, not demolition.
-  if(u.flags.includes('siege') || u.flags.includes('air_strike')){
-    const f = firstActiveFort(foeSide);
-    if(f) return {mode:'disable', fort:f};
+function apply(ev){
+  const side = sideNum(ev.side);
+  switch(ev.type){
+    case 'take_station': {
+      const u = unitAt(side, ev.unit);
+      if(!u) return miss_(ev);
+      u.row = ev.row; u.screen = ev.screened_by || '';
+      u.staged = true;
+      return;
+    }
+    case 'hit': {
+      const a = unitAt(side, ev.by), t = unitAt(other(side), ev.target);
+      if(!a || !t) return miss_(ev);
+      strike(a, t, {kind:'hit', damage: ev.damage});
+      return;
+    }
+    case 'miss': {
+      const t = unitAt(other(side), ev.target);
+      if(!t) return miss_(ev);
+      const a = unitAt(side, ev.by);
+      if(a) strike(a, t, {kind:'miss'});
+      else batteryShot(fortAt(side, ev.by, false) || fortAt(side, ev.by, true), t, {kind:'miss'});
+      return;
+    }
+    case 'dodge': {
+      const d = unitAt(side, ev.by);
+      if(!d) return miss_(ev);
+      const from = unitAt(other(side), ev.attacker);
+      d.dodgeAnim = 1;
+      const ax = from ? from.x : (d.side===0 ? W : 0), ay = from ? drawY(from) : d.y;
+      const ddx = d.x - ax, ddy = drawY(d) - ay, dl = Math.hypot(ddx, ddy) || 1;
+      d.dodgeVec = {x: -ddy/dl, y: ddx/dl};
+      floater(d.x, drawY(d)-70, '閃避', cssv('--blue'), 1.0);
+      return;
+    }
+    case 'death': {
+      const v = unitAt(other(side), ev.victim) || unitAt(side, ev.victim);
+      if(!v) return miss_(ev);
+      if(v.inbound > 0) v.pendingDeath = true; else kill(v);
+      return;
+    }
+    case 'intercept': {
+      const f = fortAt(other(side), ev.card_id, false);
+      if(!f) return miss_(ev);
+      const a = unitAt(side, ev.by);
+      if(a && flags.lunge) a.lunge = 1;
+      f.disabled = true; f.intercept = 1;
+      floater(f.x, f.y-40, '攔截', teamColor(f.side), 1.0);
+      return;
+    }
+    case 'disable': {
+      const f = fortAt(other(side), ev.card_id, false);
+      if(!f) return miss_(ev);
+      const a = unitAt(side, ev.by);
+      if(a) strike(a, {x:f.x, y:f.y, row:'fortification'}, {kind:'disable', fort:f});
+      else { f.disabled = true; f.boom = 1; floater(f.x, f.y-40, '失效', cssv('--amber'), 1.15); }
+      return;
+    }
+    case 'shootdown': {
+      const f = fortAt(side, ev.by, false) || fortAt(side, ev.by, true);
+      const t = unitAt(other(side), ev.target);
+      if(!f || !t) return miss_(ev);
+      batteryShot(f, t, {kind:'shootdown'});
+      return;
+    }
+    case 'repair': {
+      const f = fortAt(side, ev.card_id, true);
+      if(!f) return miss_(ev);
+      f.disabled = false;
+      floater(f.x, f.y-40, '修復', teamColor(f.side), 1.0);
+      return;
+    }
+    case 'medal': {
+      const u = unitAt(side, ev.unit);
+      if(!u) return miss_(ev);
+      floater(u.x, drawY(u)-96, '勳章 ' + ev.stat, cssv('--amber'), 1.1);
+      return;
+    }
+    default: miss_(ev);
   }
-  const target = chooseTarget(u, kind);
-  if(!target) return null;
-  // 盾陣 intercepts one 近戰 attack aimed at a GROUND unit, ignoring attack value, and the
-  // interception is what disables it. Shots at 空域 bypass the 工事線 entirely: a wall on the
-  // ground cannot absorb a shot at the sky.
-  if(kind==='melee' && !isAir(target)){
-    const shield = firstActiveFort(foeSide, 'blocks_melee_once');
-    if(shield) return {mode:'intercept', fort:shield, target};
-  }
-  return {mode:'unit', target};
 }
+// An event the picture could not be matched to. Never expected: the fixtures field one unit per
+// class per side, so (side, label) is a handle. check_motion_demo.js fails on a non-zero count.
+function miss_(ev){ unresolved++; }
 
-function planStillValid(plan){
-  if(!plan) return false;
-  if(plan.mode==='disable') return !plan.fort.disabled;
-  if(plan.mode==='intercept') return !plan.fort.disabled && plan.target.alive;
-  return plan.target.alive;   // unit / shootdown
-}
-
-function applyAttack(u, plan){
-  if(plan.mode==='disable'){
-    const f = plan.fort;
-    if(f.disabled) return;
-    f.disabled=true; f.boom=1;
-    floater(f.x, f.y-40, '失效', cssv('--amber'), 1.15);
+// A strike: the attacker plays its attack, and the consequence lands now for melee or on impact
+// for anything thrown. The consequence itself came from the timeline.
+function strike(attacker, target, payload){
+  if(flags.lunge) attacker.lunge = 1;
+  if(flags.facing && target.x !== undefined)
+    attacker.face = (target.x - attacker.x) >= 0 ? 1 : -1;
+  const thrown = attacker.row === 'ranged' || attacker.row === 'air';
+  if(thrown && flags.proj && projectiles.length < CAP){
+    const drop = attacker.atk === 'bank';
+    const ty = target.row === 'fortification' ? target.y : drawY(target)-24;
+    projectiles.push({
+      x: drop ? attacker.x : attacker.x + attacker.face * attacker.rd.w * 0.25,
+      // a bomb must always be released ABOVE where it lands, or the drop renders as a climb
+      y: drop ? Math.min(drawY(attacker) + attacker.rd.w*0.10, ty - 90)
+              : drawY(attacker) - attacker.rd.w*0.28,
+      tx: drop ? target.x : target.x, ty,
+      t:0, spd:(drop ? 1.25 : 1.9), arc: drop ? 0 : 38,
+      ammo: attacker.ammo, drop, target, payload,
+    });
+    if(payload.kind === 'hit' || payload.kind === 'miss') target.inbound = (target.inbound||0) + 1;
     return;
   }
-  if(plan.mode==='intercept'){
-    const f = plan.fort;
-    if(f.disabled) return;
-    f.disabled=true; f.intercept=1;
-    floater(f.x, f.y-40, '攔截', cssv('--blue'), 1.0);
-    return;
-  }
-  const t = plan.target;
-  if(!t || !t.alive) return;
-  // accuracy roll, then dodge roll, in that order (battle.gd:604-611)
-  if(Math.random() >= u.stats.acc/100){
-    floater(t.x, drawY(t)-70, 'MISS', cssv('--ink-soft'), 0.95);
-    return;
-  }
-  if(Math.random() < (t.stats.dodge||0)/100){
-    t.dodgeAnim = 1;
-    // step across the incoming line, not just upward: attacks arrive at an angle whenever the
-    // two units sit at different heights, so derive the perpendicular from attacker -> target
-    const ddx = t.x - u.x, ddy = drawY(t) - drawY(u);
-    const dl = Math.hypot(ddx, ddy) || 1;
-    t.dodgeVec = {x: -ddy/dl, y: ddx/dl};
-    floater(t.x, drawY(t)-70, '閃避', cssv('--blue'), 1.0);
-    return;
-  }
-  t.hp -= u.stats.atk;
-  t.flash = 1;
-  flashes.push({x:t.x, y:drawY(t)-30, t:0});
-  floater(t.x, drawY(t)-70, '-'+u.stats.atk, cssv('--amber'), 1.1);
-  if(t.hp<=0) t.alive=false;
+  land(target, payload);
 }
-
+function batteryShot(fort, target, payload){
+  if(!fort) return;
+  fort.fire = 1;
+  if(flags.proj && projectiles.length < CAP){
+    projectiles.push({
+      x:fort.x, y:fort.y-52, tx:target.x, ty:drawY(target),
+      t:0, spd:1.7, arc:0, ammo:'missile', drop:false, target, payload,
+    });
+    target.inbound = (target.inbound||0) + 1;
+    return;
+  }
+  land(target, payload);
+}
+// Impact. Bars and numbers only: the hit/miss/kill decision was made by core.
+function land(target, payload){
+  switch(payload.kind){
+    case 'hit':
+      target.hp -= payload.damage;
+      target.flash = 1;
+      flashes.push({x:target.x, y:drawY(target)-30, t:0});
+      floater(target.x, drawY(target)-70, '-'+payload.damage, cssv('--amber'), 1.1);
+      break;
+    case 'miss':
+      floater(target.x, drawY(target)-70, 'MISS', cssv('--ink-soft'), 0.95);
+      break;
+    case 'shootdown':
+      target.flash = 1;
+      flashes.push({x:target.x, y:drawY(target)-30, t:0});
+      floater(target.x, drawY(target)-70, '擊落', cssv('--amber'), 1.3);
+      break;
+    case 'disable': {
+      const f = payload.fort;
+      f.disabled = true; f.boom = 1;
+      floater(f.x, f.y-40, '失效', cssv('--amber'), 1.15);
+      break;
+    }
+  }
+}
+function kill(u){ u.alive = false; u.hp = Math.min(u.hp, 0); }
 function floater(x, y, text, color, scale){
   if(floaters.length>=CAP) floaters.shift();
   floaters.push({x, y, text, color, scale:scale||1, t:0});
 }
 
-function fire(u){
-  const kind = attackKind(u);
-  const plan = planAttack(u, kind);
-  if(!plan) return;
-  if(flags.lunge) u.lunge = 1;
-  const ranged = kind!=='melee';
-  if(ranged && flags.proj){
-    const dst = plan.target || plan.fort;
-    if(projectiles.length<CAP){
-      const targetY = plan.target ? drawY(dst)-24 : dst.y;
-      // A bomber does not shoot across the field: it flies over its target and lets the bomb
-      // fall straight down. So the bomb starts under the aircraft and drops vertically,
-      // with no arc, while an arrow / shell travels toward the target and arcs.
-      const drop = u.atk === 'bank';
-      projectiles.push({
-        // a shot leaves the weapon, which is on the unit's facing side; a bomb leaves the
-        // fuselage centre and falls straight down
-        x: drop ? u.x : u.x + u.face * u.rd.w * 0.25,
-        // A bomb must always be released ABOVE where it lands, otherwise the "vertical drop"
-        // renders as a bomb climbing. Clamp the release point to at least 90px of altitude.
-        y: drop ? Math.min(drawY(u) + u.rd.w*0.10, targetY - 90)
-                : drawY(u) - u.rd.w*0.28,
-        tx: drop ? u.x : dst.x, ty: targetY,
-        // speedMul is applied per frame in step(), NOT baked in here (baking it too would
-        // square it and make projectiles outrun everything else at high slider values)
-        t:0, spd:(drop ? 1.25 : 1.9), arc: drop ? 0 : 38,
-        ammo: u.ammo, drop, u, plan,
-      });
-      return;
-    }
-  }
-  applyAttack(u, plan);
-}
-
-// --- 防空飛彈: the active air counter (ADR-0006) ------------------------------------------
-// Every ACTIVE battery fires once per 回合 at one 空域 unit, and a hit destroys it outright: the
-// fort carries no attack value, so it ignores hit points exactly as it ignores attack values
-// when it blocks. 一發飛彈就是一架飛機. Core fires the batteries on the FIRST tick of the window
-// (`Battle._resolve_window`), ahead of the strikes that suppress them — that ordering is what
-// makes 防空+工兵 an exchange instead of permanent suppression, so the demo keeps it.
-function pickAirTarget(side){
-  const air = units.filter(u=>u.alive && u.side===side && isAir(u));
-  return air.length ? air[0] : null;
-}
-function fireBatteries(){
-  for(const f of forts){
-    if(f.disabled || !f.flags.includes('fires_at_air')) continue;
-    const target = pickAirTarget(1-f.side);
-    if(!target) continue;               // 無空域目標 = 不開火、不擲骰
-    f.fire = 1;
-    const plan = {mode:'shootdown', target, fort:f};
-    if(flags.proj && projectiles.length<CAP){
-      projectiles.push({
-        x:f.x, y:f.y-52, tx:target.x, ty:drawY(target),
-        t:0, spd:1.7, arc:0, ammo:'missile', drop:false, u:null, fort:f, plan,
-      });
-    } else applyBatteryShot(f, plan);
-  }
-}
-function applyBatteryShot(f, plan){
-  const t = plan.target;
-  if(!t || !t.alive) return;
-  // BATTERY_ACC is 100, so there is no accuracy roll to lose; 閃避率 still rolls as usual.
-  if(Math.random() >= BATTERY_ACC/100){
-    floater(t.x, drawY(t)-70, 'MISS', cssv('--ink-soft'), 0.95);
-    return;
-  }
-  if(Math.random() < (t.stats.dodge||0)/100){
-    t.dodgeAnim = 1;
-    const ddx = t.x - f.x, ddy = drawY(t) - f.y, dl = Math.hypot(ddx, ddy) || 1;
-    t.dodgeVec = {x:-ddy/dl, y:ddx/dl};
-    floater(t.x, drawY(t)-70, '閃避', cssv('--blue'), 1.0);
-    return;
-  }
-  t.hp = 0; t.alive = false;            // 命中即擊落: the missile ignores hit points
-  t.flash = 1;
-  flashes.push({x:t.x, y:drawY(t)-30, t:0});
-  floater(t.x, drawY(t)-70, '擊落', cssv('--amber'), 1.3);
-}
-
-let repairCursor = 0;
-function repairPass(){
-  // 工兵團每回合修復一個待修工事, round-robin over the fort line (ADR-0007). Arrival timing does
-  // not matter — 不限工事失效時誰在場 — and the cursor advances past the one just repaired, so a
-  // fort that keeps being re-disabled cannot starve its neighbour. One per round, player only.
-  if(!forts.length || !hasEngineer(0)) return;
-  for(let off=0; off<forts.length; off++){
-    const i = (repairCursor+off) % forts.length;
-    const f = forts[i];
-    if(!f.disabled) continue;
-    f.disabled = false;
-    repairCursor = (i+1) % forts.length;
-    floater(f.x, f.y-40, '修復', cssv('--blue'), 1.0);
-    return;
-  }
-}
-
-function hasLand(side){
-  // battle.gd _has_land: air-row and non_land units cannot claim the field, and 工事不是部隊
-  // so it never counts either (ADR-0007).
-  return units.some(u=>u.alive && u.side===side && !isAir(u));
-}
-function canAct(side){
-  // battle.gd can_act: does this side still have any way to change the field? A living attacker
-  // with a legal target under the matrix, or an active battery with an aircraft to shoot at.
-  // Busting a fort does NOT count — suppression alone can never win.
-  for(const u of units){
-    if(!u.alive || u.side!==side) continue;
-    if(u.flags.includes('no_attack') || !u.stats.atk) continue;
-    if(chooseTarget(u, attackKind(u))) return true;
-  }
-  return !!pickAirTarget(1-side)
-      && forts.some(f=>f.side===side && !f.disabled && f.flags.includes('fires_at_air'));
-}
-
-// 勝負＝耗盡, 雙方對稱 (戰鬥.md): a side whose field is empty loses to an opponent that still
-// holds 陸軍. 只剩空軍不算拿下戰場、敵我皆然 — in the real game the battle would simply carry on
-// there, because either side may still land ground forces (the player by deploying, the enemy by
-// pending waves). This sandbox has neither, so the field can no longer change and it settles on
-// 世界大戰's 僵局判定 instead: 陸軍 wins, nobody holding 陸軍 = 我方判敗.
-function checkOutcome(){
-  const alive0 = units.some(u=>u.alive && u.side===0);
-  const alive1 = units.some(u=>u.alive && u.side===1);
-  if(!alive0 && !alive1) return settleDeadlock('雙方耗盡');
-  if(!alive1) return hasLand(0) ? takeField('BLUE') : settleDeadlock('敵方耗盡、我方僅剩空軍');
-  if(!alive0) return hasLand(1) ? takeField('RED')  : settleDeadlock('我方耗盡、敵方僅剩空軍');
-  if(!canAct(0) && !canAct(1)) settleDeadlock('戰局凍結：雙方都打不到對方');
-}
-function takeField(side){ winner = side; winNote = ''; }
-function settleDeadlock(why){
-  const bl = hasLand(0), rl = hasLand(1);
-  if(bl && !rl) return takeField('BLUE');
-  if(rl && !bl) return takeField('RED');
-  winner = 'RED';
-  winNote = why + ' → 我方判敗（僵局判定）';
-}
-
+// --- clock ----------------------------------------------------------------------------------
 function step(dt){
-  // round clock. Core's order inside one round is repair -> batteries -> unit ticks
-  // (battle.gd end_round / _resolve_window), so the boundary runs them in that order too.
-  roundT += dt*speedMul;
-  if(roundT>=ROUND_SEC){ roundT-=ROUND_SEC; roundNo++; repairPass(); fireBatteries(); }
-
-  if(!winner) checkOutcome();
-  if(winner){ winTimer += dt; if(winTimer>2.6) reset(); }
+  if(ended > 0){
+    ended += dt;
+    if(ended > 2.8) reset();
+  } else {
+    clock += dt*speedMul;
+    while(cursor < plan.length && plan[cursor].t <= clock){
+      roundShown = plan[cursor].round;
+      apply(plan[cursor].ev);
+      cursor++;
+    }
+    if(cursor >= plan.length && projectiles.length === 0) ended = 0.0001;
+  }
 
   for(const u of units){
     if(!u.alive){ u.fade = Math.max(0, u.fade - dt*1.6); continue; }
@@ -947,74 +887,29 @@ function step(dt){
     if(u.dodgeAnim>0) u.dodgeAnim = Math.max(0, u.dodgeAnim - dt*3.0);
     if(u.lunge>0) u.lunge = Math.max(0, u.lunge - dt*4.5);
 
-    u.moving = false;
-    const foe = nearestOf(u, livingFoes(u));
-    if(!foe) continue;
-    const dir = Math.sign(foe.x - u.x) || u.face;
-    if(flags.facing) u.face = dir>=0?1:-1;
-
-    // 工兵團 never attacks (battle.gd:565): it holds near its own fort line and wanders
-    if(u.flags.includes('no_attack')){
-      if(flags.walk){
-        u.phase += dt*4*speedMul;
-        u.y += Math.sin(u.phase*0.6)*10*dt*speedMul;
-      }
-      continue;
-    }
-
-    // Walk toward what this unit can actually hit, not simply the nearest enemy. Under the
-    // targeting matrix a 近戰 unit may have no legal target at all (只剩空軍的敵方), and a strike
-    // aircraft goes for an active fortification first — it drops straight down, so it has to be
-    // over the thing it is bombing. Steering at the nearest foe would march infantry across the
-    // field to stand under an aircraft it can never touch.
-    const plan = planAttack(u, attackKind(u));
-    if(!plan) continue;                        // 打不到: hold position, no walk, no swing
-    const goal = plan.target || plan.fort;
-    const gx = goal.x, gy = goal.y;
-    // A bomber must be genuinely OVER its target, not merely level with it in x: a bomb
-    // released while the aircraft is still up- or down-field would have to travel sideways or
-    // even upward to land. So it uses plain 2D proximity, and closes on y at full speed.
-    const bank = u.atk === 'bank';
-    const d = Math.hypot(gx-u.x, gy-u.y);
-    const engaged = d <= u.rd.range;
-    if(flags.facing){
-      const gdir = Math.sign(gx - u.x) || u.face;
-      u.face = gdir>=0?1:-1;
-    }
-    if(!engaged){
-      u.moving = true;
-      if(flags.walk){
-        u.x += Math.sign(gx - u.x) * u.rd.mv * speedMul * dt;
-        const yrate = u.rd.mv * (bank ? 1.0 : 0.5) * speedMul * dt;
-        u.y += Math.sign(gy-u.y) * Math.min(Math.abs(gy-u.y), yrate);
-        u.phase += dt*9*speedMul;
-      }
-    } else {
-      u.cd -= dt*speedMul;
-      if(u.cd<=0){ u.cd = ROUND_SEC/u.stats.speed; fire(u); }
+    // 自動佈陣: walk to station, then hold it. A unit never chases anything on this page —
+    // it stands in its layer of the 掩護鏈, which is what makes the cover readable.
+    const dx = u.sx - u.x, dy = u.sy - u.y;
+    const dist = Math.hypot(dx, dy);
+    u.moving = u.staged && dist > 3;
+    if(u.moving && flags.walk){
+      const rate = u.rd.mv * speedMul * dt;
+      const k = Math.min(1, rate/dist);
+      u.x += dx*k; u.y += dy*k;
+      u.phase += dt*9*speedMul;
+      if(flags.facing) u.face = dx>=0 ? 1 : -1;
+    } else if(!u.moving){
+      if(flags.facing) u.face = u.side===0 ? 1 : -1;
+      u.phase += dt*2.2*speedMul;
     }
   }
 
-  // projectiles: the rolls happen at IMPACT, not at launch
   for(const p of projectiles){
     p.t += dt*p.spd*speedMul;
     if(p.t>=1){
-      // Core resolves a strike atomically, so a shot never evaporates because the world moved.
-      // If whatever this projectile was aimed at is gone by the time it lands, re-plan against
-      // the state that exists now instead of silently dropping the attack.
-      let plan = p.plan;
-      if(p.fort){
-        // A missile that has left the rail still resolves: core fires the battery atomically on
-        // the first tick, before anything can suppress it.
-        if(!planStillValid(plan)){
-          const t = pickAirTarget(1-p.fort.side);
-          plan = t ? {mode:'shootdown', target:t, fort:p.fort} : null;
-        }
-        if(plan) applyBatteryShot(p.fort, plan);
-      } else {
-        if(!planStillValid(plan)) plan = planAttack(p.u, attackKind(p.u));
-        if(plan) applyAttack(p.u, plan);
-      }
+      land(p.target, p.payload);
+      if(p.target.inbound) p.target.inbound--;
+      if(p.target.pendingDeath && !p.target.inbound) kill(p.target);
       p.dead = true;
     }
   }
@@ -1029,7 +924,6 @@ function step(dt){
     if(f.boom>0) f.boom = Math.max(0, f.boom - dt*2.4);
     if(f.fire>0) f.fire = Math.max(0, f.fire - dt*2.6);
   }
-  // corpse cleanup
   units = units.filter(u=>u.alive || u.fade>0);
 
   const walking = units.some(u=>u.alive && u.moving);
@@ -1043,7 +937,7 @@ const dots={};
 document.querySelectorAll('.chip').forEach(c=> dots[c.dataset.key]=c.querySelector('.dot'));
 function setLive(k,on){ if(dots[k]) dots[k].classList.toggle('live', !!on); }
 
-// --- render -----------------------------------------------------------------------------
+// --- render ---------------------------------------------------------------------------------
 function drawY(u){ return u.row==='air' ? u.y - AIR_LIFT : u.y; }
 
 function drawField(){
@@ -1069,35 +963,49 @@ function spriteBox(key, w){
 }
 
 // 工事讀作建物，不是單位 (戰鬥.md 場景呈現): no stat tag, no health bar, no death — only
-// 運作中／被禁用. A fort is never removed from the field, so nothing here fades out.
+// 運作中／被禁用. A wall is drawn as a SEGMENT spanning the frontage of the row it screens
+// (ADR-0008: one card = one wall segment), so the cover reads off the arrangement alone: no
+// marker, no label, just a wall standing between the enemy and that row.
 function drawFort(f){
-  const box = spriteBox(f.key, f.w);
-  shadowEllipse(f.x, f.y+ (box?box.h*0.28:24), f.w, 0.16);
-  ctx.save();
-  ctx.globalAlpha = f.disabled ? 0.42 : 1;
-  if(box){
-    ctx.translate(f.x, f.y - box.h*0.28);
-    // a disabled fort sits slightly askew, so the state reads before the label does
-    if(f.disabled){ ctx.rotate(0.05); ctx.scale(0.95, 0.95); }
-    ctx.drawImage(box.im, -box.w/2, -box.h*0.7, box.w, box.h);
-  } else {
-    ctx.fillStyle = cssv('--field-line');
-    ctx.fillRect(f.x-f.w/2, f.y-30, f.w, 60);
+  const w = f.span ? WALL_TILE_W : f.w;
+  const box = spriteBox(f.key, w);
+  const h = box ? box.h : 60;
+  const tiles = [];
+  if(f.span){
+    const step = Math.max(56, h*0.72);
+    const n = Math.max(2, Math.min(6, Math.round((f.span[1]-f.span[0])/step)));
+    for(let i=0;i<n;i++) tiles.push(f.span[0] + (f.span[1]-f.span[0])*(i+0.5)/n);
+  } else tiles.push(f.y);
+
+  for(const ty of tiles){
+    shadowEllipse(f.x, ty + h*0.22, w, 0.16);
+    ctx.save();
+    ctx.globalAlpha = f.disabled ? 0.42 : 1;
+    if(box){
+      ctx.translate(f.x, ty - h*0.22);
+      // a disabled fort sits slightly askew, so the state reads before the label does
+      if(f.disabled){ ctx.rotate(0.05); ctx.scale(0.95, 0.95); }
+      if(f.side===1) ctx.scale(-1,1);
+      ctx.drawImage(box.im, -box.w/2, -h*0.6, box.w, h);
+    } else {
+      ctx.fillStyle = cssv('--field-line');
+      ctx.fillRect(f.x-w/2, ty-30, w, 60);
+    }
+    ctx.restore();
   }
-  ctx.restore();
   if(f.intercept>0){
-    // 盾陣平時不搶眼，在攔截的那一刻現身擋下攻擊: the shield only shows at the moment it eats a hit
+    // 盾陣平時不搶眼，在攔截的那一刻現身擋下攻擊
     ctx.save();
     ctx.globalAlpha = f.intercept*0.9; ctx.lineWidth = 5; ctx.strokeStyle = '#dbeaff';
-    ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44, -0.9, 0.9); ctx.stroke();
-    ctx.strokeStyle = cssv('--blue'); ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44+5, -0.9, 0.9); ctx.stroke();
+    const dir = f.side===0 ? 1 : -1;
+    ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44, -0.9*dir, 0.9*dir, f.side===1); ctx.stroke();
+    ctx.strokeStyle = teamColor(f.side); ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.arc(f.x, f.y-10, f.w*0.44+5, -0.9*dir, 0.9*dir, f.side===1); ctx.stroke();
     ctx.restore();
   }
   if(f.fire>0){
-    // launch flash: 防空飛彈在有空域目標的回合真的開火
     ctx.save();
-    ctx.globalAlpha = f.fire*0.85; ctx.strokeStyle = cssv('--blue'); ctx.lineWidth=4;
+    ctx.globalAlpha = f.fire*0.85; ctx.strokeStyle = teamColor(f.side); ctx.lineWidth=4;
     ctx.beginPath(); ctx.arc(f.x, f.y-30, 16+(1-f.fire)*34, 0, 6.283); ctx.stroke();
     ctx.restore();
   }
@@ -1120,9 +1028,6 @@ function drawUnit(u){
   if(flags.bob && moving && !reduce){ bob = Math.sin(u.phase)*5.5; rot = Math.sin(u.phase)*0.05; }
   else if(flags.bob && moving && reduce){ bob = Math.sin(u.phase)*2; }
   if(u.row==='air') bob += Math.sin(u.phase*0.5)*7;   // slow hover
-  // Attack motion is per class, not one shared lunge: a swing throws the body forward, a
-  // musket line kicks back, a field gun kicks back hard and rolls, a bomber banks over its
-  // target, engineers never attack at all.
   const a = flags.lunge ? u.lunge : 0;
   const bump = a*(1-a)*4;                             // 0..1..0 ease bump
   let ax = 0, aroll = 0, ascale = 1;
@@ -1134,7 +1039,6 @@ function drawUnit(u){
                          ascale = 1 + bump*0.05; break;
     case 'bank':         aroll = u.face * bump * 0.22; break;   // wing-over, no translation
   }
-  // dodge side-step: a hop perpendicular to the incoming attack (vector stored at roll time)
   const dk = u.dodgeAnim>0 ? 20 * Math.sin(u.dodgeAnim*Math.PI) : 0;
   const dv = u.dodgeVec || {x:0, y:-1};
   const ddx2 = dk * dv.x, dy = dk * dv.y;
@@ -1151,7 +1055,6 @@ function drawUnit(u){
   if(!u.alive){ const s=0.6+0.4*u.fade; ctx.scale(s,s); ctx.rotate((1-u.fade)*0.5); }
   if(box) ctx.drawImage(box.im, -box.w/2, -h*0.7, box.w, h);
   else { ctx.fillStyle = teamColor(u.side); ctx.beginPath(); ctx.arc(0,-h*0.2,u.rd.w*0.22,0,6.283); ctx.fill(); }
-  // white hit flash over the sprite
   if(u.flash>0){
     const gr = ctx.createRadialGradient(0,-h*0.25,2,0,-h*0.25,u.rd.w*0.55);
     gr.addColorStop(0,'rgba(255,255,255,'+(u.flash*0.75)+')');
@@ -1173,7 +1076,7 @@ function drawHealthBars(){
     ctx.save();
     ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(bx-1.5, by-1.5, bw+3, bh+3);
     ctx.fillStyle = 'rgba(0,0,0,.30)'; ctx.fillRect(bx, by, bw, bh);
-    if(shown>frac){   // recent-damage tail, draining toward the real value
+    if(shown>frac){
       ctx.fillStyle = 'rgba(255,255,255,.42)';
       ctx.fillRect(bx+bw*frac, by, bw*(shown-frac), bh);
     }
@@ -1186,13 +1089,11 @@ function drawHealthBars(){
     ctx.restore();
   }
 }
-// The stat block travels WITH the unit: era form name, live HP, and the four combat numbers.
-// Drawn in its own pass after the health bars, so no sprite and no bar can cover it.
+
 const TAG_H = 60, TAG_TITLE = '600 27px ', TAG_BODY = '500 25px ';
+function num(v, dp){ return v===null || v===undefined ? '-' : (dp ? v.toFixed(dp) : Math.round(v)); }
 function drawStatTags(){
   if(!flags.tags) return;
-  // lay the boxes out first, then push overlapping ones apart, so a melee scrum does not
-  // stack four unreadable tags on the same pixels
   const boxes = [];
   ctx.save();
   for(const u of units){
@@ -1200,9 +1101,9 @@ function drawStatTags(){
     const s = u.stats;
     const title = u.name + '  HP' + Math.max(0, u.hp) + '/' + u.maxhp;
     const line = '攻' + s.atk
-      + ' 命' + (s.acc==null ? '-' : s.acc + '%')
-      + ' 閃' + (s.dodge==null ? '-' : s.dodge + '%')
-      + ' 速' + (s.speed==null ? '-' : s.speed.toFixed(2));
+      + ' 命' + (s.acc ? num(s.acc)+'%' : '-')
+      + ' 閃' + (s.dodge ? num(s.dodge)+'%' : '-')
+      + ' 速' + (s.speed ? num(s.speed,2) : '-');
     ctx.font = TAG_TITLE + cssv('--font-mono');
     let w = ctx.measureText(title).width;
     ctx.font = TAG_BODY + cssv('--font-mono');
@@ -1214,10 +1115,6 @@ function drawStatTags(){
       y: Math.min(drawY(u) + h*0.32, H - TAG_H - 4),
     });
   }
-  // Place each tag in the first candidate slot that collides with nothing already placed:
-  // under the unit, then progressively lower lanes, then above it. Clamping a pushed-down tag
-  // to the floor would silently stack two tags on the same pixels, which is worse than moving
-  // one upward.
   boxes.sort((a,b)=>a.y-b.y);
   const hits = (a, y, placed) => placed.some(b =>
     a.x < b.x+b.w && b.x < a.x+a.w && y < b.y+TAG_H+3 && b.y < y+TAG_H+3);
@@ -1233,7 +1130,6 @@ function drawStatTags(){
   }
   ctx.textAlign = 'left'; ctx.textBaseline = 'top';
   for(const b of boxes){
-    // a leader line back to the unit, so a pushed-down tag still reads as belonging to it
     if(Math.abs(b.y - (drawY(b.u) + (b.u.drawH||b.u.rd.w)*0.32)) > 6){
       ctx.strokeStyle = teamColor(b.u.side); ctx.globalAlpha = 0.5; ctx.lineWidth = 2;
       ctx.beginPath(); ctx.moveTo(b.u.x, drawY(b.u)); ctx.lineTo(b.x + b.w/2, b.y); ctx.stroke();
@@ -1251,7 +1147,6 @@ function drawStatTags(){
   ctx.restore();
 }
 
-const PROJ_W = {stone:26, arrow:44, bolt:36, bullet:22, missile:46, cannonball:28, shell:34, bomb:40};
 function drawProjectiles(){
   for(const p of projectiles){
     const arc = p.arc || 0;
@@ -1259,8 +1154,6 @@ function drawProjectiles(){
     const a = at(p.t), b = at(Math.max(0,p.t-0.06));
     const box = p.ammo ? spriteBox('proj_'+p.ammo, PROJ_W[p.ammo]||30) : null;
     if(box){
-      // a falling bomb keeps its nose down and grows a little as it drops; anything flying
-      // across the field turns to face where it is going
       ctx.save();
       if(p.drop){
         const g = 0.8 + p.t*0.35;
@@ -1276,7 +1169,7 @@ function drawProjectiles(){
       ctx.strokeStyle=cssv('--amber'); ctx.lineWidth=3; ctx.lineCap='round';
       ctx.beginPath(); ctx.moveTo(b.x,b.y); ctx.lineTo(a.x,a.y); ctx.stroke();
     }
-    if(p.drop){   // a shrinking ground marker under the falling bomb reads as altitude
+    if(p.drop){
       ctx.save(); ctx.globalAlpha = 0.25 + p.t*0.3; ctx.strokeStyle = cssv('--ink');
       ctx.lineWidth = 2; ctx.beginPath();
       ctx.ellipse(p.tx, p.ty+18, 30*(1-p.t*0.6), 11*(1-p.t*0.6), 0, 0, 6.283);
@@ -1290,7 +1183,6 @@ function drawFlashes(){
     ctx.save();
     ctx.globalAlpha=(1-f.t)*0.85; ctx.strokeStyle=cssv('--amber'); ctx.lineWidth=3;
     ctx.beginPath(); ctx.arc(f.x,f.y,r,0,6.283); ctx.stroke();
-    // radial spark lines
     ctx.lineWidth=2;
     for(let i=0;i<6;i++){
       const a = i*1.047 + f.t*0.6;
@@ -1321,18 +1213,31 @@ function drawHoverRing(){
   ctx.beginPath(); ctx.ellipse(hoverUnit.x, hoverUnit.y+8, hoverUnit.rd.w*0.42, hoverUnit.rd.w*0.17, 0,0,6.283);
   ctx.stroke(); ctx.restore();
 }
-function drawWinner(){
-  if(!winner) return;
+// The round counter is the timeline's own clock: which 回合's events are on screen.
+function drawClock(){
   ctx.save();
-  ctx.fillStyle = winner==='BLUE'?cssv('--blue'):cssv('--red');
+  ctx.font = '600 26px '+cssv('--font-mono'); ctx.fillStyle = cssv('--ink');
+  ctx.globalAlpha = 0.72; ctx.textAlign='center'; ctx.textBaseline='top';
+  ctx.fillText('回合 '+roundShown+' / '+FX.rounds.length, W/2, 18);
+  ctx.restore();
+}
+function drawWinner(){
+  if(ended <= 0) return;
+  const playerWon = FX.winner === 'player';
+  ctx.save();
+  ctx.fillStyle = playerWon ? cssv('--blue') : cssv('--red');
   ctx.textAlign='center';
-  ctx.globalAlpha = Math.min(1, winTimer*2);
-  ctx.font = '600 '+(winNote ? 38 : 54)+'px '+cssv('--font-display');
-  ctx.fillText(winNote || (winner+' HOLDS THE FIELD'), W/2, H/2);
+  ctx.globalAlpha = Math.min(1, ended*2);
+  ctx.font = '600 48px '+cssv('--font-display');
+  ctx.fillText(playerWon ? '我方拿下戰場' : '敵方拿下戰場', W/2, H/2);
+  ctx.font = '500 24px '+cssv('--font-mono');
+  ctx.globalAlpha *= 0.75;
+  ctx.fillText('core outcome: ' + FX.outcome + ' · 戰功 ' + FX.merit + ' · 軍費 ' + FX.spent,
+               W/2, H/2 + 44);
   ctx.restore();
 }
 
-// --- metrics table ----------------------------------------------------------------------
+// --- metrics table --------------------------------------------------------------------------
 const FORT_STATE = {ok:'運作中', disabled:'被禁用（待修）'};
 function buildTables(){
   for(const side of [0,1]){
@@ -1349,21 +1254,21 @@ function buildTables(){
     for(const u of units.filter(u=>u.side===side)){
       const {tr, tds} = mk(u.name, [0,0,0,0,0]);
       const hold = document.createElement('span'); hold.className='hpcell';
-      const num = document.createElement('span');
+      const numEl = document.createElement('span');
       const bar = document.createElement('span'); bar.className='hpbar';
       const fill = document.createElement('i'); fill.style.background = teamColor(side);
-      bar.appendChild(fill); hold.appendChild(num); hold.appendChild(bar);
+      bar.appendChild(fill); hold.appendChild(numEl); hold.appendChild(bar);
       tds[0].appendChild(hold);
       tds[1].textContent = u.stats.atk || '-';
-      tds[2].textContent = u.stats.acc==null ? '-' : u.stats.acc+'%';
-      tds[3].textContent = (u.stats.dodge==null? '-' : u.stats.dodge+'%');
-      tds[4].textContent = u.stats.speed==null ? '-' : u.stats.speed.toFixed(2);
-      u.tr = tr; u.tds = {num, fill};
+      tds[2].textContent = u.stats.acc ? num(u.stats.acc)+'%' : '-';
+      tds[3].textContent = u.stats.dodge ? num(u.stats.dodge)+'%' : '-';
+      tds[4].textContent = u.stats.speed ? num(u.stats.speed,2) : '-';
+      u.tr = tr; u.tds = {num:numEl, fill};
       tr.addEventListener('mouseenter', ()=>{ hoverUnit = u; });
       tr.addEventListener('mouseleave', ()=>{ if(hoverUnit===u) hoverUnit=null; });
     }
     for(const f of forts.filter(f=>f.side===side)){
-      const {tr, tds} = mk(formName(f.cls, f.era), [0], 'fort');
+      const {tr, tds} = mk(f.name, [0], 'fort');
       tds[0].colSpan = 5;
       f.tr = tr; f.td = tds[0];
     }
@@ -1410,15 +1315,15 @@ cv.addEventListener('mouseleave', ()=>{
   hoverUnit = null;
 });
 
-// --- era selector -----------------------------------------------------------------------
+// --- era selector ---------------------------------------------------------------------------
 const erasHold = document.getElementById('eras');
-ERA_LABEL.forEach((label, i)=>{
+ERAS.forEach(fx=>{
   const b = document.createElement('button');
-  b.className='era-btn'; b.type='button'; b.dataset.era = String(i+1);
-  b.textContent = (i+1)+' '+label;
-  b.setAttribute('aria-pressed', String(i+1===currentEra));
+  b.className='era-btn'; b.type='button'; b.dataset.era = String(fx.era);
+  b.textContent = fx.era+' '+ERA_LABEL[fx.era-1];
+  b.setAttribute('aria-pressed', String(fx.era===currentEra));
   b.addEventListener('click', ()=>{
-    currentEra = i+1;
+    currentEra = fx.era;
     erasHold.querySelectorAll('.era-btn').forEach(x=>
       x.setAttribute('aria-pressed', String(Number(x.dataset.era)===currentEra)));
     reset();
@@ -1426,19 +1331,20 @@ ERA_LABEL.forEach((label, i)=>{
   erasHold.appendChild(b);
 });
 function updateVerdict(){
-  const n = rosterFor(currentEra).length;
+  const ours = units.filter(u=>u.side===0).length, theirs = units.filter(u=>u.side===1).length;
+  const ow = forts.filter(f=>f.side===0).length, tw = forts.filter(f=>f.side===1).length;
   document.getElementById('verdict').innerHTML =
-    '時代 <b>'+currentEra+'</b> · '+ERA_LABEL[currentEra-1]+' · 每方 <b>'+n+'</b> 單位 · 我方 <b>'
-    + fortLineFor(currentEra).length + '</b> 工事（敵方無工事）';
+    '時代 <b>'+FX.era+'</b> · '+ERA_LABEL[FX.era-1]+' · 我方 <b>'+ours+'</b> 單位／<b>'+ow
+    + '</b> 工事 · 敵方 <b>'+theirs+'</b> 單位／<b>'+tw+'</b> 工事 · <b>'
+    + FX.rounds.length + '</b> 回合';
 }
 
 reset();
 
-// --- asset manifest ------------------------------------------------------------------------
-// Built from SPRITE_SRC (emitted by build_motion_demo.py) rather than from the sprite key, so
-// the filename shown is the file that was actually embedded. The two only differ if a render is
-// missing and the build fills that era from a neighbouring one.
-const ROW_TAG = {melee:'近戰列', ranged:'遠程列', air:'空域', fortification:'工事線'};
+// --- asset manifest -------------------------------------------------------------------------
+// Built from the fixtures, so the table shows exactly the classes and era forms the game put on
+// the field, and the page keeps no catalog transcription of its own. A dash means that class has
+// no form that era, so nothing was rendered for it.
 const AMMO_ZH = {
   stone:'石彈', arrow:'箭', bolt:'弩矢', bullet:'彈丸', missile:'飛彈',
   cannonball:'實心砲彈', shell:'高爆砲彈', bomb:'炸彈',
@@ -1446,19 +1352,27 @@ const AMMO_ZH = {
 function srcName(key){ return (typeof SPRITE_SRC !== 'undefined' && SPRITE_SRC[key]) || key+'.png'; }
 
 (function buildAssetTable(){
+  // class -> {zh, row, forms: {era: form}}
+  const cast = {};
+  for(const fx of ERAS){
+    for(const row of fx.units.concat(fx.forts)){
+      const c = cast[row.card_id] || (cast[row.card_id] = {zh:row.zh, row:row.row || 'fortification', forms:{}});
+      c.forms[fx.era] = row.form;
+    }
+  }
   let h = '<thead><tr><th>兵種</th>';
   for(let e=1;e<=6;e++) h += '<th>'+ERA_LABEL[e-1]+'<span class="eranum">era '+e+'</span></th>';
   h += '</tr></thead><tbody>';
   let shown = 0;
-  for(const cls of Object.keys(CLASSES)){
-    const c = CLASSES[cls];
+  for(const cls of Object.keys(cast)){
+    const c = cast[cls];
     h += '<tr><td>'+c.zh+'<span class="rowtag">'+(ROW_TAG[c.row]||c.row)+'</span></td>';
     for(let e=1;e<=6;e++){
       const key = cls+'_e'+e;
-      if(!hasForm(cls, e) || !SPRITES[key]){ h += '<td class="none">—</td>'; continue; }
+      if(!c.forms[e] || !SPRITES[key]){ h += '<td class="none">—</td>'; continue; }
       shown++;
-      h += '<td><img src="'+SPRITES[key]+'" alt="'+c.zh+' '+formName(cls,e)+'" loading="lazy">'
-         + '<span class="form">'+formName(cls,e)+'</span>'
+      h += '<td><img src="'+SPRITES[key]+'" alt="'+c.zh+' '+c.forms[e]+'" loading="lazy">'
+         + '<span class="form">'+c.forms[e]+'</span>'
          + '<span class="file">'+srcName(key)+'</span></td>';
     }
     h += '</tr>';
@@ -1469,7 +1383,7 @@ function srcName(key){ return (typeof SPRITE_SRC !== 'undefined' && SPRITE_SRC[k
   document.getElementById('asset-proj').innerHTML = proj.map(function(n){
     const use = [];
     for(const cls of Object.keys(AMMO))
-      AMMO[cls].forEach(function(a,i){ if(a===n) use.push(CLASSES[cls].zh+' e'+(i+1)); });
+      AMMO[cls].forEach(function(a,i){ if(a===n && cast[cls]) use.push(cast[cls].zh+' e'+(i+1)); });
     return '<figure><img src="'+SPRITES['proj_'+n]+'" alt="'+AMMO_ZH[n]+'" loading="lazy">'
          + '<b>'+AMMO_ZH[n]+'</b><span class="file">'+srcName('proj_'+n)+'</span>'
          + '<span class="use">'+(use.join('<br>')||'unused')+'</span></figure>';
@@ -1492,7 +1406,7 @@ function loop(ts){
   drawHealthBars();
   drawStatTags();
   drawProjectiles(); drawFlashes(); drawFloaters();
-  drawHoverRing(); drawWinner();
+  drawHoverRing(); drawClock(); drawWinner();
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);

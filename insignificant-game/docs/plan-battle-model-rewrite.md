@@ -1,7 +1,8 @@
 # Battle model rewrite: implementation plan (master reference)
 
 > **For agentic workers:** this is the **reference**, not a task list you can execute directly.
-> It carries the locked design, the glossary, and the wave sequence. Each wave below gets its
+> It carries the locked design, the blast radius, and the wave sequence; the vocabulary lives in
+> `docs/architecture.md` §Glossary. Each wave below gets its
 > own detailed TDD plan written just-in-time, when the preceding wave's shape is known. Use
 > `superpowers:subagent-driven-development` or `superpowers:executing-plans` against those
 > per-wave plans, not against this file.
@@ -180,30 +181,9 @@ the only rival state.
 
 ## Glossary
 
-Terms are load-bearing. Use exactly these; do not drift to synonyms.
-
-| Term | Meaning |
-|---|---|
-| **攻 / power / `attack`** | One concept, three spellings, all the same thing. Fixed per card type and era, from 卡牌總表, scaled by 時代係數. Never rolls. |
-| **血 / HP** | Fixed per card type and era. "How many men the regiment has." Never rolls. |
-| **innate three** | accuracy, dodge, speed. Rolled per card **instance** at acquisition, within a per-type distribution. "How good these particular men are." |
-| **勳章 (medal)** | A growth award of +1 level on **one stat**. Two sources: battle (automatic; lands on the stat whose XP filled, D13) and 兵營 (assigned to a card in the operation scene; the stat is fixed by that card's lane — 近戰→攻速, 遠程/空域→命中率, 工兵團→閃避率 — D14). No per-card cap. Never called a card. |
-| **wave** | One scheduled enemy commitment inside a battle. Rolled per battle (D5). |
-| **tick** | The atomic time unit inside a 回合. Units act on their own attack speed. |
-| **timeline** | The complete, ordered, tick-stamped event list core emits for one round. The view replays it and decides nothing. |
-| **老兵 / veterancy** | 軍事區's 基礎被動 (D15): units start one growth level up, on the same lane-routed stat as the 兵營 medal; an always-on floor that re-applies after death while 軍事區 stands. |
-| **exhaustion** | The defeat condition (D3): field empty **and** nothing left to commit. In 世界大戰 it applies **per camp** (WW1). |
-| **回合 (round)** | A fixed tick window. The atomic unit of play: deployment, 軍費, and wave arrival all happen at its boundary. |
-| **正規軍 / regular army** | A civilization's power converted into on-field units drawn from the **real unit roster** at baseline stats (no roll/growth/veterancy). Used by 文明戰爭 and 世界大戰 (WW3). Per-battle, discarded after; not a persistent rival deck. |
-| **非正規軍 / irregulars** | The anonymous 弱/中/硬 tiers (and thematic monsters): pirates, aliens, rebels, protesters, tax rabble, general-map bandits. The 5 non-civ battle types (WW3). |
-
-### Retired terms (never reintroduce)
-
-| Term | Status |
-|---|---|
-| **手牌 (hand)** | **Retired (D1).** No hand, no draw pile, no opening hand, no hand size. If a doc or comment implies one, it is stale; fix it. |
-| **部隊位 (slots)** | **Retired (D14).** Was 兵營's line output. Replaced by assignable 勳章. |
-| **同時結算** | **Retired (D6).** Units act on attack speed. |
+The battle-model vocabulary, and the retired terms that must never come back, live in
+`docs/architecture.md` §Glossary, which is the repo's only glossary. The locked design below (D1 to
+D16) uses those terms exactly; terms are load-bearing, so do not drift to synonyms.
 
 ---
 

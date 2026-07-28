@@ -108,7 +108,7 @@
         <span class="chip">implementation-notes.md (wave conventions)</span>
         <span class="chip">balance-report.md</span>
         <span class="chip">difficulty-design.md</span>
-        <span class="chip">explore-topdown-* (stopped exploration)</span>
+        <span class="chip">explore-topdown-* (adopted exploration + replayer)</span>
       </div>
     </div>
     <div class="flow">the build rides the doctrine; big decisions escalate to ADRs</div>
@@ -133,6 +133,7 @@
         <span class="chip">style-bible.md (locked recipe + templates)</span>
         <span class="chip">inventory.md (full asset scope)</span>
         <span class="chip">review-brief-units.md</span>
+        <span class="chip">review-brief-units-topdown.md</span>
         <span class="chip">review/ (generated pick-gate pages)</span>
       </div>
     </div>
@@ -174,7 +175,7 @@
   <table>
     <tr><th>File</th><th>Audience</th><th>Purpose &amp; scope</th><th>Connects to</th></tr>
     <tr><td>architecture.md</td><td><span class="aud agent">agent</span></td>
-        <td>The contract: layering rules, module map, GameState schema, canonical StringName IDs, glossary, test conventions. Fixes how code is shaped so parallel agents don't collide.</td>
+        <td>The contract: layering rules, module map, GameState schema, canonical StringName IDs, the repo's only glossary, test conventions. Fixes how code is shaped so parallel agents don't collide.</td>
         <td>Mirrors design/ per module; cited by every <code>core/*.gd</code> header; commands live in dev-loop.md.</td></tr>
     <tr><td>dev-loop.md</td><td><span class="aud agent">agent</span></td>
         <td>Verified Part A / Part B / balance-batch commands and the pitfalls that actually bit. Only what you type and what bites.</td>
@@ -186,7 +187,7 @@
         <td>Design-gap decision log: every value or rule the design leaves silent, decided conservatively, one row per gap. Purpose-built log: keeps its dates.</td>
         <td>Fed by implementation waves; big architectural calls escalate to root docs/adr/.</td></tr>
     <tr><td>plan-battle-model-rewrite.md</td><td><span class="aud both">both</span></td>
-        <td>Locked design (D1 to D16), glossary, retired terms, and blast radius for the battle-model rewrite executed as waves W11 to W15.</td>
+        <td>Locked design (D1 to D16), blast radius, and wave sequence for the battle-model rewrite executed as waves W11 to W15. Carries no glossary: the vocabulary lives in architecture.md.</td>
         <td>ADR-0001..0005 record its five biggest calls; PLAN.md board points here.</td></tr>
     <tr><td style="white-space:normal">implementation-notes.md</td><td><span class="aud agent">agent</span></td>
         <td>Working notebook of the rewrite waves: the code-level conventions each wave establishes (RNG tracks, draw order, tick shape) so later waves inherit instead of re-deciding, plus a Deviations log of conservative mid-wave calls. Purpose-built log: keeps its dates.</td>
@@ -201,8 +202,8 @@
         <td>Exploration log for the top-down battle camera and RimWorld-style unit art, from the audit that stopped it to the round that adopted it. Records the objections that still stand (the core still gets no space; the sprite cost is real) alongside the decision taken despite them. Purpose-built log: keeps its dates.</td>
         <td>The decisions it led to are ADR-0008 (cover chain) and ADR-0009 (top-down camera); the sandbox it rests on is explore-topdown-motion-demo.html.</td></tr>
     <tr><td style="white-space:normal">explore-topdown-motion-demo.html</td><td><span class="aud human">human</span></td>
-        <td>Presentation sandbox: the full unit roster at a chosen era, resolving attacks on the real catalog stats and roll order, each fighter one static sprite moved by cheap transforms. Started as a way to watch the numbers; it became the evidence for the top-down camera (ADR-0009) and surfaced the cover defect behind ADR-0008. W14.7 rewrites it as a replayer of the core's exported timeline with every rule deleted, so it can no longer drift from the game.</td>
-        <td>Sprites come from ../assets/exploration/topdown-demo/; the exploration is logged in explore-topdown-battle-and-units.md; its rules are pinned to ADR-0006/0007 by <code>docs/tools/check_motion_demo.js</code> (which becomes a renderer check once the rules leave the page). <b>Agent-gated:</b> 94% of its 1.2 MB is base64 sprite payload, so <code>.claude/settings.json</code> makes Claude ask before reading it and root CLAUDE.md carries the payload-stripping command for when the human does ask.</td></tr>
+        <td><b>Battle timeline replayer</b> (W14.7): one full-roster battle per era, played back from the tick timeline <code>core/battle.gd</code> exported. It holds <b>zero rule code</b> — it stages the 掩護鏈 (ADR-0008) under the top-down camera (ADR-0009) and animates each event at the tick it carries. The simulator it replaced is what surfaced the cover defect and the camera decision, and is also what drifted from the rules once; a replayer cannot. Prototype of the W15 in-engine battle scene.</td>
+        <td>Sprites come from ../assets/exploration/topdown-demo/ and the timeline from <code>docs/fixtures/battle_timeline.json</code>; both are embedded by <code>docs/tools/build_motion_demo.py</code>. Fixture written by <code>tools/export_timeline.gd</code>; fixture freshness, the absence of rule code and the cover-chain staging are checked by <code>docs/tools/check_motion_demo.js</code> — both in Part A (dev-loop.md). The exploration is logged in explore-topdown-battle-and-units.md. <b>Agent-gated:</b> 94% of its 1.2 MB is base64 sprite payload, so <code>.claude/settings.json</code> makes Claude ask before reading it and root CLAUDE.md carries the payload-stripping command for when the human does ask.</td></tr>
   </table>
   </div>
 
@@ -256,6 +257,9 @@
     <tr><td>review-brief-units.md</td><td><span class="aud agent">agent</span></td>
         <td>Reviewer-subagent brief for unit-cell contact sheets: zoom-before-verdict rule, reject criteria, known failure modes.</td>
         <td>Cookbook §8 review loop.</td></tr>
+    <tr><td style="white-space:normal">review-brief-units-topdown.md</td><td><span class="aud agent">agent</span></td>
+        <td>What the top-down camera adds to the unit review, on top of review-brief-units.md: the evidence answering ADR-0009's two open risks (mirroring holds; eye-level drift is confined to five cells), the orientation defect class an X-flip cannot rescue, and the rule that silhouettes are judged at on-field size rather than sheet size.</td>
+        <td>Reviewer brief for the W14.8 sheets from <code>phase3_units_topdown_sheets.py</code>; evidence is the exploration raws indexed by <code>docs/tools/topdown_demo_sprites.json</code>; prompts it audits live in <code>phase3_units_topdown_batch.py</code>.</td></tr>
     <tr><td style="white-space:normal">review/pickgate_round2_units.html</td><td><span class="aud human">human</span></td>
         <td>Generated pick-gate page for a units round: one row per rendered cell with its thumbnail, the render-time prompt, an approve/reject choice, and a reject-reason field. Self-contained and offline; choices persist in browser localStorage.</td>
         <td>Built by <code>build_pickgate_review.py</code> from <code>manifest.jsonl</code>; judged under review-brief-units.md.</td></tr>
@@ -264,7 +268,7 @@
         <td>Font locked in style-bible.md §10; consumed by <code>view/main.gd</code> chrome.</td></tr>
     <tr><td style="white-space:normal">../exploration/topdown-demo/README.md</td><td><span class="aud both">both</span></td>
         <td>Inventory and boundary marker for the demo-only top-down sprites: what the 60 files are (class × era × subject kind, ammo-to-class mapping), how the demo embeds them, and why they are not a stand-in for the frozen side-view units (wrong camera, unkeyed raws, roster keyed to card classes). Nothing in that folder ships and no Godot code reads it.</td>
-        <td>Sole consumer is insignificant-game/docs/explore-topdown-motion-demo.html; indexed by <code>docs/tools/topdown_demo_sprites.json</code>; shipping art stays in <code>assets/approved/</code> behind <code>core/data/asset_paths.gd</code>. Records the three <code>anti_air</code> renders ADR-0006 stranded.</td></tr>
+        <td>Sole consumer is the replayer, insignificant-game/docs/explore-topdown-motion-demo.html; indexed by <code>docs/tools/topdown_demo_sprites.json</code>; shipping art stays in <code>assets/approved/</code> behind <code>core/data/asset_paths.gd</code>. Records the three <code>anti_air</code> renders ADR-0006 stranded.</td></tr>
   </table>
   </div>
 
@@ -319,7 +323,7 @@
       requires either its own row or a cluster row that covers its directory.</li>
   </ul>
 
-  <footer>Last updated: 2026-07-27 (W14.6 corpus round: the formation is an ordered cover chain and the battle camera is top-down, ADR-0008/0009. The 2026-07-25 top-down audit is deleted and its sprite-cost evidence lifted into ADR-0009; the <code>depandabot/</code> row is now a live convention over an empty directory. The two exploration docs are re-roled from stopped to adopted) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
+  <footer>Last updated: 2026-07-28 (W14.7: the cover chain landed in core and the motion demo became a <b>timeline replayer</b> with zero rule code, fed by the new <code>tools/export_timeline.gd</code> fixture. Timeline events gained a <code>side</code> key so a replayer can tell the camps apart. Part A grew the exporter diff and the renderer check) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
 </div>
 </body>
 </html>

@@ -19,6 +19,18 @@ extends RefCounted
 # (destroy-on-hit); a fortification hit once is DISABLED, never removed, and an engineer
 # repairs one per round round-robin. 只剩空軍 can't claim a field, for either side.
 #
+# Every timeline event carries the side of the party its actor field names (&"by", or &"unit"
+# where there is no &"by"). Labels are card ids, so both camps' 步兵團 answer to one label and
+# an attack could not be attributed to a camp without it (architecture.md §Timeline event
+# contract; added in W14.7 when the first replayer needed it).
+#
+# The cover chain (ADR-0008): 自動佈陣 is an ordered chain 近戰列（最前）→ 工事線 → 遠程列 → 空域,
+# each layer screening the one behind it. 盾陣 intercepts one melee attack aimed at the
+# 遠程列 and nothing else; 正規軍 field screens of their own (never 防空飛彈, never repairable);
+# 工兵團 stations in the 遠程列 and works at the 工事線. Still no coordinates: a station is the
+# categorical row plus, for a screened row, which wall covers it — emitted as &"take_station"
+# so the two timeline replayers stage the picture without holding a formation rule.
+#
 # Design gaps decided here (docs/decisions.md, W12 + W14.5): 正規軍 wave composition greedy
 # strongest-first; mutual simultaneous exhaustion = player 敗北; siege/air prefer ACTIVE
 # fortifications; retreat still issues the reward card (only cancelled battles don't).
@@ -234,6 +246,7 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 		return {"outcome": battle.outcome, "events": []}
 	var events: Array[Dictionary] = []
 	_repair_forts(battle, events)
+	_take_stations(battle, events)   # after the repair: a restored wall screens from this round
 	_refresh_player_stats(state, battle)
 	# 爛仗時候才宣揚愛與和平: after round 5, destroy one non-leader enemy.
 	if battle.love_and_peace_armed and battle.round >= 5:
@@ -318,25 +331,33 @@ static func _roll_waves(state: GameState, battle: BattleField) -> void:
 			for grade: StringName in (spec["grades"] as Array):
 				units.append(_irregular_unit(state, grade, coeff, bool(spec["siege"])))
 		if not units.is_empty():
-			battle.waves.append({"round": arrival, "units": units, "side": &"enemy"})
+			battle.waves.append({"round": arrival, "units": units, "side": &"enemy",
+					"forts": regular_screens(units, &"enemy")})
 	battle.waves.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return int(a["round"]) < int(b["round"]))
 	if battle.waves.is_empty():
 		# tiny civil-war rival: still field one weakest regular in wave 1
 		var weakest := _cheapest_regular_type(state)
 		var rival: Rivals.RivalState = Rivals.find(state, battle.rival_id)
-		battle.waves.append({"round": 1, "side": &"enemy",
-			"units": [_regular_unit(state, weakest, &"enemy", &"enemy", rival)] as Array[Dictionary]})
+		var lone: Array[Dictionary] = [regular_unit(state, weakest, &"enemy", &"enemy", rival)]
+		battle.waves.append({"round": 1, "side": &"enemy", "units": lone,
+			"forts": regular_screens(lone, &"enemy")})
 
 
 static func _arrive_waves(battle: BattleField) -> void:
 	while battle.next_wave < battle.waves.size() \
 			and int(battle.waves[battle.next_wave]["round"]) <= battle.round:
 		var wave: Dictionary = battle.waves[battle.next_wave]
-		var into: Array[Dictionary] = battle.player_units if wave["side"] == &"player" \
-				else battle.enemy_units
+		var player_side: bool = wave["side"] == &"player"
+		var into: Array[Dictionary] = battle.player_units if player_side else battle.enemy_units
 		for unit: Dictionary in (wave["units"] as Array):
 			into.append(unit)
+		# 正規軍 screens ride in with the wave they cover, and 同場上限 2 counts the whole battle
+		# exactly as it does for the player: a wall is never removed, so a slot never frees up.
+		var line: Array[Dictionary] = battle.player_forts if player_side else battle.enemy_forts
+		for fort: Dictionary in (wave.get("forts", []) as Array):
+			if line.size() < FORT_LIMIT:
+				line.append(fort)
 		battle.next_wave += 1
 
 
@@ -352,7 +373,7 @@ static func _irregular_unit(state: GameState, grade: StringName, coeff: int, sie
 		"row": &"ranged" if siege else &"melee",
 		"flags": ([&"siege"] if siege else []) as Array,
 		"accuracy": ENEMY_ACCURACY, "dodge": ENEMY_DODGE, "speed": ENEMY_SPEED,
-		"progress": 0.0, "instance": null,
+		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"",
 	}
 
 
@@ -362,12 +383,39 @@ static func regular_force(state: GameState, budget: float, side: StringName, fac
 	# 國策限定 and support (no_attack) types stay out of the conversion roster.
 	# Used by 文明戰爭 (enemy side, one rival) and 世界大戰 (both camps, per civ).
 	var units: Array[Dictionary] = []
-	for card_id: StringName in _regular_roster_desc(state):
+	for card_id: StringName in regular_roster_desc(state):
 		var strength: float = float(_type_strength(state, card_id))
 		while budget >= strength:
 			budget -= strength
-			units.append(_regular_unit(state, card_id, side, faction, rival))
+			units.append(regular_unit(state, card_id, side, faction, rival))
 	return units
+
+
+static func regular_screens(units: Array[Dictionary], side: StringName) -> Array[Dictionary]:
+	# 正規軍也出盾陣掩護自己的遠程列 (戰鬥.md 對手兩型, ADR-0008). A wave that brings a 遠程列
+	# regular brings one wall segment with it — one card is one segment spanning that row's
+	# frontage. Never 防空飛彈 (enemy civs field no anti-air, ADR-0006) and never repairable:
+	# the 正規軍 roster excludes 不主動攻擊 types, so there is no enemy 工兵團 and a suppressed
+	# enemy screen stays down. 非正規軍 field no works at all, so a 帶攻城 irregular standing in
+	# the ranged row still gets nothing.
+	# Only the enemy camp: on the player's side the 工事線 is the player's own two slots and its
+	# engineer's beat, and allied 正規軍 must not eat them (docs/decisions.md, W14.7).
+	var screens: Array[Dictionary] = []
+	if side != &"enemy":
+		return screens
+	for unit: Dictionary in units:
+		if bool(unit["regular"]) and unit["row"] == &"ranged":
+			screens.append(_screen_fort())
+			break
+	return screens
+
+
+static func _screen_fort() -> Dictionary:
+	# The enemy's wall is the same 盾陣 the player fields, minus an owner card instance: era form
+	# resolves from card_id at render time, and 運作中／被禁用 is its whole state (ADR-0007).
+	return {"card_id": &"shield_wall",
+			"flags": (CardsData.CARDS[&"shield_wall"]["flags"] as Array).duplicate(),
+			"disabled": false}
 
 
 static func _regular_army_wave(state: GameState, battle: BattleField, share: float) -> Array[Dictionary]:
@@ -376,7 +424,7 @@ static func _regular_army_wave(state: GameState, battle: BattleField, share: flo
 	return regular_force(state, rival.power * 0.5 * share, &"enemy", &"enemy", rival)
 
 
-static func _regular_roster_desc(state: GameState) -> Array[StringName]:
+static func regular_roster_desc(state: GameState) -> Array[StringName]:
 	# Unit types formed this era, strongest first (ties: catalog order).
 	var idx: int = Era.index(state.generation)
 	var roster: Array[StringName] = []
@@ -393,7 +441,7 @@ static func _regular_roster_desc(state: GameState) -> Array[StringName]:
 
 
 static func _cheapest_regular_type(state: GameState) -> StringName:
-	var roster := _regular_roster_desc(state)
+	var roster := regular_roster_desc(state)
 	if roster.is_empty():
 		return &"infantry"
 	return roster[roster.size() - 1]
@@ -409,7 +457,7 @@ static func _type_strength(state: GameState, card_id: StringName) -> int:
 	return (int(entry["attack"]) + int(entry["hp"])) * Era.coeff(state.generation)
 
 
-static func _regular_unit(state: GameState, card_id: StringName, side: StringName, faction: StringName, rival: Rivals.RivalState) -> Dictionary:
+static func regular_unit(state: GameState, card_id: StringName, side: StringName, faction: StringName, rival: Rivals.RivalState) -> Dictionary:
 	# Real roster type at era-baseline 攻/血, engine-default三值, no roll/growth (WW3).
 	# faction = 戰功 attribution tag (WW5: the owning civ id in 世界大戰; &"enemy" in the
 	# single-rival 文明戰爭). A psyops-discounted rival's units fight discounted wherever
@@ -428,7 +476,7 @@ static func _regular_unit(state: GameState, card_id: StringName, side: StringNam
 		"strength": _type_strength(state, card_id),
 		"row": entry["row"], "flags": (entry["flags"] as Array).duplicate(),
 		"accuracy": ENEMY_ACCURACY, "dodge": ENEMY_DODGE, "speed": ENEMY_SPEED,
-		"progress": 0.0, "instance": null,
+		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"",
 	}
 
 
@@ -445,7 +493,7 @@ static func _unit_from_card(state: GameState, battle: BattleField, instance: Car
 		"accuracy": _snapshot_accuracy(state, battle, instance),
 		"dodge": Cards.dodge_of(state, instance),
 		"speed": Cards.speed_of(state, instance),
-		"progress": 0.0, "instance": instance,
+		"progress": 0.0, "instance": instance, "stationed": false, "screened_by": &"",
 	}
 
 
@@ -491,8 +539,41 @@ static func _repair_forts(battle: BattleField, events: Array[Dictionary]) -> voi
 			continue
 		fort["disabled"] = false
 		battle.repair_cursor = (i + 1) % count
-		events.append({"tick": 0, "type": &"repair", "card_id": fort["card_id"]})
+		events.append({"tick": 0, "type": &"repair", "side": &"player",
+				"card_id": fort["card_id"]})
+		if (fort["flags"] as Array).has(&"screens_ranged_row"):
+			# 修復再啟用 restores the cover, so the row it screens says so again at this tick —
+			# the wall may have gone down and come back inside one round (docs/decisions.md W14.6).
+			_station_side(battle.player_units, battle.player_forts, events, true)
 		return   # one per round
+
+
+static func _take_stations(battle: BattleField, events: Array[Dictionary]) -> void:
+	# 自動佈陣＝一條掩護鏈 (ADR-0008): a unit takes its station the round it joins the field, and
+	# the event names the wall that covers it. It re-announces when that cover changes under it —
+	# a wall deployed behind it, a wall permanently stripped — and `_repair_forts` forces the
+	# announcement after a repair, so a replayer never shows a covered row as bare
+	# (architecture.md §Timeline event contract; docs/decisions.md W14.6).
+	_station_side(battle.player_units, battle.player_forts, events)
+	_station_side(battle.enemy_units, battle.enemy_forts, events)
+
+
+static func _station_side(units: Array[Dictionary], forts: Array[Dictionary], events: Array[Dictionary], force: bool = false) -> void:
+	var index: int = _first_active_fort(forts, &"screens_ranged_row")
+	var screen: StringName = forts[index]["card_id"] if index >= 0 else &""
+	for unit: Dictionary in units:
+		if int(unit["hp"]) <= 0:
+			continue
+		# 空域不佔地面位 and the 近戰列 stands in front of the wall: only the 遠程列 is screened.
+		var screened: bool = unit["row"] == &"ranged"
+		var cover: StringName = screen if screened else &""
+		if bool(unit["stationed"]) and StringName(unit["screened_by"]) == cover \
+				and not (force and screened):
+			continue
+		unit["stationed"] = true
+		unit["screened_by"] = cover
+		events.append({"tick": 0, "type": &"take_station", "side": unit["side"],
+				"unit": _unit_label(unit), "row": unit["row"], "screened_by": cover})
 
 
 static func _has_engineer(units: Array[Dictionary]) -> bool:
@@ -522,6 +603,7 @@ static func _cast_skill(state: GameState, battle: BattleField, instance: Cards.C
 				enemy["side"] = &"player"
 				enemy["faction"] = &"player"
 				enemy["row"] = &"melee"
+				enemy["stationed"] = false   # 投誠者重新就位: new side, new layer of the chain
 				battle.player_units.append(enemy)
 				break
 
@@ -535,8 +617,8 @@ static func _destroy_one_non_leader(battle: BattleField, events: Array[Dictionar
 	for unit: Dictionary in battle.enemy_units:
 		if _is_non_leader(unit):
 			unit["hp"] = 0
-			events.append({"tick": tick, "type": &"death", "victim": _unit_label(unit),
-					"by": &"skill", "faction": unit["faction"]})
+			events.append({"tick": tick, "type": &"death", "side": &"player",
+					"victim": _unit_label(unit), "by": &"skill", "faction": unit["faction"]})
 			_credit_clear(battle, &"player", unit)
 			return
 
@@ -590,45 +672,49 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 		var busted: int = _first_active_fort(defender_forts)
 		if busted >= 0:
 			defender_forts[busted]["disabled"] = true
-			events.append({"tick": tick, "type": &"disable", "by": _unit_label(attacker),
-					"card_id": defender_forts[busted]["card_id"]})
+			events.append({"tick": tick, "type": &"disable", "side": attacker["side"],
+					"by": _unit_label(attacker), "card_id": defender_forts[busted]["card_id"]})
 			return
 	var target: Dictionary = _pick_target(defenders, kind)
 	if target.is_empty():
 		return   # 近戰打不到空域、空襲打不到空域: no legal target = no attack this shot
-	# 盾陣 intercepts one melee attack aimed at a friendly GROUND unit, ignoring attack value,
-	# and the interception disables it (ADR-0007). Shots at 空域 bypass the 工事線 entirely:
-	# a wall on the ground cannot absorb a shot at the sky (ADR-0006).
-	if kind == &"melee" and not _is_air(target):
-		var shield: int = _first_active_fort(defender_forts, &"blocks_melee_once")
+	# 盾陣＝遠程列的掩體 (ADR-0008): it intercepts one melee attack aimed at a unit in the
+	# 遠程列 — the layer it stands in front of — ignoring attack value, and the interception
+	# disables it (ADR-0007). An attack on the 近戰列 lands in FRONT of the wall and is never
+	# intercepted; shots at 空域 bypass the 工事線 entirely, since a wall on the ground cannot
+	# absorb a shot at the sky (ADR-0006). A screen with no 遠程列 unit behind it therefore
+	# never fires and never disables (docs/decisions.md, W14.6).
+	if kind == &"melee" and target["row"] == &"ranged":
+		var shield: int = _first_active_fort(defender_forts, &"screens_ranged_row")
 		if shield >= 0:
 			defender_forts[shield]["disabled"] = true
-			events.append({"tick": tick, "type": &"intercept", "by": _unit_label(attacker),
-					"card_id": defender_forts[shield]["card_id"]})
+			events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
+					"by": _unit_label(attacker), "card_id": defender_forts[shield]["card_id"]})
 			return
 	# accuracy roll, then dodge roll — both on the &"battle" track, in this order.
 	if not state.rng.chance(&"battle", float(attacker["accuracy"]) / 100.0):
-		events.append({"tick": tick, "type": &"miss", "by": _unit_label(attacker),
-				"target": _unit_label(target)})
+		events.append({"tick": tick, "type": &"miss", "side": attacker["side"],
+				"by": _unit_label(attacker), "target": _unit_label(target)})
 		return
 	if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
-		events.append({"tick": tick, "type": &"dodge", "by": _unit_label(target),
-				"attacker": _unit_label(attacker)})
+		events.append({"tick": tick, "type": &"dodge", "side": target["side"],
+				"by": _unit_label(target), "attacker": _unit_label(attacker)})
 		_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
 		return
 	var damage: int = int(attacker["attack"])
 	if player_side and battle.attack_buff_rounds > 0:
 		damage += 1   # 軍歌: 兩回合內全體 +1 攻
 	target["hp"] = int(target["hp"]) - damage
-	events.append({"tick": tick, "type": &"hit", "by": _unit_label(attacker),
-			"target": _unit_label(target), "damage": damage})
+	events.append({"tick": tick, "type": &"hit", "side": attacker["side"],
+			"by": _unit_label(attacker), "target": _unit_label(target), "damage": damage})
 	if int(target["hp"]) > 0:
 		# 閃避率 XP: survived the hit (被攻擊且活下來). A miss accrues nothing — the attack
 		# never reached the unit (docs/decisions.md, W13). The killing blow accrues nothing.
 		_grant_battle_xp(target, &"dodge", tick, events)
 	if int(target["hp"]) <= 0:
-		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
-				"by": _unit_label(attacker), "faction": target["faction"]})
+		events.append({"tick": tick, "type": &"death", "side": attacker["side"],
+				"victim": _unit_label(target), "by": _unit_label(attacker),
+				"faction": target["faction"]})
 		_credit_clear(battle, attacker["faction"], target)
 		if player_side and (attacker["flags"] as Array).has(&"plunder"):
 			battle.plunder += 5 * Era.coeff(state.generation)   # 掠奪: 它清除的單位
@@ -653,19 +739,19 @@ static func _fire_batteries(state: GameState, battle: BattleField, forts: Array[
 			continue
 		var label: StringName = fort["card_id"]
 		if not state.rng.chance(&"battle", ENEMY_ACCURACY / 100.0):
-			events.append({"tick": tick, "type": &"miss", "by": label,
+			events.append({"tick": tick, "type": &"miss", "side": faction, "by": label,
 					"target": _unit_label(target)})
 			continue
 		if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
-			events.append({"tick": tick, "type": &"dodge", "by": _unit_label(target),
-					"attacker": label})
+			events.append({"tick": tick, "type": &"dodge", "side": target["side"],
+					"by": _unit_label(target), "attacker": label})
 			_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
 			continue
 		target["hp"] = 0   # 命中即擊落: the missile ignores hit points
-		events.append({"tick": tick, "type": &"shootdown", "by": label,
+		events.append({"tick": tick, "type": &"shootdown", "side": faction, "by": label,
 				"target": _unit_label(target)})
-		events.append({"tick": tick, "type": &"death", "victim": _unit_label(target),
-				"by": label, "faction": target["faction"]})
+		events.append({"tick": tick, "type": &"death", "side": faction,
+				"victim": _unit_label(target), "by": label, "faction": target["faction"]})
 		_credit_clear(battle, faction, target)
 
 
@@ -736,8 +822,9 @@ static func _grant_battle_xp(unit: Dictionary, stat: StringName, tick: int, even
 	if instance == null:
 		return
 	if Cards.grant_xp(instance, stat):
-		events.append({"tick": tick, "type": &"medal", "unit": _unit_label(unit),
-				"stat": stat, "level": int(instance.levels.get(stat, 0))})
+		events.append({"tick": tick, "type": &"medal", "side": unit["side"],
+				"unit": _unit_label(unit), "stat": stat,
+				"level": int(instance.levels.get(stat, 0))})
 
 
 static func _unit_label(unit: Dictionary) -> StringName:

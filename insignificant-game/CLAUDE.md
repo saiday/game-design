@@ -77,9 +77,10 @@ Numbers changed? Run the balance batch and diff against `docs/balance-report.md`
 | Where | What |
 |---|---|
 | `core/` (19 modules) + `core/data/` (7 tables) | all game logic; module↔doc map in architecture.md |
-| `test/` (21 suites, 234 cases green) | one suite per module; sim_test = full-run invariants |
+| `test/` (21 suites, 240 cases green) | one suite per module; sim_test = full-run invariants |
 | `view/main.gd` | phase-panel UI (runtime-composed approved-art chrome, 1920×1080) + embedded Part B demo/capture mode |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
+| `tools/export_timeline.gd` | one full-roster battle per era → `docs/fixtures/battle_timeline.json`; the HTML battle replayer plays that back and holds zero rule code. Part A re-runs the exporter and fails on a diff |
 | `docs/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |
 | `docs/` | contract, dev loop, task board, decision log, balance report |
 | root `docs/agent-development-loop.md` | the generic two-part-loop doctrine this project rides on |

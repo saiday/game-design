@@ -35,6 +35,16 @@ func _has_event(report: Dictionary, event_type: StringName) -> bool:
 	return false
 
 
+func _stations(report: Dictionary) -> Dictionary:
+	# &"take_station" events of this round, keyed by unit label (the fixtures here field one
+	# unit per class, so a label is a handle — see architecture.md §Timeline event contract).
+	var out: Dictionary = {}
+	for event: Dictionary in (report["events"] as Array):
+		if event["type"] == &"take_station":
+			out[event["unit"]] = event
+	return out
+
+
 # --- waves ---
 
 func test_wave_roll_deterministic_and_within_window() -> void:
@@ -215,14 +225,14 @@ func test_fort_limit_two() -> void:
 	assert_that(Battle.deploy(s, battle, 0)["reason"]).is_equal(&"fort_limit")
 
 
-# --- fortifications: disable & repair, never removed (ADR-0007) ---
+# --- the cover chain: 盾陣 screens the 遠程列 (ADR-0008) ---
 
-func test_intercept_disables_the_fort_without_removing_it() -> void:
+func test_screen_intercepts_melee_aimed_at_the_ranged_row() -> void:
 	var s := _state()
-	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)         # silent ground unit: the thing being shielded
+	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)          # silent 遠程列 unit: the row being screened
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")           # 中×1 (攻2), melee
-	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"shield_wall")
 	var report := Battle.end_round(s, battle)
 	assert_int(battle.player_forts.size()).is_equal(1)   # 本場永不移除, even with no engineer
@@ -233,6 +243,118 @@ func test_intercept_disables_the_fort_without_removing_it() -> void:
 	var second := Battle.end_round(s, battle)
 	assert_bool(_has_event(second, &"intercept")).is_false()
 	assert_bool(_has_event(second, &"hit")).is_true()
+
+
+func test_screen_ignores_melee_aimed_at_the_melee_row() -> void:
+	# The 工事線 stands BEHIND the 近戰列 (ADR-0008), so an attack on the front layer lands in
+	# front of the wall. This is the whole difference from ADR-0007's ground-unit scope.
+	var s := _state()
+	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)         # silent 近戰列 unit, hp 2
+	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)          # the screened row, behind the wall
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"shield_wall")
+	var report := Battle.end_round(s, battle)
+	assert_bool(_has_event(report, &"intercept")).is_false()
+	assert_bool(_has_event(report, &"hit")).is_true()
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()   # never fired, never down
+	# with the 近戰列 chewed through, the same attack now reaches the 遠程列 and the wall fires
+	assert_bool(battle.player_units[0]["card_id"] == &"archers").is_true()
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"intercept")).is_true()
+
+
+func test_screen_with_no_ranged_unit_never_fires() -> void:
+	# docs/decisions.md W14.6: an all-melee deck buys a wall that never fires and never disables.
+	var s := _state()
+	_craft(s, &"elite_forces", 3, 0.0, 0.0, 0.0)     # silent 近戰列 sponge, hp 12
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"elite_forces")
+	_deploy_id(s, battle, &"shield_wall")
+	for i: int in range(3):
+		var report := Battle.end_round(s, battle)
+		assert_bool(_has_event(report, &"intercept")).is_false()
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()
+
+
+func test_regular_army_fields_a_screen_it_can_never_repair() -> void:
+	# 正規軍也出盾陣 (戰鬥.md 對手兩型): the wave that brings a 遠程列 regular brings the wall that
+	# covers it, so 帶攻城 has something to bust. There is no enemy 工兵團, so once your melee
+	# strips it the screen stays down for the rest of the battle — the engineer line's value.
+	var s := _state()
+	Rivals.setup(s)
+	var rival := Rivals.find(s, &"iron_tribe")
+	rival.power = 30.0                               # wave 1: cavalry + archers → one screen
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)       # a repairer, on the WRONG side of the wall
+	_craft(s, &"cavalry", 4, 100.0, 0.0, 2.0)        # atk 8: clears the melee row, then the rest
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	assert_int(battle.enemy_forts.size()).is_equal(1)
+	assert_that(battle.enemy_forts[0]["card_id"]).is_equal(&"shield_wall")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"cavalry")
+	var disabled := false
+	for i: int in range(4):
+		if battle.outcome != &"":
+			break
+		if _has_event(Battle.end_round(s, battle), &"intercept"):
+			disabled = true
+			break
+	assert_bool(disabled).is_true()                  # our melee reached their 遠程列
+	assert_bool(bool(battle.enemy_forts[0]["disabled"])).is_true()
+	Battle.end_round(s, battle)
+	assert_bool(bool(battle.enemy_forts[0]["disabled"])).is_true()   # 敵方的工事永不修復
+
+
+func test_irregulars_field_no_works_even_in_the_ranged_row() -> void:
+	# 非正規軍不出任何工事 — a 帶攻城 irregular stands in the 遠程列 with nothing covering it.
+	var s := _state()
+	var battle := Battle.start(s, &"hidden_battle")   # 硬×1 帶攻城, ranged row
+	assert_that(battle.enemy_units[0]["row"]).is_equal(&"ranged")
+	assert_int(battle.enemy_forts.size()).is_equal(0)
+
+
+func test_take_station_names_the_wall_that_covers_the_row() -> void:
+	var s := _state()
+	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"shield_wall")
+	var stations := _stations(Battle.end_round(s, battle))
+	assert_int(stations.size()).is_equal(3)                  # 2 ours + the 中×1 that arrived
+	assert_that(stations[&"archers"]["screened_by"]).is_equal(&"shield_wall")
+	assert_that(stations[&"infantry"]["screened_by"]).is_equal(&"")   # 近戰列 stands in front
+	assert_that(stations[&"infantry"]["row"]).is_equal(&"melee")
+	assert_that(stations[&"medium"]["screened_by"]).is_equal(&"")     # 非正規軍 have no works
+	# a unit already in the chain does not re-announce itself round after round
+	assert_int(_stations(Battle.end_round(s, battle)).size()).is_equal(0)
+
+
+func test_take_station_re_emits_when_the_screen_changes() -> void:
+	var s := _state()
+	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"shield_wall")
+	Battle.end_round(s, battle)                             # the wall intercepts and goes down
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	var second := Battle.end_round(s, battle)               # 工兵 repairs it: the cover is back
+	assert_bool(_has_event(second, &"repair")).is_true()
+	var stations := _stations(second)
+	assert_that(stations[&"archers"]["screened_by"]).is_equal(&"shield_wall")
+	assert_that(stations[&"engineers"]["screened_by"]).is_equal(&"shield_wall")
+	assert_int(int(stations[&"archers"]["tick"])).is_equal(0)   # same tick as the repair
+
+
+# --- fortifications: disable & repair, never removed (ADR-0007) ---
 
 
 func test_engineer_repairs_one_disabled_fort_per_round() -> void:
@@ -257,11 +379,11 @@ func test_engineer_arriving_late_repairs_older_damage() -> void:
 	# ADR-0007: the engineer-present-at-interception conditional is gone — all that matters is
 	# that an engineer eventually stands on the side.
 	var s := _state()
-	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)           # 遠程列: the row the wall screens
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
-	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"shield_wall")
 	Battle.end_round(s, battle)                       # disabled with nobody to fix it
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
@@ -337,7 +459,8 @@ func test_air_strike_hits_ground_only() -> void:
 	_craft(s, &"bomber", 4, 100.0, 0.0, 1.0)
 	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
 	battle.enemy_units.clear()                 # air-only enemy field: nothing to strike
-	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	battle.enemy_forts.clear()                 # and no 正規軍 screen to spend the shot on either
+	battle.enemy_units.append(Battle.regular_unit(s, &"bomber", &"enemy", &"enemy", null))
 	_deploy_id(s, battle, &"bomber")
 	var report := Battle.end_round(s, battle)
 	assert_bool(_has_event(report, &"hit")).is_false()    # 空襲任選地面目標: no air-to-air
@@ -354,7 +477,7 @@ func test_anti_air_destroys_one_aircraft_per_round() -> void:
 	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
 	battle.enemy_units.clear()
 	for i: int in range(2):
-		battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+		battle.enemy_units.append(Battle.regular_unit(s, &"bomber", &"enemy", &"enemy", null))
 	_deploy_id(s, battle, &"anti_air")
 	var report := Battle.end_round(s, battle)
 	assert_bool(_has_event(report, &"shootdown")).is_true()
@@ -376,7 +499,7 @@ func test_engineer_keeps_the_battery_downing_one_aircraft_per_round() -> void:
 	_craft(s, &"engineers", 4, 0.0, 10.0, 0.0)
 	s.deck.append(Cards.CardInstance.new(&"anti_air", 4))
 	var battle := _world_war_field(s, &"bomber")
-	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	battle.enemy_units.append(Battle.regular_unit(s, &"bomber", &"enemy", &"enemy", null))
 	_deploy_id(s, battle, &"engineers")
 	_deploy_id(s, battle, &"anti_air")
 	Battle.end_round(s, battle)
@@ -419,7 +542,7 @@ func test_air_only_opponent_cannot_end_an_exhausted_players_battle() -> void:
 	rival.power = 200.0
 	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
 	battle.enemy_units.clear()
-	battle.enemy_units.append(Battle._regular_unit(s, &"bomber", &"enemy", &"enemy", null))
+	battle.enemy_units.append(Battle.regular_unit(s, &"bomber", &"enemy", &"enemy", null))
 	battle.waves.clear()
 	battle.next_wave = 0
 	Battle.end_round(s, battle)                    # empty deck: player already has nothing
@@ -435,7 +558,7 @@ func _world_war_field(s: GameState, enemy_type: StringName) -> Battle.BattleFiel
 	# 世界大戰 opened straight on the engine with one prepared enemy wave (WorldWar composes the
 	# real two-camp schedule; here the point is the uncapped round rule).
 	var wave: Array[Dictionary] = [{"round": 1, "side": &"enemy",
-			"units": [Battle._regular_unit(s, enemy_type, &"enemy", &"enemy", null)] as Array[Dictionary]}]
+			"units": [Battle.regular_unit(s, enemy_type, &"enemy", &"enemy", null)] as Array[Dictionary]}]
 	return Battle.start(s, &"world_war", &"", false, false, wave)
 
 
@@ -447,7 +570,7 @@ func test_world_war_deadlock_settles_immediately() -> void:
 	s.generation = 25                              # industrial: 轟炸機 has a form
 	var battle := _world_war_field(s, &"bomber")
 	assert_int(battle.round_cap).is_equal(0)
-	battle.player_units.append(Battle._regular_unit(s, &"infantry", &"player", &"player", null))
+	battle.player_units.append(Battle.regular_unit(s, &"infantry", &"player", &"player", null))
 	Battle.end_round(s, battle)
 	assert_bool(battle.player_units.is_empty()).is_true()   # struck down by the 空襲
 	assert_that(battle.outcome).is_equal(&"loss")
@@ -580,8 +703,8 @@ func test_medal_lands_in_timeline_when_xp_fills() -> void:
 
 func test_medal_applies_from_next_round_snapshot() -> void:
 	var s := _state()
-	_craft(s, &"engineers", 1, 0.0, 0.0, 0.0)                   # meat shield: melee focus target
-	var instance := _craft(s, &"cavalry", 1, 80.0, 0.0, 0.1)    # speed 0.1: silent this round
+	_craft(s, &"engineers", 1, 0.0, 0.0, 0.0)                   # 遠程列 support, deploy index 0
+	var instance := _craft(s, &"cavalry", 3, 80.0, 0.0, 0.1)    # 近戰列 focus target; hp 6 survives
 	var battle := Battle.start(s, &"riot")
 	_deploy_id(s, battle, &"engineers")
 	_deploy_id(s, battle, &"cavalry")
