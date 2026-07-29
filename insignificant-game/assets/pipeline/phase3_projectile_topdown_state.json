@@ -1,0 +1,218 @@
+{
+ "proj_stone": {
+  "91": {
+   "stem": "p3_td_proj_stone_s91",
+   "seed": 91,
+   "prompt": "a single small round throwing stone, a plain grey rock, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_stone_s92",
+   "seed": 92,
+   "prompt": "a single small round throwing stone, a plain grey rock, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_stone_s93",
+   "seed": 93,
+   "prompt": "a single small round throwing stone, a plain grey rock, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_stone_s94",
+   "seed": 94,
+   "prompt": "a single small round throwing stone, a plain grey rock, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_arrow": {
+  "91": {
+   "stem": "p3_td_proj_arrow_s91",
+   "seed": 91,
+   "prompt": "a single arrow with a sharp iron head and three feather fletchings, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_arrow_s92",
+   "seed": 92,
+   "prompt": "a single arrow with a sharp iron head and three feather fletchings, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_arrow_s93",
+   "seed": 93,
+   "prompt": "a single arrow with a sharp iron head and three feather fletchings, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_arrow_s94",
+   "seed": 94,
+   "prompt": "a single arrow with a sharp iron head and three feather fletchings, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_bolt": {
+  "91": {
+   "stem": "p3_td_proj_bolt_s91",
+   "seed": 91,
+   "prompt": "a single short crossbow bolt with an iron head and stubby vanes, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_bolt_s92",
+   "seed": 92,
+   "prompt": "a single short crossbow bolt with an iron head and stubby vanes, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_bolt_s93",
+   "seed": 93,
+   "prompt": "a single short crossbow bolt with an iron head and stubby vanes, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_bolt_s94",
+   "seed": 94,
+   "prompt": "a single short crossbow bolt with an iron head and stubby vanes, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_bullet": {
+  "91": {
+   "stem": "p3_td_proj_bullet_s91",
+   "seed": 91,
+   "prompt": "a single small pointed lead bullet, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_bullet_s92",
+   "seed": 92,
+   "prompt": "a single small pointed lead bullet, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_bullet_s93",
+   "seed": 93,
+   "prompt": "a single small pointed lead bullet, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_bullet_s94",
+   "seed": 94,
+   "prompt": "a single small pointed lead bullet, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "191": {
+   "stem": "p3_td_proj_bullet_s191",
+   "seed": 191,
+   "prompt": "a single pointed rifle bullet in flight, a smooth warm brass-yellow jacketed ogive narrowing to a sharp tip at the front and squared off into a plain flat base at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "192": {
+   "stem": "p3_td_proj_bullet_s192",
+   "seed": 192,
+   "prompt": "a single pointed rifle bullet in flight, a smooth warm brass-yellow jacketed ogive narrowing to a sharp tip at the front and squared off into a plain flat base at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "193": {
+   "stem": "p3_td_proj_bullet_s193",
+   "seed": 193,
+   "prompt": "a single pointed rifle bullet in flight, a smooth warm brass-yellow jacketed ogive narrowing to a sharp tip at the front and squared off into a plain flat base at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "194": {
+   "stem": "p3_td_proj_bullet_s194",
+   "seed": 194,
+   "prompt": "a single pointed rifle bullet in flight, a smooth warm brass-yellow jacketed ogive narrowing to a sharp tip at the front and squared off into a plain flat base at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_cannonball": {
+  "91": {
+   "stem": "p3_td_proj_cannonball_s91",
+   "seed": 91,
+   "prompt": "a single solid black iron cannonball, a plain sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_cannonball_s92",
+   "seed": 92,
+   "prompt": "a single solid black iron cannonball, a plain sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_cannonball_s93",
+   "seed": 93,
+   "prompt": "a single solid black iron cannonball, a plain sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_cannonball_s94",
+   "seed": 94,
+   "prompt": "a single solid black iron cannonball, a plain sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_shell": {
+  "91": {
+   "stem": "p3_td_proj_shell_s91",
+   "seed": 91,
+   "prompt": "a single pointed artillery shell with a brass case, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_shell_s92",
+   "seed": 92,
+   "prompt": "a single pointed artillery shell with a brass case, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_shell_s93",
+   "seed": 93,
+   "prompt": "a single pointed artillery shell with a brass case, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_shell_s94",
+   "seed": 94,
+   "prompt": "a single pointed artillery shell with a brass case, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "191": {
+   "stem": "p3_td_proj_shell_s191",
+   "seed": 191,
+   "prompt": "a single artillery shell in flight, a long dark red steel projectile body with a pointed nose fuze at the front, a bright red painted band around its waist and a plain flat driving band at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "192": {
+   "stem": "p3_td_proj_shell_s192",
+   "seed": 192,
+   "prompt": "a single artillery shell in flight, a long dark red steel projectile body with a pointed nose fuze at the front, a bright red painted band around its waist and a plain flat driving band at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "193": {
+   "stem": "p3_td_proj_shell_s193",
+   "seed": 193,
+   "prompt": "a single artillery shell in flight, a long dark red steel projectile body with a pointed nose fuze at the front, a bright red painted band around its waist and a plain flat driving band at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "194": {
+   "stem": "p3_td_proj_shell_s194",
+   "seed": 194,
+   "prompt": "a single artillery shell in flight, a long dark red steel projectile body with a pointed nose fuze at the front, a bright red painted band around its waist and a plain flat driving band at the rear, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_missile": {
+  "91": {
+   "stem": "p3_td_proj_missile_s91",
+   "seed": 91,
+   "prompt": "a single small guided missile with a pointed nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_missile_s92",
+   "seed": 92,
+   "prompt": "a single small guided missile with a pointed nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_missile_s93",
+   "seed": 93,
+   "prompt": "a single small guided missile with a pointed nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_missile_s94",
+   "seed": 94,
+   "prompt": "a single small guided missile with a pointed nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, pointing toward the right edge of the frame, centered, isolated on a plain light gray background"
+  }
+ },
+ "proj_bomb": {
+  "91": {
+   "stem": "p3_td_proj_bomb_s91",
+   "seed": 91,
+   "prompt": "a single aerial bomb with a rounded nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from a steep high angle from above, its nose pointing down toward the bottom of the frame, centered, isolated on a plain light gray background"
+  },
+  "92": {
+   "stem": "p3_td_proj_bomb_s92",
+   "seed": 92,
+   "prompt": "a single aerial bomb with a rounded nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from a steep high angle from above, its nose pointing down toward the bottom of the frame, centered, isolated on a plain light gray background"
+  },
+  "93": {
+   "stem": "p3_td_proj_bomb_s93",
+   "seed": 93,
+   "prompt": "a single aerial bomb with a rounded nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from a steep high angle from above, its nose pointing down toward the bottom of the frame, centered, isolated on a plain light gray background"
+  },
+  "94": {
+   "stem": "p3_td_proj_bomb_s94",
+   "seed": 94,
+   "prompt": "a single aerial bomb with a rounded nose and four tail fins, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from a steep high angle from above, its nose pointing down toward the bottom of the frame, centered, isolated on a plain light gray background"
+  }
+ }
+}

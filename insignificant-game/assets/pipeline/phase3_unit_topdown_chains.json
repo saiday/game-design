@@ -182,6 +182,30 @@
     "seed": 94,
     "prompt": "three identical tribal hunters in hide tunics, each gripping a Y-shaped wooden slingshot forward at arm's length, the rear hand pinching a small leather pouch against the cheek with a round gray stone bulging inside it, two thick leather bands running taut from the pouch forward to the two fork tips, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_archers_e1_s191",
+    "seed": 191,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_archers_e1_s192",
+    "seed": 192,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_archers_e1_s193",
+    "seed": 193,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_archers_e1_s194",
+    "seed": 194,
+    "prompt": "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "2": {
@@ -234,6 +258,54 @@
     "seed": 94,
     "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets aiming heavy crossbows, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_archers_e3_s191",
+    "seed": 191,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_archers_e3_s192",
+    "seed": 192,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_archers_e3_s193",
+    "seed": 193,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_archers_e3_s194",
+    "seed": 194,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "291": {
+    "stem": "p3_td_archers_e3_s291",
+    "seed": 291,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level and aimed forward, each crossbow a cruciform shape of a long narrow wooden tiller running back to the shoulder with a bolt groove down its centreline and one stubby steel prod mortised crosswise at the muzzle end, the prod no wider than the tiller is long and shaped as a single shallow almost straight bar tapering from a thick centre to forged tip nocks, the bowstring drawn back to a wide shallow obtuse V, a D-shaped iron stirrup at the muzzle, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "292": {
+    "stem": "p3_td_archers_e3_s292",
+    "seed": 292,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level and aimed forward, each crossbow a cruciform shape of a long narrow wooden tiller running back to the shoulder with a bolt groove down its centreline and one stubby steel prod mortised crosswise at the muzzle end, the prod no wider than the tiller is long and shaped as a single shallow almost straight bar tapering from a thick centre to forged tip nocks, the bowstring drawn back to a wide shallow obtuse V, a D-shaped iron stirrup at the muzzle, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "293": {
+    "stem": "p3_td_archers_e3_s293",
+    "seed": 293,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level and aimed forward, each crossbow a cruciform shape of a long narrow wooden tiller running back to the shoulder with a bolt groove down its centreline and one stubby steel prod mortised crosswise at the muzzle end, the prod no wider than the tiller is long and shaped as a single shallow almost straight bar tapering from a thick centre to forged tip nocks, the bowstring drawn back to a wide shallow obtuse V, a D-shaped iron stirrup at the muzzle, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "294": {
+    "stem": "p3_td_archers_e3_s294",
+    "seed": 294,
+    "prompt": "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level and aimed forward, each crossbow a cruciform shape of a long narrow wooden tiller running back to the shoulder with a bolt groove down its centreline and one stubby steel prod mortised crosswise at the muzzle end, the prod no wider than the tiller is long and shaped as a single shallow almost straight bar tapering from a thick centre to forged tip nocks, the bowstring drawn back to a wide shallow obtuse V, a D-shaped iron stirrup at the muzzle, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "4": {
@@ -285,6 +357,30 @@
     "stem": "p3_td_archers_e5_s94",
     "seed": 94,
     "prompt": "exactly two identical soldiers, in hooded leaf-camouflage cloaks, one kneeling aiming a long scoped rifle on a bipod, the other crouching beside him holding a brass spotting scope, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "191": {
+    "stem": "p3_td_archers_e5_s191",
+    "seed": 191,
+    "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_archers_e5_s192",
+    "seed": 192,
+    "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_archers_e5_s193",
+    "seed": 193,
+    "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_archers_e5_s194",
+    "seed": 194,
+    "prompt": "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features, game unit sprite, steep high-angle view looking straight down from directly above, the whole group oriented toward the right edge of the frame, bodies and weapons pointing right, centered, isolated on a plain light gray background",
     "root": true
    }
   },
@@ -840,6 +936,54 @@
     "seed": 94,
     "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, a crew member standing on a wooden ladder against the hull holding a cleaning rod, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_artillery_e5_s191",
+    "seed": 191,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_artillery_e5_s192",
+    "seed": 192,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_artillery_e5_s193",
+    "seed": 193,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_artillery_e5_s194",
+    "seed": 194,
+    "prompt": "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "291": {
+    "stem": "p3_td_artillery_e5_s291",
+    "seed": 291,
+    "prompt": "a tracked self-propelled howitzer seen down onto its roof, its flat armoured deck turned up toward the camera and filling the middle of the frame, a long gun barrel laid out flat along the deck, both continuous steel track runs visible as two parallel bands one along each side of the hull, round closed hatches set flush into the deck plate, lashed stowage boxes and a rolled tarpaulin strapped across the rear deck, painted a uniform olive drab broken only by weld seams and rivet lines, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "292": {
+    "stem": "p3_td_artillery_e5_s292",
+    "seed": 292,
+    "prompt": "a tracked self-propelled howitzer seen down onto its roof, its flat armoured deck turned up toward the camera and filling the middle of the frame, a long gun barrel laid out flat along the deck, both continuous steel track runs visible as two parallel bands one along each side of the hull, round closed hatches set flush into the deck plate, lashed stowage boxes and a rolled tarpaulin strapped across the rear deck, painted a uniform olive drab broken only by weld seams and rivet lines, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "293": {
+    "stem": "p3_td_artillery_e5_s293",
+    "seed": 293,
+    "prompt": "a tracked self-propelled howitzer seen down onto its roof, its flat armoured deck turned up toward the camera and filling the middle of the frame, a long gun barrel laid out flat along the deck, both continuous steel track runs visible as two parallel bands one along each side of the hull, round closed hatches set flush into the deck plate, lashed stowage boxes and a rolled tarpaulin strapped across the rear deck, painted a uniform olive drab broken only by weld seams and rivet lines, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "294": {
+    "stem": "p3_td_artillery_e5_s294",
+    "seed": 294,
+    "prompt": "a tracked self-propelled howitzer seen down onto its roof, its flat armoured deck turned up toward the camera and filling the middle of the frame, a long gun barrel laid out flat along the deck, both continuous steel track runs visible as two parallel bands one along each side of the hull, round closed hatches set flush into the deck plate, lashed stowage boxes and a rolled tarpaulin strapped across the rear deck, painted a uniform olive drab broken only by weld seams and rivet lines, a simplified chunky vehicle shape with minimal surface detail, game unit sprite, steep high-angle view looking straight down from directly above, the vehicle oriented toward the right edge of the frame, its barrel pointing right, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "6": {
@@ -1082,6 +1226,30 @@
     "seed": 94,
     "prompt": "a row of tall rough wooden plank shields lashed together with rope into a standing wall, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_shield_wall_e1_s191",
+    "seed": 191,
+    "prompt": "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_shield_wall_e1_s192",
+    "seed": 192,
+    "prompt": "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_shield_wall_e1_s193",
+    "seed": 193,
+    "prompt": "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_shield_wall_e1_s194",
+    "seed": 194,
+    "prompt": "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "2": {
@@ -1107,6 +1275,78 @@
     "stem": "p3_td_shield_wall_e2_s94",
     "seed": 94,
     "prompt": "a tight freestanding wall of overlapping kite shields each embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "191": {
+    "stem": "p3_td_shield_wall_e2_s191",
+    "seed": 191,
+    "prompt": "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_shield_wall_e2_s192",
+    "seed": 192,
+    "prompt": "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_shield_wall_e2_s193",
+    "seed": 193,
+    "prompt": "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_shield_wall_e2_s194",
+    "seed": 194,
+    "prompt": "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "291": {
+    "stem": "p3_td_shield_wall_e2_s291",
+    "seed": 291,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "292": {
+    "stem": "p3_td_shield_wall_e2_s292",
+    "seed": 292,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "293": {
+    "stem": "p3_td_shield_wall_e2_s293",
+    "seed": 293,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "294": {
+    "stem": "p3_td_shield_wall_e2_s294",
+    "seed": 294,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "391": {
+    "stem": "p3_td_shield_wall_e2_s391",
+    "seed": 391,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "392": {
+    "stem": "p3_td_shield_wall_e2_s392",
+    "seed": 392,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "393": {
+    "stem": "p3_td_shield_wall_e2_s393",
+    "seed": 393,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "394": {
+    "stem": "p3_td_shield_wall_e2_s394",
+    "seed": 394,
+    "prompt": "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
     "root": true
    }
   },
@@ -1134,6 +1374,78 @@
     "seed": 94,
     "prompt": "a stone battlement wall segment with a crenellated top and arrow slits, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_shield_wall_e3_s191",
+    "seed": 191,
+    "prompt": "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_shield_wall_e3_s192",
+    "seed": 192,
+    "prompt": "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_shield_wall_e3_s193",
+    "seed": 193,
+    "prompt": "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_shield_wall_e3_s194",
+    "seed": 194,
+    "prompt": "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "291": {
+    "stem": "p3_td_shield_wall_e3_s291",
+    "seed": 291,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "292": {
+    "stem": "p3_td_shield_wall_e3_s292",
+    "seed": 292,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "293": {
+    "stem": "p3_td_shield_wall_e3_s293",
+    "seed": 293,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "294": {
+    "stem": "p3_td_shield_wall_e3_s294",
+    "seed": 294,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "391": {
+    "stem": "p3_td_shield_wall_e3_s391",
+    "seed": 391,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "392": {
+    "stem": "p3_td_shield_wall_e3_s392",
+    "seed": 392,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "393": {
+    "stem": "p3_td_shield_wall_e3_s393",
+    "seed": 393,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "394": {
+    "stem": "p3_td_shield_wall_e3_s394",
+    "seed": 394,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "4": {
@@ -1160,6 +1472,30 @@
     "seed": 94,
     "prompt": "a chest-high wall of stacked burlap sandbags in even rows with wooden support posts, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "191": {
+    "stem": "p3_td_shield_wall_e4_s191",
+    "seed": 191,
+    "prompt": "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_shield_wall_e4_s192",
+    "seed": 192,
+    "prompt": "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_shield_wall_e4_s193",
+    "seed": 193,
+    "prompt": "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_shield_wall_e4_s194",
+    "seed": 194,
+    "prompt": "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "5": {
@@ -1185,6 +1521,78 @@
     "stem": "p3_td_shield_wall_e5_s94",
     "seed": 94,
     "prompt": "a tall fence of taut electrified steel wire mesh strung between dark metal posts on a row of low concrete base blocks, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, the barrier running vertically from the top edge to the bottom edge of the frame, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "191": {
+    "stem": "p3_td_shield_wall_e5_s191",
+    "seed": 191,
+    "prompt": "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "192": {
+    "stem": "p3_td_shield_wall_e5_s192",
+    "seed": 192,
+    "prompt": "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "193": {
+    "stem": "p3_td_shield_wall_e5_s193",
+    "seed": 193,
+    "prompt": "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "194": {
+    "stem": "p3_td_shield_wall_e5_s194",
+    "seed": 194,
+    "prompt": "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "291": {
+    "stem": "p3_td_shield_wall_e5_s291",
+    "seed": 291,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "292": {
+    "stem": "p3_td_shield_wall_e5_s292",
+    "seed": 292,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "293": {
+    "stem": "p3_td_shield_wall_e5_s293",
+    "seed": 293,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "294": {
+    "stem": "p3_td_shield_wall_e5_s294",
+    "seed": 294,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment, its length running from near the top of the frame down to near the bottom, its flat top surface turned toward the camera and filling the whole band, both of its ends finished and clearly visible, bare open ground to the left and to the right of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "391": {
+    "stem": "p3_td_shield_wall_e5_s391",
+    "seed": 391,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "392": {
+    "stem": "p3_td_shield_wall_e5_s392",
+    "seed": 392,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "393": {
+    "stem": "p3_td_shield_wall_e5_s393",
+    "seed": 393,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "394": {
+    "stem": "p3_td_shield_wall_e5_s394",
+    "seed": 394,
+    "prompt": "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
     "root": true
    }
   },

@@ -19,6 +19,66 @@
    "stem": "p3_bgtd_battle_tax_s64",
    "seed": 64,
    "prompt": "open farmland seen from directly above, golden wheat plots in neat rectangles and round hay bales, a low wooden fence running along one side, cart ruts in brown earth, a wide band of bare flat dirt running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_tax_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_tax_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_tax_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_tax_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_tax_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_tax_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_tax_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_tax_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of harvested farmland ground seen from directly above, even rows of short golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running across the whole surface, a scattering of loose straw, uniform warm morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_tax_s361",
+   "seed": 361,
+   "prompt": "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled soil, every tuft the same size and shape as every other, straight parallel plough furrows of constant width, loose straw scattered evenly between the rows, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_tax_s362",
+   "seed": 362,
+   "prompt": "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled soil, every tuft the same size and shape as every other, straight parallel plough furrows of constant width, loose straw scattered evenly between the rows, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_tax_s363",
+   "seed": 363,
+   "prompt": "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled soil, every tuft the same size and shape as every other, straight parallel plough furrows of constant width, loose straw scattered evenly between the rows, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_tax_s364",
+   "seed": 364,
+   "prompt": "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled soil, every tuft the same size and shape as every other, straight parallel plough furrows of constant width, loose straw scattered evenly between the rows, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_field": {
@@ -41,6 +101,66 @@
    "stem": "p3_bgtd_battle_field_s64",
    "seed": 64,
    "prompt": "open countryside seen from directly above, rolling grass meadow with the round crowns of sparse trees and their shadows, patches of heather and bare soil, a wide band of trampled flat grass running down the middle of the field, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_field_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_field_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_field_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_field_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_field_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_field_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_field_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_field_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of open grassland seen from directly above, short trampled green turf with worn patches of bare brown soil showing through, small tufts of clover and low weeds spread evenly across the whole surface, uniform midday light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_field_s361",
+   "seed": 361,
+   "prompt": "an even repeating pattern of short trampled green turf broken by worn patches of bare brown soil, every worn patch the same size as every other, small tufts of clover and low weeds spread evenly at a constant spacing, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_field_s362",
+   "seed": 362,
+   "prompt": "an even repeating pattern of short trampled green turf broken by worn patches of bare brown soil, every worn patch the same size as every other, small tufts of clover and low weeds spread evenly at a constant spacing, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_field_s363",
+   "seed": 363,
+   "prompt": "an even repeating pattern of short trampled green turf broken by worn patches of bare brown soil, every worn patch the same size as every other, small tufts of clover and low weeds spread evenly at a constant spacing, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_field_s364",
+   "seed": 364,
+   "prompt": "an even repeating pattern of short trampled green turf broken by worn patches of bare brown soil, every worn patch the same size as every other, small tufts of clover and low weeds spread evenly at a constant spacing, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_hidden": {
@@ -63,6 +183,66 @@
    "stem": "p3_bgtd_battle_hidden_s64",
    "seed": 64,
    "prompt": "a scorched clearing seen from directly above, tall alien monolith stones casting long shadows across cracked ground, faint glowing mist pooling in the hollows, the bare crowns of twisted leafless trees around the edges, a wide band of flat empty ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_hidden_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_hidden_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_hidden_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_hidden_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_hidden_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_hidden_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_hidden_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_hidden_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over the whole surface, fine pale ash gathered in the cracks, uniform cold light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_hidden_s361",
+   "seed": 361,
+   "prompt": "a regular network of dry fissures across dark grey-green scorched ground, every cracked plate of earth the same size and shape as every other, fine pale ash gathered in the cracks, a faint pale green luminous glow lying evenly in the fissures, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_hidden_s362",
+   "seed": 362,
+   "prompt": "a regular network of dry fissures across dark grey-green scorched ground, every cracked plate of earth the same size and shape as every other, fine pale ash gathered in the cracks, a faint pale green luminous glow lying evenly in the fissures, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_hidden_s363",
+   "seed": 363,
+   "prompt": "a regular network of dry fissures across dark grey-green scorched ground, every cracked plate of earth the same size and shape as every other, fine pale ash gathered in the cracks, a faint pale green luminous glow lying evenly in the fissures, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_hidden_s364",
+   "seed": 364,
+   "prompt": "a regular network of dry fissures across dark grey-green scorched ground, every cracked plate of earth the same size and shape as every other, fine pale ash gathered in the cracks, a faint pale green luminous glow lying evenly in the fissures, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_riot": {
@@ -85,6 +265,66 @@
    "stem": "p3_bgtd_battle_riot_s64",
    "seed": 64,
    "prompt": "a narrow city street seen from directly above, the pitched roofs of plain stone houses along both sides, makeshift barricades of overturned carts, crates and sandbags across the roadway, cloth banners each painted with a single large red fist emblem lying flat, thin smoke drifting over the cobblestones, a wide band of empty cobblestone roadway running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_riot_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_riot_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_riot_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_riot_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_riot_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_riot_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_riot_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_riot_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of city street paving seen from directly above, close-fitted grey granite cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale scattered ash between the stones, damp patches darkening the stone, uniform overcast light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_riot_s361",
+   "seed": 361,
+   "prompt": "a regular grid of close-fitted grey granite cobblestones, every cobble the same size and shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot smudges and pale scattered ash caught in the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_riot_s362",
+   "seed": 362,
+   "prompt": "a regular grid of close-fitted grey granite cobblestones, every cobble the same size and shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot smudges and pale scattered ash caught in the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_riot_s363",
+   "seed": 363,
+   "prompt": "a regular grid of close-fitted grey granite cobblestones, every cobble the same size and shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot smudges and pale scattered ash caught in the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_riot_s364",
+   "seed": 364,
+   "prompt": "a regular grid of close-fitted grey granite cobblestones, every cobble the same size and shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot smudges and pale scattered ash caught in the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_democracy": {
@@ -107,6 +347,66 @@
    "stem": "p3_bgtd_battle_democracy_s64",
    "seed": 64,
    "prompt": "a vast abandoned monumental plaza seen from directly above in the cold light of early morning, a circular marble fountain and the roofs of stone colonnades along the edges, cloth banners each painted with a single large golden balance scale emblem lying flat on the paving, a toppled bronze statue lying beside the fountain, scattered dead leaves drifting over the stones, a wide band of flat empty paving running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_democracy_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_democracy_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_democracy_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_democracy_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_democracy_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_democracy_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_democracy_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_democracy_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs in a regular grid with fine dark joint lines across the whole surface, faint veining in the stone and a light drift of dead leaves caught along the joints, uniform cold early morning light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_democracy_s361",
+   "seed": 361,
+   "prompt": "a regular grid of large pale marble slabs, every slab the same size and shape as every other, fine dark joint lines of constant width between them, faint veining in the stone, a light drift of dead leaves caught evenly along the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_democracy_s362",
+   "seed": 362,
+   "prompt": "a regular grid of large pale marble slabs, every slab the same size and shape as every other, fine dark joint lines of constant width between them, faint veining in the stone, a light drift of dead leaves caught evenly along the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_democracy_s363",
+   "seed": 363,
+   "prompt": "a regular grid of large pale marble slabs, every slab the same size and shape as every other, fine dark joint lines of constant width between them, faint veining in the stone, a light drift of dead leaves caught evenly along the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_democracy_s364",
+   "seed": 364,
+   "prompt": "a regular grid of large pale marble slabs, every slab the same size and shape as every other, fine dark joint lines of constant width between them, faint veining in the stone, a light drift of dead leaves caught evenly along the joints, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_civwar": {
@@ -129,6 +429,66 @@
    "stem": "p3_bgtd_battle_civwar_s64",
    "seed": 64,
    "prompt": "a vast war plain seen from directly above, scarred with long trenches and earthworks cutting across the ground, broken siege engines and scattered plain round wooden shields with iron bosses, tall poles each bearing a single plain crossed-swords banner, churned brown mud and standing water in the trench lines, a wide band of flat open ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_civwar_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_civwar_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_civwar_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_civwar_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_civwar_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_civwar_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_civwar_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_civwar_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud worked into overlapping ruts and boot-churned hollows across the whole surface, shallow pools of standing rainwater reflecting grey, uniform storm light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_civwar_s361",
+   "seed": 361,
+   "prompt": "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the same width and depth as every other, shallow pools of standing rainwater spread evenly between them, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_civwar_s362",
+   "seed": 362,
+   "prompt": "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the same width and depth as every other, shallow pools of standing rainwater spread evenly between them, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_civwar_s363",
+   "seed": 363,
+   "prompt": "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the same width and depth as every other, shallow pools of standing rainwater spread evenly between them, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_civwar_s364",
+   "seed": 364,
+   "prompt": "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the same width and depth as every other, shallow pools of standing rainwater spread evenly between them, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  },
  "battle_worldwar": {
@@ -151,6 +511,66 @@
    "stem": "p3_bgtd_battle_worldwar_s64",
    "seed": 64,
    "prompt": "a scorched battlefield seen from directly above, cratered black earth and drifting ash, the collapsed footprints of burning ruins and shattered walls, rubble scattered in dark fans around each crater, a wide band of flat cratered ground running down the middle, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "161": {
+   "stem": "p3_bgtd_battle_worldwar_s161",
+   "seed": 161,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "162": {
+   "stem": "p3_bgtd_battle_worldwar_s162",
+   "seed": 162,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "163": {
+   "stem": "p3_bgtd_battle_worldwar_s163",
+   "seed": 163,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "164": {
+   "stem": "p3_bgtd_battle_worldwar_s164",
+   "seed": 164,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, top-down view seen from directly overhead, flat ground filling the entire frame edge to edge, no sky and no horizon"
+  },
+  "261": {
+   "stem": "p3_bgtd_battle_worldwar_s261",
+   "seed": 261,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "262": {
+   "stem": "p3_bgtd_battle_worldwar_s262",
+   "seed": 262,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "263": {
+   "stem": "p3_bgtd_battle_worldwar_s263",
+   "seed": 263,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "264": {
+   "stem": "p3_bgtd_battle_worldwar_s264",
+   "seed": 264,
+   "prompt": "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted with shallow overlapping shell craters across the whole surface, grey ash and fine rubble grit spread evenly between them, uniform dark red-tinted light, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "361": {
+   "stem": "p3_bgtd_battle_worldwar_s361",
+   "seed": 361,
+   "prompt": "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the same size and shape as every other, grey ash and fine rubble grit spread evenly between them, faint dull red staining in the soil, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "362": {
+   "stem": "p3_bgtd_battle_worldwar_s362",
+   "seed": 362,
+   "prompt": "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the same size and shape as every other, grey ash and fine rubble grit spread evenly between them, faint dull red staining in the soil, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "363": {
+   "stem": "p3_bgtd_battle_worldwar_s363",
+   "seed": 363,
+   "prompt": "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the same size and shape as every other, grey ash and fine rubble grit spread evenly between them, faint dull red staining in the soil, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
+  },
+  "364": {
+   "stem": "p3_bgtd_battle_worldwar_s364",
+   "seed": 364,
+   "prompt": "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the same size and shape as every other, grey ash and fine rubble grit spread evenly between them, faint dull red staining in the soil, hand-painted game background art, watercolor and ink illustration, soft flat colors, clean line work, a flat seamless tileable ground texture swatch laid out square to the frame and photographed flat from straight above, orthographic, every feature of the surface drawn at exactly the same size in every part of the image, even flat lighting across the whole swatch, no sky and no horizon"
   }
  }
 }
