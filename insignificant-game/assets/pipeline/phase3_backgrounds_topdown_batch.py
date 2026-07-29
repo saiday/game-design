@@ -10,10 +10,11 @@
 # plate paint.** 盾陣 is the worked example: it is already its own sprite (fort_shield_wall_*),
 # placed by 自動佈陣, not scenery.
 #
-# Per-type identity therefore rests on GROUND MATERIAL, COLOUR AND LIGHT alone — wheat stubble,
-# turf, cracked ash, cobbles, marble, mud, crater black. That narrows style bible §11's claim that
-# the backdrop is "the first thing that tells the player which battle this is": it still is, but it
-# says so with a surface rather than with scenery.
+# Per-type identity therefore rests on GROUND MATERIAL AND COLOUR alone — wheat stubble, turf,
+# cracked ash, cobbles, marble, mud, crater black. Light is not a lever here: naming a lighting
+# condition is one of the things that summons a photographed scene (see the register note below).
+# That narrows style bible §11's claim that the backdrop is "the first thing that tells the player
+# which battle this is": it still is, but it says so with a surface rather than with scenery.
 #
 # Two rules carried forward, both §14-standing:
 #  - Landscape subjects REQUIRE the style-carrying suffix or they render photoreal (cookbook §8.4).
@@ -32,49 +33,82 @@ import os
 import subprocess
 import sys
 
-SEEDS = [161, 162, 163, 164]  # round 2: +100 per cookbook §4
+SEEDS = [361, 362, 363, 364]  # round 4: +100 per cookbook §4
 W, H = 1920, 1088
 T2I = "workflows/krea2_lora_txt2img.json"
 LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]
 OUT = os.path.expanduser("~/ComfyUI-Shared/output/phase3-backgrounds-topdown")
 STATE = "phase3_background_topdown_state.json"
 
-# The route map's tail (proven top-down on a hand-painted landscape) plus the two clauses that
-# stop the model reinstating a horizon, which is the failure this camera invites.
+# Round 2 killed the props but not the CAMERA. Every plate came back as a ground plane receding
+# away from a tilted viewer: features at the bottom of the frame render 3-5x larger than the same
+# features at the top (verified by cropping the top and bottom 200px of a plate and comparing them
+# at equal scale — cobbles, wheat and marble slabs all halve in size up the frame). That is fatal
+# here for a reason the side-view set never had: under ADR-0009 a station's screen position is just
+# its lane slot, so two units of equal size stand at the top and bottom of the same field. On a
+# receding plate one of them stands on cobbles smaller than its boots and the other on cobbles
+# bigger than its body, and the plate silently reintroduces the depth the camera exists to remove.
+#
+# "seen from directly overhead" plus "no sky and no horizon" was not enough: it removes the horizon
+# while leaving the ground plane tilted, which is exactly what shipped. The lever that works is to
+# stop asking for a SCENE at all and ask for a TEXTURE — a flat material swatch has no viewer
+# position to recede from. Hence "seamless tileable ground texture", "photographed flat", and the
+# scale constant stated positively (every feature the same size everywhere) rather than as a denial
+# of perspective, per §8.3 rung 1.
 STYLE = (", hand-painted game background art, watercolor and ink illustration, soft flat colors, "
-         "clean line work, top-down view seen from directly overhead, flat ground filling the "
-         "entire frame edge to edge, no sky and no horizon")
+         "clean line work, a flat seamless tileable ground texture swatch laid out square to the "
+         "frame and photographed flat from straight above, orthographic, every feature of the "
+         "surface drawn at exactly the same size in every part of the image, even flat lighting "
+         "across the whole swatch, no sky and no horizon")
 
+# REGISTER, not vocabulary. Rounds 1-3 all rewrote these cores as "a flat expanse of X seen from
+# directly above ... under uniform Y light" and all three came back as a ground plane receding from
+# a tilted viewer. A 2x2 probe isolated why:
+#
+#                      wide 1920x1088      square 1088x1088
+#   cobbles, as prose  RECEDES             flat
+#   checkerboard       flat                 -
+#
+# Neither variable does it alone. A wide frame is fine if you ask for a PATTERN; material prose is
+# fine if you ask for it SQUARE. The failure is the pair: a wide frame plus scene language reads as
+# a landscape photograph, and the model supplies a viewer standing in it. "Expanse" implies extent
+# away from someone, and naming a lighting condition ("uniform overcast light") is what a
+# photograph has, not what a texture has. A follow-up probe held the shipped wide frame and only
+# changed register — "a regular grid of cobbles, every cobble the same size as every other" — and
+# came back flat at 1920x1088.
+#
+# So every core below is phrased as a REPEATING PATTERN OF IDENTICAL UNITS, with the scale constant
+# stated positively per unit. No "expanse", no "seen from directly above" (that names a viewer),
+# no lighting condition. Per-type identity still rests on ground material alone.
 PLATES = {
     "battle_tax": (
-        "a flat expanse of harvested farmland ground seen from directly above, even rows of short "
-        "golden wheat stubble over dry brown tilled soil, fine parallel plough furrows running "
-        "across the whole surface, a scattering of loose straw, uniform warm morning light"),
+        "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled "
+        "soil, every tuft the same size and shape as every other, straight parallel plough furrows "
+        "of constant width, loose straw scattered evenly between the rows"),
     "battle_field": (
-        "a flat expanse of open grassland seen from directly above, short trampled green turf with "
-        "worn patches of bare brown soil showing through, small tufts of clover and low weeds "
-        "spread evenly across the whole surface, uniform midday light"),
+        "an even repeating pattern of short trampled green turf broken by worn patches of bare brown "
+        "soil, every worn patch the same size as every other, small tufts of clover and low weeds "
+        "spread evenly at a constant spacing"),
     "battle_hidden": (
-        "a flat expanse of scorched cracked earth seen from directly above, a dense network of dry "
-        "fissures across dark grey-green ground, a faint pale green luminous haze lying evenly over "
-        "the whole surface, fine pale ash gathered in the cracks, uniform cold light"),
+        "a regular network of dry fissures across dark grey-green scorched ground, every cracked "
+        "plate of earth the same size and shape as every other, fine pale ash gathered in the "
+        "cracks, a faint pale green luminous glow lying evenly in the fissures"),
     "battle_riot": (
-        "a flat expanse of city street paving seen from directly above, close-fitted grey granite "
-        "cobblestones in even fan-shaped courses across the whole surface, soot smudges and pale "
-        "scattered ash between the stones, damp patches darkening the stone, uniform overcast light"),
+        "a regular grid of close-fitted grey granite cobblestones, every cobble the same size and "
+        "shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot "
+        "smudges and pale scattered ash caught in the joints"),
     "battle_democracy": (
-        "a flat expanse of monumental plaza paving seen from directly above, large pale marble slabs "
-        "in a regular grid with fine dark joint lines across the whole surface, faint veining in the "
-        "stone and a light drift of dead leaves caught along the joints, uniform cold early morning "
-        "light"),
+        "a regular grid of large pale marble slabs, every slab the same size and shape as every "
+        "other, fine dark joint lines of constant width between them, faint veining in the stone, "
+        "a light drift of dead leaves caught evenly along the joints"),
     "battle_civwar": (
-        "a flat expanse of churned battle-torn ground seen from directly above, deep brown mud "
-        "worked into overlapping ruts and boot-churned hollows across the whole surface, shallow "
-        "pools of standing rainwater reflecting grey, uniform storm light"),
+        "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the "
+        "same width and depth as every other, shallow pools of standing rainwater spread evenly "
+        "between them"),
     "battle_worldwar": (
-        "a flat expanse of scorched cratered earth seen from directly above, blackened soil pitted "
-        "with shallow overlapping shell craters across the whole surface, grey ash and fine rubble "
-        "grit spread evenly between them, uniform dark red-tinted light"),
+        "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the "
+        "same size and shape as every other, grey ash and fine rubble grit spread evenly between "
+        "them, faint dull red staining in the soil"),
 }
 
 

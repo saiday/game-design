@@ -13,11 +13,17 @@
 #     because top-down sprites ship smaller and more crowded than the side-view set did, and a
 #     silhouette that only reads at sheet size does not read on the field.
 #
+# A re-roll round adds a third requirement: the human is not judging the new cells in isolation,
+# they are judging whether a re-rolled era still sits in the same line as the eras already
+# approved. So when phase3_units_topdown_picks.json has picks for this line, the sheet grows a
+# REFERENCE ROW at the top holding those approved cells. Read down a column to pick the seed; read
+# along the top row plus your candidate to check the line still coheres across eras.
+#
 # Run with the ComfyUI venv python from assets/pipeline/.
-# Usage: phase3_units_topdown_sheets.py [line ...]
+# Usage: phase3_units_topdown_sheets.py [--seeds 191,192,193,194] [line ...]
+import argparse
 import json
 import os
-import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
@@ -40,31 +46,50 @@ def inset(img: Image.Image) -> Image.Image:
 
 
 def main() -> None:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--seeds", help="comma-separated seed override, e.g. a re-roll round's 191,192,193,194")
+    ap.add_argument("lines", nargs="*")
+    args = ap.parse_args()
+    seeds = [int(s) for s in args.seeds.split(",")] if args.seeds else SEEDS
+
     with open("phase3_unit_topdown_chains.json") as f:
         state = json.load(f)
+    picks = {}
+    if os.path.exists("phase3_units_topdown_picks.json"):
+        with open("phase3_units_topdown_picks.json") as f:
+            picks = json.load(f)["picks"]
     font = ImageFont.load_default(size=15)
     title_font = ImageFont.load_default(size=24)
     os.makedirs("../contact-sheets", exist_ok=True)
-    for line in (sys.argv[1:] or [l for l in LINES if l in state]):
+    for line in (args.lines or [l for l in LINES if l in state]):
         start = START_ERA.get(line, 1)
         eras = list(range(start, start + len(LINES[line])))
-        sheet = Image.new("RGB", (CELL * len(eras), HDR + (CELL + LABEL_H) * len(SEEDS)), (24, 24, 24))
+        # (seed, is_reference); the reference row carries whatever this line already had approved
+        rows = [(None, True)] + [(s, False) for s in seeds] if picks.get(line) else \
+               [(s, False) for s in seeds]
+        sheet = Image.new("RGB", (CELL * len(eras), HDR + (CELL + LABEL_H) * len(rows)), (24, 24, 24))
         d0 = ImageDraw.Draw(sheet)
         d0.text((PAD, 8), f"W14.8 top-down units [{line}] — era {eras[0]}..{eras[-1]} left to right, "
-                          f"seed {SEEDS[0]}..{SEEDS[-1]} top to bottom",
+                          f"seed {seeds[0]}..{seeds[-1]} top to bottom",
                 fill=(255, 255, 255), font=title_font)
         d0.text((PAD, 38), "inset bottom-right of each cell = the sprite at on-field size; judge "
-                           "silhouette readability there first (review-brief-units-topdown.md)",
+                           "silhouette readability there first (review-brief-units-topdown.md)"
+                + (" | top row = already-approved picks, for cross-era coherence only"
+                   if picks.get(line) else ""),
                 fill=(170, 170, 170), font=font)
-        for row, seed in enumerate(SEEDS):
+        for row, (seed, is_ref) in enumerate(rows):
             for col, era in enumerate(eras):
-                entry = state.get(line, {}).get(str(era), {}).get(str(seed))
-                cell = Image.new("RGB", (CELL, CELL + LABEL_H), (24, 24, 24))
+                lookup = picks.get(line, {}).get(str(era)) if is_ref else seed
+                entry = (state.get(line, {}).get(str(era), {}).get(str(lookup))
+                         if lookup is not None else None)
+                cell = Image.new("RGB", (CELL, CELL + LABEL_H), (18, 30, 18) if is_ref else (24, 24, 24))
                 d = ImageDraw.Draw(cell)
                 if entry is None:
-                    label, colour = f"(no era {era} seed {seed})", (150, 150, 150)
+                    label = f"(no r1 pick for era {era})" if is_ref else f"(no era {era} seed {seed})"
+                    colour = (150, 150, 150)
                 else:
-                    label, colour = entry["stem"], (220, 220, 220)
+                    label = ("APPROVED r1  " + entry["stem"]) if is_ref else entry["stem"]
+                    colour = (150, 230, 150) if is_ref else (220, 220, 220)
                     img = Image.open(f"{OUT}/{entry['stem']}_00001_.png")
                     big = img.copy()
                     big.thumbnail((CELL - 2 * PAD, CELL - 2 * PAD), Image.LANCZOS)

@@ -49,7 +49,22 @@ SUFFIX = {
     "figure_one":   f", game unit sprite, {_OVERHEAD}, the figure oriented toward the {{edge}} edge of the frame, body and weapon pointing {{edge}}, {_ISO}",
     "vehicle":      f", game unit sprite, {_OVERHEAD}, the vehicle oriented toward the {{edge}} edge of the frame, its barrel pointing {{edge}}, {_ISO}",
     "air":          f", game unit sprite, {_OVERHEAD}, the aircraft oriented toward the {{edge}} edge of the frame, its nose pointing {{edge}}, {_ISO}",
-    "barrier":      f", game fortification sprite, {_OVERHEAD}, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, {_ISO}",
+    # "standing vertically in the middle of the frame" was meant as "its length runs top to bottom",
+    # and the model read it as "upright": it rendered the wall's VERTICAL FACE in three-quarter
+    # perspective, giving a tower (e3), a fence seen side-on (e5) and one propped-up shield (e2).
+    # From directly above a wall IS its top surface and nothing else, so the frame clause now names
+    # the axis without the word "vertically" and states the top face outright. This is the same
+    # mechanism as the eye-level drift finding: the camera goes wherever the subject's readable
+    # identity was placed, so identity has to be put on the top.
+    # Round 3 fixed the camera (these are genuinely top-down now) but every segment came back
+    # TAPERED — wide at the bottom of the frame, narrowing toward the top, a vanishing point along
+    # its own length — and several ran off the bottom edge. That is the same failure the battle
+    # plates had, and the plate probe diagnosed it: scene language ("its length running from near
+    # the top of the frame down to near the bottom") names a viewer, and a named viewer gets a
+    # perspective. The plate fix was to ask for a repeating pattern of IDENTICAL UNITS instead, and
+    # it works at the shipped frame. Same move here: a wall is a short row of identical modules,
+    # stated as a count with a constant width, which also removes the reason to touch either edge.
+    "barrier":      f", game fortification sprite, {_OVERHEAD}, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, {_ISO}",
     "emplacement":  f", game fortification sprite, {_OVERHEAD}, the emplacement oriented toward the {{edge}} edge of the frame, {_ISO}",
     "fort_vehicle": f", game fortification sprite, {_OVERHEAD}, the vehicle oriented toward the {{edge}} edge of the frame, its barrel pointing {{edge}}, {_ISO}",
 }
@@ -85,7 +100,19 @@ LINES = {
     "archers": [
         "three identical tribal hunters in hide tunics, each holding a long leather sling strap hanging slack from his raised fist with a round gray stone cradled in its wide middle pouch, the loose end of the strap gripped in the same fist, a small hide pouch of stones on each belt, red feathers tied in their hair, simplified stylized figures with rounded chunky bodies and no facial features",
         "three identical archers in green tunics drawing tall wooden longbows, quivers of red-fletched arrows at their hips, simplified stylized figures with rounded chunky bodies and no facial features",
-        "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own heavy crossbow level, each crossbow a single straight wooden stock running back to the shoulder with two short bow arms spread crosswise at its front end and a taut string between them, red-fletched bolts in belt quivers, simplified stylized figures with rounded chunky bodies and no facial features",
+        # Rounds 1-2 both grew the prod into a longbow-scale recurve bolted to a stock. Surviving
+        # 15th-century military crossbows put the prod span at 60-81cm against a 70-96cm tiller, so
+        # prod:tiller is 0.8-1.0, not 2:1, and a steel prod is a shallow single arc with no recurved
+        # tips (recurved crossbow limbs are a fantasy-art tell). The fix is to state the ratio and
+        # the flatness rather than just say "short": "short" is relative and the model had no anchor.
+        "three identical crossbowmen in padded jackets and iron kettle helmets, each holding his own "
+        "heavy crossbow level and aimed forward, each crossbow a cruciform shape of a long narrow "
+        "wooden tiller running back to the shoulder with a bolt groove down its centreline and one "
+        "stubby steel prod mortised crosswise at the muzzle end, the prod no wider than the tiller is "
+        "long and shaped as a single shallow almost straight bar tapering from a thick centre to "
+        "forged tip nocks, the bowstring drawn back to a wide shallow obtuse V, a D-shaped iron "
+        "stirrup at the muzzle, red-fletched bolts in belt quivers, simplified stylized figures with "
+        "rounded chunky bodies and no facial features",
         "three identical skirmisher soldiers in plain jackets and soft black peaked caps, each aiming his own musket with both hands, simplified stylized figures with rounded chunky bodies and no facial features",
         "exactly two identical soldiers in hooded leaf-camouflage cloaks, both striding forward on their own two legs, one carrying a long scoped rifle levelled forward at his shoulder, the other carrying a brass spotting scope in one hand, simplified stylized figures with rounded chunky bodies and no facial features",
         "two identical soldiers, wearing helmets, in gray armored suits with a clean unmarked look and no stains, marks or streaks of colour anywhere on the fabric, one shouldering a boxy missile launcher with the same solid all-white disc on its side and a glowing red targeting lens pointed forward, the other carrying a folded tripod radar dish, simplified stylized figures with rounded chunky bodies and no facial features",
@@ -116,7 +143,17 @@ LINES = {
     "artillery": [
         "a squat bronze bombard cannon on a timber sled aimed upward, stone cannonballs stacked beside it, a crewman in a padded jacket holding a glowing red linstock, a simplified chunky vehicle shape with minimal surface detail",
         "a field cannon with a bronze barrel resting on a two-wheeled carriage with large spoked wooden wheels, two identical gunners in plain dark blue uniforms each gripping a long bare wooden rammer staff with a cloth-wrapped head, a pyramid of black iron cannonballs, a simplified chunky vehicle shape with minimal surface detail",
-        "a tracked self-propelled howitzer on continuous steel track links with a long elevated gun barrel, painted plain olive drab with a single white circle on the hull side, its hatches closed flush and its rear deck occupied by lashed stowage boxes and a rolled tarpaulin, a simplified chunky vehicle shape with minimal surface detail",
+        # Round 2 came back a pure broadside in 4/4 seeds: the description lived entirely on the hull
+        # SIDE (a white circle on the hull side, the barrel's elevation), so the camera went to the
+        # side to show it. Round 3 puts every identifying feature on the roof deck instead, and the
+        # marking is gone because naming a circle on the side was itself an instruction to show the
+        # side. The bare plate is occupied with weld seams rather than denied (cookbook §8.3 rung 2).
+        "a tracked self-propelled howitzer seen down onto its roof, its flat armoured deck turned up "
+        "toward the camera and filling the middle of the frame, a long gun barrel laid out flat along "
+        "the deck, both continuous steel track runs visible as two parallel bands one along each side "
+        "of the hull, round closed hatches set flush into the deck plate, lashed stowage boxes and a "
+        "rolled tarpaulin strapped across the rear deck, painted a uniform olive drab broken only by "
+        "weld seams and rivet lines, a simplified chunky vehicle shape with minimal surface detail",
         "a futuristic tracked railgun platform standing alone with twin long parallel magnetic rails elevated skyward, smooth matte gunmetal armor plates covered in fine recessed panel seam lines and rivets, every raised hull viewport, sensor dome and camera housing capped with a plain flat dark gray metal disc, a single white circle painted on the hull side, a simplified chunky vehicle shape with minimal surface detail",
     ],
     "bomber": [
@@ -134,10 +171,10 @@ LINES = {
     ],
     "shield_wall": [
         "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail",
-        "a short freestanding segment of tight overlapping kite shields forming a wall, a finished upright end post at each end of the segment, each shield embossed with a plain raised ring pattern, a clean level top edge, a simplified chunky shape with minimal surface detail",
-        "a short freestanding segment of stone battlement wall with a crenellated top and arrow slits, a finished squared stone pier closing each end of the segment, an unbroken smooth masonry face and a clean level parapet line, a simplified chunky shape with minimal surface detail",
+        "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail",
         "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail",
-        "a short freestanding segment of taut electrified steel wire mesh fence strung between dark metal posts on a row of low concrete base blocks, a finished corner post closing each end of the segment, each post topped with a single rounded metal cap holding one white ceramic insulator flush against it, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail",
         "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail",
     ],
     "anti_air": [

@@ -48,9 +48,19 @@ PROJECTILES = {
     "proj_stone":      f"a single small round throwing stone, a plain grey rock, {_FORM}, {_OVER}, {_ISO}",
     "proj_arrow":      f"a single arrow with a sharp iron head and three feather fletchings, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
     "proj_bolt":       f"a single short crossbow bolt with an iron head and stubby vanes, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
-    "proj_bullet":     f"a single small pointed lead bullet, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
+    # Round 1 drew the whole cartridge, brass case included, for both bullet and shell — and a case
+    # never leaves the gun. It also made the two near-identical at field size despite belonging to
+    # different unit lines. Round 2 draws only the part that actually flies and separates them by
+    # hue: bullet warm brass/yellow, shell red. (Which colour goes to which was my call: red reads
+    # as the heavier ordnance, and live artillery rounds are commonly banded red.)
+    "proj_bullet":     f"a single pointed rifle bullet in flight, a smooth warm brass-yellow "
+                       f"jacketed ogive narrowing to a sharp tip at the front and squared off "
+                       f"into a plain flat base at the rear, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
     "proj_cannonball": f"a single solid black iron cannonball, a plain sphere, {_FORM}, {_OVER}, {_ISO}",
-    "proj_shell":      f"a single pointed artillery shell with a brass case, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
+    "proj_shell":      f"a single artillery shell in flight, a long dark red steel projectile "
+                       f"body with a pointed nose fuze at the front, a bright red painted band "
+                       f"around its waist and a plain flat driving band at the rear, {_FORM}, "
+                       f"{_OVER}, {_RIGHT}, {_ISO}",
     "proj_missile":    f"a single small guided missile with a pointed nose and four tail fins, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
     # a falling bomb is the one subject whose heading is DOWN the screen, not across it
     "proj_bomb":       f"a single aerial bomb with a rounded nose and four tail fins, {_FORM}, "
@@ -81,12 +91,16 @@ def rendered(s: str) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", action="store_true")
+    ap.add_argument("--ids", help="comma-separated subset, e.g. proj_shell,proj_bullet")
+    ap.add_argument("--seeds", help="comma-separated seed override for a re-roll round")
     args = ap.parse_args()
+    ids = args.ids.split(",") if args.ids else list(PROJECTILES)
+    seeds = [int(s) for s in args.seeds.split(",")] if args.seeds else SEEDS
 
     os.makedirs(OUT, exist_ok=True)
     state = load_state()
-    todo = [(p, s) for p in PROJECTILES for s in SEEDS if not rendered(stem(p, s))]
-    print(f"{len(PROJECTILES)} projectiles x {len(SEEDS)} seeds; {len(todo)} to render "
+    todo = [(p, s) for p in ids for s in seeds if not rendered(stem(p, s))]
+    print(f"{len(ids)} projectiles x {len(seeds)} seeds; {len(todo)} to render "
           f"(~{len(todo) * 170 / 3600:.1f} h)", flush=True)
     if args.plan:
         for p, s in todo:
