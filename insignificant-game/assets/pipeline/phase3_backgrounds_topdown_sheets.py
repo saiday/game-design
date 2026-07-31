@@ -4,6 +4,12 @@
 # behind the sprites, so sheet size IS its judging size, only smaller.
 #
 # Cells are wide (16:9), so the sheet is laid out landscape-per-cell rather than square.
+#
+# Each row resolves its OWN seeds, rather than every row sharing the batch's current SEEDS. Rounds
+# bump seeds by +100 and re-roll only the plates the human sent back, so after one partial round the
+# class holds two seed generations at once and a sheet pinned to one list shows empty cells for
+# every plate that was left alone. The stem under each cell carries the real seed, so a pick stays
+# unambiguous.
 # Run with the ComfyUI venv python from assets/pipeline/.
 import json
 import os
@@ -15,6 +21,12 @@ from phase3_backgrounds_topdown_batch import OUT, PLATES, SEEDS, STATE
 CELL_W, LABEL_H, PAD, HDR = 860, 34, 8, 58
 
 
+def latest_seeds(rows: dict) -> list:
+    """The newest round rendered for one plate, as seeds in order."""
+    seeds = sorted(int(s) for s in rows)
+    return [s for s in seeds if s // 100 == seeds[-1] // 100] if seeds else []
+
+
 def main() -> None:
     with open(STATE) as f:
         state = json.load(f)
@@ -22,15 +34,20 @@ def main() -> None:
     title_font = ImageFont.load_default(size=24)
     cell_h = round(CELL_W * 1088 / 1920)
     plates = [p for p in PLATES if p in state]
-    sheet = Image.new("RGB", (CELL_W * len(SEEDS), HDR + (cell_h + LABEL_H) * len(plates)), (24, 24, 24))
+    per_row = {p: latest_seeds(state[p]) or SEEDS for p in plates}
+    cols = max(len(s) for s in per_row.values())
+    sheet = Image.new("RGB", (CELL_W * cols, HDR + (cell_h + LABEL_H) * len(plates)), (24, 24, 24))
     d0 = ImageDraw.Draw(sheet)
-    d0.text((PAD, 8), "W14.8 top-down battle plates — one row per battle type, seeds left to right",
-            fill=(255, 255, 255), font=title_font)
-    d0.text((PAD, 36), "pick one seed per row; plates ship full-frame behind the sprites, so judge "
-                       "the empty middle band as much as the scenery", fill=(170, 170, 170), font=font)
+    d0.text((PAD, 8), "W14.8 top-down battle plates — one row per battle type, each row showing its "
+                      "newest round", fill=(255, 255, 255), font=title_font)
+    d0.text((PAD, 36), "pick one seed per row (the seed is under every cell); plates ship full-frame "
+                       "behind the sprites, so sheet size is judging size, only smaller",
+            fill=(170, 170, 170), font=font)
     for row, plate in enumerate(plates):
-        for col, seed in enumerate(SEEDS):
-            entry = state[plate].get(str(seed))
+        for col in range(cols):
+            row_seeds = per_row[plate]
+            seed = row_seeds[col] if col < len(row_seeds) else None
+            entry = state[plate].get(str(seed)) if seed is not None else None
             cell = Image.new("RGB", (CELL_W, cell_h + LABEL_H), (24, 24, 24))
             d = ImageDraw.Draw(cell)
             if entry is None:
