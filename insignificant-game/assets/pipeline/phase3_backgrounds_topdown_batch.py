@@ -33,7 +33,7 @@ import os
 import subprocess
 import sys
 
-SEEDS = [461, 462, 463, 464]  # round 5: +100 per cookbook §4
+SEEDS = [561, 562, 563, 564]  # round 6: civwar only, the material fix (+100 per cookbook §4)
 W, H = 1920, 1088
 T2I = "workflows/krea2_lora_txt2img.json"
 LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]
@@ -124,10 +124,15 @@ PLATES = {
         "a close-packed pavement of large pale marble slabs of several different sizes laid in an "
         "irregular running bond, fine dark joint lines between them, faint veining and chipped "
         "corners varying from slab to slab, a light drift of dead leaves caught along the joints"),
+    # Structure was never this plate's problem after the register fix — MATERIAL was. "Ruts and
+    # hollows crossing over one another" is a cellular-network instruction, and a cellular network of
+    # pale cells with dark boundaries is cracked earth, which is battle_hidden's material and makes
+    # the two plates confusable. Identity here rests on ground material alone, so the network phrase
+    # is gone and the material words carry it: wet not dry, dark not pale, water named as a feature.
     "battle_civwar": (
-        "a close-packed field of narrow deep brown mud ruts and small boot-churned hollows of many "
-        "different lengths and depths running in every direction and crossing over one another, "
-        "shallow pools of standing rainwater collected in the deeper ones"),
+        "a close-packed field of wet dark brown churned mud in many different tones, shallow puddles "
+        "of standing rainwater lying in the deeper hollows, trodden straw and torn grass pressed "
+        "into the surface"),
     # probe-verified: the clause dropped and nothing else, which is what gave the craters back their
     # variety in size, shape and spacing
     "battle_worldwar": (
