@@ -127,6 +127,26 @@
    "stem": "p3_td_proj_cannonball_s94",
    "seed": 94,
    "prompt": "a single solid black iron cannonball, a plain sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "191": {
+   "stem": "p3_td_proj_cannonball_s191",
+   "seed": 191,
+   "prompt": "a single cast-iron cannonball, a plain sphere of medium warm grey iron, a broad pale silver-grey highlight across its upper half, a thin darker grey edge line drawn all the way around the sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "192": {
+   "stem": "p3_td_proj_cannonball_s192",
+   "seed": 192,
+   "prompt": "a single cast-iron cannonball, a plain sphere of medium warm grey iron, a broad pale silver-grey highlight across its upper half, a thin darker grey edge line drawn all the way around the sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "193": {
+   "stem": "p3_td_proj_cannonball_s193",
+   "seed": 193,
+   "prompt": "a single cast-iron cannonball, a plain sphere of medium warm grey iron, a broad pale silver-grey highlight across its upper half, a thin darker grey edge line drawn all the way around the sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
+  },
+  "194": {
+   "stem": "p3_td_proj_cannonball_s194",
+   "seed": 194,
+   "prompt": "a single cast-iron cannonball, a plain sphere of medium warm grey iron, a broad pale silver-grey highlight across its upper half, a thin darker grey edge line drawn all the way around the sphere, a simplified chunky shape with minimal surface detail, game projectile sprite, seen from directly above, centered, isolated on a plain light gray background"
   }
  },
  "proj_shell": {

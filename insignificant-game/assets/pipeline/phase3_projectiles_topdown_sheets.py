@@ -72,12 +72,27 @@ def inset(img: Image.Image, plate: Image.Image) -> Image.Image:
     return patch
 
 
+def latest_seeds(pid: str) -> list:
+    """The newest round rendered for this ammo type.
+
+    Rounds bump seeds by +100 (§4) and only the cells the human sent back are re-rolled, so after
+    one re-roll the class holds two seed generations at once. A sheet pinned to one seed list can
+    then only ever show part of the roster, which is exactly the bookkeeping hole that lost track of
+    two shield_wall cells. Per-row resolution keeps every ammo type's current candidates on one
+    sheet, and the cell label carries the real seed so a pick is still unambiguous."""
+    seen = sorted(int(f.rsplit("_s", 1)[1].split("_")[0])
+                  for f in glob.glob(f"{OUT}/{stem(pid, 0)[:-1]}*_00001_.png"))
+    return [s for s in seen if s // 100 == seen[-1] // 100] if seen else []
+
+
 def main() -> None:
     argv = sys.argv[1:]
-    seeds = SEEDS
+    seeds = None
     if argv and argv[0].startswith("--seeds="):
         seeds = [int(s) for s in argv.pop(0).split("=", 1)[1].split(",")]
     ids = argv or list(PROJECTILES)
+    per_row = {pid: seeds or latest_seeds(pid) or SEEDS for pid in ids}
+    seeds = max(per_row.values(), key=len)
     font = ImageFont.load_default(size=15)
     row_font = ImageFont.load_default(size=19)
     title_font = ImageFont.load_default(size=24)
@@ -86,8 +101,9 @@ def main() -> None:
     sheet = Image.new("RGB", (ROW_LABEL_W + CELL * len(seeds),
                               HDR + (CELL + LABEL_H) * len(ids)), (24, 24, 24))
     d0 = ImageDraw.Draw(sheet)
-    d0.text((PAD, 8), f"W14.8 top-down projectiles — seed {seeds[0]}..{seeds[-1]} left to right, "
-                      f"{len(ids)} ammo types top to bottom", fill=(255, 255, 255), font=title_font)
+    d0.text((PAD, 8), f"W14.8 top-down projectiles — {len(ids)} ammo types top to bottom, each row "
+                      f"showing its NEWEST round's four candidates (the seed is on every cell)",
+            fill=(255, 255, 255), font=title_font)
     grounds_ = grounds()
     d0.text((PAD, 38), "the two small patches in each cell are the sprite at true on-field size "
                        "composited over real plates — " + ", ".join(g[0] for g in grounds_)
@@ -97,8 +113,11 @@ def main() -> None:
     for row, pid in enumerate(ids):
         y = HDR + (CELL + LABEL_H) * row
         d0.text((PAD, y + CELL // 2), pid, fill=(230, 210, 160), font=row_font)
-        for col, seed in enumerate(seeds):
-            st = stem(pid, seed)
+        for col, _ in enumerate(seeds):
+            row_seeds = per_row[pid]
+            if col >= len(row_seeds):
+                continue
+            st = stem(pid, row_seeds[col])
             path = f"{OUT}/{st}_00001_.png"
             cell = Image.new("RGB", (CELL, CELL + LABEL_H), (24, 24, 24))
             d = ImageDraw.Draw(cell)

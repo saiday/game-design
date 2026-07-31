@@ -118,6 +118,11 @@
    "cells": {"shield_wall": [1, 3, 4]},
    "i2i_from": {"shield_wall": {"3": "p3_td_shield_wall_e6_s94_00001_.png"}},
    "why": "e3 is the only img2img cell in the top-down roster: wording is exhausted on it (four rounds, sixteen seeds, every one running off the bottom edge) while e6 has held a self-contained segment since the first sweep, so e3 inherits e6's composition and the prompt repaints the material. e1 and e4 are txt2img re-rolls, and they are here because they were never re-rolled alongside e2/e3/e5 and still carry the defect those three were fixed for: every identity word in their cores was a height word, so the camera went to the vertical face. e1 rendered as a plank fence seen from the side and e4 as a sandbag stack tapering to a vanishing point."
+  },
+  "6": {
+   "seeds": [591, 592, 593, 594],
+   "cells": {"shield_wall": [3]},
+   "why": "e3 again, as txt2img with the long-line phrase removed from its core, to give the human an alternative to the img2img candidates. It failed harder: 43-57% bottom-edge bleed in all four, against 0.0% for the img2img set. Five rounds and twenty seeds across two opposed strategies puts this cell at the §8.3 rung-4 stop signal, and the cause is now understood to be the SUBJECT: a crenellated wall-walk is a pair of long parallel merlon rows flanking a corridor, and a long parallel line set triggers perspective by itself (cookbook §14), so no wording can remove what the subject is made of. Awaiting a human subject call; do not spend another wording round."
   }
  },
  "retired_no_asset": {

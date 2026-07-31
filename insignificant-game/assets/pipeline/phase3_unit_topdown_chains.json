@@ -1250,6 +1250,30 @@
     "seed": 194,
     "prompt": "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "491": {
+    "stem": "p3_td_shield_wall_e1_s491",
+    "seed": 491,
+    "prompt": "a short freestanding segment of timber breastwork seen down onto its top, a row of thick upright logs butted side by side so their flat circular sawn tops form one straight band across the frame, rope lashings crossing the band at even intervals with a red cloth strip knotted at each lashing, a few spear shafts laid flat along the row with their iron heads projecting past its front edge, a stout squared end post capping the row at each end, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "492": {
+    "stem": "p3_td_shield_wall_e1_s492",
+    "seed": 492,
+    "prompt": "a short freestanding segment of timber breastwork seen down onto its top, a row of thick upright logs butted side by side so their flat circular sawn tops form one straight band across the frame, rope lashings crossing the band at even intervals with a red cloth strip knotted at each lashing, a few spear shafts laid flat along the row with their iron heads projecting past its front edge, a stout squared end post capping the row at each end, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "493": {
+    "stem": "p3_td_shield_wall_e1_s493",
+    "seed": 493,
+    "prompt": "a short freestanding segment of timber breastwork seen down onto its top, a row of thick upright logs butted side by side so their flat circular sawn tops form one straight band across the frame, rope lashings crossing the band at even intervals with a red cloth strip knotted at each lashing, a few spear shafts laid flat along the row with their iron heads projecting past its front edge, a stout squared end post capping the row at each end, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "494": {
+    "stem": "p3_td_shield_wall_e1_s494",
+    "seed": 494,
+    "prompt": "a short freestanding segment of timber breastwork seen down onto its top, a row of thick upright logs butted side by side so their flat circular sawn tops form one straight band across the frame, rope lashings crossing the band at even intervals with a red cloth strip knotted at each lashing, a few spear shafts laid flat along the row with their iron heads projecting past its front edge, a stout squared end post capping the row at each end, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "2": {
@@ -1446,6 +1470,62 @@
     "seed": 394,
     "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
     "root": true
+   },
+   "491": {
+    "stem": "p3_td_shield_wall_e3_s491",
+    "seed": 491,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": false,
+    "source": "/Users/saiday/ComfyUI-Shared/output/phase3-units-topdown/p3_td_shield_wall_e6_s94_00001_.png",
+    "denoise": 0.55
+   },
+   "492": {
+    "stem": "p3_td_shield_wall_e3_s492",
+    "seed": 492,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": false,
+    "source": "/Users/saiday/ComfyUI-Shared/output/phase3-units-topdown/p3_td_shield_wall_e6_s94_00001_.png",
+    "denoise": 0.55
+   },
+   "493": {
+    "stem": "p3_td_shield_wall_e3_s493",
+    "seed": 493,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": false,
+    "source": "/Users/saiday/ComfyUI-Shared/output/phase3-units-topdown/p3_td_shield_wall_e6_s94_00001_.png",
+    "denoise": 0.55
+   },
+   "494": {
+    "stem": "p3_td_shield_wall_e3_s494",
+    "seed": 494,
+    "prompt": "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": false,
+    "source": "/Users/saiday/ComfyUI-Shared/output/phase3-units-topdown/p3_td_shield_wall_e6_s94_00001_.png",
+    "denoise": 0.55
+   },
+   "591": {
+    "stem": "p3_td_shield_wall_e3_s591",
+    "seed": 591,
+    "prompt": "a short freestanding segment of stone battlement seen down onto its top, a paved flagstone walkway across its top surface, six square merlons standing along each edge of the walkway with an open crenel gap between every pair, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "592": {
+    "stem": "p3_td_shield_wall_e3_s592",
+    "seed": 592,
+    "prompt": "a short freestanding segment of stone battlement seen down onto its top, a paved flagstone walkway across its top surface, six square merlons standing along each edge of the walkway with an open crenel gap between every pair, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "593": {
+    "stem": "p3_td_shield_wall_e3_s593",
+    "seed": 593,
+    "prompt": "a short freestanding segment of stone battlement seen down onto its top, a paved flagstone walkway across its top surface, six square merlons standing along each edge of the walkway with an open crenel gap between every pair, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "594": {
+    "stem": "p3_td_shield_wall_e3_s594",
+    "seed": 594,
+    "prompt": "a short freestanding segment of stone battlement seen down onto its top, a paved flagstone walkway across its top surface, six square merlons standing along each edge of the walkway with an open crenel gap between every pair, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
    }
   },
   "4": {
@@ -1495,6 +1575,30 @@
     "stem": "p3_td_shield_wall_e4_s194",
     "seed": 194,
     "prompt": "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, one short self-contained wall segment standing vertically in the middle of the frame, both of its ends finished and clearly visible, bare empty ground above and below the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "491": {
+    "stem": "p3_td_shield_wall_e4_s491",
+    "seed": 491,
+    "prompt": "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of plump burlap sandbags laid end to end side by side, the rounded upper face of every bag turned up toward the camera with its stitched seam and tied corners visible from above, a squared wooden post capping the row at each end, the whole surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "492": {
+    "stem": "p3_td_shield_wall_e4_s492",
+    "seed": 492,
+    "prompt": "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of plump burlap sandbags laid end to end side by side, the rounded upper face of every bag turned up toward the camera with its stitched seam and tied corners visible from above, a squared wooden post capping the row at each end, the whole surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "493": {
+    "stem": "p3_td_shield_wall_e4_s493",
+    "seed": 493,
+    "prompt": "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of plump burlap sandbags laid end to end side by side, the rounded upper face of every bag turned up toward the camera with its stitched seam and tied corners visible from above, a squared wooden post capping the row at each end, the whole surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
+    "root": true
+   },
+   "494": {
+    "stem": "p3_td_shield_wall_e4_s494",
+    "seed": 494,
+    "prompt": "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of plump burlap sandbags laid end to end side by side, the rounded upper face of every bag turned up toward the camera with its stitched seam and tied corners visible from above, a squared wooden post capping the row at each end, the whole surface soft and rounded throughout, a simplified chunky shape with minimal surface detail, game fortification sprite, steep high-angle view looking straight down from directly above, a short straight row of about six identical modules butted end to end into one self-contained wall segment, every module the same size and shape as every other and the segment exactly the same width along its whole length, its flat top surface turned toward the camera, a finished end cap closing the row at each end well inside the frame, bare open ground on all four sides of the segment, centered, isolated on a plain light gray background",
     "root": true
    }
   },

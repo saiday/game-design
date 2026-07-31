@@ -182,7 +182,16 @@ LINES = {
         "projecting past its front edge, a stout squared end post capping the row at each end, a "
         "simplified chunky shape with minimal surface detail",
         "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail",
-        "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail",
+        # Why e3 alone kept bleeding off the bottom edge in round 4 while e2 and e5 stopped, under
+        # the identical suffix: its core named a LONG LINE. "a narrow flagstone wall-walk running the
+        # length of the segment ... a row of merlons along each side" is the same phrase family that
+        # made battle_tax's plough furrows converge on a vanishing point, and the plate probes showed
+        # restating such a line against the frame does not help — only removing it does. So the walk
+        # is now stated against the top surface and the merlons as a bounded count, never as a run.
+        "a short freestanding segment of stone battlement seen down onto its top, a paved flagstone "
+        "walkway across its top surface, six square merlons standing along each edge of the walkway "
+        "with an open crenel gap between every pair, a finished squared stone pier capping each end, "
+        "pale mortared masonry, a simplified chunky shape with minimal surface detail",
         "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of "
         "plump burlap sandbags laid end to end side by side, the rounded upper face of every bag "
         "turned up toward the camera with its stitched seam and tied corners visible from above, a "
