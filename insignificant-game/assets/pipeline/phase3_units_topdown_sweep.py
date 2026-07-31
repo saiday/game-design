@@ -18,18 +18,28 @@
 # The practical consequence is that the whole roster renders in ONE unattended batch instead of
 # six human-gated waves, and the human gets one complete contact sheet per line.
 #
+# ONE OPT-IN EXCEPTION: `--i2i-from <png>`. shield_wall era 3 could not be made to hold a
+# self-contained wall segment by wording — four rounds and sixteen seeds, every one of them running
+# off the bottom edge — while era 6 held one from the first sweep. So e3 is re-rolled as an img2img
+# child of the approved e6 render: the composition that already works is borrowed and the prompt
+# repaints the material. That is the one job lineage is good for under this camera, and it stays a
+# per-run flag rather than a default, because the roster's era coherence still comes from wording.
+#
 # Usage (ComfyUI venv python, from assets/pipeline/ — cookbook §3: the cd must be in the SAME
 # shell command, and detach long batches per §4):
 #   phase3_units_topdown_sweep.py                 # every missing cell/seed, resumable
 #   phase3_units_topdown_sweep.py --lines bomber,privateers   # only these lines
 #   phase3_units_topdown_sweep.py --plan          # print what it WOULD render, render nothing
+#   phase3_units_topdown_sweep.py --cells shield_wall:3 --seeds 491,492,493,494 \
+#       --i2i-from ~/ComfyUI-Shared/output/phase3-units-topdown/p3_td_shield_wall_e6_s94_00001_.png
 import argparse
 import json
 import os
 import subprocess
 import sys
 
-from phase3_units_topdown_batch import (LINES, LORA_ARGS, OUT, SEEDS, START_ERA, T2I, prompt_for)
+from phase3_units_topdown_batch import (DENOISE, I2I, LINES, LORA_ARGS, OUT, SEEDS, START_ERA,
+                                        T2I, prompt_for)
 
 STATE = "phase3_unit_topdown_chains.json"
 
@@ -67,21 +77,28 @@ def rendered(s: str) -> bool:
     return os.path.exists(f"{OUT}/{s}_00001_.png")
 
 
-def gen(state: dict, line: str, era: int, seed: int) -> None:
+def gen(state: dict, line: str, era: int, seed: int,
+        source: str | None = None, denoise: float = DENOISE) -> None:
     s = stem(line, era, seed)
     prompt = prompt_for(line, era)
-    cmd = [sys.executable, "comfy_run.py", T2I, "--seed", str(seed), "--prompt", prompt,
-           "--prefix", f"phase3-units-topdown/{s}", "--width", "1024", "--height", "1024",
-           *LORA_ARGS]
+    if source:
+        cmd = [sys.executable, "comfy_run.py", I2I, "--seed", str(seed), "--prompt", prompt,
+               "--prefix", f"phase3-units-topdown/{s}", "--image", source,
+               "--denoise", str(denoise), *LORA_ARGS]
+    else:
+        cmd = [sys.executable, "comfy_run.py", T2I, "--seed", str(seed), "--prompt", prompt,
+               "--prefix", f"phase3-units-topdown/{s}", "--width", "1024", "--height", "1024",
+               *LORA_ARGS]
     for attempt in (1, 2):
         print(f"=== {s}" + (" (retry)" if attempt == 2 else ""), flush=True)
         if subprocess.run(cmd).returncode == 0:
             break
     else:
         raise SystemExit(f"{s} failed twice, aborting the sweep")
-    state.setdefault(line, {}).setdefault(str(era), {})[str(seed)] = {
-        "stem": s, "seed": seed, "prompt": prompt, "root": True,
-    }
+    entry = {"stem": s, "seed": seed, "prompt": prompt, "root": source is None}
+    if source:
+        entry |= {"source": source, "denoise": denoise}
+    state.setdefault(line, {}).setdefault(str(era), {})[str(seed)] = entry
     save_state(state)
 
 
@@ -90,6 +107,9 @@ def main() -> None:
     ap.add_argument("--lines", help="comma-separated subset")
     ap.add_argument("--cells", help="comma-separated line:era list, for a re-roll round")
     ap.add_argument("--seeds", help="comma-separated seed override; a re-roll bumps by +100 (§4)")
+    ap.add_argument("--i2i-from", help="render the picked cells as img2img children of this PNG "
+                                       "instead of txt2img roots (see the note above)")
+    ap.add_argument("--denoise", type=float, default=DENOISE)
     ap.add_argument("--plan", action="store_true")
     args = ap.parse_args()
     only = {x.strip() for x in args.lines.split(",")} if args.lines else None
@@ -108,9 +128,13 @@ def main() -> None:
         for l, e, s in todo:
             print(f"  {stem(l, e, s)}")
         return
+    if args.i2i_from and not os.path.exists(args.i2i_from):
+        raise SystemExit(f"--i2i-from {args.i2i_from} does not exist")
     for i, (l, e, s) in enumerate(todo, 1):
-        print(f"--- [{i}/{len(todo)}] {l} era {e} seed {s}", flush=True)
-        gen(state, l, e, s)
+        print(f"--- [{i}/{len(todo)}] {l} era {e} seed {s}"
+              + (f" i2i denoise {args.denoise} from {os.path.basename(args.i2i_from)}"
+                 if args.i2i_from else ""), flush=True)
+        gen(state, l, e, s, args.i2i_from, args.denoise)
     print(f"SWEEP DONE: {len(todo)} rendered into {OUT}", flush=True)
 
 

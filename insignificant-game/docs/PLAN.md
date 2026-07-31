@@ -204,17 +204,29 @@ every green wave.
             Human picked 58 of 67 unit cells; `fort_anti_air_era1..3` were ruled non-assets (ADR-0006
             already retires those forms, so the art inventory was the stale artifact) and dropped,
             taking the roster 70 → 67. Picks live in `phase3_units_topdown_picks.json`.
-      - [ ] **Round 2 rendering** (detached, resumable; logs `~/imagegen/logs/w148_{reroll2,bg_round2,proj}.log`):
-            9 unit re-rolls at seeds 191-194, 7 plates re-rolled at 161-164, 8 new projectile cells.
-            Two round-1 rules now enforced by `review-brief-units-topdown.md`: **a sprite must be a
-            discrete object with visible ends** (5 shield_wall cells bled off the frame — my own
-            barrier suffix caused it, and freezing alpha-trims to the bbox so an edge-touching
-            subject ships as an arbitrary crop) and **battlefield units must read as mobile, not
-            emplaced** (kneeling snipers, a crewman on a ladder). All 7 plates were rejected for
-            carrying props; they are now bare ground.
+      - [ ] **Re-roll rounds** (detached, resumable; logs `~/imagegen/logs/w148_*.log`; every round's
+            cells and seeds are recorded in `phase3_units_topdown_picks.json`). The gate stands at
+            **61 of 67 unit cells picked**; of the remaining six, five are accepted-but-unseeded
+            (the human fixed the wording without naming a seed: `archers` e1/e5, `artillery` e5,
+            `shield_wall` e1/e4 — listed under `awaiting_seed_pick`, and the sheets now print
+            "STILL NEEDS A SEED" for them), and `shield_wall` e3 is re-rolling. Plates and the 8
+            projectiles are still unpicked. The rules each round produced live in
+            `review-brief-units-topdown.md` (discrete object with visible ends; mobile not emplaced;
+            barriers judged on axis) and cookbook §14 (**register, not vocabulary**: a wide frame
+            plus scene language reads as a landscape photograph, so the model supplies a viewer to
+            recede from — the fix that finally made the ground plane flat and the wall segments
+            straight was asking for a repeating pattern of identical units).
       - [ ] **Freeze the approved set:** §8 objective pass → pick gate on the re-rolls → freeze + key
             → `manifest.jsonl` rows → new `proj_*` + updated unit ids wired into
             `core/data/asset_paths.gd` (+ `asset_paths_test.gd` sweep) → remove superseded sprites.
+            Three freeze scripts are still unwritten (units/forts and projectiles key to transparent
+            and crop; plates ship full-frame, modelled on `phase3_backgrounds_freeze.py`). Two things
+            to settle when writing them: the manifest's status vocabulary is
+            candidate/approved/rejected with **no supersession value**, and the 69 side-view unit rows
+            plus 7 side-view plate rows must stop reading as the shipped art without losing their
+            provenance; and `unit_anti_air_era1..3` are deleted outright rather than replaced, so
+            `UNIT_COVERAGE` in `asset_paths.gd` loses those three entries while gaining
+            `infantry` era 4 (the side-view gap the top-down wording closed).
       - [ ] **Neutral field objects (new class; starts only AFTER the background plates are
             approved).** The plates are bare ground by ruling, so everything a player sees standing
             on the field is now an object. Add a scatter class of neutral props — rocks, craters,
@@ -236,7 +248,10 @@ every green wave.
       fog-map scene, and a **top-down** per-battle-type battle scene replaying the core's tick
       timeline, prototyped by W14.7's replayer. The city stays a side-view panorama by design.
       Non-battle background plates are already approved (`9b45ed8`); the battle plates come from
-      W14.8. Interface behavior iterates in-engine on Part B captures (no more interface mocks).
+      W14.8. **盾陣 sprites are authored running left to right and must be drawn rotated 90°**, so
+      the wall lies across the lane (decisions.md W14.8; the axis is a transform, and asking the
+      model for it directly is what tapered three rounds of walls).
+      Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.
 

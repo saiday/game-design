@@ -33,7 +33,7 @@ import os
 import subprocess
 import sys
 
-SEEDS = [361, 362, 363, 364]  # round 4: +100 per cookbook §4
+SEEDS = [461, 462, 463, 464]  # round 5: +100 per cookbook §4
 W, H = 1920, 1088
 T2I = "workflows/krea2_lora_txt2img.json"
 LORA_ARGS = ["--lora", "Krea2_Moebius_LoRA.safetensors", "--lora-strength", "1.0"]
@@ -77,18 +77,41 @@ STYLE = (", hand-painted game background art, watercolor and ink illustration, s
 # changed register — "a regular grid of cobbles, every cobble the same size as every other" — and
 # came back flat at 1920x1088.
 #
-# So every core below is phrased as a REPEATING PATTERN OF IDENTICAL UNITS, with the scale constant
-# stated positively per unit. No "expanse", no "seen from directly above" (that names a viewer),
-# no lighting condition. Per-type identity still rests on ground material alone.
+# So every core below is phrased as a PATTERN, not a scene. No "expanse", no "seen from directly
+# above" (that names a viewer), no lighting condition. Per-type identity still rests on ground
+# material alone.
+#
+# Three more probes at the same seed and frame refined that, and two of them contradict what the
+# first fix assumed:
+#
+#  1. THE PER-CORE SCALE-CONSTANCY CLAUSE IS REDUNDANT. Deleting "every rut the same width as every
+#     other" from two cores left both flat. The STYLE tail already carries a scale sentence, and the
+#     pattern register does the rest, so the per-core clause only ever cost variety. It is gone from
+#     every core that was re-rolled; `riot` and `hidden` keep theirs because they rendered well and a
+#     working cell is not a place to test a theory.
+#  2. VARIATION HAS TO BE STATED POSITIVELY for a material that is irregular in life. "An even
+#     repeating pattern of mud ruts" is a contradiction, and the model resolves it by inventing a
+#     tiling — a lattice of identical quilted lozenges. "Ruts of many different lengths, widths and
+#     depths running in every direction and crossing over one another" renders irregular AND flat.
+#     This is §8.3 rung 1 again, applied to sameness rather than to absence: occupy the slot with
+#     the variety you want instead of deleting the word that forced uniformity.
+#  3. A SET OF LONG STRAIGHT PARALLEL LINES IS A PERSPECTIVE TRIGGER BY ITSELF. `battle_tax` was the
+#     last plate still receding, and the cause was naming plough furrows. Restating them against the
+#     frame ("crossing the frame from side to side at a constant spacing") did not help — that render
+#     converged harder than the one it was meant to fix. Removing the furrows and occupying their
+#     space with soil detail rendered flat, and the model still supplies implied planting rows, at
+#     constant scale. So do not name a long-line feature (furrow, lane, rail, seam, row) in a flat
+#     texture core at all; describe the material and let the rows emerge.
 PLATES = {
+    # the probe-verified wording: no furrows named, their space occupied by soil detail
     "battle_tax": (
-        "an even repeating pattern of short golden wheat stubble tufts standing in dry brown tilled "
-        "soil, every tuft the same size and shape as every other, straight parallel plough furrows "
-        "of constant width, loose straw scattered evenly between the rows"),
+        "a close-packed field of short golden wheat stubble tufts of many different sizes and "
+        "thicknesses standing in crumbled dry brown tilled soil, clods of turned earth and loose "
+        "straw scattered evenly among the tufts"),
     "battle_field": (
-        "an even repeating pattern of short trampled green turf broken by worn patches of bare brown "
-        "soil, every worn patch the same size as every other, small tufts of clover and low weeds "
-        "spread evenly at a constant spacing"),
+        "a close-packed field of short trampled green turf broken by worn bare patches of many "
+        "different sizes and shapes, small tufts of clover and low weeds scattered unevenly among "
+        "them, thin pale dust scuffed across the bare soil"),
     "battle_hidden": (
         "a regular network of dry fissures across dark grey-green scorched ground, every cracked "
         "plate of earth the same size and shape as every other, fine pale ash gathered in the "
@@ -98,17 +121,18 @@ PLATES = {
         "shape as every other, laid in even repeating fan-shaped courses, crisp joint lines, soot "
         "smudges and pale scattered ash caught in the joints"),
     "battle_democracy": (
-        "a regular grid of large pale marble slabs, every slab the same size and shape as every "
-        "other, fine dark joint lines of constant width between them, faint veining in the stone, "
-        "a light drift of dead leaves caught evenly along the joints"),
+        "a close-packed pavement of large pale marble slabs of several different sizes laid in an "
+        "irregular running bond, fine dark joint lines between them, faint veining and chipped "
+        "corners varying from slab to slab, a light drift of dead leaves caught along the joints"),
     "battle_civwar": (
-        "an even repeating pattern of deep brown mud ruts and boot-churned hollows, every rut the "
-        "same width and depth as every other, shallow pools of standing rainwater spread evenly "
-        "between them"),
+        "a close-packed field of narrow deep brown mud ruts and small boot-churned hollows of many "
+        "different lengths and depths running in every direction and crossing over one another, "
+        "shallow pools of standing rainwater collected in the deeper ones"),
+    # probe-verified: the clause dropped and nothing else, which is what gave the craters back their
+    # variety in size, shape and spacing
     "battle_worldwar": (
-        "an even repeating pattern of shallow shell craters pitting blackened soil, every crater the "
-        "same size and shape as every other, grey ash and fine rubble grit spread evenly between "
-        "them, faint dull red staining in the soil"),
+        "an even repeating pattern of shallow shell craters pitting blackened soil, grey ash and fine "
+        "rubble grit spread evenly between them, faint dull red staining in the soil"),
 }
 
 
@@ -134,12 +158,16 @@ def rendered(s: str) -> bool:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plan", action="store_true")
+    ap.add_argument("--ids", help="comma-separated subset; a round that re-rolls only some plates "
+                                  "must name them, or the ones that already rendered well get "
+                                  "re-rolled too")
     args = ap.parse_args()
+    ids = args.ids.split(",") if args.ids else list(PLATES)
 
     os.makedirs(OUT, exist_ok=True)
     state = load_state()
-    todo = [(p, s) for p in PLATES for s in SEEDS if not rendered(stem(p, s))]
-    print(f"{len(PLATES)} plates x {len(SEEDS)} seeds; {len(todo)} to render "
+    todo = [(p, s) for p in ids for s in SEEDS if not rendered(stem(p, s))]
+    print(f"{len(ids)} plates x {len(SEEDS)} seeds; {len(todo)} to render "
           f"(~{len(todo) * 300 / 3600:.1f} h at 1920x1088)", flush=True)
     if args.plan:
         for p, s in todo:

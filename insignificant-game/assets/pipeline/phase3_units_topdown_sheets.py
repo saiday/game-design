@@ -54,10 +54,12 @@ def main() -> None:
 
     with open("phase3_unit_topdown_chains.json") as f:
         state = json.load(f)
-    picks = {}
+    picks, open_picks = {}, {}
     if os.path.exists("phase3_units_topdown_picks.json"):
         with open("phase3_units_topdown_picks.json") as f:
-            picks = json.load(f)["picks"]
+            gate = json.load(f)
+        picks = gate["picks"]
+        open_picks = gate.get("awaiting_seed_pick", {})
     font = ImageFont.load_default(size=15)
     title_font = ImageFont.load_default(size=24)
     os.makedirs("../contact-sheets", exist_ok=True)
@@ -72,10 +74,13 @@ def main() -> None:
         d0.text((PAD, 8), f"W14.8 top-down units [{line}] — era {eras[0]}..{eras[-1]} left to right, "
                           f"seed {seeds[0]}..{seeds[-1]} top to bottom",
                 fill=(255, 255, 255), font=title_font)
+        still_open = sorted(int(e) for e in open_picks.get(line, {}))
         d0.text((PAD, 38), "inset bottom-right of each cell = the sprite at on-field size; judge "
                            "silhouette readability there first (review-brief-units-topdown.md)"
                 + (" | top row = already-approved picks, for cross-era coherence only"
-                   if picks.get(line) else ""),
+                   if picks.get(line) else "")
+                + (f" | STILL NEEDS A SEED: era {', '.join(str(e) for e in still_open)}"
+                   if still_open else ""),
                 fill=(170, 170, 170), font=font)
         for row, (seed, is_ref) in enumerate(rows):
             for col, era in enumerate(eras):
@@ -85,10 +90,11 @@ def main() -> None:
                 cell = Image.new("RGB", (CELL, CELL + LABEL_H), (18, 30, 18) if is_ref else (24, 24, 24))
                 d = ImageDraw.Draw(cell)
                 if entry is None:
-                    label = f"(no r1 pick for era {era})" if is_ref else f"(no era {era} seed {seed})"
+                    label = (f"(era {era} pick still open)" if is_ref
+                             else f"(no era {era} seed {seed})")
                     colour = (150, 150, 150)
                 else:
-                    label = ("APPROVED r1  " + entry["stem"]) if is_ref else entry["stem"]
+                    label = ("APPROVED  " + entry["stem"]) if is_ref else entry["stem"]
                     colour = (150, 230, 150) if is_ref else (220, 220, 220)
                     img = Image.open(f"{OUT}/{entry['stem']}_00001_.png")
                     big = img.copy()

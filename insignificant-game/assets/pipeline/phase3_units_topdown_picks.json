@@ -1,5 +1,5 @@
 {
- "round": 1,
+ "_note": "The W14.8 pick gate's live record. `picks` is line -> era -> APPROVED seed, and it is what phase3_units_topdown_sheets.py draws as the green reference row; a cell belongs here only once the human has named a seed for it. `awaiting_seed_pick` is the gap that matters: in a re-roll round the human accepted the CELL (\"agree, re-roll the others\") without naming a seed, so the wording is settled but the pick is not, and the reference row cannot show it. The value is that round's first seed, purely so the round is identifiable; rebuild the line's sheet at those seeds to close one.",
  "picks": {
   "infantry": {
    "1": 91,
@@ -11,6 +11,7 @@
   },
   "archers": {
    "2": 93,
+   "3": 292,
    "4": 92,
    "6": 91
   },
@@ -56,6 +57,8 @@
    "5": 94
   },
   "shield_wall": {
+   "2": 393,
+   "5": 393,
    "6": 94
   },
   "anti_air": {
@@ -88,34 +91,36 @@
    "6": 94
   }
  },
- "reroll_round2": {
-  "archers": [
-   1,
-   3,
-   5
-  ],
-  "artillery": [
-   5
-  ],
-  "shield_wall": [
-   1,
-   2,
-   3,
-   4,
-   5
-  ]
+ "awaiting_seed_pick": {
+  "archers": {
+   "1": 191,
+   "5": 191
+  },
+  "artillery": {
+   "5": 291
+  }
  },
- "reroll_seeds": [
-  191,
-  192,
-  193,
-  194
- ],
+ "reroll_rounds": {
+  "2": {
+   "seeds": [191, 192, 193, 194],
+   "cells": {"archers": [1, 3, 5], "artillery": [5], "shield_wall": [1, 2, 3, 4, 5]}
+  },
+  "3": {
+   "seeds": [291, 292, 293, 294],
+   "cells": {"archers": [3], "artillery": [5], "shield_wall": [2, 3, 5]}
+  },
+  "4": {
+   "seeds": [391, 392, 393, 394],
+   "cells": {"shield_wall": [2, 3, 5]}
+  },
+  "5": {
+   "seeds": [491, 492, 493, 494],
+   "cells": {"shield_wall": [1, 3, 4]},
+   "i2i_from": {"shield_wall": {"3": "p3_td_shield_wall_e6_s94_00001_.png"}},
+   "why": "e3 is the only img2img cell in the top-down roster: wording is exhausted on it (four rounds, sixteen seeds, every one running off the bottom edge) while e6 has held a self-contained segment since the first sweep, so e3 inherits e6's composition and the prompt repaints the material. e1 and e4 are txt2img re-rolls, and they are here because they were never re-rolled alongside e2/e3/e5 and still carry the defect those three were fixed for: every identity word in their cores was a height word, so the camera went to the vertical face. e1 rendered as a plank fence seen from the side and e4 as a sandbag stack tapering to a vanishing point."
+  }
+ },
  "retired_no_asset": {
-  "anti_air": [
-   1,
-   2,
-   3
-  ]
+  "anti_air": [1, 2, 3]
  }
 }

@@ -56,7 +56,13 @@ PROJECTILES = {
     "proj_bullet":     f"a single pointed rifle bullet in flight, a smooth warm brass-yellow "
                        f"jacketed ogive narrowing to a sharp tip at the front and squared off "
                        f"into a plain flat base at the rear, {_FORM}, {_OVER}, {_RIGHT}, {_ISO}",
-    "proj_cannonball": f"a single solid black iron cannonball, a plain sphere, {_FORM}, {_OVER}, {_ISO}",
+    # Round 1's "solid black iron" measured 3.2/255 of luminance against the darkest plate crop: on
+    # crater black and scorched ground it stops being a sprite at all. A projectile is the one class
+    # that cannot borrow legibility from size, so the body is repainted mid-grey with a lit upper
+    # half, and an edge line carries it in the other direction, against the pale marble plate.
+    "proj_cannonball": f"a single cast-iron cannonball, a plain sphere of medium warm grey iron, a "
+                       f"broad pale silver-grey highlight across its upper half, a thin darker grey "
+                       f"edge line drawn all the way around the sphere, {_FORM}, {_OVER}, {_ISO}",
     "proj_shell":      f"a single artillery shell in flight, a long dark red steel projectile "
                        f"body with a pointed nose fuze at the front, a bright red painted band "
                        f"around its waist and a plain flat driving band at the rear, {_FORM}, "

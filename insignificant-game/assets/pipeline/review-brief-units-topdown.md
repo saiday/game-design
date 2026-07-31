@@ -91,10 +91,15 @@ micro-objects, applied to whole-subject geometry.
 Everything in `review-brief-units.md` still applies verbatim. Add these four, in this order:
 
 1. **Heading.** Player lines point at the **right** edge; the three abstract enemy tiers point at
-   the **left**. Barriers (`shield_wall`) are the exception and must run **vertically**, top edge to
-   bottom edge — a wall lies across the field, it does not face along it. Emplacements
-   (`anti_air_e1`–`e4`) have no heading and pass at any rotation.
+   the **left**. Emplacements (`anti_air_e1`–`e4`) have no heading and pass at any rotation.
    A cell with no readable heading is a reject, not an ambiguity.
+   **Barriers (`shield_wall`) are judged on axis, not heading, and the axis is not the renderer's
+   job.** On the field a wall lies **across** the lane, top edge to bottom edge; in the render it
+   lies **along** the frame, left to right, and the view rotates it 90°. That split is deliberate:
+   asking for a top-to-bottom segment is what tapered every wall to a vanishing point along its own
+   length for three rounds, because a long axis stated against the short side of a 1:1 frame invites
+   a viewer to stand at one end of it. So check a barrier for a straight, constant-width, both-ends-
+   finished row running left to right, and read its on-field axis off the view, never off the sheet.
 2. **Camera.** Steep overhead. A cell that reads as eye-level or near-side-view is a reject even
    when the subject itself is clean. Judge against its own line's siblings, not against an absolute.
 3. **Mirror.** X-flip the cell and look again. Reject only on a defect the flip *creates* —
@@ -116,8 +121,8 @@ edges. Five of the six `shield_wall` cells were rejected for exactly that: with 
 there is nothing telling the player where one wall segment starts and stops. This is worse than a
 composition wart, because freezing alpha-trims a sprite to its own bounding box — a subject that
 touches the frame edge gets an arbitrary crop rather than its silhouette. `shield_wall_e6` passed
-because its core said "a **segment** of modular barrier wall". The suffix now asks for one
-self-contained segment with both ends finished and bare ground above and below it. **Check that
+because its core said "a **segment** of modular barrier wall". The suffix now asks for a short row
+of identical modules with an end cap at each end and bare ground on all four sides. **Check that
 every cell's subject sits fully inside its frame**, and reject anything touching an edge.
 
 **Battlefield units must read as mobile, not emplaced.** These sprites move between stations during

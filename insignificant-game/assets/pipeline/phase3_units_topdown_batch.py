@@ -170,10 +170,24 @@ LINES = {
         "a single lone hacker in a dark hooded field jacket striding toward the right edge of the frame, alone in an otherwise empty frame, holding his open rugged laptop in both hands, the laptop's outer lid a plain unmarked metallic surface with no logo or brand mark, a simplified stylized figure with a rounded chunky body and no facial features",
     ],
     "shield_wall": [
-        "a short freestanding segment of tall rough wooden plank shields lashed together with rope into a standing wall, a finished upright end post at each end of the segment, spear tips poking over the top, red cloth strips tied at the joints, a simplified chunky shape with minimal surface detail",
+        # e1 and e4 were not re-rolled with e2/e3/e5 and carry the defect those three were fixed for:
+        # every identity word was a HEIGHT word ("tall", "standing wall", "upright end post", "spear
+        # tips poking over the top", "chest-high"), and the camera goes wherever the readable
+        # identity is. Both cores now put identity on the top surface — sawn log tops, lashings
+        # crossing the band, bag seams — which is the only thing a wall actually shows from above.
+        "a short freestanding segment of timber breastwork seen down onto its top, a row of thick "
+        "upright logs butted side by side so their flat circular sawn tops form one straight band "
+        "across the frame, rope lashings crossing the band at even intervals with a red cloth strip "
+        "knotted at each lashing, a few spear shafts laid flat along the row with their iron heads "
+        "projecting past its front edge, a stout squared end post capping the row at each end, a "
+        "simplified chunky shape with minimal surface detail",
         "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail",
         "a short freestanding segment of stone battlement wall seen down onto its top, a narrow flagstone wall-walk running the length of the segment with a row of square merlons along each side of the walk and an open crenel gap between every pair of merlons, a finished squared stone pier capping each end, pale mortared masonry, a simplified chunky shape with minimal surface detail",
-        "a short freestanding segment of chest-high wall of stacked burlap sandbags in even rows, a finished wooden support post closing each end of the segment, the sandbag surface soft and rounded throughout, a simplified chunky shape with minimal surface detail",
+        "a short freestanding segment of sandbag wall seen down onto its top, two parallel courses of "
+        "plump burlap sandbags laid end to end side by side, the rounded upper face of every bag "
+        "turned up toward the camera with its stitched seam and tied corners visible from above, a "
+        "squared wooden post capping the row at each end, the whole surface soft and rounded "
+        "throughout, a simplified chunky shape with minimal surface detail",
         "a short freestanding segment of gabion barrier seen down onto its top, a row of square steel wire mesh cages standing side by side and packed solid with rammed earth and broken stone, the tight dark wire mesh grid wrapping every cage and clearly visible over the fill, a heavy timber corner brace closing each end of the row, the packed earth top surface turned up toward the camera, a simplified chunky shape with minimal surface detail",
         "a segment of modular barrier wall of smooth matte gray fiber-reinforced polymer panels bolted to a steel frame, deployable metal struts at its base, a simplified chunky shape with minimal surface detail",
     ],
