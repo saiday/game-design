@@ -58,7 +58,10 @@ evidence, the human picks. Nothing enters the game without human sign-off (§9).
 ## 2. Hardware reality (Mac Studio, M2 Max, 96GB unified memory)
 
 - 96GB unified memory means **memory is not your constraint; compute speed is** (the 25GB
-  production checkpoint loads with room to spare — but see the §4 memory-release rule).
+  production checkpoint loads with room to spare). That holds while you are rendering. It stops
+  holding the moment you are not: an idle server keeps ~58 GB of the machine, so §4's rules on
+  releasing memory between rounds and shutting the server down at the end of a session are what
+  keep this bullet true.
 - Measured production timings (style bible §2): **~170 s/image @1024²**, scaling roughly with
   pixel count (divider 1024×256 ≈ 39 s, button 1024×512 ≈ 78 s, card 768×1024 ≈ 118 s).
   Batch-and-review, not interactive — an overnight run is a few hundred candidates.
@@ -183,6 +186,33 @@ Every rule here was paid for by a lost or corrupted run.
   ~60 GB after mixed model use is designed caching, not a leak, but memory pressure has once
   SIGTERM'd the server mid-job. `--disable-smart-memory` is rejected as a default: per-job reload
   roughly doubles batch wall-clock.
+- **Shut the server down when the session's generation is finished, not just between rounds.** An
+  idle ComfyUI holds ~58 GB of a 96 GB machine (measured, peak 68 GB) and never gives it back while
+  the process lives, because that is the same designed caching the bullet above describes. The human
+  works on this Mac; leaving the server resident overnight for a round that may never come costs
+  them most of the machine. Restart is one command, so the default is down:
+
+  ```bash
+  curl -s http://127.0.0.1:8188/queue     # confirm BOTH queues are empty first
+  pkill -f "imagegen/ComfyUI/.venv/bin/python main.py"
+  # restart, headless, detached (the launchd agent com.insignificant.comfyui is disabled on this
+  # machine; leave it that way, and mirror ALL of its args by hand):
+  cd ~/imagegen/ComfyUI && nohup .venv/bin/python main.py --listen 127.0.0.1 --port 8188 \
+    --output-directory ~/ComfyUI-Shared/output --input-directory ~/ComfyUI-Shared/input \
+    >> ~/imagegen/logs/comfyui.log 2>&1 & disown
+  ```
+
+  Both details are load-bearing. The **kill pattern must match the real command line**: the server
+  is launched from inside `~/imagegen/ComfyUI`, so its args read `main.py`, not `ComfyUI/main.py`,
+  and the obvious pattern silently matches nothing while `pkill` still exits 0. Verify the port is
+  actually dead rather than trusting the exit code. And the **two directory args are not optional**:
+  without them output lands in `ComfyUI/output/`, while every pipeline script and every `rendered()`
+  resume check reads `~/ComfyUI-Shared/output/` — a batch would re-render work it had already done
+  and find none of it.
+
+  The gate is the queue, not the clock: a shutdown mid-batch loses every job still queued, and
+  those jobs are hours. Stay up only while something is actually rendering or a pick round is
+  expected to produce a re-roll within the same session.
 - **§8 review scales through parallel subagents**, at roughly 1/200th the orchestrator's context
   cost, and they reach for objective tests an eyeball skips (per-border pixel diffs to prove a
   barrel crosses the canvas edge, pixel connectivity to tell an enclosed hole from an edge notch).
@@ -531,7 +561,12 @@ no pixelization, §5.) Naming: `building_<line>_era<n>.png`,
 - First generation after model load is much slower (Metal shader compile) — never benchmark run #1.
 - The server caches models in-process and MPS holds freed tensors until process exit — after each
   batch session (verify `/queue` is empty first, **never mid-batch**), release memory via
-  `POST /free` or a service kickstart (§4 batch driver discipline).
+  `POST /free` or a service kickstart, and shut the server down once the session is done
+  (§4 batch driver discipline).
+- **`ps`/Activity Monitor understate this process by more than 10x.** MPS allocations are
+  IOKit-backed rather than resident anon pages, so an idle server reporting `RSS=3.7 GB` was
+  actually holding 58 GB. Measure with `footprint -p <pid>` and read `phys_footprint`; never
+  reassure anyone about memory using an RSS column.
 
 ## 12. Escalation triggers (stop and ask the human)
 

@@ -1,0 +1,23 @@
+{
+ "_note": "The W14.8 pick gate for the 7 top-down battle plates (ADR-0009). `picks` is battle type -> APPROVED seed; the stem is p3_bgtd_<type>_s<seed>_00001_.png under ~/ComfyUI-Shared/output/phase3-backgrounds-topdown. Rounds bump seeds by +100 and re-roll only the plates the human sends back, so a row's approved seed says which round it came from and the seeds are deliberately not uniform: riot and hidden were right at round 4 and were never re-rolled after it. Complete gate — all 7 picked. This file is also the brief for the neutral field-scatter class (PLAN.md W14.8): each battle type's scatter is derived from the material and palette of its approved plate here, so a plate re-roll invalidates its scatter.",
+ "picks": {
+  "battle_tax": 463,
+  "battle_field": 463,
+  "battle_hidden": 363,
+  "battle_riot": 363,
+  "battle_democracy": 463,
+  "battle_civwar": 563,
+  "battle_worldwar": 463
+ },
+ "rounds": {
+  "1": {"seeds": [61, 62, 63, 64], "note": "landscapes rewritten as ground planes but keeping the scene's props; all 7 rejected. A prop baked into the plate is an obstacle the engine cannot move or occlude, so a battle plate is bare ground and nothing else."},
+  "2": {"seeds": [161, 162, 163, 164], "note": "props gone, camera not: every plate came back as a ground plane receding from a tilted viewer, which under ADR-0009 puts two equal-sized units on cobbles of different sizes."},
+  "3": {"seeds": [261, 262, 263, 264], "note": "'seen from directly overhead' plus 'no sky and no horizon' removed the horizon and left the plane tilted."},
+  "4": {"seeds": [361, 362, 363, 364], "note": "the register fix (ask for a PATTERN, not a scene) landed flat plates. riot and hidden are picked from here."},
+  "5": {"seeds": [461, 462, 463, 464], "note": "the probe findings applied to five cores: the redundant per-core scale-constancy clause dropped, and uniformity re-stated positively as the variety wanted. tax, field, democracy and worldwar are picked from here."},
+  "6": {"seeds": [561, 562, 563, 564], "cells": ["battle_civwar"], "note": "civwar only, a MATERIAL fix rather than a structural one: its round-5 core described ruts and hollows crossing over one another, which is a cellular-network instruction, and a cellular network of pale cells with dark boundaries is cracked earth — battle_hidden's material. The core now carries wet, dark, and standing water as its identity words."}
+ },
+ "watch": {
+  "battle_civwar": "The picked seed keeps some dark rings enclosing lighter patches, the shape family battle_hidden's cracked earth is built from. Per-type identity rests on ground material alone here (no props, no lighting lever), so if these two plates ever read as the same battle in the view, this is the pair to separate and civwar is the one to re-roll."
+ }
+}

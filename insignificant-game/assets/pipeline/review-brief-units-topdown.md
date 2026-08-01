@@ -94,12 +94,17 @@ Everything in `review-brief-units.md` still applies verbatim. Add these four, in
    the **left**. Emplacements (`anti_air_e1`–`e4`) have no heading and pass at any rotation.
    A cell with no readable heading is a reject, not an ambiguity.
    **Barriers (`shield_wall`) are judged on axis, not heading, and the axis is not the renderer's
-   job.** On the field a wall lies **across** the lane, top edge to bottom edge; in the render it
-   lies **along** the frame, left to right, and the view rotates it 90°. That split is deliberate:
-   asking for a top-to-bottom segment is what tapered every wall to a vanishing point along its own
-   length for three rounds, because a long axis stated against the short side of a 1:1 frame invites
-   a viewer to stand at one end of it. So check a barrier for a straight, constant-width, both-ends-
-   finished row running left to right, and read its on-field axis off the view, never off the sheet.
+   job.** On the field a wall lies **across** the lane, top edge to bottom edge, and the **view**
+   supplies that rotation. Never ask the render for an axis by name: naming the long axis against
+   the short side of a 1:1 frame invites a viewer to stand at one end of it, and that is what
+   tapered every wall to a vanishing point along its own length for three rounds. Ask instead for a
+   straight, constant-width row of identical modules, end-capped at both ends — and judge exactly
+   those four properties. **Whatever axis comes back is correct**, so never reject a barrier for
+   lying the "wrong" way, and never read its on-field axis off the sheet.
+   The axis is still *data*: measure the approved sprite's long axis and record it, because the view
+   cannot apply one blanket rotation to the line. The approved set proves it — four eras land
+   top-to-bottom, one lands left-to-right, and one lands diagonal
+   (`phase3_units_topdown_picks.json` §`barrier_render_axis`).
 2. **Camera.** Steep overhead. A cell that reads as eye-level or near-side-view is a reject even
    when the subject itself is clean. Judge against its own line's siblings, not against an absolute.
 3. **Mirror.** X-flip the cell and look again. Reject only on a defect the flip *creates* —

@@ -1,0 +1,21 @@
+{
+ "_note": "The W14.8 pick gate for the 8 flying-weapon sprites (`proj_<ammo>`), a class the top-down camera opened: seen from above an attack IS a thing crossing the gap between two stations, and the timeline replayer has a hit/miss event per attack with nothing to draw. `picks` is ammo type -> APPROVED seed; the stem is p3_td_<ammo>_s<seed>_00001_.png under ~/ComfyUI-Shared/output/phase3-projectiles-topdown. These sprites have NO ERA — one per ammo type, shared by every era that fires it (the mapping is in phase3_projectiles_topdown_batch.py's header and inventory.md). Complete gate — all 8 picked.",
+ "picks": {
+  "proj_stone": 91,
+  "proj_arrow": 91,
+  "proj_bolt": 91,
+  "proj_bullet": 191,
+  "proj_cannonball": 191,
+  "proj_shell": 191,
+  "proj_missile": 91,
+  "proj_bomb": 91
+ },
+ "rounds": {
+  "1": {"seeds": [91, 92, 93, 94], "note": "all 8; five of them are picked from here."},
+  "2": {
+   "seeds": [191, 192, 193, 194],
+   "cells": ["proj_bullet", "proj_cannonball", "proj_shell"],
+   "note": "a VALUE re-roll, not a shape one. All three read correctly at battle zoom and all three were dark enough to disappear against the plates they most often cross: cannonball on churned mud, shell and bullet on scorched and cracked ground. The cores repaint them mid-grey with a lit upper half and an edge line, so the silhouette survives on dark ground as well as light. A projectile is a few dozen pixels at field size and reads by silhouette and colour alone, which is why contrast against the plate is a correctness property here rather than a taste one."
+  }
+ }
+}

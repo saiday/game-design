@@ -13,44 +13,58 @@ in `insignificant-game/assets/pipeline/style-bible.md`. The live prompts below a
 
 ## Human checklist (before each session)
 
-1. **ComfyUI serving**: the launchd service `com.insignificant.comfyui` answers on
-   `127.0.0.1:8188` (it survives reboots; don't open the dormant Comfy Desktop app — both want
-   the port).
+1. **ComfyUI**: nothing to do. It is off between sessions and the agent starts it for the round
+   and stops it after (see the lifecycle section below). Just don't leave the Comfy Desktop app
+   open — it wants port 8188 too.
 2. **This repo** up to date with push access (the agent commits contact sheets and approved
    assets; asset inventory and subjects come from `insignificant-game/design/`, which ships with
    the clone — no separate corpus sync needed).
 
-## ComfyUI launch agents settings
+## ComfyUI lifecycle
 
-Default state: the `com.insignificant.comfyui` LaunchAgent
-(`~/Library/LaunchAgents/com.insignificant.comfyui.plist`) auto-starts ComfyUI on
-`127.0.0.1:8188` at every login and relaunches it if it exits (`RunAtLoad` + `KeepAlive`).
-Leave it running during asset sessions. Use the commands below to toggle it between sessions.
+**ComfyUI is off between sessions, and the agent puts it back that way.** An idle server holds
+~58 GB of this 96 GB machine and never returns it while the process lives (cookbook §4, §11), so
+a server left up for a round that may never come costs the human most of their Mac. The rule for
+both sides: bring it up when a round is about to render, take it down when the round's queue is
+empty. Restart is one command, so "down" is the cheap default and "up" is the deliberate state.
 
-**Done with image generation — stop it and keep it off across logins:**
+The `com.insignificant.comfyui` LaunchAgent (`~/Library/LaunchAgents/com.insignificant.comfyui.plist`,
+`RunAtLoad` + `KeepAlive`) is **currently disabled**, which is why nothing starts at login. An
+agent starting the server for a round mirrors the plist's args by hand and leaves the disabled
+flag alone: a `KeepAlive` service cannot be shut down at the end of a session, which is the whole
+point.
 
+```bash
+curl -s 127.0.0.1:8188/system_stats >/dev/null && echo up || echo down   # is it serving?
+curl -s 127.0.0.1:8188/queue                                             # empty BOTH queues before stopping
+
+# start (headless, detached, survives the agent's shell) — all four args matter: without the two
+# directory args, output lands in ComfyUI/output/ and every pipeline script reads ComfyUI-Shared/
+cd ~/imagegen/ComfyUI && nohup .venv/bin/python main.py --listen 127.0.0.1 --port 8188 \
+  --output-directory ~/ComfyUI-Shared/output --input-directory ~/ComfyUI-Shared/input \
+  >> ~/imagegen/logs/comfyui.log 2>&1 & disown
+
+# stop — the server runs from inside ~/imagegen/ComfyUI, so its args say "main.py", not
+# "ComfyUI/main.py"; a pattern built from the path matches nothing and pkill still exits 0
+pkill -f "imagegen/ComfyUI/.venv/bin/python main.py"
+curl -s --max-time 3 127.0.0.1:8188/system_stats >/dev/null && echo "STILL UP" || echo down
 ```
-launchctl disable gui/$(id -u)/com.insignificant.comfyui
-launchctl bootout  gui/$(id -u)/com.insignificant.comfyui
-```
 
-`disable` writes a persistent flag that survives reboots so it no longer starts at login;
-`bootout` stops the running instance now. The plist file stays in place, and port 8188 is freed
-(so the Comfy Desktop app can now be opened without colliding).
+Never stop it mid-batch: queued jobs die with the process and they are hours. Port 8188 is freed
+once it is down, so the dormant Comfy Desktop app can be opened without colliding.
 
-**Start ComfyUI when needed — re-enable login start and launch it now:**
+**If you want login-start back** (the plist's original behaviour; then the server is up whenever
+you are logged in, memory cost included):
 
 ```
 launchctl enable    gui/$(id -u)/com.insignificant.comfyui
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.insignificant.comfyui.plist
+launchctl print     gui/$(id -u)/com.insignificant.comfyui | grep state
 ```
 
-**Check current state:**
-
-```
-launchctl print gui/$(id -u)/com.insignificant.comfyui | grep state
-curl -s 127.0.0.1:8188/system_stats >/dev/null && echo up || echo down
-```
+To go back to off-between-sessions: `launchctl disable gui/$(id -u)/com.insignificant.comfyui`
+then `launchctl bootout gui/$(id -u)/com.insignificant.comfyui`. `disable` writes a flag that
+survives reboots; `bootout` stops the instance now; the plist file stays in place either way.
 
 ## Prompt 3 — class pipelines (repeatable; one class per session is fine)
 

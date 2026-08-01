@@ -204,20 +204,23 @@ every green wave.
             Human picked 58 of 67 unit cells; `fort_anti_air_era1..3` were ruled non-assets (ADR-0006
             already retires those forms, so the art inventory was the stale artifact) and dropped,
             taking the roster 70 → 67. Picks live in `phase3_units_topdown_picks.json`.
-      - [ ] **Re-roll rounds** (detached, resumable; logs `~/imagegen/logs/w148_*.log`; every round's
-            cells and seeds are recorded in `phase3_units_topdown_picks.json`). The gate stands at
-            **61 of 67 unit cells picked**; of the remaining six, five are accepted-but-unseeded
-            (the human fixed the wording without naming a seed: `archers` e1/e5, `artillery` e5,
-            `shield_wall` e1/e4 — listed under `awaiting_seed_pick`, and the sheets now print
-            "STILL NEEDS A SEED" for them), and `shield_wall` e3 is re-rolling. Plates and the 8
-            projectiles are still unpicked. The rules each round produced live in
+      - [x] **Re-roll rounds and the pick gate — CLOSED** (detached, resumable; logs
+            `~/imagegen/logs/w148_*.log`; every round's cells and seeds are recorded in the three
+            pick files). **67 of 67 unit cells, 7 of 7 plates and 8 of 8 projectiles are picked**,
+            in `phase3_units_topdown_picks.json`, `phase3_backgrounds_topdown_picks.json` and
+            `phase3_projectiles_topdown_picks.json` respectively; those three files are what the
+            freeze scripts read, and `awaiting_seed_pick` is empty. Units took six re-roll rounds,
+            plates six, projectiles two. `shield_wall` e3 closed without the subject change it
+            looked like it needed: the img2img child of e6 holds a self-contained segment, and the
+            txt2img alternative was rejected for the same defect its bleed measurement was already
+            reporting. The rules each round produced live in
             `review-brief-units-topdown.md` (discrete object with visible ends; mobile not emplaced;
             barriers judged on axis) and cookbook §14 (**register, not vocabulary**: a wide frame
             plus scene language reads as a landscape photograph, so the model supplies a viewer to
             recede from — the fix that finally made the ground plane flat and the wall segments
             straight was asking for a repeating pattern of identical units).
-      - [ ] **Freeze the approved set:** §8 objective pass → pick gate on the re-rolls → freeze + key
-            → `manifest.jsonl` rows → new `proj_*` + updated unit ids wired into
+      - [ ] **Freeze the approved set** (unblocked — the pick gate above is closed): freeze + key →
+            `manifest.jsonl` rows → new `proj_*` + updated unit ids wired into
             `core/data/asset_paths.gd` (+ `asset_paths_test.gd` sweep) → remove superseded sprites.
             Three freeze scripts are still unwritten (units/forts and projectiles key to transparent
             and crop; plates ship full-frame, modelled on `phase3_backgrounds_freeze.py`). Two things
@@ -227,12 +230,13 @@ every green wave.
             provenance; and `unit_anti_air_era1..3` are deleted outright rather than replaced, so
             `UNIT_COVERAGE` in `asset_paths.gd` loses those three entries while gaining
             `infantry` era 4 (the side-view gap the top-down wording closed).
-      - [ ] **Neutral field objects (new class; starts only AFTER the background plates are
-            approved).** The plates are bare ground by ruling, so everything a player sees standing
-            on the field is now an object. Add a scatter class of neutral props — rocks, craters,
-            tree stumps, rubble, sandbag piles — **derived per battle type from its approved ground
-            plate**, so the wheat field and the crater field scatter differently. The plate must be
-            picked first: its material and palette are the brief.
+      - [ ] **Neutral field objects (new class; unblocked — all 7 plates are approved).** The plates
+            are bare ground by ruling, so everything a player sees standing on the field is now an
+            object. Add a scatter class of neutral props — rocks, craters, tree stumps, rubble,
+            sandbag piles — **derived per battle type from its approved ground plate**
+            (`phase3_backgrounds_topdown_picks.json`), so the wheat field and the crater field
+            scatter differently: that file's material and palette are the brief, and a plate
+            re-roll invalidates its scatter.
             **They are decoration and nothing else** (`design/戰鬥.md` §場景呈現, decisions.md W14.8):
             no blocking, no cover, no damage, no place in the 掩護鏈, and no rule may read them —
             工事線 stays the only cover model, or cover forks into two systems and the core acquires
@@ -248,9 +252,13 @@ every green wave.
       fog-map scene, and a **top-down** per-battle-type battle scene replaying the core's tick
       timeline, prototyped by W14.7's replayer. The city stays a side-view panorama by design.
       Non-battle background plates are already approved (`9b45ed8`); the battle plates come from
-      W14.8. **盾陣 sprites are authored running left to right and must be drawn rotated 90°**, so
-      the wall lies across the lane (decisions.md W14.8; the axis is a transform, and asking the
-      model for it directly is what tapered three rounds of walls).
+      W14.8. **盾陣 sprites carry a per-era render axis and the view rotates each one so the wall
+      lies across the lane** (top to bottom). The rotation is not uniform: e1/e3/e4/e6 need none,
+      e5 needs 90°, e2 renders diagonal and needs ~44°, which resamples it and swings its shading —
+      whether e2 is rotated, re-rolled or accepted diagonal is still open. Measured angles are in
+      `assets/pipeline/phase3_units_topdown_picks.json` §`barrier_render_axis`; the ruling is in
+      decisions.md W14.8 (the axis is an outcome to measure, because naming it in the prompt is
+      what tapered three rounds of walls).
       Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.

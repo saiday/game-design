@@ -12,8 +12,10 @@ index — display names are drawn per run from the 命名表, the class is the s
 `portrait_candidate_<id>` (democracy candidates), `ui_<template>` (Phase 2 frozen templates).
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
-cookbook §5). Counts: buildings 76 · units 52 + enemy 18 · card art 57 · icons 75 · UI templates 5 ·
-backgrounds 17 · portraits 15 · flying weapons 8 → **323 assets**.
+cookbook §5). Counts: buildings 76 · units 49 + enemy 18 · card art 57 · icons 75 · UI templates 5 ·
+backgrounds 17 · portraits 15 · flying weapons 8 → **320 assets**.
+The 49 is 40 `unit_*` plus 9 `fort_*`; with the 18 enemy tiers that is the 67-cell roster the
+top-down re-render renders and the pick gate gates.
 
 ## Buildings (`building_<line>_era<n>`) — source: 營運 建築線總表/政權核心
 
