@@ -44,9 +44,10 @@ cd ~/imagegen/ComfyUI && nohup .venv/bin/python main.py --listen 127.0.0.1 --por
   --output-directory ~/ComfyUI-Shared/output --input-directory ~/ComfyUI-Shared/input \
   >> ~/imagegen/logs/comfyui.log 2>&1 & disown
 
-# stop — the server runs from inside ~/imagegen/ComfyUI, so its args say "main.py", not
-# "ComfyUI/main.py"; a pattern built from the path matches nothing and pkill still exits 0
-pkill -f "imagegen/ComfyUI/.venv/bin/python main.py"
+# stop — kill whatever owns the port. Never `pkill -f` a path pattern: the server's command line
+# differs depending on whether launchd or a hand-typed `cd && nohup` started it, so a path pattern
+# misses one of the two while still exiting 0. Always verify the port, not the exit code.
+lsof -ti tcp:8188 | xargs -r kill
 curl -s --max-time 3 127.0.0.1:8188/system_stats >/dev/null && echo "STILL UP" || echo down
 ```
 

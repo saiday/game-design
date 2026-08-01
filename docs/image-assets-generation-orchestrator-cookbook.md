@@ -194,7 +194,9 @@ Every rule here was paid for by a lost or corrupted run.
 
   ```bash
   curl -s http://127.0.0.1:8188/queue     # confirm BOTH queues are empty first
-  pkill -f "imagegen/ComfyUI/.venv/bin/python main.py"
+  lsof -ti tcp:8188 | xargs -r kill       # kill whatever OWNS the port, whoever started it
+  curl -s --max-time 3 http://127.0.0.1:8188/system_stats >/dev/null && echo "STILL UP" || echo down
+
   # restart, headless, detached (the launchd agent com.insignificant.comfyui is disabled on this
   # machine; leave it that way, and mirror ALL of its args by hand):
   cd ~/imagegen/ComfyUI && nohup .venv/bin/python main.py --listen 127.0.0.1 --port 8188 \
@@ -202,13 +204,15 @@ Every rule here was paid for by a lost or corrupted run.
     >> ~/imagegen/logs/comfyui.log 2>&1 & disown
   ```
 
-  Both details are load-bearing. The **kill pattern must match the real command line**: the server
-  is launched from inside `~/imagegen/ComfyUI`, so its args read `main.py`, not `ComfyUI/main.py`,
-  and the obvious pattern silently matches nothing while `pkill` still exits 0. Verify the port is
-  actually dead rather than trusting the exit code. And the **two directory args are not optional**:
-  without them output lands in `ComfyUI/output/`, while every pipeline script and every `rendered()`
-  resume check reads `~/ComfyUI-Shared/output/` — a batch would re-render work it had already done
-  and find none of it.
+  Both details are load-bearing. **Kill by the port, never by a `pkill -f` pattern.** The server's
+  command line depends on who launched it — launchd gives it an absolute interpreter path, while
+  the `cd && nohup` line above gives it a relative one — so any path-based pattern kills one and
+  silently misses the other, and `pkill` exits 0 either way. Two separate shutdowns in one session
+  were reported as done while the server was still serving. Whatever you use, **verify the port is
+  dead**; the exit code proves nothing. And the **two directory args are not optional**: without
+  them output lands in `ComfyUI/output/`, while every pipeline script and every `rendered()` resume
+  check reads `~/ComfyUI-Shared/output/` — a batch would re-render work it had already done and
+  find none of it.
 
   The gate is the queue, not the clock: a shutdown mid-batch loses every job still queued, and
   those jobs are hours. Stay up only while something is actually rendering or a pick round is

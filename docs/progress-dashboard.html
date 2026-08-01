@@ -66,7 +66,7 @@
   <h2>Core build (production waves)</h2>
   <div class="tiles">
     <div class="tile"><div class="n">20 / 22</div><div class="l">waves closed (W0–W14.7 incl. W12.5/W13.5; W14.8 art re-render and W15 view remain)</div></div>
-    <div class="tile"><div class="n">240 / 240</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
+    <div class="tile"><div class="n">242 / 242</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
   </div>
@@ -96,7 +96,7 @@
     <tr><td>W14.7</td><td>Cover chain in core + demo becomes a timeline replayer (ADR-0008/0009)</td>
         <td><span class="status done"><span class="dot done"></span>closed 2026-07-28: the 盾陣 branch narrows to the 遠程列, 工兵團 stations behind the wall it repairs, 正規軍 screens now fill the never-appended enemy_forts array (帶攻城 is live at last), and units announce their place in the chain as a new take_station event. Timeline events gained a <code>side</code> key — labels are card ids, so no replayer could tell the camps apart without it. New tools/export_timeline.gd exports one full-roster battle per era, and the HTML demo is now a <b>replayer with zero rule code</b>; Part A grew an exporter diff plus a renderer check. Gate: 21 suites / 240 cases exit 0, exporter byte-stable, renderer check exit 0. Batch re-run: aggregate movement inside stream-reshuffle noise (hard WW 86%), money pile down ~10%, and a collapse fired outside the opening trap for the first time (gen 13) — PM calls in balance-report.md</span></td></tr>
     <tr><td>W14.8</td><td>Top-down battlefield art re-render (ADR-0009)</td>
-        <td><span class="status wip"><span class="dot wip"></span>in progress — <b>the human pick gate is closed: 67 / 67 unit-and-fort cells, 7 / 7 battle plates, 8 / 8 flying weapons picked</b> (seeds recorded in the three <code>phase3_*_picks.json</code> files, which are what the freeze scripts read). Both inherited risks resolved: mirror-safety holds at battle zoom and is approved for enemy-side reuse; camera drift is confined to 5 mounted/wheeled/timber cells and is accepted by human ruling, not a reject. The roster moved 70 → 67 (<code>fort_anti_air_era1..3</code> are non-assets per ADR-0006) and gained a class the camera created: <code>proj_*</code> flying weapons, since seen from above an attack is a thing crossing the gap. Remaining: freeze + key + manifest rows + <code>asset_paths.gd</code> wiring, then the neutral field-scatter class (decoration only, no cover, no rule reads it)</span></td></tr>
+        <td><span class="status wip"><span class="dot wip"></span>art done, one item left. <b>All 82 top-down assets are picked and frozen</b> — 67 unit/fort/enemy sprites, 7 battle plates, 8 flying weapons — and wired into <code>asset_paths.gd</code> (gate: 21 suites / 242 cases exit 0, check_design_graph.py exit 0). Both inherited risks resolved: mirror-safety holds at battle zoom, and camera drift is confined to 5 mounted/wheeled/timber cells and accepted by human ruling. manifest.jsonl gained <code>superseded</code> / <code>retired</code> statuses so 76 replaced rows stop reading as shipped art. Remaining: the neutral field-scatter class (decoration only — no blocking, no cover, no rule may read it), which runs before W15 by ruling</span></td></tr>
     <tr><td>W15</td><td>Three-scene view revamp, top-down battle (operations panorama / fog-map / battle scene)</td>
         <td><span class="status todo"><span class="dot todo"></span>not started — Part B returns here; the battle scene is a top-down replayer of the tick timeline (intercept / disable / repair / shootdown / take_station), the city stays a side-view panorama</span></td></tr>
   </table>
@@ -104,9 +104,9 @@
   <h2>Art pipeline (Phase 3 class gates)</h2>
   <div class="tiles">
     <div class="tile"><div class="n">320</div><div class="l">total assets in scope (inventory.md) — 70 → 67 units after ADR-0006 retired anti-air eras 1–3, plus the 8 new flying weapons</div></div>
-    <div class="tile"><div class="n">4</div><div class="l">classes fully frozen (icons, buildings, cards, portraits)</div></div>
+    <div class="tile"><div class="n">7</div><div class="l">classes fully frozen (icons, buildings, cards, portraits, units, backgrounds, flying weapons)</div></div>
     <div class="tile"><div class="n">0</div><div class="l">classes at human pick gate</div></div>
-    <div class="tile"><div class="n">82</div><div class="l">W14.8 top-down assets picked, awaiting freeze (67 units + 7 plates + 8 flying weapons)</div></div>
+    <div class="tile"><div class="n">82</div><div class="l">W14.8 top-down assets frozen into assets/approved/ (67 units + 7 battle plates + 8 flying weapons)</div></div>
   </div>
 
   <table>
@@ -116,15 +116,15 @@
     <tr><td>Buildings</td><td>76 sprites (12 lines + core, ×6 eras)</td>
         <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/buildings/</span></td></tr>
     <tr><td>Backgrounds</td><td>17 plates</td>
-        <td><span class="status wip"><span class="dot wip"></span>10 of 17 closed and frozen in assets/approved/backgrounds/. The 7 bg_battle_* plates are superseded side-view and are being re-rendered top-down in W14.8 (ADR-0009): all 7 replacements are <b>picked</b> and await freeze. A battle plate is now flat ground and nothing else — a prop painted into it would be an obstacle the engine cannot move or occlude</span></td></tr>
+        <td><span class="status done"><span class="dot done"></span>closed — all 17 frozen in assets/approved/backgrounds/. The 7 bg_battle_* plates were re-rendered top-down in W14.8 (ADR-0009) and replaced their side-view originals in place; a battle plate is now flat ground and nothing else, because a prop painted into it would be an obstacle the engine cannot move or occlude</span></td></tr>
     <tr><td>Units / forts / enemy tiers</td><td>49 unit/fort sprites + 18 enemy-tier sprites, 15 lineage lines</td>
-        <td><span class="status wip"><span class="dot wip"></span>the 69 side-view sprites in assets/approved/units/ are all superseded (ADR-0009) and stay on disk and wired until the top-down set replaces them, so nothing is missing. W14.8's 67-cell overhead re-render is <b>fully picked</b> and awaits freeze; it also closes the old infantry_era4 gap</span></td></tr>
+        <td><span class="status done"><span class="dot done"></span>closed — 67 top-down sprites frozen in assets/approved/units/, replacing all 69 side-view originals (ADR-0009). The roster moved 70 → 67: anti-air eras 1–3 are non-assets per ADR-0006 and were deleted rather than replaced, while infantry era 4 closed the one gap the side-view round left, so no unit slot is placeholdered any more</span></td></tr>
     <tr><td>Card illustrations</td><td>57 pieces</td>
         <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/cards/ (57 cards)</span></td></tr>
     <tr><td>Portraits</td><td>15 pieces (5 rival civs + 10 candidates)</td>
         <td><span class="status done"><span class="dot done"></span>closed — frozen in assets/approved/portraits/ (understated-leader v2)</span></td></tr>
     <tr><td>Flying weapons</td><td>8 sprites (one per ammo type, no era of their own)</td>
-        <td><span class="status wip"><span class="dot wip"></span>new class, created by the camera: seen from above an attack is a thing crossing the gap between two stations, and the timeline emits a hit/miss per attack with nothing to draw. All 8 are <b>picked</b> and await freeze; they have no side-view predecessor to supersede</span></td></tr>
+        <td><span class="status done"><span class="dot done"></span>closed — 8 frozen in the new assets/approved/projectiles/. A class created by the camera: seen from above an attack is a thing crossing the gap between two stations, and the timeline emits a hit/miss per attack with nothing to draw. No side-view predecessor to supersede</span></td></tr>
   </table>
 
   <h2>Design docs</h2>
@@ -136,7 +136,7 @@
         <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5; the 2026-07-27 cover-chain round (ADR-0008/0009) landed in the corpus as W14.6 and awaits its code delta in W14.7 — no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-08-01 (W14.8's human pick gate closed: 82 top-down assets picked — 67 unit/fort/enemy cells, 7 battle plates, 8 flying weapons — with seeds recorded in the three phase3_*_picks.json files. Scope moved 315 → 320 assets: anti-air eras 1–3 retired as non-assets per ADR-0006, flying weapons added as a new class. Still to come inside W14.8: freeze + key + manifest + asset_paths wiring, then the neutral field-scatter class. Then W15, the view wave. The 69 side-view unit sprites and 7 side-view battle backdrops stay on disk and stay wired until the freeze replaces them) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-08-01 (W14.8 art complete: 82 top-down assets picked, frozen into assets/approved/ and wired into asset_paths.gd — 21 suites / 242 cases exit 0, check_design_graph.py exit 0. The 69 side-view unit sprites and 7 side-view battle backdrops are gone from disk, replaced in place; scope moved 315 → 320 assets as anti-air eras 1–3 retired per ADR-0006 and flying weapons joined as a new class. One item left inside W14.8: the neutral field-scatter class. Then W15, the view wave, where Part B returns) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>

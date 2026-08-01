@@ -9,6 +9,7 @@ extends RefCounted
 const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UNIT_DIR: String = "res://assets/approved/units"
+const PROJECTILE_DIR: String = "res://assets/approved/projectiles"
 const CARD_DIR: String = "res://assets/approved/cards"
 const PORTRAIT_DIR: String = "res://assets/approved/portraits"
 const UI_DIR: String = "res://assets/approved/ui"
@@ -40,14 +41,17 @@ const ICONS: Array[StringName] = [
 	&"fund",
 ]
 
-# Approved unit / enemy sprites: line -> eras frozen (line-pick gate 2026-07-21; the lineage
-# picks live in assets/pipeline/phase3_units_freeze.py). infantry omits era 4 — a known gap: the
-# era-4 render was §8-rejected with no sibling chain, so the view placeholders that one slot.
-# These tables are the art inventory, not the card catalog: anti_air keeps its era 1-3 entries
-# because those approved renders exist on disk, but the card has no era 1-3 form any more
-# (ADR-0006 retired 擋箭棚/箭樓/城防塔), so nothing ever resolves them.
+# Approved unit / enemy sprites: line -> eras frozen (W14.8 pick gate; the per-cell seed picks live
+# in assets/pipeline/phase3_units_topdown_picks.json, the freeze in phase3_units_topdown_freeze.py).
+# These are TOP-DOWN sprites (ADR-0009): the battle scene looks straight down, so the side-view set
+# this replaced is gone from disk, not merely superseded in the manifest.
+# Two coverage changes came with the camera and neither is a gap to fill later:
+#   anti_air starts at era 4 — ADR-0006 retired 擋箭棚/箭樓/城防塔 outright (no air exists before
+#     工業, so no anti-air does either) and core/data/cards.gd agrees, so eras 1-3 have no subject.
+#   infantry now spans all six — the side-view round left era 4 unfrozen and the view placeholdered
+#     it; the top-down wording closed it, so nothing placeholders a unit slot any more.
 const UNIT_COVERAGE: Dictionary = {
-	&"anti_air": [1, 2, 3, 4, 5, 6],
+	&"anti_air": [4, 5, 6],
 	&"archers": [1, 2, 3, 4, 5, 6],
 	&"artillery": [3, 4, 5, 6],
 	&"bomber": [4, 5, 6],
@@ -58,10 +62,20 @@ const UNIT_COVERAGE: Dictionary = {
 	&"enemy_weak": [1, 2, 3, 4, 5, 6],
 	&"engineers": [1, 2, 3, 4, 5, 6],
 	&"holy_warriors": [4],
-	&"infantry": [1, 2, 3, 5, 6],
+	&"infantry": [1, 2, 3, 4, 5, 6],
 	&"privateers": [3, 4, 5],
 	&"shield_wall": [1, 2, 3, 4, 5, 6],
 }
+
+# Approved flying weapons (W14.8; picks in assets/pipeline/phase3_projectiles_topdown_picks.json).
+# A class the camera created: seen from above an attack IS a thing crossing the gap between two
+# stations, and the timeline emits a hit/miss per attack with nothing to draw. Unlike every other
+# sprite table this one has NO ERA — one sprite per ammo type, shared by every era that fires it
+# (the ammo-to-line mapping lives in assets/pipeline/inventory.md §Flying weapons, because it is
+# art bookkeeping; the core resolves an attack's ammo from the card, not from here).
+const PROJECTILES: Array[StringName] = [
+	&"arrow", &"bolt", &"bomb", &"bullet", &"cannonball", &"missile", &"shell", &"stone",
+]
 
 # Approved card illustrations: line -> eras frozen (pick gate 2026-07-23; the per-subject seed
 # picks live in assets/pipeline/phase3_cards_batch.py PICKS, the freeze in phase3_cards_freeze.py).
@@ -173,6 +187,14 @@ static func unit(line: StringName, era: int) -> String:
 
 static func has_unit(line: StringName, era: int) -> bool:
 	return FileAccess.file_exists(unit(line, era))
+
+
+static func projectile(ammo: StringName) -> String:
+	return "%s/proj_%s.png" % [PROJECTILE_DIR, ammo]
+
+
+static func has_projectile(ammo: StringName) -> bool:
+	return FileAccess.file_exists(projectile(ammo))
 
 
 static func card(line: StringName, era: int) -> String:

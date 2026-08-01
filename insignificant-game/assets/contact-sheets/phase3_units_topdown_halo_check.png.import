@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dn8iq4icyhyp"
-path="res://.godot/imported/unit_anti_air_era3.png-86e5a67818a72ca092f239568d0339bc.ctex"
+uid="uid://fc5bj6wed6uh"
+path="res://.godot/imported/phase3_units_topdown_halo_check.png-24b05ae1351f1557a933c2944f5f9e1b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/approved/units/unit_anti_air_era3.png"
-dest_files=["res://.godot/imported/unit_anti_air_era3.png-86e5a67818a72ca092f239568d0339bc.ctex"]
+source_file="res://assets/contact-sheets/phase3_units_topdown_halo_check.png"
+dest_files=["res://.godot/imported/phase3_units_topdown_halo_check.png-24b05ae1351f1557a933c2944f5f9e1b.ctex"]
 
 [params]
 

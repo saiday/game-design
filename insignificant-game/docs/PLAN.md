@@ -206,10 +206,17 @@ every green wave.
             taking the roster 70 → 67. Picks live in `phase3_units_topdown_picks.json`.
       - [x] **Re-roll rounds and the pick gate — CLOSED** (detached, resumable; logs
             `~/imagegen/logs/w148_*.log`; every round's cells and seeds are recorded in the three
-            pick files). **67 of 67 unit cells, 7 of 7 plates and 8 of 8 projectiles are picked**,
-            in `phase3_units_topdown_picks.json`, `phase3_backgrounds_topdown_picks.json` and
+            pick files). **All 82 assets are picked** — 67 unit cells, 7 plates, 8 projectiles — in
+            `phase3_units_topdown_picks.json`, `phase3_backgrounds_topdown_picks.json` and
             `phase3_projectiles_topdown_picks.json` respectively; those three files are what the
-            freeze scripts read, and `awaiting_seed_pick` is empty. Units took six re-roll rounds,
+            freeze scripts read, and `awaiting_seed_pick` is empty. The last cell to close was
+            `shield_wall` e2, re-rolled twice for **axis** rather than subject or camera. Eight seeds
+            proved a hard trade rather than a wording gap: **wide implies diagonal and on-axis
+            implies narrow**, because a wide segment spanning a 1:1 frame's height needs more width
+            than the frame has, so the only room for a wide wall is along the diagonal. That also
+            reframes what the "good" wide render was — it was wide because it was tilted enough to
+            show the shields' faces, and a shield rank seen from genuinely overhead IS a narrow band.
+            Units took eight re-roll rounds,
             plates six, projectiles two. `shield_wall` e3 closed without the subject change it
             looked like it needed: the img2img child of e6 holds a self-contained segment, and the
             txt2img alternative was rejected for the same defect its bleed measurement was already
@@ -219,18 +226,29 @@ every green wave.
             plus scene language reads as a landscape photograph, so the model supplies a viewer to
             recede from — the fix that finally made the ground plane flat and the wall segments
             straight was asking for a repeating pattern of identical units).
-      - [ ] **Freeze the approved set** (unblocked — the pick gate above is closed): freeze + key →
-            `manifest.jsonl` rows → new `proj_*` + updated unit ids wired into
-            `core/data/asset_paths.gd` (+ `asset_paths_test.gd` sweep) → remove superseded sprites.
-            Three freeze scripts are still unwritten (units/forts and projectiles key to transparent
-            and crop; plates ship full-frame, modelled on `phase3_backgrounds_freeze.py`). Two things
-            to settle when writing them: the manifest's status vocabulary is
-            candidate/approved/rejected with **no supersession value**, and the 69 side-view unit rows
-            plus 7 side-view plate rows must stop reading as the shipped art without losing their
-            provenance; and `unit_anti_air_era1..3` are deleted outright rather than replaced, so
-            `UNIT_COVERAGE` in `asset_paths.gd` loses those three entries while gaining
-            `infantry` era 4 (the side-view gap the top-down wording closed).
-      - [ ] **Neutral field objects (new class; unblocked — all 7 plates are approved).** The plates
+      - [x] **Freeze the approved set — DONE.** `phase3_units_topdown_freeze.py` (67 sprites, key +
+            crop, `shield_wall` e5 turned 90° onto its axis), `phase3_projectiles_topdown_freeze.py`
+            (8, into the new `approved/projectiles/`) and `phase3_backgrounds_topdown_freeze.py`
+            (7 plates, full-frame). `manifest.jsonl` gained 82 approved rows and its status
+            vocabulary gained `superseded` / `retired` (decisions.md W14.8): 73 rows superseded,
+            3 retired, and **zero approved rows point at a file that does not exist**.
+            `asset_paths.gd` gained `PROJECTILE_DIR` / `PROJECTILES` / `projectile()`, and
+            `UNIT_COVERAGE` lost `anti_air` 1-3 while gaining `infantry` era 4 — so no unit slot is
+            placeholdered any more. Gate: 21 suites / 242 cases exit 0, check_design_graph.py exit 0.
+            **The §8 pass caught what the pick gate structurally could not:** 60 of 67 cells enclosed
+            background the border flood cannot reach (inside a bow, between a sling strap and the
+            fist, between missiles on a rail), which is invisible on a light contact sheet and ships
+            as a pale blob on a dark plate. Keying now also cuts background-coloured pixels at a
+            much tighter tolerance than the flood's, which removes trapped plate while keeping
+            shaded pale material. Deliberately NOT applied to the projectiles, where it gains
+            nothing and punches a hole through `proj_bomb` — the reasoning and measurements are in
+            both freeze scripts.
+      - [ ] **Neutral field objects (new class; unblocked — all 7 plates are approved).**
+            **This runs before W15, by human ruling, and the ordering is deliberate — don't
+            re-propose overlapping it with the view wave.** The technical argument for overlapping
+            is real and is exactly why it's answered here: scatter is decoration, the view places it
+            at draw time, and the battle scene would work with an empty scatter set, so W15 does not
+            strictly need it. It still goes first, so W14.8 closes as one wave. The plates
             are bare ground by ruling, so everything a player sees standing on the field is now an
             object. Add a scatter class of neutral props — rocks, craters, tree stumps, rubble,
             sandbag piles — **derived per battle type from its approved ground plate**
@@ -252,13 +270,13 @@ every green wave.
       fog-map scene, and a **top-down** per-battle-type battle scene replaying the core's tick
       timeline, prototyped by W14.7's replayer. The city stays a side-view panorama by design.
       Non-battle background plates are already approved (`9b45ed8`); the battle plates come from
-      W14.8. **盾陣 sprites carry a per-era render axis and the view rotates each one so the wall
-      lies across the lane** (top to bottom). The rotation is not uniform: e1/e3/e4/e6 need none,
-      e5 needs 90°, e2 renders diagonal and needs ~44°, which resamples it and swings its shading —
-      whether e2 is rotated, re-rolled or accepted diagonal is still open. Measured angles are in
-      `assets/pipeline/phase3_units_topdown_picks.json` §`barrier_render_axis`; the ruling is in
-      decisions.md W14.8 (the axis is an outcome to measure, because naming it in the prompt is
-      what tapered three rounds of walls).
+      W14.8. **盾陣 sprites all ship top-to-bottom, so the view needs no per-asset rotation** — it
+      draws a barrier like any other sprite. Getting there is W14.8's job, not W15's: e5 is rotated
+      90° by the freeze script and e2 is re-rolled onto the axis (measured angles and the reasoning
+      in `assets/pipeline/phase3_units_topdown_picks.json` §`barrier_render_axis`; the ruling in
+      decisions.md W14.8). What W15 must not do is assume a barrier's axis can be fixed at draw
+      time: the axis is an outcome of the render, because naming it in the prompt is what tapered
+      three rounds of walls.
       Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.

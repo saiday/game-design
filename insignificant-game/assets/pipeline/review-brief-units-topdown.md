@@ -93,18 +93,22 @@ Everything in `review-brief-units.md` still applies verbatim. Add these four, in
 1. **Heading.** Player lines point at the **right** edge; the three abstract enemy tiers point at
    the **left**. Emplacements (`anti_air_e1`–`e4`) have no heading and pass at any rotation.
    A cell with no readable heading is a reject, not an ambiguity.
-   **Barriers (`shield_wall`) are judged on axis, not heading, and the axis is not the renderer's
-   job.** On the field a wall lies **across** the lane, top edge to bottom edge, and the **view**
-   supplies that rotation. Never ask the render for an axis by name: naming the long axis against
-   the short side of a 1:1 frame invites a viewer to stand at one end of it, and that is what
-   tapered every wall to a vanishing point along its own length for three rounds. Ask instead for a
-   straight, constant-width row of identical modules, end-capped at both ends — and judge exactly
-   those four properties. **Whatever axis comes back is correct**, so never reject a barrier for
-   lying the "wrong" way, and never read its on-field axis off the sheet.
-   The axis is still *data*: measure the approved sprite's long axis and record it, because the view
-   cannot apply one blanket rotation to the line. The approved set proves it — four eras land
-   top-to-bottom, one lands left-to-right, and one lands diagonal
-   (`phase3_units_topdown_picks.json` §`barrier_render_axis`).
+   **Barriers (`shield_wall`) are judged on axis, not heading.** On the field a wall lies **across**
+   the lane, top edge to bottom edge, and every barrier must ship that way — the view rotates
+   nothing. Judge a barrier on four properties and no others: straight, constant width, both ends
+   finished inside the frame, and its long axis running top to bottom.
+   **Measure the axis, don't eyeball it** (PCA on the foreground mask; the approved set spans four
+   eras on axis, one at a right angle to it and one diagonal, so the eye is not reliable here).
+   Then fix it by the angle, because the two cases are not the same defect: **a clean right angle is
+   turned once by the freeze script, losslessly; a diagonal is re-rolled**, because an arbitrary
+   rotation resamples the sprite and swings its shading with it.
+   **The axis CAN be asked for, but only as a bounded pair of points** — the segment's two end
+   stakes pinned near the top and bottom edges. Never as a run: "its length running from near the
+   top of the frame down to near the bottom" tapered every wall in round 3, because naming a long
+   line names a viewer for it to recede from. The bounded form landed 4 of 4 seeds within 0.7° on
+   its first try. Watch what it costs, though — pinning the ends to the edges pulls the segment to
+   span the frame, which squeezes its width, so state the width as a bounded count too rather than
+   letting the model choose it.
 2. **Camera.** Steep overhead. A cell that reads as eye-level or near-side-view is a reject even
    when the subject itself is clean. Judge against its own line's siblings, not against an absolute.
 3. **Mirror.** X-flip the cell and look again. Reject only on a defect the flip *creates* —

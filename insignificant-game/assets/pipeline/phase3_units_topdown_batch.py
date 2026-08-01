@@ -181,7 +181,19 @@ LINES = {
         "knotted at each lashing, a few spear shafts laid flat along the row with their iron heads "
         "projecting past its front edge, a stout squared end post capping the row at each end, a "
         "simplified chunky shape with minimal surface detail",
-        "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, a simplified chunky shape with minimal surface detail",
+        # e2 is the one cell in the line that landed DIAGONAL (its long axis measured 134 deg, where
+        # e1/e3/e4/e6 land within a degree of top-to-bottom). Human ruling: re-roll it onto the axis
+        # rather than let the view turn it ~44 deg and swing its shading with it.
+        # The axis clause here is deliberately NOT a "run": round 3 tapered every wall with "its
+        # length running from near the top of the frame down to near the bottom", because naming a
+        # long line names a viewer to see it recede, and the barrier suffix dropped axis wording
+        # entirely for that reason. The lever that survived that finding is the BOUNDED COUNT — the
+        # same one that stopped e3 bleeding, where "six merlons" worked and "a walk running the
+        # length" did not. So the axis is stated as two fixed points, the segment's own end stakes
+        # pinned to the two edges, and no line is described as running anywhere. Only this core
+        # carries it: e1/e3/e4 already land on axis, and a working cell is not a place to test a
+        # theory.
+        "a short freestanding barrier built from two parallel ranks of kite shields, the shields of each rank overlapping edge over edge like roof tiles and the second rank braced close behind the first, the curved outer face of every shield turned up toward the camera and embossed with a plain raised ring boss, a finished stake driven in at each end of the barrier, one of those two end stakes near the top edge of the frame and the other near the bottom edge, the barrier three shields wide from side to side along its whole length, a simplified chunky shape with minimal surface detail",
         # Why e3 alone kept bleeding off the bottom edge in round 4 while e2 and e5 stopped, under
         # the identical suffix: its core named a LONG LINE. "a narrow flagstone wall-walk running the
         # length of the segment ... a row of merlons along each side" is the same phrase family that

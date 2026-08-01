@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1ccrqapoad7f"
-path="res://.godot/imported/unit_anti_air_era1.png-1825f79ce83ba023c02648d4648dff07.ctex"
+uid="uid://cjwbmd3pxg5fm"
+path="res://.godot/imported/proj_bolt.png-caf1648e0bc215fc8ab2d052af6df8de.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/approved/units/unit_anti_air_era1.png"
-dest_files=["res://.godot/imported/unit_anti_air_era1.png-1825f79ce83ba023c02648d4648dff07.ctex"]
+source_file="res://assets/approved/projectiles/proj_bolt.png"
+dest_files=["res://.godot/imported/proj_bolt.png-caf1648e0bc215fc8ab2d052af6df8de.ctex"]
 
 [params]
 

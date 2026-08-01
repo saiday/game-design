@@ -36,20 +36,38 @@ func test_approved_building_lines_exist_per_era() -> void:
 
 
 func test_approved_units_exist_per_coverage() -> void:
-	# units class line-pick gate closed: every (line, era) in UNIT_COVERAGE is frozen on disk
+	# W14.8 top-down pick gate closed: every (line, era) in UNIT_COVERAGE is frozen on disk
 	var total := 0
 	for line_id: StringName in AssetPaths.UNIT_COVERAGE:
 		for era: int in AssetPaths.UNIT_COVERAGE[line_id]:
 			assert_bool(AssetPaths.has_unit(line_id, era)) \
 				.override_failure_message("missing unit_%s_era%d" % [line_id, era]).is_true()
 			total += 1
-	assert_int(total).is_equal(69)
+	assert_int(total).is_equal(67)
 
 
-func test_infantry_era4_is_the_known_gap() -> void:
-	# era-4 infantry render was §8-rejected with no sibling chain; the slot is intentionally unfrozen
-	assert_bool(AssetPaths.has_unit(&"infantry", 4)).is_false()
-	assert_bool(AssetPaths.UNIT_COVERAGE[&"infantry"].has(4)).is_false()
+func test_infantry_era4_is_no_longer_a_gap() -> void:
+	# the side-view round left this slot unfrozen (§8-rejected render, no sibling chain) and the
+	# view placeholdered it; the top-down wording closed it, so no unit slot is placeholdered now
+	assert_bool(AssetPaths.has_unit(&"infantry", 4)).is_true()
+	assert_bool(AssetPaths.UNIT_COVERAGE[&"infantry"].has(4)).is_true()
+
+
+func test_anti_air_eras_1_to_3_are_not_assets() -> void:
+	# ADR-0006 retired 擋箭棚/箭樓/城防塔 outright — no air exists before 工業, so no anti-air does
+	# either. These are absent by ruling, not by a pick gate that could still fill them.
+	for era: int in [1, 2, 3]:
+		assert_bool(AssetPaths.has_unit(&"anti_air", era)) \
+			.override_failure_message("unit_anti_air_era%d should not exist" % era).is_false()
+		assert_bool(AssetPaths.UNIT_COVERAGE[&"anti_air"].has(era)).is_false()
+
+
+func test_approved_projectiles_exist() -> void:
+	# the class the top-down camera created: one sprite per ammo type, shared across eras
+	for ammo: StringName in AssetPaths.PROJECTILES:
+		assert_bool(AssetPaths.has_projectile(ammo)) \
+			.override_failure_message("missing proj_%s" % ammo).is_true()
+	assert_int(AssetPaths.PROJECTILES.size()).is_equal(8)
 
 
 func test_approved_cards_exist_per_coverage() -> void:
@@ -70,9 +88,10 @@ func test_approved_skill_cards_exist() -> void:
 	assert_int(AssetPaths.CARD_SKILLS.size()).is_equal(5)
 
 
-func test_card_infantry_era4_exists_unlike_the_unit_gap() -> void:
-	# the infantry card was authored fresh (musket line), so era 4 IS frozen — unlike the unit sprite
+func test_card_and_unit_infantry_era4_now_agree() -> void:
+	# the card was always frozen (authored fresh as a musket line); the sprite caught up in W14.8
 	assert_bool(AssetPaths.has_card(&"infantry", 4)).is_true()
+	assert_bool(AssetPaths.has_unit(&"infantry", 4)).is_true()
 
 
 func test_approved_portrait_civs_exist_and_cover_every_rival_class() -> void:
