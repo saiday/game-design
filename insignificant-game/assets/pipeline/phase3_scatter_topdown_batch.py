@@ -79,6 +79,17 @@ _ISO = "centered, isolated on a plain light gray background"
 # are both read through a face turned at the camera).
 _TOP = "its top surface turned toward the viewer and filling almost the whole of its outline"
 
+# ROUND 2 MOVED NONE OF THE FIVE SOLID OBJECTS: `_TOP` bought a slightly flatter boulder and
+# nothing else, and the "fallen log" stated as a bounded pair of sawn ends came back as a standing
+# trunk with one end face at the bottom of the frame. So the camera clause itself is the suspect,
+# not the amount of detail piled on top of it. `_OVERHEAD` is the UNIT class's wording, proven on
+# figures, and a figure seen from above still looks like a figure; a prop has no such luck. The
+# clause below is the BATTLE PLATE's wording instead, which is the phrasing already proven to pull
+# GROUND subjects flat on this checkpoint, plus a register shift borrowed from the same finding:
+# describe the sprite as the shape the object covers on the ground rather than as a prop portrait.
+_ORTHO = ("photographed flat from straight above, orthographic, its outline drawn as the shape it "
+          "covers on the ground")
+
 # The props with no relief of their own, which take `_FLAT_FORM`. A prop earns a place here by
 # failing as an object, not by looking flat in prose.
 FLAT = {"scat_riot_scorch", "scat_riot_crate", "scat_hidden_vent"}
@@ -121,7 +132,8 @@ SCATTER = {
     "scat_hidden_vent":  ("battle_hidden", "a short jagged crack splitting dark grey-green scorched "
                                            "ground, fine pale ash banked along its lips, a cold "
                                            "pale green luminous light lying deep down inside the "
-                                           "crack, cool green and grey throughout"),
+                                           "crack, cool green and grey throughout, its broken "
+                                           "outline ragged and uneven all the way around"),
     # rewritten to mirror scat_tax_stump, the one stump that rendered genuinely overhead: the cut
     # face is the subject and the roots spread flat away from it
     "scat_hidden_stump": ("battle_hidden", "a low charred blackened tree stump sawn off close to "
@@ -181,9 +193,8 @@ SCATTER = {
 
 def prompt_for(pid: str) -> str:
     form = _FLAT_FORM if pid in FLAT else _FORM
-    top = f", {_TOP}" if pid in TOP else ""
-    return (f"{SCATTER[pid][1]}, {form}, game scenery prop sprite, {_OVERHEAD}{top}, "
-            f"{_LIT}, {_ISO}")
+    camera = f"{_ORTHO}, {_TOP}" if pid in TOP else _OVERHEAD
+    return f"{SCATTER[pid][1]}, {form}, game scenery prop sprite, {camera}, {_LIT}, {_ISO}"
 
 
 def load_state() -> dict:
