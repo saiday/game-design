@@ -67,9 +67,25 @@ _OVERHEAD = "steep high-angle view looking straight down from directly above"
 _LIT = "lit evenly from straight above, flat even lighting across the whole object"
 _ISO = "centered, isolated on a plain light gray background"
 
+# THE OVERHEAD CLAUSE IS NOT ENOUGH FOR A SUBJECT WITH A CANONICAL SIDE PROFILE. Round 1 split
+# cleanly along one line: every heap, spill and ground mark rendered genuinely overhead (craters,
+# rubble, leaf drifts, puddles, duckboards, the scorch), and every SINGLE SOLID OBJECT reverted to a
+# three-quarter product shot no matter how the camera was worded — a boulder in profile, a crate in
+# perfect isometric, sandbags stacked in elevation, and a "fallen log" that came back as a standing
+# tree trunk. The reason is that a rock or a crate has one silhouette the model knows it by, and
+# from directly above it does not look like that silhouette; a heap has no canonical profile to
+# lose, so it complies. Naming the TOP FACE as the subject's dominant feature is what converts it,
+# which is also what the two cells that did work have in common (`tax_stump` and `worldwar_crater`
+# are both read through a face turned at the camera).
+_TOP = "its top surface turned toward the viewer and filling almost the whole of its outline"
+
 # The props with no relief of their own, which take `_FLAT_FORM`. A prop earns a place here by
 # failing as an object, not by looking flat in prose.
-FLAT = {"scat_riot_scorch"}
+FLAT = {"scat_riot_scorch", "scat_riot_crate", "scat_hidden_vent"}
+
+# The solid objects that need `_TOP` as well, all of them round-1 camera failures.
+TOP = {"scat_field_rock", "scat_field_log", "scat_hidden_slab", "scat_hidden_stump",
+       "scat_civwar_sandbags"}
 
 # id -> (parent battle type, subject core). The core carries the parent plate's material and colour
 # words; _TAIL carries camera, light and framing.
@@ -82,26 +98,47 @@ SCATTER = {
     "scat_tax_stump":   ("battle_tax", "a low sawn-off tree stump of pale dry wood, its cut face "
                                        "turned upward, thick roots spreading flat into brown earth"),
     # battle_field — trampled green turf, worn bare patches, clover, thin pale dust
-    "scat_field_rock":  ("battle_field", "a low broad grey boulder half sunk into the ground, worn "
-                                         "smooth on top, patches of green moss across it"),
-    "scat_field_log":   ("battle_field", "a single fallen tree log lying flat, its bark grey-brown "
-                                         "and split, green moss along its length"),
+    "scat_field_rock":  ("battle_field", "a low broad grey boulder half sunk into the ground, its "
+                                         "wide upper face worn smooth and flat, patches of green "
+                                         "moss across it"),
+    # Round 1 read "fallen log lying flat" as a standing tree trunk. The axis is stated as a bounded
+    # pair of end points, which is the form that held 4/4 on the barrier cell where naming a run
+    # tapered every wall it touched (cookbook §14).
+    "scat_field_log":   ("battle_field", "a single fallen tree log lying flat on the ground, one "
+                                         "round sawn end near the top of the frame and the other "
+                                         "round sawn end near the bottom, split grey-brown bark "
+                                         "along it and green moss on its upper side"),
     "scat_field_scrub": ("battle_field", "a low flat clump of green clover and coarse weeds "
                                          "spreading close to the ground, a few taller stems"),
     # battle_hidden — dark grey-green scorched ground, pale ash, faint green glow in the fissures
-    "scat_hidden_slab":  ("battle_hidden", "a broken slab of dark grey-green scorched stone lying "
-                                           "tilted and part buried, its cracked face turned upward"),
-    "scat_hidden_vent":  ("battle_hidden", "a short jagged fissure splitting dark scorched ground, "
-                                           "pale ash banked along its lips and a faint pale green "
-                                           "luminous glow lying down inside it"),
-    "scat_hidden_stump": ("battle_hidden", "a low charred blackened tree stump burnt down to a "
-                                           "ragged crown, fine pale ash gathered around its base"),
+    "scat_hidden_slab":  ("battle_hidden", "a single broken flat slab of dark grey-green scorched "
+                                           "stone lying part buried in the ground, its cracked "
+                                           "upper face turned up, fine pale ash gathered along the "
+                                           "edges where it meets the soil"),
+    # Round 1 rendered molten orange lava in the crack: "fissure" plus "glow" plus scorched ground
+    # is a volcanic prior, and the plate's own glow is cold pale green. The colour is now said twice
+    # and cold is said outright, which is §8.3 rung 1 applied to a hue — occupy it, never deny it.
+    "scat_hidden_vent":  ("battle_hidden", "a short jagged crack splitting dark grey-green scorched "
+                                           "ground, fine pale ash banked along its lips, a cold "
+                                           "pale green luminous light lying deep down inside the "
+                                           "crack, cool green and grey throughout"),
+    # rewritten to mirror scat_tax_stump, the one stump that rendered genuinely overhead: the cut
+    # face is the subject and the roots spread flat away from it
+    "scat_hidden_stump": ("battle_hidden", "a low charred blackened tree stump sawn off close to "
+                                           "the ground, its flat charred cut face turned upward, "
+                                           "thick roots spreading flat away from it, fine pale ash "
+                                           "gathered around them"),
     # battle_riot — grey granite cobbles, soot smudges, pale scattered ash
     "scat_riot_rubble": ("battle_riot", "a spill of prised-up grey granite cobblestones lying loose "
                                         "in a low scatter, the bare hollow they came out of beside "
                                         "them"),
-    "scat_riot_crate":  ("battle_riot", "a smashed wooden crate collapsed flat on its side, its "
-                                        "boards sprung apart and scorched brown at the edges"),
+    # "collapsed flat on its side" still left a box, and the model drew it intact in perfect
+    # isometric — a standing crate, which is also the one silhouette this class must never have
+    # (see the decoration ruling in the header). Round 2 leaves no box standing: the crate is a
+    # spread of loose boards and nothing else.
+    "scat_riot_crate":  ("battle_riot", "the smashed wreck of a wooden crate, its boards sprung "
+                                        "apart and spread out loose and flat on the ground in a "
+                                        "low scatter, their broken ends scorched brown"),
     # "burnt onto grey stone" named a stone object and got stone objects (see FLAT above). The
     # material the mark sits on is the PLATE's job — a scatter core never names its own ground.
     "scat_riot_scorch": ("battle_riot", "a black scorch mark burnt into the ground, a low bed of "
@@ -116,9 +153,13 @@ SCATTER = {
     "scat_democracy_leaves": ("battle_democracy", "a flat drift of dry dead brown leaves gathered "
                                                   "into a loose low pile, a few strays around it"),
     # battle_civwar — wet dark brown churned mud, standing rainwater, trodden straw
-    "scat_civwar_sandbags": ("battle_civwar", "a collapsed row of about five muddy canvas sandbags "
-                                              "slumped flat and half sunk, one split open and "
-                                              "spilling wet sand"),
+    # "a collapsed row" was rendered as a stack seen in elevation. Stacking is what forces a side
+    # view, so round 2 says single layer outright and puts every bag on the ground.
+    "scat_civwar_sandbags": ("battle_civwar", "about five muddy canvas sandbags lying flat on the "
+                                              "ground side by side in one single loose layer, "
+                                              "every bag resting directly on the mud and slumped "
+                                              "half sunk into it, one split open and spilling wet "
+                                              "sand"),
     "scat_civwar_puddle":   ("battle_civwar", "a wide shallow puddle of muddy brown standing "
                                               "rainwater lying flat in a hollow, its rim churned "
                                               "into soft dark mud"),
@@ -140,7 +181,9 @@ SCATTER = {
 
 def prompt_for(pid: str) -> str:
     form = _FLAT_FORM if pid in FLAT else _FORM
-    return f"{SCATTER[pid][1]}, {form}, game scenery prop sprite, {_OVERHEAD}, {_LIT}, {_ISO}"
+    top = f", {_TOP}" if pid in TOP else ""
+    return (f"{SCATTER[pid][1]}, {form}, game scenery prop sprite, {_OVERHEAD}{top}, "
+            f"{_LIT}, {_ISO}")
 
 
 def load_state() -> dict:

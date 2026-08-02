@@ -1,0 +1,27 @@
+{
+ "_note": "The W14.8 pick gate for the 21 neutral field-scatter props (decoration only, decisions.md W14.8). `picks` is prop id -> APPROVED seed; the stem is p3_td_<id>_s<seed>_00001_.png under ~/ComfyUI-Shared/output/phase3-scatter-topdown. Rounds bump seeds by +100 and re-roll only the cells sent back, so a row's approved seed says which round it came from and the seeds are deliberately not uniform. Each prop is derived from the material and palette of its battle type's approved plate in phase3_backgrounds_topdown_picks.json: a plate re-roll invalidates that type's scatter. `awaiting_seed_pick` lists every cell still open, and it is empty only when the gate is complete.",
+ "picks": {},
+ "awaiting_seed_pick": {
+  "round_1_ready_to_pick": [
+   "scat_tax_sheaf", "scat_tax_stones", "scat_tax_stump",
+   "scat_field_scrub",
+   "scat_riot_rubble", "scat_riot_scorch",
+   "scat_democracy_drum", "scat_democracy_rubble", "scat_democracy_leaves",
+   "scat_civwar_puddle", "scat_civwar_planks",
+   "scat_worldwar_crater", "scat_worldwar_debris", "scat_worldwar_stump"
+  ],
+  "round_2_rendering": [
+   "scat_field_rock", "scat_field_log",
+   "scat_hidden_slab", "scat_hidden_vent", "scat_hidden_stump",
+   "scat_riot_crate", "scat_civwar_sandbags"
+  ]
+ },
+ "rounds": {
+  "1": {"seeds": [21, 22, 23, 24], "note": "the class's first round. Split cleanly by subject shape: every heap, spill and ground mark rendered genuinely overhead, and every single solid object with a canonical side profile reverted to a three-quarter product shot (boulder in profile, crate in isometric, sandbags stacked in elevation, a fallen log drawn as a standing tree trunk). scat_hidden_vent failed separately and on material, not camera: fissure plus glow plus scorched ground rendered molten orange lava where the plate's own glow is cold pale green."},
+  "2": {"seeds": [121, 122, 123, 124], "cells": ["scat_field_rock", "scat_field_log", "scat_hidden_slab", "scat_hidden_vent", "scat_hidden_stump", "scat_riot_crate", "scat_civwar_sandbags"], "note": "the camera fix: solid objects now name their TOP FACE as the dominant feature, which is what the two cells that did work (scat_tax_stump, scat_worldwar_crater) have in common. scat_field_log states its axis as a bounded pair of end points, the form proven on the barrier cell. scat_riot_crate and scat_hidden_vent switch to the flat form clause and leave no box or relief standing. scat_hidden_vent says cold and pale green twice to displace the volcanic prior."}
+ },
+ "watch": {
+  "scat_democracy_drum": "A column drum is a cylinder, so a genuine overhead read and a three-quarter read look nearly the same. It passed the pre-screen on that basis rather than on proof; if the set ever looks mixed-camera in the view, check this cell first.",
+  "scat_worldwar_stump": "Reads at field size but shows more of its side than scat_tax_stump does. Re-roll with the round-2 top-face clause if it stands out against its neighbours."
+ }
+}
