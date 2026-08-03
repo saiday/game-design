@@ -6,7 +6,11 @@
    "scat_tax_sheaf",
    "scat_tax_stones",
    "scat_tax_stump",
+   "scat_field_rock",
+   "scat_field_log",
    "scat_field_scrub",
+   "scat_hidden_slab",
+   "scat_hidden_vent",
    "scat_riot_rubble",
    "scat_riot_scorch",
    "scat_riot_crate",
@@ -16,15 +20,11 @@
    "scat_civwar_puddle",
    "scat_civwar_planks",
    "scat_civwar_sandbags",
-   "scat_hidden_vent",
    "scat_worldwar_crater",
    "scat_worldwar_debris",
    "scat_worldwar_stump"
   ],
-  "blocked_on_a_subject_decision": [
-   "scat_field_rock",
-   "scat_field_log",
-   "scat_hidden_slab",
+  "rendering": [
    "scat_hidden_stump"
   ]
  },
@@ -70,6 +70,33 @@
     "scat_hidden_vent"
    ],
    "note": "a one-seed probe of a THIRD camera strategy: the battle plates' own clause (photographed flat from straight above, orthographic) plus a register shift describing the sprite as the shape the object covers on the ground, replacing the unit class's overhead clause. It fixed scat_civwar_sandbags outright and scat_hidden_vent's silhouette (with a ragged-outline clause), and moved none of the four solid objects. Those four have now failed three generations under three different strategies, which is the §8.3 stop signal: the next lever is a subject change, not another wording round."
+  },
+  "4": {
+   "seeds": [
+    321,
+    322,
+    323,
+    324
+   ],
+   "cells": [
+    "scat_field_rock",
+    "scat_field_log",
+    "scat_hidden_slab",
+    "scat_hidden_stump"
+   ],
+   "note": "the SUBJECT change, by human ruling, after three camera strategies failed these four identically. Each single solid object became a spread of parts: the boulder several mossy stones spread apart in turf, the log broken sections of a fallen tree, the slab dark scorched shards, the stump charred branch pieces. All four dropped back to the plain recipe every working prop in this class uses (chunky form, unit overhead clause, no top-face and no orthographic clause), because a spread has no canonical profile to fall back on and needs no camera help. Camera fixed on all four first try."
+  },
+  "5": {
+   "seeds": [
+    421,
+    422,
+    423,
+    424
+   ],
+   "cells": [
+    "scat_hidden_stump"
+   ],
+   "note": "round 4 fixed this cell's camera and exposed the warm prior that had already put lava in scat_hidden_vent: burnt wood rendered with glowing red-orange embers in all four seeds, against a plate whose identity is cold pale green. Same displacement as the vent's fix, stated positively: long cold and dead, cold grey and black throughout, pale grey-white broken ends."
   }
  },
  "watch": {

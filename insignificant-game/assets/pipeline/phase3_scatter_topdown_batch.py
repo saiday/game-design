@@ -94,9 +94,10 @@ _ORTHO = ("photographed flat from straight above, orthographic, its outline draw
 # failing as an object, not by looking flat in prose.
 FLAT = {"scat_riot_scorch", "scat_riot_crate", "scat_hidden_vent"}
 
-# The solid objects that need `_TOP` as well, all of them round-1 camera failures.
-TOP = {"scat_field_rock", "scat_field_log", "scat_hidden_slab", "scat_hidden_stump",
-       "scat_civwar_sandbags"}
+# The solid objects that need `_TOP` as well. Only the sandbag row is left: the other four were
+# converted to spreads of parts in round 4 (human ruling) and a spread needs no camera help at all —
+# `_FORM` plus `_OVERHEAD`, the same recipe every working prop in this class already uses.
+TOP = {"scat_civwar_sandbags"}
 
 # id -> (parent battle type, subject core). The core carries the parent plate's material and colour
 # words; _TAIL carries camera, light and framing.
@@ -109,23 +110,28 @@ SCATTER = {
     "scat_tax_stump":   ("battle_tax", "a low sawn-off tree stump of pale dry wood, its cut face "
                                        "turned upward, thick roots spreading flat into brown earth"),
     # battle_field — trampled green turf, worn bare patches, clover, thin pale dust
-    "scat_field_rock":  ("battle_field", "a low broad grey boulder half sunk into the ground, its "
-                                         "wide upper face worn smooth and flat, patches of green "
-                                         "moss across it"),
-    # Round 1 read "fallen log lying flat" as a standing tree trunk. The axis is stated as a bounded
-    # pair of end points, which is the form that held 4/4 on the barrier cell where naming a run
-    # tapered every wall it touched (cookbook §14).
-    "scat_field_log":   ("battle_field", "a single fallen tree log lying flat on the ground, one "
-                                         "round sawn end near the top of the frame and the other "
-                                         "round sawn end near the bottom, split grey-brown bark "
-                                         "along it and green moss on its upper side"),
+    # SUBJECT CHANGED IN ROUND 4, not re-worded (human ruling). A single boulder failed three camera
+    # strategies in profile; several stones spread apart have no profile to fall back on. The two
+    # stone cells stay distinct by arrangement and setting: tax_stones is a cleared heap piled on dry
+    # soil, this is a loose spread sunk into turf.
+    "scat_field_rock":  ("battle_field", "several low grey stones of different sizes lying spread "
+                                         "apart from one another on the ground, each one half sunk "
+                                         "and worn smooth, green moss across their upper faces"),
+    # A single fallen log came back as a standing tree trunk under all three strategies, including
+    # the bounded-end-points form that held 4/4 on the barrier cell. Broken into sections it is a
+    # spread of parts, which is the shape this class renders correctly.
+    "scat_field_log":   ("battle_field", "several broken sections of a fallen tree lying flat and "
+                                         "spread apart on the ground, split grey-brown bark and "
+                                         "green moss along them, loose bark and twigs around them"),
     "scat_field_scrub": ("battle_field", "a low flat clump of green clover and coarse weeds "
                                          "spreading close to the ground, a few taller stems"),
     # battle_hidden — dark grey-green scorched ground, pale ash, faint green glow in the fissures
-    "scat_hidden_slab":  ("battle_hidden", "a single broken flat slab of dark grey-green scorched "
-                                           "stone lying part buried in the ground, its cracked "
-                                           "upper face turned up, fine pale ash gathered along the "
-                                           "edges where it meets the soil"),
+    # subject changed in round 4 with the other three; kept distinct from democracy_rubble by being
+    # dark, flat-shard and spread rather than pale, chunky and heaped
+    "scat_hidden_slab":  ("battle_hidden", "several broken flat shards of dark grey-green scorched "
+                                           "stone lying spread apart and part buried in the "
+                                           "ground, their cracked faces turned up, fine pale ash "
+                                           "gathered around them"),
     # Round 1 rendered molten orange lava in the crack: "fissure" plus "glow" plus scorched ground
     # is a volcanic prior, and the plate's own glow is cold pale green. The colour is now said twice
     # and cold is said outright, which is §8.3 rung 1 applied to a hue — occupy it, never deny it.
@@ -134,12 +140,18 @@ SCATTER = {
                                            "pale green luminous light lying deep down inside the "
                                            "crack, cool green and grey throughout, its broken "
                                            "outline ragged and uneven all the way around"),
-    # rewritten to mirror scat_tax_stump, the one stump that rendered genuinely overhead: the cut
-    # face is the subject and the roots spread flat away from it
-    "scat_hidden_stump": ("battle_hidden", "a low charred blackened tree stump sawn off close to "
-                                           "the ground, its flat charred cut face turned upward, "
-                                           "thick roots spreading flat away from it, fine pale ash "
-                                           "gathered around them"),
+    # Two rounds were spent mirroring scat_tax_stump, the one stump that did render overhead, and
+    # neither took: the exception stayed an exception. Round 4 changes the subject with the rest of
+    # the family and the burnt wood becomes fragments.
+    # Round 4 fixed the camera and exposed the same warm prior that put lava in scat_hidden_vent:
+    # burnt wood rendered with glowing red-orange embers in all four seeds, against a plate whose
+    # identity is cold and pale green. Round 5 says cold, grey and long dead outright, which is the
+    # displacement that worked on the vent.
+    "scat_hidden_stump": ("battle_hidden", "several charred blackened pieces of burnt branch and "
+                                           "split wood lying spread apart on the ground, long cold "
+                                           "and dead, cold grey and black throughout with "
+                                           "pale grey-white broken ends, fine pale ash drifted "
+                                           "over and around them"),
     # battle_riot — grey granite cobbles, soot smudges, pale scattered ash
     "scat_riot_rubble": ("battle_riot", "a spill of prised-up grey granite cobblestones lying loose "
                                         "in a low scatter, the bare hollow they came out of beside "
