@@ -1,0 +1,908 @@
+{
+ "scat_worldwar_crater": {
+  "21": {
+   "stem": "p3_td_scat_worldwar_crater_s21",
+   "seed": 21,
+   "prompt": "a single small shell crater punched into blackened soil, a low ring of thrown-up grey ash and grit around its lip, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_worldwar_crater_s22",
+   "seed": 22,
+   "prompt": "a single small shell crater punched into blackened soil, a low ring of thrown-up grey ash and grit around its lip, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_worldwar_crater_s23",
+   "seed": 23,
+   "prompt": "a single small shell crater punched into blackened soil, a low ring of thrown-up grey ash and grit around its lip, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_worldwar_crater_s24",
+   "seed": 24,
+   "prompt": "a single small shell crater punched into blackened soil, a low ring of thrown-up grey ash and grit around its lip, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  }
+ },
+ "scat_riot_scorch": {
+  "21": {
+   "stem": "p3_td_scat_riot_scorch_s21",
+   "seed": 21,
+   "prompt": "a black scorch mark burnt into the ground, a low bed of white ash and charred fragments lying in the middle of it, its edges fading out into soot smudges, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "22": {
+   "stem": "p3_td_scat_riot_scorch_s22",
+   "seed": 22,
+   "prompt": "a black scorch mark burnt into the ground, a low bed of white ash and charred fragments lying in the middle of it, its edges fading out into soot smudges, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "23": {
+   "stem": "p3_td_scat_riot_scorch_s23",
+   "seed": 23,
+   "prompt": "a black scorch mark burnt into the ground, a low bed of white ash and charred fragments lying in the middle of it, its edges fading out into soot smudges, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "24": {
+   "stem": "p3_td_scat_riot_scorch_s24",
+   "seed": 24,
+   "prompt": "a black scorch mark burnt into the ground, a low bed of white ash and charred fragments lying in the middle of it, its edges fading out into soot smudges, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  }
+ },
+ "scat_civwar_puddle": {
+  "21": {
+   "stem": "p3_td_scat_civwar_puddle_s21",
+   "seed": 21,
+   "prompt": "a wide shallow puddle of muddy brown standing rainwater lying flat in a hollow, its rim churned into soft dark mud, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_civwar_puddle_s22",
+   "seed": 22,
+   "prompt": "a wide shallow puddle of muddy brown standing rainwater lying flat in a hollow, its rim churned into soft dark mud, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_civwar_puddle_s23",
+   "seed": 23,
+   "prompt": "a wide shallow puddle of muddy brown standing rainwater lying flat in a hollow, its rim churned into soft dark mud, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_civwar_puddle_s24",
+   "seed": 24,
+   "prompt": "a wide shallow puddle of muddy brown standing rainwater lying flat in a hollow, its rim churned into soft dark mud, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  }
+ },
+ "scat_tax_sheaf": {
+  "21": {
+   "stem": "p3_td_scat_tax_sheaf_s21",
+   "seed": 21,
+   "prompt": "a single toppled sheaf of cut golden wheat lying flat on its side, its stalks fanned loose and its binding still on, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "22": {
+   "stem": "p3_td_scat_tax_sheaf_s22",
+   "seed": 22,
+   "prompt": "a single toppled sheaf of cut golden wheat lying flat on its side, its stalks fanned loose and its binding still on, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "23": {
+   "stem": "p3_td_scat_tax_sheaf_s23",
+   "seed": 23,
+   "prompt": "a single toppled sheaf of cut golden wheat lying flat on its side, its stalks fanned loose and its binding still on, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "24": {
+   "stem": "p3_td_scat_tax_sheaf_s24",
+   "seed": 24,
+   "prompt": "a single toppled sheaf of cut golden wheat lying flat on its side, its stalks fanned loose and its binding still on, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  }
+ },
+ "scat_tax_stones": {
+  "21": {
+   "stem": "p3_td_scat_tax_stones_s21",
+   "seed": 21,
+   "prompt": "a low spilled heap of rounded grey field stones cleared out of the soil, a few strays lying loose around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "22": {
+   "stem": "p3_td_scat_tax_stones_s22",
+   "seed": 22,
+   "prompt": "a low spilled heap of rounded grey field stones cleared out of the soil, a few strays lying loose around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "23": {
+   "stem": "p3_td_scat_tax_stones_s23",
+   "seed": 23,
+   "prompt": "a low spilled heap of rounded grey field stones cleared out of the soil, a few strays lying loose around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "24": {
+   "stem": "p3_td_scat_tax_stones_s24",
+   "seed": 24,
+   "prompt": "a low spilled heap of rounded grey field stones cleared out of the soil, a few strays lying loose around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  }
+ },
+ "scat_tax_stump": {
+  "21": {
+   "stem": "p3_td_scat_tax_stump_s21",
+   "seed": 21,
+   "prompt": "a low sawn-off tree stump of pale dry wood, its cut face turned upward, thick roots spreading flat into brown earth, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "22": {
+   "stem": "p3_td_scat_tax_stump_s22",
+   "seed": 22,
+   "prompt": "a low sawn-off tree stump of pale dry wood, its cut face turned upward, thick roots spreading flat into brown earth, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "23": {
+   "stem": "p3_td_scat_tax_stump_s23",
+   "seed": 23,
+   "prompt": "a low sawn-off tree stump of pale dry wood, its cut face turned upward, thick roots spreading flat into brown earth, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  },
+  "24": {
+   "stem": "p3_td_scat_tax_stump_s24",
+   "seed": 24,
+   "prompt": "a low sawn-off tree stump of pale dry wood, its cut face turned upward, thick roots spreading flat into brown earth, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_tax"
+  }
+ },
+ "scat_field_rock": {
+  "21": {
+   "stem": "p3_td_scat_field_rock_s21",
+   "seed": 21,
+   "prompt": "a low broad grey boulder half sunk into the ground, worn smooth on top, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "22": {
+   "stem": "p3_td_scat_field_rock_s22",
+   "seed": 22,
+   "prompt": "a low broad grey boulder half sunk into the ground, worn smooth on top, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "23": {
+   "stem": "p3_td_scat_field_rock_s23",
+   "seed": 23,
+   "prompt": "a low broad grey boulder half sunk into the ground, worn smooth on top, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "24": {
+   "stem": "p3_td_scat_field_rock_s24",
+   "seed": 24,
+   "prompt": "a low broad grey boulder half sunk into the ground, worn smooth on top, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "121": {
+   "stem": "p3_td_scat_field_rock_s121",
+   "seed": 121,
+   "prompt": "a low broad grey boulder half sunk into the ground, its wide upper face worn smooth and flat, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "122": {
+   "stem": "p3_td_scat_field_rock_s122",
+   "seed": 122,
+   "prompt": "a low broad grey boulder half sunk into the ground, its wide upper face worn smooth and flat, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "123": {
+   "stem": "p3_td_scat_field_rock_s123",
+   "seed": 123,
+   "prompt": "a low broad grey boulder half sunk into the ground, its wide upper face worn smooth and flat, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "124": {
+   "stem": "p3_td_scat_field_rock_s124",
+   "seed": 124,
+   "prompt": "a low broad grey boulder half sunk into the ground, its wide upper face worn smooth and flat, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "221": {
+   "stem": "p3_td_scat_field_rock_s221",
+   "seed": 221,
+   "prompt": "a low broad grey boulder half sunk into the ground, its wide upper face worn smooth and flat, patches of green moss across it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "321": {
+   "stem": "p3_td_scat_field_rock_s321",
+   "seed": 321,
+   "prompt": "several low grey stones of different sizes lying spread apart from one another on the ground, each one half sunk and worn smooth, green moss across their upper faces, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "322": {
+   "stem": "p3_td_scat_field_rock_s322",
+   "seed": 322,
+   "prompt": "several low grey stones of different sizes lying spread apart from one another on the ground, each one half sunk and worn smooth, green moss across their upper faces, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "323": {
+   "stem": "p3_td_scat_field_rock_s323",
+   "seed": 323,
+   "prompt": "several low grey stones of different sizes lying spread apart from one another on the ground, each one half sunk and worn smooth, green moss across their upper faces, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "324": {
+   "stem": "p3_td_scat_field_rock_s324",
+   "seed": 324,
+   "prompt": "several low grey stones of different sizes lying spread apart from one another on the ground, each one half sunk and worn smooth, green moss across their upper faces, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  }
+ },
+ "scat_field_log": {
+  "21": {
+   "stem": "p3_td_scat_field_log_s21",
+   "seed": 21,
+   "prompt": "a single fallen tree log lying flat, its bark grey-brown and split, green moss along its length, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "22": {
+   "stem": "p3_td_scat_field_log_s22",
+   "seed": 22,
+   "prompt": "a single fallen tree log lying flat, its bark grey-brown and split, green moss along its length, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "23": {
+   "stem": "p3_td_scat_field_log_s23",
+   "seed": 23,
+   "prompt": "a single fallen tree log lying flat, its bark grey-brown and split, green moss along its length, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "24": {
+   "stem": "p3_td_scat_field_log_s24",
+   "seed": 24,
+   "prompt": "a single fallen tree log lying flat, its bark grey-brown and split, green moss along its length, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "121": {
+   "stem": "p3_td_scat_field_log_s121",
+   "seed": 121,
+   "prompt": "a single fallen tree log lying flat on the ground, one round sawn end near the top of the frame and the other round sawn end near the bottom, split grey-brown bark along it and green moss on its upper side, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "122": {
+   "stem": "p3_td_scat_field_log_s122",
+   "seed": 122,
+   "prompt": "a single fallen tree log lying flat on the ground, one round sawn end near the top of the frame and the other round sawn end near the bottom, split grey-brown bark along it and green moss on its upper side, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "123": {
+   "stem": "p3_td_scat_field_log_s123",
+   "seed": 123,
+   "prompt": "a single fallen tree log lying flat on the ground, one round sawn end near the top of the frame and the other round sawn end near the bottom, split grey-brown bark along it and green moss on its upper side, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "124": {
+   "stem": "p3_td_scat_field_log_s124",
+   "seed": 124,
+   "prompt": "a single fallen tree log lying flat on the ground, one round sawn end near the top of the frame and the other round sawn end near the bottom, split grey-brown bark along it and green moss on its upper side, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "221": {
+   "stem": "p3_td_scat_field_log_s221",
+   "seed": 221,
+   "prompt": "a single fallen tree log lying flat on the ground, one round sawn end near the top of the frame and the other round sawn end near the bottom, split grey-brown bark along it and green moss on its upper side, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "321": {
+   "stem": "p3_td_scat_field_log_s321",
+   "seed": 321,
+   "prompt": "several broken sections of a fallen tree lying flat and spread apart on the ground, split grey-brown bark and green moss along them, loose bark and twigs around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "322": {
+   "stem": "p3_td_scat_field_log_s322",
+   "seed": 322,
+   "prompt": "several broken sections of a fallen tree lying flat and spread apart on the ground, split grey-brown bark and green moss along them, loose bark and twigs around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "323": {
+   "stem": "p3_td_scat_field_log_s323",
+   "seed": 323,
+   "prompt": "several broken sections of a fallen tree lying flat and spread apart on the ground, split grey-brown bark and green moss along them, loose bark and twigs around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "324": {
+   "stem": "p3_td_scat_field_log_s324",
+   "seed": 324,
+   "prompt": "several broken sections of a fallen tree lying flat and spread apart on the ground, split grey-brown bark and green moss along them, loose bark and twigs around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  }
+ },
+ "scat_field_scrub": {
+  "21": {
+   "stem": "p3_td_scat_field_scrub_s21",
+   "seed": 21,
+   "prompt": "a low flat clump of green clover and coarse weeds spreading close to the ground, a few taller stems, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "22": {
+   "stem": "p3_td_scat_field_scrub_s22",
+   "seed": 22,
+   "prompt": "a low flat clump of green clover and coarse weeds spreading close to the ground, a few taller stems, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "23": {
+   "stem": "p3_td_scat_field_scrub_s23",
+   "seed": 23,
+   "prompt": "a low flat clump of green clover and coarse weeds spreading close to the ground, a few taller stems, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  },
+  "24": {
+   "stem": "p3_td_scat_field_scrub_s24",
+   "seed": 24,
+   "prompt": "a low flat clump of green clover and coarse weeds spreading close to the ground, a few taller stems, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_field"
+  }
+ },
+ "scat_hidden_slab": {
+  "21": {
+   "stem": "p3_td_scat_hidden_slab_s21",
+   "seed": 21,
+   "prompt": "a broken slab of dark grey-green scorched stone lying tilted and part buried, its cracked face turned upward, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "22": {
+   "stem": "p3_td_scat_hidden_slab_s22",
+   "seed": 22,
+   "prompt": "a broken slab of dark grey-green scorched stone lying tilted and part buried, its cracked face turned upward, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "23": {
+   "stem": "p3_td_scat_hidden_slab_s23",
+   "seed": 23,
+   "prompt": "a broken slab of dark grey-green scorched stone lying tilted and part buried, its cracked face turned upward, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "24": {
+   "stem": "p3_td_scat_hidden_slab_s24",
+   "seed": 24,
+   "prompt": "a broken slab of dark grey-green scorched stone lying tilted and part buried, its cracked face turned upward, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "121": {
+   "stem": "p3_td_scat_hidden_slab_s121",
+   "seed": 121,
+   "prompt": "a single broken flat slab of dark grey-green scorched stone lying part buried in the ground, its cracked upper face turned up, fine pale ash gathered along the edges where it meets the soil, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "122": {
+   "stem": "p3_td_scat_hidden_slab_s122",
+   "seed": 122,
+   "prompt": "a single broken flat slab of dark grey-green scorched stone lying part buried in the ground, its cracked upper face turned up, fine pale ash gathered along the edges where it meets the soil, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "123": {
+   "stem": "p3_td_scat_hidden_slab_s123",
+   "seed": 123,
+   "prompt": "a single broken flat slab of dark grey-green scorched stone lying part buried in the ground, its cracked upper face turned up, fine pale ash gathered along the edges where it meets the soil, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "124": {
+   "stem": "p3_td_scat_hidden_slab_s124",
+   "seed": 124,
+   "prompt": "a single broken flat slab of dark grey-green scorched stone lying part buried in the ground, its cracked upper face turned up, fine pale ash gathered along the edges where it meets the soil, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "221": {
+   "stem": "p3_td_scat_hidden_slab_s221",
+   "seed": 221,
+   "prompt": "a single broken flat slab of dark grey-green scorched stone lying part buried in the ground, its cracked upper face turned up, fine pale ash gathered along the edges where it meets the soil, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "321": {
+   "stem": "p3_td_scat_hidden_slab_s321",
+   "seed": 321,
+   "prompt": "several broken flat shards of dark grey-green scorched stone lying spread apart and part buried in the ground, their cracked faces turned up, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "322": {
+   "stem": "p3_td_scat_hidden_slab_s322",
+   "seed": 322,
+   "prompt": "several broken flat shards of dark grey-green scorched stone lying spread apart and part buried in the ground, their cracked faces turned up, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "323": {
+   "stem": "p3_td_scat_hidden_slab_s323",
+   "seed": 323,
+   "prompt": "several broken flat shards of dark grey-green scorched stone lying spread apart and part buried in the ground, their cracked faces turned up, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "324": {
+   "stem": "p3_td_scat_hidden_slab_s324",
+   "seed": 324,
+   "prompt": "several broken flat shards of dark grey-green scorched stone lying spread apart and part buried in the ground, their cracked faces turned up, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  }
+ },
+ "scat_hidden_vent": {
+  "21": {
+   "stem": "p3_td_scat_hidden_vent_s21",
+   "seed": 21,
+   "prompt": "a short jagged fissure splitting dark scorched ground, pale ash banked along its lips and a faint pale green luminous glow lying down inside it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "22": {
+   "stem": "p3_td_scat_hidden_vent_s22",
+   "seed": 22,
+   "prompt": "a short jagged fissure splitting dark scorched ground, pale ash banked along its lips and a faint pale green luminous glow lying down inside it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "23": {
+   "stem": "p3_td_scat_hidden_vent_s23",
+   "seed": 23,
+   "prompt": "a short jagged fissure splitting dark scorched ground, pale ash banked along its lips and a faint pale green luminous glow lying down inside it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "24": {
+   "stem": "p3_td_scat_hidden_vent_s24",
+   "seed": 24,
+   "prompt": "a short jagged fissure splitting dark scorched ground, pale ash banked along its lips and a faint pale green luminous glow lying down inside it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "121": {
+   "stem": "p3_td_scat_hidden_vent_s121",
+   "seed": 121,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "122": {
+   "stem": "p3_td_scat_hidden_vent_s122",
+   "seed": 122,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "123": {
+   "stem": "p3_td_scat_hidden_vent_s123",
+   "seed": 123,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "124": {
+   "stem": "p3_td_scat_hidden_vent_s124",
+   "seed": 124,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "221": {
+   "stem": "p3_td_scat_hidden_vent_s221",
+   "seed": 221,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, its broken outline ragged and uneven all the way around, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "222": {
+   "stem": "p3_td_scat_hidden_vent_s222",
+   "seed": 222,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, its broken outline ragged and uneven all the way around, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "223": {
+   "stem": "p3_td_scat_hidden_vent_s223",
+   "seed": 223,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, its broken outline ragged and uneven all the way around, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "224": {
+   "stem": "p3_td_scat_hidden_vent_s224",
+   "seed": 224,
+   "prompt": "a short jagged crack splitting dark grey-green scorched ground, fine pale ash banked along its lips, a cold pale green luminous light lying deep down inside the crack, cool green and grey throughout, its broken outline ragged and uneven all the way around, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  }
+ },
+ "scat_hidden_stump": {
+  "21": {
+   "stem": "p3_td_scat_hidden_stump_s21",
+   "seed": 21,
+   "prompt": "a low charred blackened tree stump burnt down to a ragged crown, fine pale ash gathered around its base, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "22": {
+   "stem": "p3_td_scat_hidden_stump_s22",
+   "seed": 22,
+   "prompt": "a low charred blackened tree stump burnt down to a ragged crown, fine pale ash gathered around its base, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "23": {
+   "stem": "p3_td_scat_hidden_stump_s23",
+   "seed": 23,
+   "prompt": "a low charred blackened tree stump burnt down to a ragged crown, fine pale ash gathered around its base, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "24": {
+   "stem": "p3_td_scat_hidden_stump_s24",
+   "seed": 24,
+   "prompt": "a low charred blackened tree stump burnt down to a ragged crown, fine pale ash gathered around its base, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "121": {
+   "stem": "p3_td_scat_hidden_stump_s121",
+   "seed": 121,
+   "prompt": "a low charred blackened tree stump sawn off close to the ground, its flat charred cut face turned upward, thick roots spreading flat away from it, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "122": {
+   "stem": "p3_td_scat_hidden_stump_s122",
+   "seed": 122,
+   "prompt": "a low charred blackened tree stump sawn off close to the ground, its flat charred cut face turned upward, thick roots spreading flat away from it, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "123": {
+   "stem": "p3_td_scat_hidden_stump_s123",
+   "seed": 123,
+   "prompt": "a low charred blackened tree stump sawn off close to the ground, its flat charred cut face turned upward, thick roots spreading flat away from it, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "124": {
+   "stem": "p3_td_scat_hidden_stump_s124",
+   "seed": 124,
+   "prompt": "a low charred blackened tree stump sawn off close to the ground, its flat charred cut face turned upward, thick roots spreading flat away from it, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "221": {
+   "stem": "p3_td_scat_hidden_stump_s221",
+   "seed": 221,
+   "prompt": "a low charred blackened tree stump sawn off close to the ground, its flat charred cut face turned upward, thick roots spreading flat away from it, fine pale ash gathered around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "321": {
+   "stem": "p3_td_scat_hidden_stump_s321",
+   "seed": 321,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, their broken ends pale, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "322": {
+   "stem": "p3_td_scat_hidden_stump_s322",
+   "seed": 322,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, their broken ends pale, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "323": {
+   "stem": "p3_td_scat_hidden_stump_s323",
+   "seed": 323,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, their broken ends pale, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "324": {
+   "stem": "p3_td_scat_hidden_stump_s324",
+   "seed": 324,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, their broken ends pale, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "421": {
+   "stem": "p3_td_scat_hidden_stump_s421",
+   "seed": 421,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, long cold and dead, cold grey and black throughout with pale grey-white broken ends, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "422": {
+   "stem": "p3_td_scat_hidden_stump_s422",
+   "seed": 422,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, long cold and dead, cold grey and black throughout with pale grey-white broken ends, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "423": {
+   "stem": "p3_td_scat_hidden_stump_s423",
+   "seed": 423,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, long cold and dead, cold grey and black throughout with pale grey-white broken ends, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  },
+  "424": {
+   "stem": "p3_td_scat_hidden_stump_s424",
+   "seed": 424,
+   "prompt": "several charred blackened pieces of burnt branch and split wood lying spread apart on the ground, long cold and dead, cold grey and black throughout with pale grey-white broken ends, fine pale ash drifted over and around them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_hidden"
+  }
+ },
+ "scat_riot_rubble": {
+  "21": {
+   "stem": "p3_td_scat_riot_rubble_s21",
+   "seed": 21,
+   "prompt": "a spill of prised-up grey granite cobblestones lying loose in a low scatter, the bare hollow they came out of beside them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "22": {
+   "stem": "p3_td_scat_riot_rubble_s22",
+   "seed": 22,
+   "prompt": "a spill of prised-up grey granite cobblestones lying loose in a low scatter, the bare hollow they came out of beside them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "23": {
+   "stem": "p3_td_scat_riot_rubble_s23",
+   "seed": 23,
+   "prompt": "a spill of prised-up grey granite cobblestones lying loose in a low scatter, the bare hollow they came out of beside them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "24": {
+   "stem": "p3_td_scat_riot_rubble_s24",
+   "seed": 24,
+   "prompt": "a spill of prised-up grey granite cobblestones lying loose in a low scatter, the bare hollow they came out of beside them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  }
+ },
+ "scat_riot_crate": {
+  "21": {
+   "stem": "p3_td_scat_riot_crate_s21",
+   "seed": 21,
+   "prompt": "a smashed wooden crate collapsed flat on its side, its boards sprung apart and scorched brown at the edges, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "22": {
+   "stem": "p3_td_scat_riot_crate_s22",
+   "seed": 22,
+   "prompt": "a smashed wooden crate collapsed flat on its side, its boards sprung apart and scorched brown at the edges, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "23": {
+   "stem": "p3_td_scat_riot_crate_s23",
+   "seed": 23,
+   "prompt": "a smashed wooden crate collapsed flat on its side, its boards sprung apart and scorched brown at the edges, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "24": {
+   "stem": "p3_td_scat_riot_crate_s24",
+   "seed": 24,
+   "prompt": "a smashed wooden crate collapsed flat on its side, its boards sprung apart and scorched brown at the edges, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "121": {
+   "stem": "p3_td_scat_riot_crate_s121",
+   "seed": 121,
+   "prompt": "the smashed wreck of a wooden crate, its boards sprung apart and spread out loose and flat on the ground in a low scatter, their broken ends scorched brown, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "122": {
+   "stem": "p3_td_scat_riot_crate_s122",
+   "seed": 122,
+   "prompt": "the smashed wreck of a wooden crate, its boards sprung apart and spread out loose and flat on the ground in a low scatter, their broken ends scorched brown, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "123": {
+   "stem": "p3_td_scat_riot_crate_s123",
+   "seed": 123,
+   "prompt": "the smashed wreck of a wooden crate, its boards sprung apart and spread out loose and flat on the ground in a low scatter, their broken ends scorched brown, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  },
+  "124": {
+   "stem": "p3_td_scat_riot_crate_s124",
+   "seed": 124,
+   "prompt": "the smashed wreck of a wooden crate, its boards sprung apart and spread out loose and flat on the ground in a low scatter, their broken ends scorched brown, a simplified flat shape with minimal surface detail, lying flush with the ground with no height or relief, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_riot"
+  }
+ },
+ "scat_democracy_drum": {
+  "21": {
+   "stem": "p3_td_scat_democracy_drum_s21",
+   "seed": 21,
+   "prompt": "a single toppled pale marble column drum lying on its side, its fluting worn and one end chipped, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "22": {
+   "stem": "p3_td_scat_democracy_drum_s22",
+   "seed": 22,
+   "prompt": "a single toppled pale marble column drum lying on its side, its fluting worn and one end chipped, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "23": {
+   "stem": "p3_td_scat_democracy_drum_s23",
+   "seed": 23,
+   "prompt": "a single toppled pale marble column drum lying on its side, its fluting worn and one end chipped, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "24": {
+   "stem": "p3_td_scat_democracy_drum_s24",
+   "seed": 24,
+   "prompt": "a single toppled pale marble column drum lying on its side, its fluting worn and one end chipped, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  }
+ },
+ "scat_democracy_rubble": {
+  "21": {
+   "stem": "p3_td_scat_democracy_rubble_s21",
+   "seed": 21,
+   "prompt": "a low scatter of broken white marble chips and slab fragments, their fresh faces bright and their edges sharp, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "22": {
+   "stem": "p3_td_scat_democracy_rubble_s22",
+   "seed": 22,
+   "prompt": "a low scatter of broken white marble chips and slab fragments, their fresh faces bright and their edges sharp, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "23": {
+   "stem": "p3_td_scat_democracy_rubble_s23",
+   "seed": 23,
+   "prompt": "a low scatter of broken white marble chips and slab fragments, their fresh faces bright and their edges sharp, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "24": {
+   "stem": "p3_td_scat_democracy_rubble_s24",
+   "seed": 24,
+   "prompt": "a low scatter of broken white marble chips and slab fragments, their fresh faces bright and their edges sharp, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  }
+ },
+ "scat_democracy_leaves": {
+  "21": {
+   "stem": "p3_td_scat_democracy_leaves_s21",
+   "seed": 21,
+   "prompt": "a flat drift of dry dead brown leaves gathered into a loose low pile, a few strays around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "22": {
+   "stem": "p3_td_scat_democracy_leaves_s22",
+   "seed": 22,
+   "prompt": "a flat drift of dry dead brown leaves gathered into a loose low pile, a few strays around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "23": {
+   "stem": "p3_td_scat_democracy_leaves_s23",
+   "seed": 23,
+   "prompt": "a flat drift of dry dead brown leaves gathered into a loose low pile, a few strays around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  },
+  "24": {
+   "stem": "p3_td_scat_democracy_leaves_s24",
+   "seed": 24,
+   "prompt": "a flat drift of dry dead brown leaves gathered into a loose low pile, a few strays around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_democracy"
+  }
+ },
+ "scat_civwar_sandbags": {
+  "21": {
+   "stem": "p3_td_scat_civwar_sandbags_s21",
+   "seed": 21,
+   "prompt": "a collapsed row of about five muddy canvas sandbags slumped flat and half sunk, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_civwar_sandbags_s22",
+   "seed": 22,
+   "prompt": "a collapsed row of about five muddy canvas sandbags slumped flat and half sunk, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_civwar_sandbags_s23",
+   "seed": 23,
+   "prompt": "a collapsed row of about five muddy canvas sandbags slumped flat and half sunk, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_civwar_sandbags_s24",
+   "seed": 24,
+   "prompt": "a collapsed row of about five muddy canvas sandbags slumped flat and half sunk, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "121": {
+   "stem": "p3_td_scat_civwar_sandbags_s121",
+   "seed": 121,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "122": {
+   "stem": "p3_td_scat_civwar_sandbags_s122",
+   "seed": 122,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "123": {
+   "stem": "p3_td_scat_civwar_sandbags_s123",
+   "seed": 123,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "124": {
+   "stem": "p3_td_scat_civwar_sandbags_s124",
+   "seed": 124,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "221": {
+   "stem": "p3_td_scat_civwar_sandbags_s221",
+   "seed": 221,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "222": {
+   "stem": "p3_td_scat_civwar_sandbags_s222",
+   "seed": 222,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "223": {
+   "stem": "p3_td_scat_civwar_sandbags_s223",
+   "seed": 223,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "224": {
+   "stem": "p3_td_scat_civwar_sandbags_s224",
+   "seed": 224,
+   "prompt": "about five muddy canvas sandbags lying flat on the ground side by side in one single loose layer, every bag resting directly on the mud and slumped half sunk into it, one split open and spilling wet sand, a simplified chunky shape with minimal surface detail, game scenery prop sprite, photographed flat from straight above, orthographic, its outline drawn as the shape it covers on the ground, its top surface turned toward the viewer and filling almost the whole of its outline, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  }
+ },
+ "scat_civwar_planks": {
+  "21": {
+   "stem": "p3_td_scat_civwar_planks_s21",
+   "seed": 21,
+   "prompt": "a short run of broken duckboard planks lying flat and half pressed down into wet mud, trodden straw caught between them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_civwar_planks_s22",
+   "seed": 22,
+   "prompt": "a short run of broken duckboard planks lying flat and half pressed down into wet mud, trodden straw caught between them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_civwar_planks_s23",
+   "seed": 23,
+   "prompt": "a short run of broken duckboard planks lying flat and half pressed down into wet mud, trodden straw caught between them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_civwar_planks_s24",
+   "seed": 24,
+   "prompt": "a short run of broken duckboard planks lying flat and half pressed down into wet mud, trodden straw caught between them, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_civwar"
+  }
+ },
+ "scat_worldwar_debris": {
+  "21": {
+   "stem": "p3_td_scat_worldwar_debris_s21",
+   "seed": 21,
+   "prompt": "a low scatter of twisted scorched metal fragments and torn shell splinters, rust brown and dull grey, part buried in ash, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_worldwar_debris_s22",
+   "seed": 22,
+   "prompt": "a low scatter of twisted scorched metal fragments and torn shell splinters, rust brown and dull grey, part buried in ash, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_worldwar_debris_s23",
+   "seed": 23,
+   "prompt": "a low scatter of twisted scorched metal fragments and torn shell splinters, rust brown and dull grey, part buried in ash, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_worldwar_debris_s24",
+   "seed": 24,
+   "prompt": "a low scatter of twisted scorched metal fragments and torn shell splinters, rust brown and dull grey, part buried in ash, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  }
+ },
+ "scat_worldwar_stump": {
+  "21": {
+   "stem": "p3_td_scat_worldwar_stump_s21",
+   "seed": 21,
+   "prompt": "a short blasted tree stump splintered off close to the ground, its raw wood pale against blackened bark, grey ash banked around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "22": {
+   "stem": "p3_td_scat_worldwar_stump_s22",
+   "seed": 22,
+   "prompt": "a short blasted tree stump splintered off close to the ground, its raw wood pale against blackened bark, grey ash banked around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "23": {
+   "stem": "p3_td_scat_worldwar_stump_s23",
+   "seed": 23,
+   "prompt": "a short blasted tree stump splintered off close to the ground, its raw wood pale against blackened bark, grey ash banked around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  },
+  "24": {
+   "stem": "p3_td_scat_worldwar_stump_s24",
+   "seed": 24,
+   "prompt": "a short blasted tree stump splintered off close to the ground, its raw wood pale against blackened bark, grey ash banked around it, a simplified chunky shape with minimal surface detail, game scenery prop sprite, steep high-angle view looking straight down from directly above, lit evenly from straight above, flat even lighting across the whole object, centered, isolated on a plain light gray background",
+   "parent": "battle_worldwar"
+  }
+ }
+}

@@ -70,6 +70,46 @@ func test_approved_projectiles_exist() -> void:
 	assert_int(AssetPaths.PROJECTILES.size()).is_equal(8)
 
 
+func test_approved_scatter_exists_per_variant() -> void:
+	# every approved cut is on disk: 19 props over 7 battle types, 53 sprites (inventory.md)
+	var props := 0
+	var sprites := 0
+	for battle_type: StringName in AssetPaths.SCATTER:
+		for prop: Dictionary in AssetPaths.SCATTER[battle_type]:
+			props += 1
+			for v: int in range(1, int(prop["variants"]) + 1):
+				assert_bool(AssetPaths.has_scatter(prop["id"], v)) \
+					.override_failure_message("missing %s_v%d" % [prop["id"], v]).is_true()
+				sprites += 1
+	assert_int(props).is_equal(19)
+	assert_int(sprites).is_equal(53)
+
+
+func test_scatter_covers_every_battle_type() -> void:
+	# a battle type with no scatter row would draw bare ground (ADR-0009 left the plates empty)
+	for battle_type: StringName in Battle.TYPES:
+		assert_bool(AssetPaths.SCATTER.has(battle_type)) \
+			.override_failure_message("no scatter roster for %s" % battle_type).is_true()
+
+
+func test_scatter_barrier_profile_is_the_one_the_rules_read() -> void:
+	# ADR-0010: the count of neutral cover a battle fields is one per barrier-carrying prop, read
+	# off this table and nowhere else (decisions.md W14.9). 隱藏戰's zero is a design fact — that
+	# ground gives you nothing to hide behind — so it is asserted, not tolerated.
+	var expected := {
+		&"tax_battle": 1, &"field_battle": 1, &"hidden_battle": 0, &"riot": 1,
+		&"democracy_blood": 1, &"civil_war": 1, &"world_war": 2,
+	}
+	for battle_type: StringName in expected:
+		assert_int(AssetPaths.scatter_barriers(battle_type)) \
+			.override_failure_message("barrier count moved for %s" % battle_type) \
+			.is_equal(expected[battle_type])
+	for battle_type: StringName in AssetPaths.SCATTER:
+		for prop: Dictionary in AssetPaths.SCATTER[battle_type]:
+			assert_bool([&"none", &"weak", &"medium", &"hard"].has(prop["barrier"])) \
+				.override_failure_message("unknown tier on %s" % prop["id"]).is_true()
+
+
 func test_approved_cards_exist_per_coverage() -> void:
 	# cards class pick gate closed: every (line, era) in CARD_COVERAGE is frozen on disk (52 forms)
 	var total := 0

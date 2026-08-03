@@ -10,6 +10,7 @@ const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UNIT_DIR: String = "res://assets/approved/units"
 const PROJECTILE_DIR: String = "res://assets/approved/projectiles"
+const SCATTER_DIR: String = "res://assets/approved/scatter"
 const CARD_DIR: String = "res://assets/approved/cards"
 const PORTRAIT_DIR: String = "res://assets/approved/portraits"
 const UI_DIR: String = "res://assets/approved/ui"
@@ -76,6 +77,60 @@ const UNIT_COVERAGE: Dictionary = {
 const PROJECTILES: Array[StringName] = [
 	&"arrow", &"bolt", &"bomb", &"bullet", &"cannonball", &"missile", &"shell", &"stone",
 ]
+
+# Approved neutral field scatter (W14.8 gate; seed picks and per-prop notes in
+# assets/pipeline/phase3_scatter_topdown_picks.json, roster in assets/pipeline/inventory.md
+# §Field scatter). Keyed by the CANONICAL battle-type id (Battle.TYPES) rather than the art
+# pipeline's battle_<type> prefix — the asset ids keep that prefix and this table is where the two
+# naming schemes meet.
+#
+# UNLIKE EVERY OTHER TABLE HERE, `barrier` IS A RULE VALUE, NOT ART BOOKKEEPING (ADR-0010). A
+# barrier-carrying prop is a 盾陣 that belongs to nobody: it absorbs ranged fire aimed at whichever
+# hurt land unit fell back behind it (weak 1-2 shots, medium 2-3, hard 3-5 — 盾陣's own band), and
+# unlike a fortification it is destroyed rather than disabled when the budget runs out, with no
+# engineer able to bring it back. How many neutral barriers a battle fields is the count of
+# barrier-carrying props on its ground (decisions.md W14.9), which is why 隱藏戰 having none is a
+# fact of this table and not an oversight. Size follows the tier as well (「體積對應掩體等級」): the
+# view scales a prop from `barrier`, never from how many pixels the sprite happens to be.
+#
+# `variants` is how many interchangeable cuts of the prop were approved
+# (scat_<prop>_v1.png .. _vN.png); the view chooses among them from the battle seed so a prop
+# scattered several times does not read as tiling.
+const SCATTER: Dictionary = {
+	&"tax_battle": [
+		{"id": &"scat_tax_sheaf", "barrier": &"none", "variants": 1},
+		{"id": &"scat_tax_stones", "barrier": &"none", "variants": 1},
+		{"id": &"scat_tax_stump", "barrier": &"weak", "variants": 4},
+	],
+	&"field_battle": [
+		{"id": &"scat_field_rock", "barrier": &"none", "variants": 4},
+		{"id": &"scat_field_log", "barrier": &"weak", "variants": 4},
+		{"id": &"scat_field_scrub", "barrier": &"none", "variants": 1},
+	],
+	&"hidden_battle": [
+		{"id": &"scat_hidden_slab", "barrier": &"none", "variants": 4},
+		{"id": &"scat_hidden_vent", "barrier": &"none", "variants": 4},
+		{"id": &"scat_hidden_stump", "barrier": &"none", "variants": 1},
+	],
+	&"riot": [
+		{"id": &"scat_riot_rubble", "barrier": &"none", "variants": 1},
+		{"id": &"scat_riot_crate", "barrier": &"weak", "variants": 1},
+		{"id": &"scat_riot_scorch", "barrier": &"none", "variants": 4},
+	],
+	&"democracy_blood": [
+		{"id": &"scat_democracy_drum", "barrier": &"hard", "variants": 2},
+		{"id": &"scat_democracy_rubble", "barrier": &"none", "variants": 1},
+	],
+	&"civil_war": [
+		{"id": &"scat_civwar_puddle", "barrier": &"none", "variants": 4},
+		{"id": &"scat_civwar_sandbags", "barrier": &"medium", "variants": 4},
+	],
+	&"world_war": [
+		{"id": &"scat_worldwar_crater", "barrier": &"none", "variants": 4},
+		{"id": &"scat_worldwar_debris", "barrier": &"weak", "variants": 4},
+		{"id": &"scat_worldwar_stump", "barrier": &"medium", "variants": 4},
+	],
+}
 
 # Approved card illustrations: line -> eras frozen (pick gate 2026-07-23; the per-subject seed
 # picks live in assets/pipeline/phase3_cards_batch.py PICKS, the freeze in phase3_cards_freeze.py).
@@ -195,6 +250,24 @@ static func projectile(ammo: StringName) -> String:
 
 static func has_projectile(ammo: StringName) -> bool:
 	return FileAccess.file_exists(projectile(ammo))
+
+
+static func scatter(prop: StringName, variant: int) -> String:
+	return "%s/%s_v%d.png" % [SCATTER_DIR, prop, variant]
+
+
+static func has_scatter(prop: StringName, variant: int) -> bool:
+	return FileAccess.file_exists(scatter(prop, variant))
+
+
+static func scatter_barriers(battle_type: StringName) -> int:
+	# How many neutral barriers this ground fields (ADR-0010): one per barrier-carrying prop.
+	# Rules read this, not just the view — see the SCATTER comment.
+	var count: int = 0
+	for prop: Dictionary in SCATTER.get(battle_type, [] as Array):
+		if StringName(prop["barrier"]) != &"none":
+			count += 1
+	return count
 
 
 static func card(line: StringName, era: int) -> String:

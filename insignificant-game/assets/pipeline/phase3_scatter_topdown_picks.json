@@ -1,50 +1,53 @@
 {
- "_note": "The W14.8 pick gate for the 21 neutral field-scatter props (decoration only, decisions.md W14.8). `picks` is prop id -> APPROVED seed; the stem is p3_td_<id>_s<seed>_00001_.png under ~/ComfyUI-Shared/output/phase3-scatter-topdown. Rounds bump seeds by +100 and re-roll only the cells sent back, so a row's approved seed says which round it came from and the seeds are deliberately not uniform. Each prop is derived from the material and palette of its battle type's approved plate in phase3_backgrounds_topdown_picks.json: a plate re-roll invalidates that type's scatter. `awaiting_seed_pick` lists every cell still open, and it is empty only when the gate is complete.",
- "picks": {},
- "awaiting_seed_pick": {
-  "ready_to_pick": [
-   "scat_tax_sheaf",
-   "scat_tax_stones",
-   "scat_tax_stump",
-   "scat_field_rock",
-   "scat_field_log",
-   "scat_field_scrub",
-   "scat_hidden_slab",
-   "scat_hidden_vent",
-   "scat_riot_rubble",
-   "scat_riot_scorch",
-   "scat_riot_crate",
-   "scat_democracy_drum",
-   "scat_democracy_rubble",
-   "scat_democracy_leaves",
-   "scat_civwar_puddle",
-   "scat_civwar_planks",
-   "scat_civwar_sandbags",
-   "scat_worldwar_crater",
-   "scat_worldwar_debris",
-   "scat_worldwar_stump"
-  ],
-  "rendering": [
-   "scat_hidden_stump"
-  ]
+ "_note": "The W14.8 pick gate for the neutral field-scatter props, CLOSED. `picks` is prop id -> {seeds, barrier}. `seeds` is an ORDERED list and every entry is frozen as its own sprite variant (`<id>_v1.png` .. `<id>_vN.png`), because the human approved several rows as 'use all seeds' so the view can scatter one prop repeatedly without visible repetition; a single-seed row is just a one-variant list. `barrier` is the prop's cover tier under ADR-0010 (none / weak / medium / hard = 1-2 / 2-3 / 3-5 absorbed ranged shots) and it is a RULE value, not art metadata: the core reads the number of barriers a battle type fields off this table (decisions.md W14.9), so a tier change here changes the game. The stem is p3_td_<id>_s<seed>_00001_.png under ~/ComfyUI-Shared/output/phase3-scatter-topdown. Rounds bump seeds by +100 and re-roll only the cells sent back, so a row's approved seeds say which round they came from and the seeds are deliberately not uniform across rows. Each prop is derived from the material and palette of its battle type's approved plate in phase3_backgrounds_topdown_picks.json: a plate re-roll invalidates that type's scatter.",
+ "picks": {
+  "scat_tax_sheaf": {"seeds": [21], "barrier": "none"},
+  "scat_tax_stones": {"seeds": [21], "barrier": "none"},
+  "scat_tax_stump": {"seeds": [21, 22, 23, 24], "barrier": "weak"},
+
+  "scat_field_rock": {"seeds": [321, 322, 323, 324], "barrier": "none"},
+  "scat_field_log": {"seeds": [321, 322, 323, 324], "barrier": "weak"},
+  "scat_field_scrub": {"seeds": [21], "barrier": "none"},
+
+  "scat_hidden_slab": {"seeds": [321, 322, 323, 324], "barrier": "none"},
+  "scat_hidden_vent": {"seeds": [221, 222, 223, 224], "barrier": "none"},
+  "scat_hidden_stump": {"seeds": [423], "barrier": "none"},
+
+  "scat_riot_rubble": {"seeds": [21], "barrier": "none"},
+  "scat_riot_crate": {"seeds": [121], "barrier": "weak"},
+  "scat_riot_scorch": {"seeds": [21, 22, 23, 24], "barrier": "none"},
+
+  "scat_democracy_drum": {"seeds": [22, 24], "barrier": "hard"},
+  "scat_democracy_rubble": {"seeds": [22], "barrier": "none"},
+
+  "scat_civwar_puddle": {"seeds": [21, 22, 23, 24], "barrier": "none"},
+  "scat_civwar_sandbags": {"seeds": [221, 222, 223, 224], "barrier": "medium"},
+
+  "scat_worldwar_crater": {"seeds": [21, 22, 23, 24], "barrier": "none"},
+  "scat_worldwar_debris": {"seeds": [21, 22, 23, 24], "barrier": "weak"},
+  "scat_worldwar_stump": {"seeds": [21, 22, 23, 24], "barrier": "medium"}
+ },
+ "dropped": {
+  "scat_democracy_leaves": "dropped at the gate by the human; 民主 ships two props (drum + rubble).",
+  "scat_civwar_planks": "dropped at the gate by the human; 內戰 ships two props (puddle + sandbags)."
+ },
+ "barrier_profile_by_battle_type": {
+  "_note": "Derived from `picks`, and the reason this file is a rule input rather than art bookkeeping: the core fields ONE neutral barrier per barrier-carrying prop of the battle type (decisions.md W14.9). Regenerated into phase3_scatter_topdown_coverage.json by the freeze script; listed here so the design consequence is visible at the gate.",
+  "tax": ["weak"],
+  "field": ["weak"],
+  "hidden": [],
+  "riot": ["weak"],
+  "democracy": ["hard"],
+  "civwar": ["medium"],
+  "worldwar": ["weak", "medium"]
  },
  "rounds": {
   "1": {
-   "seeds": [
-    21,
-    22,
-    23,
-    24
-   ],
+   "seeds": [21, 22, 23, 24],
    "note": "the class's first round. Split cleanly by subject shape: every heap, spill and ground mark rendered genuinely overhead, and every single solid object with a canonical side profile reverted to a three-quarter product shot (boulder in profile, crate in isometric, sandbags stacked in elevation, a fallen log drawn as a standing tree trunk). scat_hidden_vent failed separately and on material, not camera: fissure plus glow plus scorched ground rendered molten orange lava where the plate's own glow is cold pale green."
   },
   "2": {
-   "seeds": [
-    121,
-    122,
-    123,
-    124
-   ],
+   "seeds": [121, 122, 123, 124],
    "cells": [
     "scat_field_rock",
     "scat_field_log",
@@ -57,9 +60,7 @@
    "note": "the camera fix: solid objects now name their TOP FACE as the dominant feature, which is what the two cells that did work (scat_tax_stump, scat_worldwar_crater) have in common. scat_field_log states its axis as a bounded pair of end points, the form proven on the barrier cell. scat_riot_crate and scat_hidden_vent switch to the flat form clause and leave no box or relief standing. scat_hidden_vent says cold and pale green twice to displace the volcanic prior."
   },
   "3": {
-   "seeds": [
-    221
-   ],
+   "seeds": [221],
    "probe": true,
    "cells": [
     "scat_field_rock",
@@ -72,12 +73,7 @@
    "note": "a one-seed probe of a THIRD camera strategy: the battle plates' own clause (photographed flat from straight above, orthographic) plus a register shift describing the sprite as the shape the object covers on the ground, replacing the unit class's overhead clause. It fixed scat_civwar_sandbags outright and scat_hidden_vent's silhouette (with a ragged-outline clause), and moved none of the four solid objects. Those four have now failed three generations under three different strategies, which is the §8.3 stop signal: the next lever is a subject change, not another wording round."
   },
   "4": {
-   "seeds": [
-    321,
-    322,
-    323,
-    324
-   ],
+   "seeds": [321, 322, 323, 324],
    "cells": [
     "scat_field_rock",
     "scat_field_log",
@@ -87,21 +83,17 @@
    "note": "the SUBJECT change, by human ruling, after three camera strategies failed these four identically. Each single solid object became a spread of parts: the boulder several mossy stones spread apart in turf, the log broken sections of a fallen tree, the slab dark scorched shards, the stump charred branch pieces. All four dropped back to the plain recipe every working prop in this class uses (chunky form, unit overhead clause, no top-face and no orthographic clause), because a spread has no canonical profile to fall back on and needs no camera help. Camera fixed on all four first try."
   },
   "5": {
-   "seeds": [
-    421,
-    422,
-    423,
-    424
-   ],
-   "cells": [
-    "scat_hidden_stump"
-   ],
+   "seeds": [421, 422, 423, 424],
+   "cells": ["scat_hidden_stump"],
    "note": "round 4 fixed this cell's camera and exposed the warm prior that had already put lava in scat_hidden_vent: burnt wood rendered with glowing red-orange embers in all four seeds, against a plate whose identity is cold pale green. Same displacement as the vent's fix, stated positively: long cold and dead, cold grey and black throughout, pale grey-white broken ends."
   }
  },
- "watch": {
-  "scat_democracy_drum": "A column drum is a cylinder, so a genuine overhead read and a three-quarter read look nearly the same. It passed the pre-screen on that basis rather than on proof; if the set ever looks mixed-camera in the view, check this cell first.",
+ "gate_notes": {
+  "_ruling": "The gate closed with a design change, not just seed picks: barrier tiers turned this class from decoration into neutral cover (ADR-0010), and two props were dropped rather than re-rolled.",
+  "scat_hidden_vent": "Flagged at the gate for low contrast against its own plate (both are dark green with pale-green cracks) and kept anyway. All four round-3 seeds ship, so the two ragged-outline seeds (221, 223) dilute the two squarer ones (222, 224) instead of a squarer one having to carry the prop alone.",
+  "scat_democracy_drum": "A column drum is a cylinder, so a genuine overhead read and a three-quarter read look nearly the same. It passed the pre-screen on that basis rather than on proof; it is also the class's only HARD barrier, so it is the prop the player will look at longest. If the set ever looks mixed-camera in the view, check this cell first.",
   "scat_worldwar_stump": "Reads at field size but shows more of its side than scat_tax_stump does. Re-roll with the round-2 top-face clause if it stands out against its neighbours.",
+  "_size_vs_tier": "ADR-0010 makes on-field size a RULE (「體積對應掩體等級」), and every prop in this class was rendered before that rule existed. The approved sizes were authored for looks, so the view's per-tier scale has to be set from the tier and checked against the sprite, never read off the sprite.",
   "_solid_object_family": "Every prop in this class that renders genuinely overhead is a spread of many parts or a flat mark; every one that fails is a single solid lump with a canonical side profile. scat_tax_stump is the lone exception and the reason a stump was tried twice more. Comparison evidence: contact-sheets/phase3_scatter_topdown_solid_object_failure.png."
  }
 }

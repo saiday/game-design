@@ -171,9 +171,15 @@ every green wave.
       86% vs 79%, i.e. the opposite sign to the change — do not read it as a gain), the money pile
       fell ~10% on normal/hard, and a 政權崩潰 fired outside the opening trap for the first time
       (gen 13, hard) — surfaced in balance-report.md. Gap decisions: decisions.md W14.7.)*
-- [ ] **W14.8 — Top-down battlefield art re-render (ADR-0009).** 69 unit/fort sprites + 7 battle
+- [x] **W14.8 — Top-down battlefield art re-render (ADR-0009).** 69 unit/fort sprites + 7 battle
       backdrops through the Mac Studio orchestrator (root `docs/image-assets-generation-orchestrator-cookbook.md`),
       human pick gates. Gate: human pick-gate sign-off; `inventory.md` updated; superseded sprites removed.
+      *(done 2026-08-03: 135 assets frozen — 67 unit/fort/enemy sprites, 7 battle plates, 8 flying
+      weapons, 53 field-scatter sprites over 19 props — all registered in `asset_paths.gd`. Part A
+      21/21 suites, 245/245 cases, exit 0; `check_design_graph.py` exit 0. The scatter gate closed
+      with a **design change**: the human gave each prop a barrier tier, which makes the class
+      neutral cover rather than decoration and inverts 盾陣 with it — ADR-0010, corpus updated,
+      code delta queued as W14.9.)*
       - [x] **Risks answered before spending GPU.** ADR-0009 handed W14.8 two open risks and the
             52 exploration raws (`assets/exploration/topdown-demo/`) answer both, with pictures:
             **mirroring holds** at battle zoom (vehicles are axis-symmetric; figures swap weapon hand,
@@ -243,7 +249,7 @@ every green wave.
             shaded pale material. Deliberately NOT applied to the projectiles, where it gains
             nothing and punches a hole through `proj_bomb` — the reasoning and measurements are in
             both freeze scripts.
-      - [ ] **Neutral field objects (new class; unblocked — all 7 plates are approved).**
+      - [x] **Neutral field objects (new class).**
             **This runs before W15, by human ruling, and the ordering is deliberate — don't
             re-propose overlapping it with the view wave.** The technical argument for overlapping
             is real and is exactly why it's answered here: scatter is decoration, the view places it
@@ -255,15 +261,41 @@ every green wave.
             (`phase3_backgrounds_topdown_picks.json`), so the wheat field and the crater field
             scatter differently: that file's material and palette are the brief, and a plate
             re-roll invalidates its scatter.
-            **They are decoration and nothing else** (`design/戰鬥.md` §場景呈現, decisions.md W14.8):
-            no blocking, no cover, no damage, no place in the 掩護鏈, and no rule may read them —
-            工事線 stays the only cover model, or cover forks into two systems and the core acquires
-            the spatial model ADR-0006/0009 keep refusing it. Placement is the **view's**, seeded
-            from the battle's own seed and avoiding the stations, so a replay is identical every
-            time while the core still holds no coordinates. Scope the ids into `inventory.md` at the
-            same time; the seed's route to a fixture-driven replayer is a timeline-contract question
-            for W15, not an engine change here.
-            *Gate:* human pick-gate sign-off on the scatter set; `inventory.md` updated.
+            **They are neutral cover, not decoration** (ADR-0010, `design/戰鬥.md` §場景呈現): the
+            human's pick ruling gave each prop a barrier tier (none / weak / medium / hard) and made
+            barrier-bearing scatter a 盾陣 that belongs to nobody. The art wave still only *renders
+            and registers* them — every rule that reads a barrier is W14.9's. What this wave owes
+            the rule is the tier per id in `inventory.md` and in the registry, because the barrier
+            count per battle type is read off that table and nowhere else (decisions.md W14.9).
+            Placement stays the **view's**, seeded from the battle's own seed and avoiding the
+            stations, so a replay is identical every time while the core still holds no coordinates.
+            **Two props were dropped at the gate** (`democracy_leaves`, `civwar_planks`), so the
+            class ships 19, not 21; several ids ship **all four seeds as variants** so the view can
+            scatter the same prop without visible repetition.
+            *Gate:* human pick-gate sign-off (done); 19 ids frozen with tiers; `inventory.md` and
+            `AssetPaths.SCATTER` updated; Part A green.
+
+- [ ] **W14.9 — Cover model delta: cover stops bullets, not people (ADR-0010).** Human design round
+      on top of the W14.8 pick gate, and a rule change to `core/battle.gd` + `test/battle_test.gd`
+      before the view draws any of it.
+      **盾陣 inverts**: it absorbs *ranged* fire aimed at the 遠程列 with a 3～5-shot budget rolled
+      on the `battle` track, instead of intercepting one melee attack; melee walks around the wall
+      and engages the row directly. Exhausting the budget disables it as before, and a repaired wall
+      rolls a fresh one. **Neutral scatter joins the model**: barrier-bearing props are unowned
+      walls with weak (1-2) / medium (2-3) / hard (3-5) budgets, a land unit that has taken any
+      damage falls back behind an intact one automatically, first come and either side, and the
+      shot that empties a barrier destroys it for good (no engineer, no repair — the one lifecycle
+      difference from a fort). Slowdown and detour are **view-only**: the core has no movement and
+      does not get one here.
+      Everything ADR-0006 says about air is untouched, 空襲 is not absorbed by cover, and siegers
+      cannot target scatter (decisions.md W14.9 pins all three).
+      This needs a new shared, unowned entity in `BattleField` (the first thing on the field that is
+      not `player_*`/`enemy_*`), two timeline events (taking cover, a barrier destroyed) added to
+      the contract in `architecture.md`, a re-export of `docs/fixtures/battle_timeline.json`, and a
+      pass over `docs/balance-report.md` — the sim bot skips fort cards, so neither direction of the
+      difficulty swing is currently measurable.
+      *Gate:* Part A green (gdUnit4 + `check_design_graph.py`, exit 0), timeline fixture re-exported
+      and `check_motion_demo.js` green. Part B still down until W15.
 - [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
       Operations city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips,
       controller focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route
@@ -277,6 +309,10 @@ every green wave.
       decisions.md W14.8). What W15 must not do is assume a barrier's axis can be fixed at draw
       time: the axis is an outcome of the render, because naming it in the prompt is what tapered
       three rounds of walls.
+      **Neutral cover is now a thing the view owes the player** (ADR-0010, W14.9): it places the
+      scatter from the battle seed, sizes each prop by its barrier tier, animates land units slowing
+      and pathing around scatter (view-only, no rule measures it), shows a hurt unit falling back
+      behind a barrier, and removes a barrier when the timeline says its last shot landed.
       Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.

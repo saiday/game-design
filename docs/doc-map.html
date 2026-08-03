@@ -216,7 +216,7 @@
         <td>Instantiated by insignificant-game/docs/dev-loop.md and PLAN.md.</td></tr>
     <tr><td>adr/ (sequential)</td><td><span class="aud both">both</span></td>
         <td>Architecture decision records: decisions with lasting consequences and the reasoning that must not be re-litigated. Read the ones touching your area; contradict out loud, never silently. Numbering and format convention: adr/README.md.</td>
-        <td>The current set records the battle-rewrite calls (sourced from plan-battle-model-rewrite.md), the design-round rulings on air targeting and fortification lifecycle, and the cover chain plus the top-down battle camera (0008/0009, which overturned the earlier stop on top-down).</td></tr>
+        <td>The current set records the battle-rewrite calls (sourced from plan-battle-model-rewrite.md), the design-round rulings on air targeting and fortification lifecycle, the cover chain plus the top-down battle camera (0008/0009, which overturned the earlier stop on top-down), and the cover model itself (0010: cover absorbs ranged fire rather than melee, and neutral field scatter is cover too, which reverses the decoration-only ruling the bare top-down plates had forced).</td></tr>
     <tr><td>agents/issue-tracker.md</td><td><span class="aud agent">agent</span></td>
         <td>GitHub-issue conventions (<code>gh</code> CLI) plus wayfinder map/ticket operations. Read by the triage/wayfinder skills; path is skill-pinned, do not move.</td>
         <td>GitHub repo saiday/game-design; agents/triage-labels.md.</td></tr>
@@ -323,7 +323,7 @@
       requires either its own row or a cluster row that covers its directory.</li>
   </ul>
 
-  <footer>Last updated: 2026-07-28 (W14.7: the cover chain landed in core and the motion demo became a <b>timeline replayer</b> with zero rule code, fed by the new <code>tools/export_timeline.gd</code> fixture. Timeline events gained a <code>side</code> key so a replayer can tell the camps apart. Part A grew the exporter diff and the renderer check) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
+  <footer>Last updated: 2026-08-03 (W14.8's scatter gate closed with a design change, not just seed picks: <b>ADR-0010</b> makes cover absorb ranged fire instead of melee and turns neutral field scatter into cover with a shot budget, so the art class now carries a rule value and <code>decisions.md</code>'s decoration-only row is superseded. W14.9 is the core delta that follows) · edit this file directly except between the @GRAPH markers, which <code>check_design_graph.py --doc-map</code> regenerates</footer>
 </div>
 </body>
 </html>

@@ -13,7 +13,8 @@ index — display names are drawn per run from the 命名表, the class is the s
 
 Per-class *generation sizes* live in `style-bible.md` §3 (no pixelization, no sprite grids —
 cookbook §5). Counts: buildings 76 · units 49 + enemy 18 · card art 57 · icons 75 · UI templates 5 ·
-backgrounds 17 · portraits 15 · flying weapons 8 → **320 assets**.
+backgrounds 17 · portraits 15 · flying weapons 8 · field scatter 19 props / 53 sprites →
+**373 assets**.
 The 49 is 40 `unit_*` plus 9 `fort_*`; with the 18 enemy tiers that is the 67-cell roster the
 top-down re-render renders and the pick gate gates.
 
@@ -218,6 +219,42 @@ mirrored for the enemy side.
 
 (8 assets. A cannonball and a stone are spheres and carry no heading; a bomb falls nose-down rather
 than travelling flat. Prompts: `phase3_projectiles_topdown_batch.py`.)
+
+## Field scatter (`scat_<battle_type>_<prop>_v<n>`) — source: 戰鬥 場景呈現, ADR-0009 + ADR-0010
+
+**A top-down class with no side-view predecessor, and the only art class that carries a rule
+value.** ADR-0009 stripped the battle plates to bare ground, so everything standing on the field is
+now an object; ADR-0010 then made some of those objects *neutral cover*. A prop with a barrier tier
+is a 盾陣 that belongs to nobody: it absorbs ranged fire for whichever hurt land unit fell back
+behind it (weak 1-2 shots, medium 2-3, hard 3-5, matching 盾陣's own band), and unlike a
+fortification it is never repaired — the shot that empties it destroys it.
+
+**The `barrier` column is read by the core, not just by the artist.** The number of neutral
+barriers a battle type fields is one per barrier-carrying prop in its row of this table
+(decisions.md W14.9), so changing a tier here changes the game. On-field size is also a rule now
+(「體積對應掩體等級」): the view scales a prop from its tier, and must not infer the tier from how
+big the sprite happens to be.
+
+No era and no facing — one set per battle type, shared by every era that fights on that ground, and
+the view may rotate a prop freely. Each prop derives from the material and palette of its battle
+type's approved plate (`phase3_backgrounds_topdown_picks.json`), so a plate re-roll invalidates its
+scatter. Several props ship **all four approved seeds as interchangeable variants** so the view can
+scatter one prop repeatedly without it reading as tiling.
+
+| battle type | props (variants) | barriers |
+|---|---|---|
+| 收稅戰 `tax` | sheaf (1) · stones (1) · **stump (4, weak)** | 1 |
+| 一般地圖戰 `field` | rock (4) · **log (4, weak)** · scrub (1) | 1 |
+| 隱藏戰 `hidden` | slab (4) · vent (4) · stump (1) | **0 — no cover on this ground** |
+| 內部暴動戰 `riot` | rubble (1) · **crate (1, weak)** · scorch (4) | 1 |
+| 為民主而流血 `democracy` | **drum (2, hard)** · rubble (1) | 1 |
+| 文明戰爭 `civwar` | puddle (4) · **sandbags (4, medium)** | 1 |
+| 世界大戰 `worldwar` | crater (4) · **debris (4, weak)** · stump (4, medium) | 2 |
+
+(19 props, 53 sprites. Barrier-carrying props are bold. `democracy_leaves` and `civwar_planks` were
+dropped at the pick gate, which is why those two types ship two props instead of three. Prompts:
+`phase3_scatter_topdown_batch.py`; the gate, the tiers and the per-prop notes:
+`phase3_scatter_topdown_picks.json`.)
 
 ## Card illustrations (`card_<id>_era<n>` / `card_<id>`) — source: 卡牌
 

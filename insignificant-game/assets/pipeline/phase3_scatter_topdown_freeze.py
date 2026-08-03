@@ -5,9 +5,20 @@
 # (phase3_scatter_topdown_batch.py's header). Nothing here supersedes anything, so like the
 # projectile freeze this script only ever appends to the manifest.
 #
-# Scatter has no era and no facing. One sprite per id, shared by every era that fights on that
-# battle type, and the view may rotate it freely — so the registry it feeds is grouped by BATTLE
-# TYPE rather than by era coverage.
+# Scatter has no era and no facing. Its sprites are shared by every era that fights on that battle
+# type and the view may rotate them freely, so the registry it feeds is grouped by BATTLE TYPE
+# rather than by era coverage.
+#
+# ONE PROP CAN SHIP SEVERAL SPRITES. The human approved most rows as "use all seeds", so a prop is
+# a list of interchangeable variants (`<id>_v1.png` .. `<id>_vN.png`) rather than one file: the view
+# scatters the same prop repeatedly and four cuts of a rubble heap stop that reading as tiling. A
+# single-seed row is just a one-variant list, so the registry never has to branch.
+#
+# THE BARRIER TIER IS A RULE VALUE, NOT ART METADATA (ADR-0010). A barrier-carrying prop is a 盾陣
+# that belongs to nobody: it absorbs ranged fire aimed at the unit sheltering behind it (weak 1-2
+# shots, medium 2-3, hard 3-5) and is destroyed, never repaired, when its budget runs out. The core
+# reads how many barriers a battle type fields off this table and nowhere else (decisions.md W14.9),
+# so an edit to a `barrier` value in the picks file is a game change, not a re-render.
 #
 # THE SPECK FLOOR IS THE LOW ONE, AND FOR A REASON UNIQUE TO THIS CLASS. Every other class treats a
 # detached blob as keying residue: a unit's 1200 px floor deletes it, a projectile's 120 px floor
@@ -51,6 +62,13 @@ FLOOD_TOL = 60
 # pale and low-contrast against studio grey (white marble chips, white ash, pale dry wood, grey
 # field stones), which is exactly the material the pass eats: `proj_bomb` lost 12k px of its own
 # body the same way. Re-run --measure and re-read this comment before switching it on.
+#
+# MEASURED, and it stays off. Across the 53 approved sprites the pass finds almost nothing: 44 lose
+# under 0.1% of their body, for the reason predicted above — heaps and spills have no enclosed loops
+# for background to be trapped inside. The one sprite it would visibly change is the one it would
+# ruin: `scat_democracy_rubble_v1` is white marble chips and loses 81,976 px, 15.9% of itself, the
+# same failure as `proj_bomb`. Nothing else gains enough to pay for that, so the border flood is the
+# whole key for this class.
 POCKET_TOL = None
 POST = {"key": "border-flood", "tolerance": FLOOD_TOL, "cropped": True,
         "speck_min_px": SPECK_MIN_PX}
@@ -99,14 +117,23 @@ def plate_patch(battle_type: str, size: int) -> Image.Image | None:
     return im.crop((cx - size // 2, cy - size // 2, cx + size // 2, cy + size // 2))
 
 
+def variants(picks: dict) -> list:
+    """(pid, battle_type, barrier, variant_index, seed) for every sprite the gate approved."""
+    out = []
+    for pid, pick in sorted(picks.items()):
+        for i, seed in enumerate(pick["seeds"], start=1):
+            out.append((pid, SCATTER[pid][0], pick["barrier"], i, seed))
+    return out
+
+
 def measure(picks: dict, state: dict) -> None:
     """What the enclosed-pocket pass would cost each sprite, in px and as a share of its body."""
-    print(f"{'id':28} {'body px':>9} {'pocket loss @25':>16} {'share':>7}")
-    for pid, seed in sorted(picks.items()):
+    print(f"{'sprite':32} {'body px':>9} {'pocket loss @25':>16} {'share':>7}")
+    for pid, _, _, i, seed in variants(picks):
         _, dist, opaque = opaque_mask(state[pid][str(seed)]["stem"])
         body = int(opaque.sum())
         lost = int((opaque & (dist < 25)).sum())
-        print(f"{pid:28} {body:9d} {lost:16d} {lost / max(body, 1):6.1%}")
+        print(f"{f'{pid}_v{i}':32} {body:9d} {lost:16d} {lost / max(body, 1):6.1%}")
 
 
 def main() -> None:
@@ -115,32 +142,40 @@ def main() -> None:
     args = ap.parse_args()
 
     with open(PICKS) as f:
-        picks = json.load(f)["picks"]
+        gate = json.load(f)
+    picks, dropped = gate["picks"], gate.get("dropped", {})
     with open(STATE) as f:
         state = json.load(f)
     unknown = set(picks) - set(SCATTER)
     if unknown:
         raise SystemExit(f"picks name props the batch does not define: {sorted(unknown)}")
+    ungated = set(SCATTER) - set(picks) - set(dropped)
+    if ungated:
+        raise SystemExit(f"rendered props neither picked nor dropped: {sorted(ungated)}")
     if args.measure:
         measure(picks, state)
         return
 
     os.makedirs(OUT, exist_ok=True)
     sprites, rows_new = {}, []
-    for pid, seed in sorted(picks.items()):
-        battle_type = SCATTER[pid][0]
+    for pid, battle_type, barrier, i, seed in variants(picks):
         stem = state[pid][str(seed)]["stem"]
+        name = f"{pid}_v{i}"
         s = keyed(stem)
-        s.save(f"{OUT}/{pid}.png")
-        sprites[pid] = (battle_type, s)
-        rows_new.append({"id": stem, "file": f"assets/approved/scatter/{pid}.png",
-                         "class": "scatter-topdown", "subject": pid, "battle_type": battle_type,
+        s.save(f"{OUT}/{name}.png")
+        sprites[name] = (battle_type, s)
+        rows_new.append({"id": stem, "file": f"assets/approved/scatter/{name}.png",
+                         "class": "scatter-topdown", "subject": pid, "variant": i,
+                         "battle_type": battle_type, "barrier": barrier,
                          **render_recipe(stem), "checkpoint": CHECKPOINT, "loras": LORAS,
                          "workflow": "workflows/krea2_lora_txt2img.json", "post": POST,
                          "status": "approved", "camera": "top-down (ADR-0009)",
-                         "role": "decoration only — no blocking, no cover, no rule reads it "
-                                 "(decisions.md W14.8)"})
-        print(f"froze {pid}.png {s.width}x{s.height} <- {stem}")
+                         "role": "neutral cover (ADR-0010): a barrier-carrying prop absorbs ranged "
+                                 "fire for whoever shelters behind it and is destroyed, never "
+                                 "repaired; barrier=none props are ground dressing"})
+        print(f"froze {name}.png {s.width}x{s.height} <- {stem} [{barrier}]")
+    for pid, why in sorted(dropped.items()):
+        print(f"dropped {pid}: {why}")
 
     new_ids = {r["id"] for r in rows_new}
     rows_out = []
@@ -154,12 +189,22 @@ def main() -> None:
         f.write("\n".join(json.dumps(e, ensure_ascii=False) for e in rows_out) + "\n")
     print(f"manifest: +{len(rows_new)} approved rows")
 
-    coverage = {}
-    for pid, (battle_type, _) in sorted(sprites.items()):
-        coverage.setdefault(battle_type, []).append(pid)
+    # The registry source, and also the rule source: `barriers` is the count of neutral cover the
+    # core fields on this ground (decisions.md W14.9), which is why it is computed here from the
+    # approved set rather than typed anywhere by hand.
+    coverage: dict = {}
+    for pid, battle_type, barrier, i, _ in variants(picks):
+        props = coverage.setdefault(battle_type, {"props": [], "barriers": 0})["props"]
+        if not props or props[-1]["id"] != pid:
+            props.append({"id": pid, "barrier": barrier, "variants": []})
+            if barrier != "none":
+                coverage[battle_type]["barriers"] += 1
+        props[-1]["variants"].append(f"{pid}_v{i}.png")
     with open("phase3_scatter_topdown_coverage.json", "w") as f:
         json.dump(coverage, f, ensure_ascii=False, indent=1)
-    print("wrote phase3_scatter_topdown_coverage.json (registry source for AssetPaths.SCATTER)")
+    print("wrote phase3_scatter_topdown_coverage.json (registry source for AssetPaths.SCATTER; "
+          "barrier counts per battle type: "
+          + ", ".join(f"{t}={c['barriers']}" for t, c in sorted(coverage.items())) + ")")
 
     # Halo check on the only background that matters for this class: each prop's own plate, at the
     # size it ships. A prop is dressing for one ground and is never drawn on any other.

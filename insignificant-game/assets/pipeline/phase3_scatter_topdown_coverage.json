@@ -1,0 +1,204 @@
+{
+ "battle_civwar": {
+  "props": [
+   {
+    "id": "scat_civwar_puddle",
+    "barrier": "none",
+    "variants": [
+     "scat_civwar_puddle_v1.png",
+     "scat_civwar_puddle_v2.png",
+     "scat_civwar_puddle_v3.png",
+     "scat_civwar_puddle_v4.png"
+    ]
+   },
+   {
+    "id": "scat_civwar_sandbags",
+    "barrier": "medium",
+    "variants": [
+     "scat_civwar_sandbags_v1.png",
+     "scat_civwar_sandbags_v2.png",
+     "scat_civwar_sandbags_v3.png",
+     "scat_civwar_sandbags_v4.png"
+    ]
+   }
+  ],
+  "barriers": 1
+ },
+ "battle_democracy": {
+  "props": [
+   {
+    "id": "scat_democracy_drum",
+    "barrier": "hard",
+    "variants": [
+     "scat_democracy_drum_v1.png",
+     "scat_democracy_drum_v2.png"
+    ]
+   },
+   {
+    "id": "scat_democracy_rubble",
+    "barrier": "none",
+    "variants": [
+     "scat_democracy_rubble_v1.png"
+    ]
+   }
+  ],
+  "barriers": 1
+ },
+ "battle_field": {
+  "props": [
+   {
+    "id": "scat_field_log",
+    "barrier": "weak",
+    "variants": [
+     "scat_field_log_v1.png",
+     "scat_field_log_v2.png",
+     "scat_field_log_v3.png",
+     "scat_field_log_v4.png"
+    ]
+   },
+   {
+    "id": "scat_field_rock",
+    "barrier": "none",
+    "variants": [
+     "scat_field_rock_v1.png",
+     "scat_field_rock_v2.png",
+     "scat_field_rock_v3.png",
+     "scat_field_rock_v4.png"
+    ]
+   },
+   {
+    "id": "scat_field_scrub",
+    "barrier": "none",
+    "variants": [
+     "scat_field_scrub_v1.png"
+    ]
+   }
+  ],
+  "barriers": 1
+ },
+ "battle_hidden": {
+  "props": [
+   {
+    "id": "scat_hidden_slab",
+    "barrier": "none",
+    "variants": [
+     "scat_hidden_slab_v1.png",
+     "scat_hidden_slab_v2.png",
+     "scat_hidden_slab_v3.png",
+     "scat_hidden_slab_v4.png"
+    ]
+   },
+   {
+    "id": "scat_hidden_stump",
+    "barrier": "none",
+    "variants": [
+     "scat_hidden_stump_v1.png"
+    ]
+   },
+   {
+    "id": "scat_hidden_vent",
+    "barrier": "none",
+    "variants": [
+     "scat_hidden_vent_v1.png",
+     "scat_hidden_vent_v2.png",
+     "scat_hidden_vent_v3.png",
+     "scat_hidden_vent_v4.png"
+    ]
+   }
+  ],
+  "barriers": 0
+ },
+ "battle_riot": {
+  "props": [
+   {
+    "id": "scat_riot_crate",
+    "barrier": "weak",
+    "variants": [
+     "scat_riot_crate_v1.png"
+    ]
+   },
+   {
+    "id": "scat_riot_rubble",
+    "barrier": "none",
+    "variants": [
+     "scat_riot_rubble_v1.png"
+    ]
+   },
+   {
+    "id": "scat_riot_scorch",
+    "barrier": "none",
+    "variants": [
+     "scat_riot_scorch_v1.png",
+     "scat_riot_scorch_v2.png",
+     "scat_riot_scorch_v3.png",
+     "scat_riot_scorch_v4.png"
+    ]
+   }
+  ],
+  "barriers": 1
+ },
+ "battle_tax": {
+  "props": [
+   {
+    "id": "scat_tax_sheaf",
+    "barrier": "none",
+    "variants": [
+     "scat_tax_sheaf_v1.png"
+    ]
+   },
+   {
+    "id": "scat_tax_stones",
+    "barrier": "none",
+    "variants": [
+     "scat_tax_stones_v1.png"
+    ]
+   },
+   {
+    "id": "scat_tax_stump",
+    "barrier": "weak",
+    "variants": [
+     "scat_tax_stump_v1.png",
+     "scat_tax_stump_v2.png",
+     "scat_tax_stump_v3.png",
+     "scat_tax_stump_v4.png"
+    ]
+   }
+  ],
+  "barriers": 1
+ },
+ "battle_worldwar": {
+  "props": [
+   {
+    "id": "scat_worldwar_crater",
+    "barrier": "none",
+    "variants": [
+     "scat_worldwar_crater_v1.png",
+     "scat_worldwar_crater_v2.png",
+     "scat_worldwar_crater_v3.png",
+     "scat_worldwar_crater_v4.png"
+    ]
+   },
+   {
+    "id": "scat_worldwar_debris",
+    "barrier": "weak",
+    "variants": [
+     "scat_worldwar_debris_v1.png",
+     "scat_worldwar_debris_v2.png",
+     "scat_worldwar_debris_v3.png",
+     "scat_worldwar_debris_v4.png"
+    ]
+   },
+   {
+    "id": "scat_worldwar_stump",
+    "barrier": "medium",
+    "variants": [
+     "scat_worldwar_stump_v1.png",
+     "scat_worldwar_stump_v2.png",
+     "scat_worldwar_stump_v3.png",
+     "scat_worldwar_stump_v4.png"
+    ]
+   }
+  ],
+  "barriers": 2
+ }
+}
