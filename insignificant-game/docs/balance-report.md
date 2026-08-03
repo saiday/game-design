@@ -103,8 +103,13 @@ and 正規軍 now field a 盾陣 of their own. Only the last two can show up in 
 - **防空飛彈 and 盾陣 are unmeasured.** The bot plays no fort cards at all, so the
   disable/repair loop, the battery's destroy-on-hit exchange, and the 同場上限 2 pricing
   (軍費 4, one repair per round) have **zero batch coverage** — they are tested only in
-  `battle_test`. Instrumenting a fort-playing bot archetype is the cheap next step if the PM
-  wants those knobs measured before v1.
+  `battle_test`. **Now a scheduled task, not a suggestion: PLAN.md W16** teaches the bot to field
+  forts and re-runs all three difficulties. It was deliberately kept out of W14.9 so that wave's
+  gate stays about rule correctness, which means ADR-0010's 3～5-shot ranged budget on 盾陣 joins
+  this list until W16 lands. Two limits W16 must state when it reports: the batch will measure the
+  fort-playing heuristic we author rather than what a wall is worth to a human reading a wave
+  schedule, and every baseline in this report shifts the moment the bot starts fielding walls, so
+  the 60-run set has to be re-read rather than diffed.
 - **Melee-only remnants now stare at bombers, and the bot gives up the field.** Two hard
   gen-35 wars froze completely (one air unit per camp, zero events per round) because 空域 is
   unreachable from 近戰. The engine settles that as 僵局 once neither side can commit anything;

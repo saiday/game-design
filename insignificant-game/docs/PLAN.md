@@ -292,8 +292,15 @@ every green wave.
       This needs a new shared, unowned entity in `BattleField` (the first thing on the field that is
       not `player_*`/`enemy_*`), two timeline events (taking cover, a barrier destroyed) added to
       the contract in `architecture.md`, a re-export of `docs/fixtures/battle_timeline.json`, and a
-      pass over `docs/balance-report.md` — the sim bot skips fort cards, so neither direction of the
-      difficulty swing is currently measurable.
+      pass over `docs/balance-report.md`.
+      **Teaching the sim bot to play fort cards is deliberately NOT in this wave** (human ruling).
+      Only half of what changes here is measurable: neutral cover is engine-placed, so every batch
+      run meets it, but the player's own 盾陣 needs a card played and `sim.gd::_pick_deploy` skips
+      `class == &"fortification"`. So this wave can pass its gate with 盾陣's new value unmeasured,
+      and that is accepted rather than papered over: the wave's risk is rule correctness, not
+      numbers, and a bot that plays walls off a heuristic we wrote measures that heuristic, not what
+      the wall is worth.
+      Record the gap in `balance-report.md` pointing at W16; do not tune 3～5 to batch output.
       *Gate:* Part A green (gdUnit4 + `check_design_graph.py`, exit 0), timeline fixture re-exported
       and `check_motion_demo.js` green. Part B still down until W15.
 - [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
@@ -316,6 +323,25 @@ every green wave.
       Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.
+
+- [ ] **W16 — The sim bot learns to field fortifications (may run in parallel with W15).** Split out
+      of W14.9 by human ruling so that wave's gate stays about rule correctness. `sim.gd::_pick_deploy`
+      skips `class == &"fortification"` and `&"skill"`, which it has done since W14, so the batch has
+      **never** seen a player-side 盾陣 or 防空飛彈. Every fort rule the last four design rounds
+      touched is therefore unmeasured on the player's side: ADR-0007's disable-and-repair lifecycle,
+      ADR-0008's narrowing to the 遠程列, and now ADR-0010's 3～5-shot ranged budget, the strongest
+      damage reduction in the game and the least examined number in it.
+      Two honest limits to state up front, because they decide how much the output is worth. The bot
+      will play walls off a **heuristic we author**, so the batch measures that heuristic rather than
+      what a wall is worth to a human who can see a wave schedule coming; and the moment it starts
+      fielding forts, **every existing baseline in `balance-report.md` shifts**, so the whole 60-run
+      set has to be re-read rather than diffed line by line. Say both in the report.
+      Scope: a fort branch in `_pick_deploy` (when is 3 軍費 for a wall worth it), the 同場上限 2
+      constraint the bot must respect, an engineer-follows-wall rule so repair is exercised at all,
+      and a re-run of all three difficulties. **Do not tune the corpus's v1 numbers to this output**
+      — surface findings, the human calibrates by playing (standing rule at the foot of this file).
+      *Gate:* Part A green; batch re-run across 3 difficulties; `docs/balance-report.md` rewritten
+      with the fort figures and both limits above stated.
 
 ## Closed: PoC waves W0–W9 (record; all gates passed)
 

@@ -65,7 +65,7 @@
 
   <h2>Core build (production waves)</h2>
   <div class="tiles">
-    <div class="tile"><div class="n">21 / 23</div><div class="l">waves closed (W0–W14.8 incl. W12.5/W13.5; W14.9 cover-model delta and W15 view remain)</div></div>
+    <div class="tile"><div class="n">21 / 24</div><div class="l">waves closed (W0–W14.8 incl. W12.5/W13.5; W14.9 cover-model delta, W15 view and W16 fort-playing bot remain)</div></div>
     <div class="tile"><div class="n">245 / 245</div><div class="l">full suite green, 21/21 suites, exit 0</div></div>
     <div class="tile"><div class="n">21</div><div class="l">gdUnit4 suites</div></div>
     <div class="tile"><div class="n">19 + 8</div><div class="l">core modules + data tables</div></div>
@@ -101,6 +101,8 @@
         <td><span class="status todo"><span class="dot todo"></span>not started — 盾陣 inverts from intercepting one melee attack to absorbing 3–5 ranged shots, and melee walks around it; barrier-bearing scatter is the same object unowned (weak 1–2 / medium 2–3 / hard 3–5), a hurt land unit falls back behind one automatically, and it is destroyed rather than repaired. Slowdown and detour stay view-only: the core still has no movement. Neither direction of the difficulty swing is measurable until the sim bot learns to play fort cards</span></td></tr>
     <tr><td>W15</td><td>Three-scene view revamp, top-down battle (operations panorama / fog-map / battle scene)</td>
         <td><span class="status todo"><span class="dot todo"></span>not started — Part B returns here; the battle scene is a top-down replayer of the tick timeline (intercept / disable / repair / shootdown / take_station, plus W14.9's take-cover and barrier-destroyed events), placing the scatter from the battle seed and sizing each prop by its barrier tier. The city stays a side-view panorama</span></td></tr>
+    <tr><td>W16</td><td>The sim bot learns to field fortifications (may run parallel with W15)</td>
+        <td><span class="status todo"><span class="dot todo"></span>not started — split out of W14.9 by ruling so that wave's gate stays about rule correctness. <code>sim.gd::_pick_deploy</code> has skipped fort cards since W14, so the batch has never seen a player-side 盾陣 or 防空飛彈: ADR-0007's repair lifecycle, ADR-0008's narrowing and ADR-0010's 3–5-shot budget are all unmeasured on the player's side. Two limits to state when it reports: it measures the heuristic we author, not what a wall is worth to a human; and every existing baseline shifts, so the 60-run set must be re-read rather than diffed</span></td></tr>
   </table>
 
   <h2>Art pipeline (Phase 3 class gates)</h2>
@@ -138,7 +140,7 @@
         <td><span class="status wip"><span class="dot wip"></span>W10 done; #6's 19 disconnects fully resolved (grillings #10–#13 + spinoffs #16/#17), corpus fix wave #14 applied, re-validation #15 PASSED — battle model VALIDATED; #17 (民主 貴族資金 40/60 split) and the air &amp; fortification round #18–#22 (ADR-0006/0007) closed, code delta landed in W14.5; the 2026-07-27 cover-chain round (ADR-0008/0009) landed in the corpus as W14.6 and in core as W14.7; the 2026-08-03 cover-model round (ADR-0010, which inverts 盾陣 to a ranged screen and makes scatter neutral cover) is in the corpus and awaits its code delta in W14.9 — no open design blockers</span></td></tr>
   </table>
 
-  <footer>Last updated: 2026-08-03 (W14.8 <b>closed</b>: the field-scatter gate landed 19 props / 53 sprites, and it landed a design change with them — <b>ADR-0010</b> makes cover absorb ranged fire instead of melee and turns barrier-bearing scatter into neutral cover, so 盾陣 itself inverts and <code>decisions.md</code>'s decoration-only ruling is superseded. Art scope 320 → 373; Part A 21 suites / 245 cases exit 0, check_design_graph.py exit 0. Next: W14.9, the core delta that ruling needs, then W15 where Part B returns) · edit this file directly to update, no build step</footer>
+  <footer>Last updated: 2026-08-03 (W14.8 <b>closed</b>: the field-scatter gate landed 19 props / 53 sprites, and it landed a design change with them — <b>ADR-0010</b> makes cover absorb ranged fire instead of melee and turns barrier-bearing scatter into neutral cover, so 盾陣 itself inverts and <code>decisions.md</code>'s decoration-only ruling is superseded. Art scope 320 → 373; Part A 21 suites / 245 cases exit 0, check_design_graph.py exit 0. Next: W14.9, the core delta that ruling needs, then W15 where Part B returns. W16 is new and deliberately separate: the sim bot has never played a fort card, so 盾陣's new 3–5-shot budget is unmeasured and stays that way until a fort-playing bot exists) · edit this file directly to update, no build step</footer>
 </div>
 </body>
 </html>
