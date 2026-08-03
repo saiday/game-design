@@ -1,11 +1,12 @@
 # Balance report — v1 baseline knobs under simulation
 
-**Measured at:** 2026-07-28, post-cover-chain (W14.7: ADR-0008 — 盾陣 screens the 遠程列 only,
-工兵團 moved to the 遠程列, 正規軍 field screens of their own) on top of the air & fortification
-delta (W14.5: ADR-0006/0007) and the battle-model rewrite (W11–W13.5 + W12.5: rolled card
-instances with growth, wave/tick battles, played world wars, 起始人口 0), with the W14 tempo bot,
-21 suites / 240 cases green. When rules or knobs change, re-run the batch and refresh this report
-(and this stamp) before comparing.
+**Measured at:** 2026-08-03, post-cover-model (W14.9: ADR-0010 — 盾陣 absorbs *ranged* fire with a
+3～5-shot budget instead of intercepting one melee attack, and barrier-bearing field scatter is
+unowned cover both sides may fall back behind) on top of the cover chain (W14.7: ADR-0008), the air
+& fortification delta (W14.5: ADR-0006/0007) and the battle-model rewrite (W11–W13.5 + W12.5:
+rolled card instances with growth, wave/tick battles, played world wars, 起始人口 0), with the W14
+tempo bot, 21 suites / 250 cases green. When rules or knobs change, re-run the batch and refresh
+this report (and this stamp) before comparing.
 
 Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), W14 bot
 (`core/sim.gd`: greedy builder; disbands personnel for population while pop < 20; routes all
@@ -19,22 +20,22 @@ calls stay with the PM.**
 
 | Metric | easy | normal | hard |
 |---|---|---|---|
-| Endings | 20× survived | 19× survived, **1× 政權崩潰** | 18× survived, **2× 政權崩潰** |
-| Final rank (mean, range) | 1.2 (1–2) | 1.6 (1–4) | 2.2 (1–4) |
+| Endings | 20× survived | 19× survived, **1× 政權崩潰** | 19× survived, **1× 政權崩潰** |
+| Final rank (mean, range) | 1.3 (1–4) | 1.6 (1–4) | 2.6 (1–5) |
 | Collapse check armed | 20/20 | 20/20 | 20/20 |
-| Final population (from 起始 0) | 113 (86–126) | 105 (4–150) | 104 (4–150) |
-| World wars fought / won by player camp | 40 / 38 (95%) | 38 / 36 (95%) | 36 / **31 (86%)** |
-| Medal levels on deck at gen 50 | 52 (13–80) | 45 (0–89) | 43 (0–83) |
+| Final population (from 起始 0) | 109 (39–126) | 104 (4–135) | 107 (4–169) |
+| World wars fought / won by player camp | 40 / 39 (98%) | 38 / 37 (97%) | 38 / **28 (74%)** |
+| Medal levels on deck at gen 50 | 52 (9–87) | 42 (0–74) | 36 (0–90) |
 | 兵營 medals left unassigned | 0 | 0 | 0 |
-| Final happiness | 97 (47–100) | 93 (28–100) | 88 (24–100) |
-| Unrest battles triggered / run | 5.0 | 5.8 | 4.6 |
-| Deepest debt touched | −126 (to −312) | −216 (to **−1150**) | −208 (to −794) |
-| Generations spent in debt | 8.2 | 10.5 | 9.1 |
-| Final treasury (gen 50, survivors) | ~9200 | ~8660 | ~8250 |
-| Buildings built (lifetime) | 10.8 | 10.8 | 11.6 |
-| Policies completed | 9.1 | 8.5 | 8.1 |
-| Deck size | 13.2 | 11.8 | 11.9 |
-| Rivals alive at gen 50 | 1.8 | 1.9 | 1.8 |
+| Final happiness | 95 (16–100) | 88 (36–100) | 92 (52–100) |
+| Unrest battles triggered / run | 5.2 | 5.5 | 4.8 |
+| Deepest debt touched | −127 (to −576) | −132 (to −383) | −303 (to **−1087**) |
+| Generations spent in debt | 8.1 | 9.6 | 10.4 |
+| Final treasury (gen 50, survivors) | ~9020 | ~9140 | ~9050 |
+| Buildings built (lifetime) | 11.0 | 10.6 | 11.1 |
+| Policies completed | 9.2 | 8.6 | 8.7 |
+| Deck size | 13.2 | 12.2 | 12.1 |
+| Rivals alive at gen 50 | 1.7 | 2.1 | 1.9 |
 
 ## The three sensitive knobs
 
@@ -47,6 +48,47 @@ calls stay with the PM.**
 3. **Unrest weights** — triggers hold at 4.6–5.8/run and the 內亂 chain **kills**: 3 of 60 runs
    end in 政權崩潰 (see below). The lethality earlier reports flagged as missing exists; two of
    the three are still the gen-4 opening trap, but one now lands at generation 13.
+
+## Cover model delta (W14.9) — half of it is measured, and the measured half moved hard
+
+ADR-0010 changed two things: a 盾陣 stopped intercepting one melee attack and started absorbing
+3～5 **ranged** shots, and barrier-bearing field scatter became unowned cover a hurt land unit falls
+back behind on its own. **The split in what this batch can see is the whole story of these numbers.**
+Neutral cover is engine-placed, so every one of the 60 runs met it in every battle. The player's own
+盾陣 still needs a card played, and `sim.gd::_pick_deploy` skips `class == &"fortification"` — so on
+the player's side the inversion is pure loss and no gain: the enemy's 正規軍 screens went from
+eating one melee swing to eating 3–5 of the bot's arrows, while the bot fields no wall of its own.
+Read every number below through that asymmetry; it is a property of the bot, not of the rule.
+
+- **Hard-difficulty world wars fell again, 86% → 74%** (28/38), while easy rose to 98% (39/40) and
+  normal to 97% (37/38). This is the largest single-wave move in the hard WW figure since ADR-0006's
+  air rules created the wall (95% → 79% → 86% → **74%**). Mechanism, in the order the effects bite:
+  the enemy's screen now absorbs 3–5 of the bot's ranged shots instead of one melee swing; both
+  camps' hurt survivors take neutral cover, which is symmetric on paper but favours the side with
+  more bodies on the field (gen-35 正規軍 camps, and hard multiplies their stats by 1.2); and the
+  bot's answer to bomber-heavy camps is ranged fire, which is exactly what cover absorbs. *PM call:
+  74% on hard with 97–98% below it is the sharpest difficulty separation this report has ever
+  measured. Is that the intended shape of gen 15/35, or has the wall gone from steep to unfair?*
+- **The player's 盾陣 is still unmeasured, and now it is the biggest hole in the report.** Its
+  3～5-shot budget is the strongest damage reduction in the game and the batch has never seen one on
+  the player's side. **PLAN.md W16** is the scheduled fix (a fort branch in `_pick_deploy` plus an
+  engineer-follows-wall rule); until it lands, treat the hard WW figure as "what happens to a player
+  who never builds cover while the enemy has it", not as the rule's value.
+- **Money went the other way from W14.7, and the debt clock did not.** Final treasury rose on normal
+  (~8660 → ~9140) and hard (~8250 → ~9050) — longer battles kill fewer of the bot's units per
+  round, so it refields less — but generations-in-debt still rose on hard (9.1 → 10.4) and its worst
+  debt deepened to −1087. The late-game money pile this report has flagged as sink-less for four
+  rounds is therefore back near its pre-W14.7 level. *PM call: the sink question stands.*
+- **The gen-13 collapse did not reproduce.** Collapses are back to 2/60 (seed 18 on normal and hard,
+  both the known gen-4 pop-5 opening trap); W14.7's mid-game collapse at gen 13 is gone. Battles
+  resolving differently reshuffles the `battle` rng track for the whole run, so this is a
+  distribution reading, not a repair: **per-seed comparison against the 2026-07-28 batch is
+  meaningless.** The chain proved it can kill outside the opening once, and one batch not showing it
+  is not evidence it cannot.
+- **Hard's final rank slipped 2.2 → 2.6** (range now 1–5), consistent with losing a quarter of its
+  world wars: reparations paid instead of collected.
+- **Nothing in the 3～5 band was tuned to any of this**, per the standing rule at the foot of this
+  file. The band came from the human's ruling (ADR-0010) and the tiers it is matched against.
 
 ## Cover-chain delta (W14.7) — measured, and mostly not measurable
 
@@ -156,14 +198,15 @@ or is "your first riot can end the run" the intended teeth of the opening?*
 
 ## Standing imbalances (unchanged from the pre-rewrite report)
 
-- **Late-game money still has no sink** (~8,250–9,200 final treasury; WW reparations add to it).
+- **Late-game money still has no sink** (~9,000–9,150 final treasury; WW reparations add to it).
   If gen-50 wealth should mean something, the design needs a late sink or the ranking should
-  weigh it. W14.7's heavier battles took the pile down ~10% without changing the shape.
+  weigh it. W14.7's heavier battles took the pile down ~10%; W14.9's longer ones put it back.
 - **Rival churn is high**: ~3 of 5 rivals die per run; WW camps are thin by gen 35.
 - **隱藏災難 mitigation is a money wash** — flagged in docs/decisions.md (W2 gaps).
-- **Difficulty channels work**: hard drops mean rank to 2.2, costs ~1 policy node, holds the WW
-  win-rate gap it gained in W14.5, and keeps the deepest debt band (worst case −794 hard, −1150
-  normal — debt depth is no longer monotone in difficulty). Slopes remain usable as v1.
+- **Difficulty channels work**: hard drops mean rank to 2.6, costs ~1 policy node, carries the whole
+  WW win-rate gap (74% against 97–98%), and keeps the deepest debt band (worst case −1087 hard,
+  −576 easy — debt depth is no longer monotone in difficulty). Slopes remain usable as v1, but the
+  hard WW gap is now wide enough to be a design question rather than a slope (see W14.9 above).
 
 ## Caveats
 
@@ -172,6 +215,7 @@ military, never plays skill or fortification cards, **never answers air delibera
 fields the cheapest unit, so 弓箭團 only when the cheap 步兵團 are spent), never uses psyops,
 and always accepts first-seen rewards. Extreme-archetype bots (all-military, all-culture,
 debt-max, never-disband, **fort-and-engineer**) would stress different edges — cheap follow-up
-if wanted, and the fort archetype is the only way to get the ADR-0006/0007/0008 knobs (軍費 3 and 4,
-同場上限 2, one repair per round, the rescoped 盾陣 interception) under measurement. Medal telemetry is total levels only;
+if wanted, and the fort archetype (**PLAN.md W16**) is the only way to get the
+ADR-0006/0007/0008/0010 knobs (軍費 3 and 4, 同場上限 2, one repair per round, and 盾陣's 3～5-shot
+ranged budget) under measurement. Medal telemetry is total levels only;
 per-stat/per-lane splits are not yet instrumented.

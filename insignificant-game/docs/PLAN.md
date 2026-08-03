@@ -275,7 +275,7 @@ every green wave.
             *Gate:* human pick-gate sign-off (done); 19 ids frozen with tiers; `inventory.md` and
             `AssetPaths.SCATTER` updated; Part A green.
 
-- [ ] **W14.9 — Cover model delta: cover stops bullets, not people (ADR-0010).** Human design round
+- [x] **W14.9 — Cover model delta: cover stops bullets, not people (ADR-0010).** Human design round
       on top of the W14.8 pick gate, and a rule change to `core/battle.gd` + `test/battle_test.gd`
       before the view draws any of it.
       **盾陣 inverts**: it absorbs *ranged* fire aimed at the 遠程列 with a 3～5-shot budget rolled
@@ -303,6 +303,27 @@ every green wave.
       Record the gap in `balance-report.md` pointing at W16; do not tune 3～5 to batch output.
       *Gate:* Part A green (gdUnit4 + `check_design_graph.py`, exit 0), timeline fixture re-exported
       and `check_motion_demo.js` green. Part B still down until W15.
+      *(done 2026-08-03: full suite exit 0 — 21/21 suites, **250/250 cases** (10 new in battle_test,
+      5 rewritten off the retired melee interception); `check_design_graph.py` exit 0 (14 docs, 62
+      edges, 59 `code:` mappings, 0/0); fixture re-exported and byte-stable on a re-run; renderer
+      check exit 0. Part B still down until W15. `battle.barriers` is the shared unowned array, one
+      barrier per barrier-carrying prop of that battle type read through the new
+      `AssetPaths.scatter_barrier_props` — the single place a rule reads the art registry, and
+      **every fixture era now exercises neutral cover** because 世界大戰 ground carries two.
+      Absorption reuses `intercept` (now carrying `shots_left` plus exactly one of `card_id` /
+      `barrier`) rather than adding a third event name to a contract two replayers read; the two new
+      events are `take_cover` (with an empty `barrier` meaning "covered by nothing now", the same
+      convention `take_station` uses) and `barrier_destroyed`. Cover-seeking fires twice: at the hit
+      that hurt the unit and at the round boundary for anyone exposed or arriving hurt.
+      **The batch re-run measured the enemy's half of the rule and none of the player's**, exactly as
+      this wave predicted, and the measured half moved hard: **hard-difficulty world wars fell
+      86% → 74%** while easy/normal rose to 98%/97%, because the enemy's 正規軍 screen went from
+      eating one melee swing to eating 3–5 of the bot's arrows while the bot still fields no wall of
+      its own. Money recovered (~9,000–9,150 on all three), hard's debt clock worsened (10.4
+      generations, worst −1087), and W14.7's gen-13 collapse did not reproduce (2/60, both the
+      opening trap). All surfaced in balance-report.md with the asymmetry stated; the 3～5 band was
+      not touched. Gap decisions (11 new rows): decisions.md W14.9; conventions:
+      implementation-notes.md W14.9.)*
 - [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
       Operations city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips,
       controller focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route

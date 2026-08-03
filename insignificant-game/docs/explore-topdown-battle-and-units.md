@@ -105,8 +105,10 @@ What the simulator did:
   ground-only); then 盾陣 intercepting one melee attack aimed at a ground unit; then accuracy,
   then dodge. Engineers never attack and repair one disabled fortification per round, round-robin.
   Fortifications are the player side's alone, as in core, and 防空飛彈 exists from 工業 onward only.
-  ADR-0008 then narrowed the interception to the 遠程列 and gave 正規軍 screens of their own, and
-  W14.7 deleted this whole roll order from the page instead of patching it. What replaced it: the
+  ADR-0008 then narrowed the interception to the 遠程列 and gave 正規軍 screens of their own,
+  ADR-0010 inverted it again (the wall absorbs *ranged* fire on a 3～5-shot budget and melee walks
+  around it, with neutral scatter as unowned cover), and W14.7 deleted this whole roll order from
+  the page instead of patching it — which is why neither of those rounds needed a rule edit here. What replaced it: the
   page reads a tick-stamped event list and animates each entry where it stands, and
   `docs/tools/check_motion_demo.js` became a renderer check — fixture freshness, cover-chain
   staging, and a grep that fails if any rule code comes back

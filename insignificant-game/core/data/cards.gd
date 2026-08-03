@@ -194,11 +194,13 @@ const CARDS: Dictionary = {
 		"era_names": ["木盾牆", "盾陣", "城垛", "沙包工事", "電網", "複合裝甲牆"],
 		"disband_pop": 0,
 		"destroyed_on_use": false,
-		# screens_ranged_row: 盾陣＝遠程列的掩體 (ADR-0008). One card is one wall segment spanning
-		# the ranged row's frontage, not a shield on one named unit. It ignores attack value,
-		# intercepts one melee attack aimed at a unit in the 遠程列 — and nothing else — and is
-		# disabled by the interception: never removed, never consumed, repairable by engineers
-		# (ADR-0007). Also disabled by siege/air strikes.
+		# screens_ranged_row: 盾陣＝遠程列的擋彈牆 (ADR-0008 row scope, ADR-0010 attack type). One
+		# card is one wall segment spanning the ranged row's frontage, not a shield on one named
+		# unit. It ignores attack value and absorbs RANGED fire aimed at a unit in the 遠程列 — and
+		# nothing else — with a 3～5-shot budget rolled per wall at 佈陣 (Battle.BARRIER_SHOTS);
+		# 近戰 walks around it and engages the row directly. 吸滿發數 disables it: never removed,
+		# never consumed, repairable by engineers and re-rolled when they do (ADR-0007). Also
+		# disabled by siege/air strikes.
 		"flags": [&"screens_ranged_row"],
 	},
 	&"anti_air": {

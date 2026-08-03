@@ -45,6 +45,27 @@ func _stations(report: Dictionary) -> Dictionary:
 	return out
 
 
+func _events_of(report: Dictionary, event_type: StringName) -> Array:
+	var out: Array = []
+	for event: Dictionary in (report["events"] as Array):
+		if event["type"] == event_type:
+			out.append(event)
+	return out
+
+
+func _ranged_pressure(state: GameState, battle: Battle.BattleField, speed: float = 1.0) -> void:
+	# The enemy field reduced to ONE 遠程列 attacker that is not a sieger. 非正規軍 stand in the
+	# 近戰列 unless they carry 帶攻城, and a sieger busts a wall instead of shooting past it, so real
+	# ranged pressure means a 正規軍 弓箭團. `speed` buys shots per window: a wall's whole 3～5-shot
+	# budget can be spent inside one round.
+	battle.enemy_units.clear()
+	battle.waves.clear()
+	battle.next_wave = 0
+	var archer: Dictionary = Battle.regular_unit(state, &"archers", &"enemy", &"enemy", null)
+	archer["speed"] = speed
+	battle.enemy_units.append(archer)
+
+
 # --- waves ---
 
 func test_wave_roll_deterministic_and_within_window() -> void:
@@ -225,87 +246,220 @@ func test_fort_limit_two() -> void:
 	assert_that(Battle.deploy(s, battle, 0)["reason"]).is_equal(&"fort_limit")
 
 
-# --- the cover chain: 盾陣 screens the 遠程列 (ADR-0008) ---
+# --- the cover chain: 盾陣 absorbs ranged fire aimed at the 遠程列 (ADR-0008 + ADR-0010) ---
 
-func test_screen_intercepts_melee_aimed_at_the_ranged_row() -> void:
+func test_wall_absorbs_ranged_fire_until_its_budget_empties() -> void:
+	# ADR-0010 inverts ADR-0008's interception: the wall eats 遠程火力 aimed at the row it screens,
+	# 3～5 shots' worth, and 吸滿發數 is what disables it.
 	var s := _state()
-	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)          # silent 遠程列 unit: the row being screened
-	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
-	var battle := Battle.start(s, &"riot")           # 中×1 (攻2), melee
-	_deploy_id(s, battle, &"archers")
-	_deploy_id(s, battle, &"shield_wall")
-	var report := Battle.end_round(s, battle)
-	assert_int(battle.player_forts.size()).is_equal(1)   # 本場永不移除, even with no engineer
-	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
-	assert_bool(_has_event(report, &"intercept")).is_true()
-	assert_bool(_has_event(report, &"hit")).is_false()   # 無視攻擊力: the attack never landed
-	# a disabled 盾陣 intercepts nothing and nobody repairs it: the next attack reaches the unit
-	var second := Battle.end_round(s, battle)
-	assert_bool(_has_event(second, &"intercept")).is_false()
-	assert_bool(_has_event(second, &"hit")).is_true()
-
-
-func test_screen_ignores_melee_aimed_at_the_melee_row() -> void:
-	# The 工事線 stands BEHIND the 近戰列 (ADR-0008), so an attack on the front layer lands in
-	# front of the wall. This is the whole difference from ADR-0007's ground-unit scope.
-	var s := _state()
-	_craft(s, &"infantry", 1, 0.0, 0.0, 0.0)         # silent 近戰列 unit, hp 2
-	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)          # the screened row, behind the wall
+	_craft(s, &"archers", 4, 0.0, 0.0, 0.0)          # silent 遠程列 unit: the row being screened
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
-	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"shield_wall")
+	_ranged_pressure(s, battle)                      # one shot per round, so the budget is visible
+	var budget: int = int(battle.player_forts[0]["shots"])
+	assert_int(budget).is_between(3, 5)              # 佈陣時抽定 3～5 發
+	for i: int in range(budget):
+		var report := Battle.end_round(s, battle)
+		var absorbed: Array = _events_of(report, &"intercept")
+		assert_int(absorbed.size()).is_equal(1)
+		assert_that(absorbed[0]["card_id"]).is_equal(&"shield_wall")
+		assert_int(int(absorbed[0]["shots_left"])).is_equal(budget - i - 1)
+		assert_bool(_has_event(report, &"hit")).is_false()   # 無視攻擊力: nothing resolves
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	assert_int(battle.player_forts.size()).is_equal(1)       # 本場永不移除, even with no engineer
+	# a disabled 盾陣 absorbs nothing and nobody repairs it: the next shot reaches the unit
+	assert_bool(_has_event(Battle.end_round(s, battle), &"hit")).is_true()
+
+
+func test_melee_walks_around_the_wall_and_engages_the_ranged_row() -> void:
+	# 牆擋的是子彈，不是人 (ADR-0010): 近戰啃完近戰列後直接繞過牆打遠程列. This is the exact rule
+	# ADR-0008 had backwards, so it is asserted from both ends — the wall never fires, and the rock
+	# the hurt unit dives behind does not stop a fist either.
+	var s := _state()
+	_craft(s, &"archers", 4, 0.0, 0.0, 0.0)          # hp 5: survives the mob's 攻2 twice
+	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
+	var battle := Battle.start(s, &"riot")           # 中×1 (攻2), 近戰列
 	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"shield_wall")
 	var report := Battle.end_round(s, battle)
 	assert_bool(_has_event(report, &"intercept")).is_false()
 	assert_bool(_has_event(report, &"hit")).is_true()
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()   # never fired, never down
-	# with the 近戰列 chewed through, the same attack now reaches the 遠程列 and the wall fires
-	assert_bool(battle.player_units[0]["card_id"] == &"archers").is_true()
-	var second := Battle.end_round(s, battle)
-	assert_bool(_has_event(second, &"intercept")).is_true()
+	assert_int(int(battle.player_forts[0]["shots"])).is_between(3, 5)  # budget untouched
+	assert_bool(_has_event(report, &"take_cover")).is_true()           # hurt, so it fell back
+	assert_bool(_has_event(Battle.end_round(s, battle), &"hit")).is_true()
 
 
-func test_screen_with_no_ranged_unit_never_fires() -> void:
-	# docs/decisions.md W14.6: an all-melee deck buys a wall that never fires and never disables.
+func test_wall_ignores_ranged_fire_aimed_at_the_melee_row() -> void:
+	# The 工事線 stands BEHIND the 近戰列 (ADR-0008), so a shot at the front layer lands in front of
+	# the wall. Same for a wall with nothing behind it at all: an all-melee deck buys a screen that
+	# never fires and never disables (docs/decisions.md W14.6).
 	var s := _state()
 	_craft(s, &"elite_forces", 3, 0.0, 0.0, 0.0)     # silent 近戰列 sponge, hp 12
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
 	_deploy_id(s, battle, &"elite_forces")
 	_deploy_id(s, battle, &"shield_wall")
+	_ranged_pressure(s, battle)
+	var first := Battle.end_round(s, battle)
+	assert_bool(_has_event(first, &"hit")).is_true()
+	assert_bool(_has_event(first, &"intercept")).is_false()
+	# the neutral rock it dove behind is what covers it instead — cover with no owner and no row
+	assert_that(battle.player_units[0]["cover"]).is_equal(&"scat_riot_crate")
 	for i: int in range(3):
-		var report := Battle.end_round(s, battle)
-		assert_bool(_has_event(report, &"intercept")).is_false()
+		Battle.end_round(s, battle)
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_false()
+	assert_int(int(battle.player_forts[0]["shots"])).is_between(3, 5)
 
 
 func test_regular_army_fields_a_screen_it_can_never_repair() -> void:
 	# 正規軍也出盾陣 (戰鬥.md 對手兩型): the wave that brings a 遠程列 regular brings the wall that
-	# covers it, so 帶攻城 has something to bust. There is no enemy 工兵團, so once your melee
-	# strips it the screen stays down for the rest of the battle — the engineer line's value.
+	# covers it. There is no enemy 工兵團, so once your 遠程列 has spent its budget the screen stays
+	# down for the rest of the battle — the engineer line's value.
 	var s := _state()
 	Rivals.setup(s)
 	var rival := Rivals.find(s, &"iron_tribe")
 	rival.power = 30.0                               # wave 1: cavalry + archers → one screen
-	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)       # a repairer, on the WRONG side of the wall
-	_craft(s, &"cavalry", 4, 100.0, 0.0, 2.0)        # atk 8: clears the melee row, then the rest
+	_craft(s, &"archers", 1, 0.0, 0.0, 6.0)          # six shots a round, enough for any budget
 	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
 	assert_int(battle.enemy_forts.size()).is_equal(1)
 	assert_that(battle.enemy_forts[0]["card_id"]).is_equal(&"shield_wall")
-	_deploy_id(s, battle, &"engineers")
-	_deploy_id(s, battle, &"cavalry")
-	var disabled := false
-	for i: int in range(4):
-		if battle.outcome != &"":
-			break
-		if _has_event(Battle.end_round(s, battle), &"intercept"):
-			disabled = true
-			break
-	assert_bool(disabled).is_true()                  # our melee reached their 遠程列
+	var budget: int = int(battle.enemy_forts[0]["shots"])
+	assert_int(budget).is_between(3, 5)
+	battle.enemy_units.clear()                       # only their 遠程列 left, so our fire is screened
+	battle.enemy_units.append(Battle.regular_unit(s, &"archers", &"enemy", &"enemy", rival))
+	battle.enemy_units[0]["speed"] = 0.0             # silent: isolate the wall
+	_deploy_id(s, battle, &"archers")
+	var report := Battle.end_round(s, battle)
+	assert_int(_events_of(report, &"intercept").size()).is_equal(budget)
 	assert_bool(bool(battle.enemy_forts[0]["disabled"])).is_true()
 	Battle.end_round(s, battle)
 	assert_bool(bool(battle.enemy_forts[0]["disabled"])).is_true()   # 敵方的工事永不修復
+
+
+# --- 中立掩體: neutral cover, first come, either side (ADR-0010) ---
+
+func test_barrier_roster_comes_from_the_battle_types_own_ground() -> void:
+	# One barrier per barrier-carrying prop in this battle type's approved scatter roster, read off
+	# `AssetPaths.SCATTER` and never invented here (docs/decisions.md W14.9). 隱藏戰's zero is the
+	# identity of that ground, not an oversight.
+	var s := _state(21)
+	assert_int(Battle.start(s, &"hidden_battle").barriers.size()).is_equal(0)
+	var riot := Battle.start(s, &"riot")
+	assert_int(riot.barriers.size()).is_equal(1)
+	assert_that(riot.barriers[0]["prop"]).is_equal(&"scat_riot_crate")
+	assert_that(riot.barriers[0]["tier"]).is_equal(&"weak")
+	assert_int(int(riot.barriers[0]["shots"])).is_between(1, 2)
+	assert_bool(bool(riot.barriers[0]["destroyed"])).is_false()
+	var war := _world_war_field(s, &"infantry")
+	assert_int(war.barriers.size()).is_equal(2)
+	assert_that(war.barriers[0]["tier"]).is_equal(&"weak")
+	assert_that(war.barriers[1]["tier"]).is_equal(&"medium")
+	assert_int(int(war.barriers[1]["shots"])).is_between(2, 3)
+	# rolled on the &"battle" track, so the same seed lays out the same cover
+	assert_str(str(_world_war_field(_state(7), &"infantry").barriers)) \
+		.is_equal(str(_world_war_field(_state(7), &"infantry").barriers))
+
+
+func test_hurt_land_unit_takes_cover_and_the_rock_eats_the_next_bullets() -> void:
+	var s := _state()
+	_craft(s, &"infantry", 4, 0.0, 0.0, 0.0)         # silent 近戰列 sponge, hp 10
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_ranged_pressure(s, battle)
+	var first := Battle.end_round(s, battle)
+	assert_bool(_has_event(first, &"hit")).is_true()          # unhurt, so nothing covers it yet
+	var covered: Array = _events_of(first, &"take_cover")
+	assert_int(covered.size()).is_equal(1)
+	assert_that(covered[0]["unit"]).is_equal(&"infantry")
+	assert_that(covered[0]["barrier"]).is_equal(&"scat_riot_crate")
+	assert_that(covered[0]["tier"]).is_equal(&"weak")
+	assert_int(int(covered[0]["tick"])).is_greater(0)         # the moment it was hit, not the boundary
+	# from here the rock takes the fire, 弱＝擋 1～2 發, and the shot that empties it destroys it
+	var shots: int = int(battle.barriers[0]["shots"])
+	var last: Dictionary = {}
+	for i: int in range(shots):
+		last = Battle.end_round(s, battle)
+		var absorbed: Array = _events_of(last, &"intercept")
+		assert_int(absorbed.size()).is_equal(1)
+		assert_that(absorbed[0]["barrier"]).is_equal(&"scat_riot_crate")
+		assert_that(absorbed[0]["card_id"]).is_equal(&"")     # 中立: no owner, so no card
+		assert_bool(_has_event(last, &"hit")).is_false()
+	assert_bool(_has_event(last, &"barrier_destroyed")).is_true()
+	assert_bool(bool(battle.barriers[0]["destroyed"])).is_true()
+	assert_that(battle.player_units[0]["cover"]).is_equal(&"")   # exposed again
+	assert_bool(_has_event(Battle.end_round(s, battle), &"hit")).is_true()
+
+
+func test_engineers_cannot_bring_a_destroyed_barrier_back() -> void:
+	# 散景不是工事 (戰鬥.md 場景呈現): the one lifecycle difference. A fort waits for the engineer,
+	# a barrier is gone.
+	var s := _state()
+	_craft(s, &"infantry", 4, 0.0, 0.0, 0.0)
+	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"engineers")
+	_ranged_pressure(s, battle)
+	var last: Dictionary = {}
+	for i: int in range(5):
+		last = Battle.end_round(s, battle)
+		if _has_event(last, &"barrier_destroyed"):
+			break
+	assert_bool(_has_event(last, &"barrier_destroyed")).is_true()
+	var exposed: Array = _events_of(last, &"take_cover")
+	assert_that(exposed[exposed.size() - 1]["barrier"]).is_equal(&"")   # nothing covers it now
+	for i: int in range(2):
+		var report := Battle.end_round(s, battle)
+		assert_bool(_has_event(report, &"repair")).is_false()
+		assert_bool(_has_event(report, &"intercept")).is_false()
+	assert_bool(bool(battle.barriers[0]["destroyed"])).is_true()
+
+
+func test_barrier_is_shared_by_both_sides_first_come() -> void:
+	# 掩體先到先用、敵我都能用 — 中立就是這個意思. Here the ENEMY gets the rock, and our own 遠程列
+	# fire is what it absorbs.
+	var s := _state()
+	_craft(s, &"archers", 1, 100.0, 0.0, 1.0)        # 攻1, one shot a round
+	var battle := Battle.start(s, &"riot")           # 中×1: hp 4, 近戰列
+	_deploy_id(s, battle, &"archers")
+	battle.enemy_units[0]["speed"] = 0.0             # silent mob: isolate who takes cover
+	battle.waves.clear()
+	battle.next_wave = 0
+	var covered: Array = _events_of(Battle.end_round(s, battle), &"take_cover")
+	assert_int(covered.size()).is_equal(1)
+	assert_that(covered[0]["side"]).is_equal(&"enemy")
+	assert_that(covered[0]["unit"]).is_equal(&"medium")
+	var second := Battle.end_round(s, battle)
+	var absorbed: Array = _events_of(second, &"intercept")
+	assert_int(absorbed.size()).is_equal(1)
+	assert_that(absorbed[0]["side"]).is_equal(&"player")   # the shooter's side, as ever
+	assert_bool(_has_event(second, &"hit")).is_false()
+
+
+func test_air_never_takes_cover_and_bombs_are_never_absorbed() -> void:
+	# ADR-0006 stands untouched: cover absorbs 遠程列 fire only, 空襲 comes from above it, and
+	# 空域 units do not hide behind ground dressing (docs/decisions.md W14.9).
+	var s := _state(5)
+	s.generation = 25                                # industrial: 轟炸機 has a form
+	_craft(s, &"bomber", 4, 100.0, 0.0, 1.0)
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"bomber")
+	battle.player_units[0]["attack"] = 1             # keep the mob alive: the point is the path
+	battle.waves.clear()
+	battle.next_wave = 0
+	var first := Battle.end_round(s, battle)
+	assert_bool(_has_event(first, &"take_cover")).is_true()      # the mob dives behind the crate
+	var second := Battle.end_round(s, battle)
+	assert_bool(_has_event(second, &"intercept")).is_false()     # 空襲不被掩體吸收
+	assert_bool(_has_event(second, &"hit")).is_true()
+	assert_int(int(battle.barriers[0]["shots"])).is_between(1, 2) # and the rock is untouched
+	# our bomber is being shot at by the mob and still never takes cover
+	_ranged_pressure(s, battle)
+	Battle.end_round(s, battle)
+	assert_that(battle.player_units[0]["cover"]).is_equal(&"")
 
 
 func test_irregulars_field_no_works_even_in_the_ranged_row() -> void:
@@ -337,14 +491,15 @@ func test_take_station_names_the_wall_that_covers_the_row() -> void:
 
 func test_take_station_re_emits_when_the_screen_changes() -> void:
 	var s := _state()
-	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"archers", 4, 0.0, 0.0, 0.0)
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
 	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"engineers")
 	_deploy_id(s, battle, &"shield_wall")
-	Battle.end_round(s, battle)                             # the wall intercepts and goes down
+	_ranged_pressure(s, battle, 6.0)                        # spends the whole budget in one round
+	Battle.end_round(s, battle)                             # the wall absorbs its 3-5 and goes down
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
 	var second := Battle.end_round(s, battle)               # 工兵 repairs it: the cover is back
 	assert_bool(_has_event(second, &"repair")).is_true()
@@ -357,35 +512,40 @@ func test_take_station_re_emits_when_the_screen_changes() -> void:
 # --- fortifications: disable & repair, never removed (ADR-0007) ---
 
 
-func test_engineer_repairs_one_disabled_fort_per_round() -> void:
+func test_engineer_repairs_one_disabled_fort_per_round_and_it_rolls_a_fresh_budget() -> void:
 	var s := _state()
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)       # support: never fires
+	_craft(s, &"archers", 4, 0.0, 0.0, 0.0)          # the 遠程列 the wall screens
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
 	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"shield_wall")
+	_ranged_pressure(s, battle, 6.0)                 # six shots a round: any budget empties
 	Battle.end_round(s, battle)
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
+	assert_int(int(battle.player_forts[0]["shots"])).is_equal(0)
 	var report := Battle.end_round(s, battle)
 	assert_bool(_has_event(report, &"repair")).is_true()
-	# 修復再啟用: the repaired wall intercepts again in the same round it came back, so the
-	# 工兵+盾陣 pair is a suppression duel — one repair per round against one attack per round.
+	# 修復再啟用: the wall comes back with a NEWLY ROLLED budget and absorbs from the same round,
+	# so the 工兵+盾陣 pair is a suppression duel — one repair a round against the incoming fire.
 	assert_bool(_has_event(report, &"intercept")).is_true()
-	assert_bool(_has_event(report, &"hit")).is_false()
 	assert_int(battle.player_forts.size()).is_equal(1)
+	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()   # six shots emptied it again
 
 
 func test_engineer_arriving_late_repairs_older_damage() -> void:
-	# ADR-0007: the engineer-present-at-interception conditional is gone — all that matters is
-	# that an engineer eventually stands on the side.
+	# ADR-0007: the engineer-present-at-the-hit conditional is gone — all that matters is that an
+	# engineer eventually stands on the side.
 	var s := _state()
-	_craft(s, &"archers", 1, 0.0, 0.0, 0.0)           # 遠程列: the row the wall screens
+	_craft(s, &"archers", 4, 0.0, 0.0, 0.0)           # 遠程列: the row the wall screens
 	_craft(s, &"engineers", 1, 0.0, 10.0, 0.0)
 	s.deck.append(Cards.CardInstance.new(&"shield_wall", 1))
 	var battle := Battle.start(s, &"riot")
 	_deploy_id(s, battle, &"archers")
 	_deploy_id(s, battle, &"shield_wall")
-	Battle.end_round(s, battle)                       # disabled with nobody to fix it
+	_ranged_pressure(s, battle, 6.0)
+	Battle.end_round(s, battle)                       # emptied with nobody to fix it
 	assert_bool(bool(battle.player_forts[0]["disabled"])).is_true()
 	_deploy_id(s, battle, &"engineers")               # arrives a round later
 	assert_bool(_has_event(Battle.end_round(s, battle), &"repair")).is_true()

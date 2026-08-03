@@ -3,6 +3,9 @@ extends RefCounted
 # Approved-art registry (assets/pipeline/style-bible.md §9-§10 + assets/pipeline/manifest.jsonl).
 # Pure data: id -> res:// path strings plus the frozen-template geometry measured at freeze time.
 # Only manifest status=approved assets appear here; the view loads textures, core never does.
+# ONE EXCEPTION to "art bookkeeping only": SCATTER's `barrier` column is a game value that
+# design/戰鬥.md §場景呈現 defines (ADR-0010), because how much neutral cover a battle fields is a
+# property of its approved ground. `Battle` reads it through `scatter_barrier_props`.
 # Icon asset ids mirror assets/approved/icons/icon_<id>.png; canonical code ids (architecture.md)
 # map through the icon_* helpers (policy &"centralization" -> icon asset &"policy_centralization").
 
@@ -260,14 +263,20 @@ static func has_scatter(prop: StringName, variant: int) -> bool:
 	return FileAccess.file_exists(scatter(prop, variant))
 
 
-static func scatter_barriers(battle_type: StringName) -> int:
-	# How many neutral barriers this ground fields (ADR-0010): one per barrier-carrying prop.
-	# Rules read this, not just the view — see the SCATTER comment.
-	var count: int = 0
+static func scatter_barrier_props(battle_type: StringName) -> Array[Dictionary]:
+	# The barrier-carrying props on this ground, in table order (ADR-0010). `Battle` places one
+	# 中立掩體 per row here and rolls its budget from `barrier`, so this is a RULE read, not an art
+	# lookup — see the SCATTER comment. Decorative props (tier none) are the view's alone.
+	var out: Array[Dictionary] = []
 	for prop: Dictionary in SCATTER.get(battle_type, [] as Array):
 		if StringName(prop["barrier"]) != &"none":
-			count += 1
-	return count
+			out.append(prop)
+	return out
+
+
+static func scatter_barriers(battle_type: StringName) -> int:
+	# How many neutral barriers this ground fields: one per barrier-carrying prop.
+	return scatter_barrier_props(battle_type).size()
 
 
 static func card(line: StringName, era: int) -> String:

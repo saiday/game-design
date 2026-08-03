@@ -122,6 +122,34 @@
   battles; harmless (an earlier honest loss) for capped ones. `Turn.run_world_war` is
   deleted; `view/main.gd`'s stale call is part of the known W15 debt.
 
+### W14.9 — the cover model (ADR-0010)
+
+- **Cover is one mechanism with two owners.** A 盾陣 and a 中立掩體 spend the same kind of budget
+  against the same kind of attack; the only differences are ownership (a wall belongs to a side and
+  screens a whole row, a barrier belongs to nobody and shelters its one occupant) and lifecycle
+  (`disabled` and repairable vs `destroyed` for good). They share `Battle.BARRIER_SHOTS`, and 盾陣
+  reads the `&"hard"` band rather than carrying numbers of its own — the equivalence *is* the rule.
+- **`battle.barriers` is the first field state that is not `player_*`/`enemy_*`.** Anything shared by
+  both camps goes in a single array with occupancy recorded on the *unit* (`unit["cover"]`), not on
+  the shared object: a dead unit releases its cover for free, with no release path to forget.
+- **Absorption is pre-roll and costs one shot regardless.** The `kind == &"ranged"` chain in `_fire`
+  runs before `state.rng.chance`, so cover is spent by volume of fire and not by quality of it.
+- **Units carry `max_hp`.** Added because 受傷 needed a definition (`hp < max_hp`); it is the only
+  new unit field, and nothing else reads it yet.
+- **Two cover-seeking moments, one function.** `_seek_cover` fires from the hit that hurt a unit
+  (so the fallback is visible where the player expects it) and from `_seek_cover_all` at the round
+  boundary (the "next opportunity" for anyone exposed or arriving hurt). Fixed order — player deploy
+  order, then enemy — is what makes 先到先用 deterministic.
+- **A rule may read `core/data/asset_paths.gd`.** The `barrier` column of `SCATTER` is a game value
+  living in the art registry because the count of neutral cover per battle type is a property of that
+  battle's approved ground (decisions.md W14.9). `Battle` reads it through
+  `AssetPaths.scatter_barrier_props`; it is the one such read in the codebase, and it is not a
+  precedent for reading art paths from rules.
+- **`intercept` outgrew its name and kept it.** The event now means "cover absorbed a ranged shot"
+  and carries `shots_left` plus exactly one of `card_id` / `barrier`. Renaming it would have broken
+  both replayers for the second time in three waves (W14.5 already did `absorb` → `intercept`), and
+  a payload extension is the cheaper truth. The glossary and the contract table say what it means.
+
 ## Deviations (conservative calls made mid-wave; revisit out loud, not silently)
 
 - **2026-07-24 / W11 — plan's "era_names untouched" line is stale.** The rewrite plan's blast
@@ -260,3 +288,24 @@
      W15 view needs from the timeline should be checked against
      `docs/fixtures/battle_timeline.json` first: if the fixture can't express it, the contract
      can't either.
+- **W14.9 (cover model delta, ADR-0010): done 2026-08-03.** Files: `core/battle.gd` (shared
+  `battle.barriers`, the 盾陣 melee→ranged inversion with a rolled 3～5-shot budget, automatic
+  cover-seeking, `max_hp`/`cover` on every unit), `core/data/asset_paths.gd`
+  (`scatter_barrier_props`, the rule's read of the `barrier` column), `core/data/cards.gd`
+  (盾陣's flag comment), `test/battle_test.gd` (+10 cases, 5 rewritten off the retired melee
+  interception), `docs/architecture.md` (`take_cover` + `barrier_destroyed` events, `intercept`
+  payload, four glossary rows, the state-vs-events note), `tools/export_timeline.gd` (a
+  `barriers` roster per era) + re-exported fixture, `docs/explore-topdown-motion-demo.html`
+  (draws neutral cover, walks a hurt unit behind it) and `docs/tools/check_motion_demo.js`
+  (barrier roster + destroyed-count checks). Gate met: full suite **exit 0, 21/21 suites,
+  250/250 cases**; exporter byte-stable; renderer check exit 0; `check_design_graph.py` exit 0.
+  Part B still down until W15.
+  Handoff to W15 and W16:
+  1. **Every fixture era now exercises neutral cover** (世界大戰 ground carries two barriers), so
+     the W15 battle scene has a real `take_cover` / `barrier_destroyed` stream to draw against
+     before it fields anything of its own.
+  2. **The view owes placement, and the core will never help it.** `battle.barriers` carries prop
+     id, tier, shots left and (via `unit["cover"]`) who is behind each one. Sizes come from the
+     tier (「體積對應掩體等級」 is a rule), positions from the battle seed.
+  3. **The batch measured the enemy's half of this rule and nothing of the player's** — W16's
+     fort-playing bot is the only way to see 盾陣's budget at all (balance-report.md W14.9).

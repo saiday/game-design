@@ -152,9 +152,11 @@ because they name a different concept or because no identifier uses them.
 | **exhaustion** | `exhausted`, `_check_exhaustion` | The defeat condition: field empty AND nothing left to commit. Per camp in 世界大戰. | rout, wipe |
 | 掩護鏈 cover chain | none: the ordering is implied by each unit's `row` | The formation 近戰列 → 工事線 → 遠程列 → 空域, each layer screening the one behind it (ADR-0008). | formation, front line, 部隊位 (retired) |
 | **station** | `row` (`melee`/`ranged`/`air`/`fortification`/`global`) + `stationed` + `screened_by` | A unit's place in the chain: its row, plus which wall screens it (遠程列 only). Assigned by 自動佈陣, never chosen. | slot, coordinate, position (the core holds none) |
-| 掩護 screen | `screens_ranged_row`, `regular_screens`, `screened_by` | What one layer of the chain does for the layer behind it. Only the 遠程列 is ever screened. | cover, block, absorb |
+| 掩護 screen | `screens_ranged_row`, `regular_screens`, `screened_by` | What one layer of the chain does for the layer behind it. Only the 遠程列 is ever screened, and only against **ranged** fire (ADR-0010). | cover (that is the neutral kind below), block, absorb |
 | 工事 fortification | `fort`, `forts`, `enemy_forts`, `FORT_LIMIT` | A structure occupying the 工事線: disabled and repaired, never removed (ADR-0007). | works; `fortification` as an identifier (no identifier uses it) |
-| 盾陣 wall | `shield_wall` | The screening fort: one card is one segment spanning the 遠程列's frontage. | shield, barrier; not a synonym for 工事 (防空飛彈 is a fort too) |
+| 盾陣 wall | `shield_wall` | The screening fort: one card is one segment spanning the 遠程列's frontage. | shield; not a synonym for 工事 (防空飛彈 is a fort too), and not a synonym for the barrier below (a wall is owned, repairable and in the chain) |
+| 中立掩體 barrier | `barriers`, `BARRIER_SHOTS`, `take_cover`, `unit["cover"]` | Neutral cover: an unowned wall standing on the ground, one per barrier-carrying scatter prop of that battle type, shared first-come by both sides, destroyed rather than disabled when its budget empties (ADR-0010). Not in the 掩護鏈 and not a 工事. | scatter (that is the whole art class, most of which carries no barrier), obstacle, terrain |
+| **absorption budget** | `shots` (on a fort and on a barrier), `shots_left` (on the event) | How many ranged shots this cover can still eat. Rolled per wall / per barrier on the `battle` track, re-rolled when an engineer repairs a wall. | hp, health (a fort and a barrier both have none — 工事讀作建物) |
 | 防空飛彈 battery | `anti_air`, `_fire_anti_air` | The air-defence fort: destroys an aircraft on hit (ADR-0006). | flak, AA, SAM |
 | **power** | `RivalState.power`, `Rivals.player_power` | A civilization's strength scalar, and the only rival state there is. 正規軍 converts it into units when a battle starts. | 攻 / `attack`, a card stat with no relation to it |
 | 正規軍 regular army | `regular`, `regular_unit`, `regular_roster_desc`, `regular_screens` | A civilization's power converted into on-field units at baseline stats. Per battle. | rival deck (there is none; the scalar is the only rival state) |
@@ -167,9 +169,12 @@ because they name a different concept or because no identifier uses them.
 
 **Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots; replaced by assignable 勳章),
 同時結算 (simultaneous resolution; units act on their own attack speed),
-`blocks_melee_once` (a 盾陣 absorbing *any* melee attack; it only intercepts one aimed at the row it
-screens, and the flag is `screens_ranged_row`).
-If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003/0008.
+`blocks_melee_once` (a 盾陣 absorbing *any* melee attack; the flag is `screens_ranged_row`),
+**a 盾陣 stopping melee at all** (ADR-0010 inverted it: cover stops bullets, not people, so 近戰
+walks around a wall and engages the row behind it), **一擊即失效 on a wall** (an emptied budget is
+what disables one now), **decoration-only field scatter** (a barrier-carrying prop is neutral cover
+and rules read it).
+If a doc, comment, or test implies any of these exists, it is stale; fix it. See ADR-0001/0003/0008/0010.
 The 掩護鏈 is **not** a revival of 部隊位: slots were a bounded set of play positions the player
 filled, the chain is an ordering the engine derives from each unit's row.
 
@@ -193,12 +198,20 @@ attribute a strike to a camp without it.
 | `miss` | `by`, `target` | Accuracy roll failed. A miss accrues no 閃避率 XP: the attack never reached the unit. |
 | `dodge` | `by`, `attacker` | Dodge roll succeeded. **`by` is the unit that dodged**, not the attacker (the only entry where `by` is the defender, so `side` is the dodger's). |
 | `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill, or a fort's `card_id` for a shootdown; `side` is the clearer's, so the victim is on the other one. `faction` is the victim's, for 戰功 attribution. |
-| `intercept` | `by`, `card_id` | A 盾陣 intercepted one melee attack (ADR-0008: aimed at the 遠程列) and is now disabled. No accuracy or dodge roll happens. |
+| `intercept` | `by`, `card_id`, `barrier`, `shots_left` | Cover absorbed one **ranged** attack aimed at the unit behind it (ADR-0010; a 盾陣 covers the whole 遠程列, a 中立掩體 covers its own occupant in any row). Exactly one of `card_id` (the wall's card id) and `barrier` (the neutral barrier's prop id) is set, the other `&""`. `shots_left` is what remains of that cover's budget: at `0` a wall is now disabled and a barrier is destroyed. No accuracy or dodge roll happens — 無視攻擊力 means the shot never resolved. |
 | `disable` | `by`, `card_id` | A 帶攻城／空襲 attacker disabled an **active** fort. No roll; the fort is never removed. |
 | `shootdown` | `by`, `target` | A 防空飛彈 destroyed an aircraft. `by` is the fort's `card_id` and `side` is the fort's. Always followed by a `death` at the same tick. |
 | `repair` | `card_id` | 工兵團 restored one disabled fort. Always `tick: 0` (repair opens the window, ahead of the strikes that suppress it). |
 | `medal` | `unit`, `stat`, `level` | A stat's XP filled and the 勳章 landed 當場 at this tick. `level` is the new level. **XP accrual itself emits nothing** — only the medal is visible. |
-| `take_station` | `unit`, `row`, `screened_by` | A unit took its place in the 掩護鏈, at `tick: 0` of the round it joins the field. `screened_by` is the `card_id` of the fort covering it, or `&""` when nothing does (only the 遠程列 is ever screened). Re-emitted for that row whenever its cover changes: a `repair` restores a wall, a deploy adds one, an interception strips one. |
+| `take_station` | `unit`, `row`, `screened_by` | A unit took its place in the 掩護鏈, at `tick: 0` of the round it joins the field. `screened_by` is the `card_id` of the fort covering it, or `&""` when nothing does (only the 遠程列 is ever screened). Re-emitted for that row whenever its cover changes: a `repair` restores a wall, a deploy adds one, an emptied budget strips one. |
+| `take_cover` | `unit`, `barrier`, `tier` | A hurt land unit fell back behind a 中立掩體, or lost the one it had (ADR-0010). `barrier` is the barrier's prop id and `tier` its weak/medium/hard grade; **both are `&""` when the unit is now covered by nothing**, which is how a destroyed barrier's occupant is announced — the same convention `take_station` uses for an unscreened row. Fires at the tick of the hit that hurt the unit, or at `tick: 0` when a later chance frees a barrier up. |
+| `barrier_destroyed` | `by`, `barrier` | The shot that emptied a 中立掩體's budget destroyed it: no engineer, no repair, gone for the rest of the battle. Always preceded by the `intercept` that spent the last shot, at the same tick, and followed by a `take_cover` releasing whoever was behind it. |
+
+**What is state and not an event:** the roster of things on the field — units, forts, and now
+`battle.barriers` — is read from the BattleField, exactly as the two replayers already read `units`
+and `forts`. The timeline only says what *happens* to them. A barrier is named by its scatter prop
+id (`scat_<type>_<prop>`), which is a genuine handle because a battle fields at most one instance per
+prop; where the props stand is the view's business, seeded from the battle's own seed (ADR-0010).
 
 Labels (`by` / `target` / `victim` / `unit`) come from `_unit_label`: a unit's `card_id`, or its
 anonymous `grade` for irregulars. **Labels are not identities** — two 步兵團 on the same *side* share

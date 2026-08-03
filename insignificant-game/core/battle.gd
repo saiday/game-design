@@ -25,11 +25,18 @@ extends RefCounted
 # contract; added in W14.7 when the first replayer needed it).
 #
 # The cover chain (ADR-0008): 自動佈陣 is an ordered chain 近戰列（最前）→ 工事線 → 遠程列 → 空域,
-# each layer screening the one behind it. 盾陣 intercepts one melee attack aimed at the
-# 遠程列 and nothing else; 正規軍 field screens of their own (never 防空飛彈, never repairable);
-# 工兵團 stations in the 遠程列 and works at the 工事線. Still no coordinates: a station is the
-# categorical row plus, for a screened row, which wall covers it — emitted as &"take_station"
-# so the two timeline replayers stage the picture without holding a formation rule.
+# each layer screening the one behind it. 正規軍 field screens of their own (never 防空飛彈, never
+# repairable); 工兵團 stations in the 遠程列 and works at the 工事線. Still no coordinates: a station
+# is the categorical row plus, for a screened row, which wall covers it — emitted as
+# &"take_station" so the two timeline replayers stage the picture without holding a formation rule.
+#
+# Cover stops bullets, not people (ADR-0010): a 盾陣 absorbs RANGED fire aimed at the 遠程列 with a
+# 3～5-shot budget rolled per wall, and 近戰 walks around it and engages the row directly. Neutral
+# field scatter is the same object without an owner: one 中立掩體 per barrier-carrying prop on this
+# battle type's ground, shared first-come by both sides, taken automatically by any land unit that
+# has lost hit points, and DESTROYED rather than disabled when its budget runs out — no engineer,
+# no repair, the one lifecycle difference from a fortification. Slowdown and detour are the view's;
+# the core still has no movement to slow.
 #
 # Design gaps decided here (docs/decisions.md, W12 + W14.5): 正規軍 wave composition greedy
 # strongest-first; mutual simultaneous exhaustion = player 敗北; siege/air prefer ACTIVE
@@ -42,6 +49,12 @@ const RETREAT_COST_BASE: int = 10
 const RETREAT_POP: int = 2
 const FORT_LIMIT: int = 2               # 工事卡同場上限 (CardsData.FORT_FIELD_LIMIT mirror)
 const RIOT_MECH_HAPPINESS: int = 15     # 鎮壓的手段有代價 (design/戰鬥.md)
+
+# 掩體吸收上限, rolled per barrier on the &"battle" track (design/戰鬥.md 場景呈現 + 工事卡):
+# 弱 1～2 發、中 2～3 發、強 3～5 發. 盾陣 rolls the strong band — the equivalence is the rule
+# (ADR-0010), so it reads the same table instead of carrying a second pair of numbers.
+const BARRIER_SHOTS: Dictionary = {&"weak": [1, 2], &"medium": [2, 3], &"hard": [3, 5]}
+const WALL_TIER: StringName = &"hard"   # 盾陣 ＝ 強級掩體
 
 # Engine defaults every enemy fights at (戰鬥.md 對手兩型; calibration knobs).
 const ENEMY_ACCURACY: float = 100.0
@@ -107,6 +120,11 @@ class BattleField:
 	var player_forts: Array[Dictionary] = []
 	var enemy_forts: Array[Dictionary] = []
 	var repair_cursor: int = 0            # round-robin position over player_forts (ADR-0007)
+	var barriers: Array[Dictionary] = []  # 中立掩體 (ADR-0010): the only field entity that belongs
+	                                      # to NOBODY — no player_/enemy_ pair, shared first-come by
+	                                      # both sides. {prop, tier, shots, destroyed}; a destroyed
+	                                      # barrier stays in the array so a replayer can still
+	                                      # resolve the id that named it.
 	var available: Array = []             # unplayed CardInstances (每張卡每場只出一次)
 	var conceded: bool = false            # 還有未出卡但選擇不出 (voluntary exhaustion)
 	var spent: int = 0                    # 本場已燒軍費 (UI shows vs expected_reward)
@@ -164,7 +182,8 @@ static func start(state: GameState, battle_type: StringName, rival_id: StringNam
 	if bool(state.flags.get(&"enemy_psyops_next_battle", false)):
 		battle.psyops_active = true   # D16: 下場戰命中率減益 — this battle consumes the flag
 		state.flags.erase(&"enemy_psyops_next_battle")
-	_arrive_waves(battle)   # wave 1 (敵方開場單位 became wave 1)
+	_place_barriers(state, battle)
+	_arrive_waves(state, battle)   # wave 1 (敵方開場單位 became wave 1)
 	return battle
 
 
@@ -213,7 +232,7 @@ static func deploy(state: GameState, battle: BattleField, available_index: int) 
 		battle.mechanical_played = true
 	match entry["class"]:
 		&"fortification":
-			battle.player_forts.append(_fort_from_card(instance))
+			battle.player_forts.append(_fort_from_card(state, instance))
 		&"skill":
 			_cast_skill(state, battle, instance)
 			if bool(entry["destroyed_on_use"]):
@@ -245,8 +264,9 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 	if battle.outcome != &"":
 		return {"outcome": battle.outcome, "events": []}
 	var events: Array[Dictionary] = []
-	_repair_forts(battle, events)
+	_repair_forts(state, battle, events)
 	_take_stations(battle, events)   # after the repair: a restored wall screens from this round
+	_seek_cover_all(battle, events)  # 下一個機會 for anyone hurt and uncovered (ADR-0010)
 	_refresh_player_stats(state, battle)
 	# 爛仗時候才宣揚愛與和平: after round 5, destroy one non-leader enemy.
 	if battle.love_and_peace_armed and battle.round >= 5:
@@ -264,7 +284,7 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 		battle.outcome = &"loss"   # 判輸＝耗盡, same consequence (D3); cap 0 = 無上限 (世界大戰)
 	if battle.outcome == &"":
 		battle.round += 1
-		_arrive_waves(battle)      # next wave stacks on the remnant (D4)
+		_arrive_waves(state, battle)   # next wave stacks on the remnant (D4)
 		if battle.attack_buff_rounds > 0:
 			battle.attack_buff_rounds -= 1
 		if battle.cost_discount_rounds > 0:
@@ -344,7 +364,7 @@ static func _roll_waves(state: GameState, battle: BattleField) -> void:
 			"forts": regular_screens(lone, &"enemy")})
 
 
-static func _arrive_waves(battle: BattleField) -> void:
+static func _arrive_waves(state: GameState, battle: BattleField) -> void:
 	while battle.next_wave < battle.waves.size() \
 			and int(battle.waves[battle.next_wave]["round"]) <= battle.round:
 		var wave: Dictionary = battle.waves[battle.next_wave]
@@ -354,26 +374,50 @@ static func _arrive_waves(battle: BattleField) -> void:
 			into.append(unit)
 		# 正規軍 screens ride in with the wave they cover, and 同場上限 2 counts the whole battle
 		# exactly as it does for the player: a wall is never removed, so a slot never frees up.
+		# The wall rolls its absorption budget when it takes the 工事線, not when the wave was
+		# composed — 佈陣時抽定 (戰鬥.md), and a wall the slot limit turns away never rolls at all.
 		var line: Array[Dictionary] = battle.player_forts if player_side else battle.enemy_forts
 		for fort: Dictionary in (wave.get("forts", []) as Array):
 			if line.size() < FORT_LIMIT:
+				_arm_wall(state, fort)
 				line.append(fort)
 		battle.next_wave += 1
+
+
+static func _place_barriers(state: GameState, battle: BattleField) -> void:
+	# 戰場散景物件＝中立掩體 (design/戰鬥.md 場景呈現, ADR-0010). How many a battle fields is the
+	# count of barrier-carrying props on its own ground, read off the art registry in table order
+	# and never invented here (docs/decisions.md W14.9) — which is why 隱藏戰 fields none and
+	# 世界大戰 fields two. `core/data/asset_paths.gd` is a content table like any other, and its
+	# `barrier` column is the one value in it that rules read.
+	# Placement stays the view's, seeded from the battle's own seed: the core knows which barriers
+	# this battle has, how many shots each has left and who is behind each one, and no coordinates.
+	for prop: Dictionary in AssetPaths.scatter_barrier_props(battle.battle_type):
+		var tier: StringName = prop["barrier"]
+		battle.barriers.append({"prop": StringName(prop["id"]), "tier": tier,
+				"shots": _roll_shots(state, tier), "destroyed": false})
+
+
+static func _roll_shots(state: GameState, tier: StringName) -> int:
+	# 發數以 battle 亂數軌於區間內抽定 (戰鬥.md): one call per barrier, at 佈陣 time.
+	var band: Array = BARRIER_SHOTS[tier]
+	return state.rng.randi_range(&"battle", int(band[0]), int(band[1]))
 
 
 static func _irregular_unit(state: GameState, grade: StringName, coeff: int, siege: bool) -> Dictionary:
 	# 非正規軍: anonymous tiers, 預設近戰列; 帶攻城 units sit in the ranged row (戰鬥.md).
 	var stats: Array = GRADE_STATS[grade]
+	var hp: int = Difficulty.scale_enemy_stat(state, int(stats[1]) * coeff)
 	return {
 		"card_id": &"", "grade": grade, "regular": false,
 		"side": &"enemy", "faction": &"enemy",
 		"attack": Difficulty.scale_enemy_stat(state, int(stats[0]) * coeff),
-		"hp": Difficulty.scale_enemy_stat(state, int(stats[1]) * coeff),
+		"hp": hp, "max_hp": hp,
 		"strength": (int(stats[0]) + int(stats[1])) * coeff,
 		"row": &"ranged" if siege else &"melee",
 		"flags": ([&"siege"] if siege else []) as Array,
 		"accuracy": ENEMY_ACCURACY, "dodge": ENEMY_DODGE, "speed": ENEMY_SPEED,
-		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"",
+		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"", "cover": &"",
 	}
 
 
@@ -415,7 +459,7 @@ static func _screen_fort() -> Dictionary:
 	# resolves from card_id at render time, and 運作中／被禁用 is its whole state (ADR-0007).
 	return {"card_id": &"shield_wall",
 			"flags": (CardsData.CARDS[&"shield_wall"]["flags"] as Array).duplicate(),
-			"disabled": false}
+			"disabled": false, "shots": 0}   # armed by `_arm_wall` when the wave lands it
 
 
 static func _regular_army_wave(state: GameState, battle: BattleField, share: float) -> Array[Dictionary]:
@@ -468,15 +512,16 @@ static func regular_unit(state: GameState, card_id: StringName, side: StringName
 	if rival != null:
 		# 被心戰過的對手: 攻擊力照累計折扣打折 (−10%/次, 7折封頂)
 		attack = maxi(int(round(float(attack) * Rivals.attack_multiplier(rival))), 1)
+	var hp: int = Difficulty.scale_enemy_stat(state, int(entry["hp"]) * coeff)
 	return {
 		"card_id": card_id, "grade": &"", "regular": true,
 		"side": side, "faction": faction,
 		"attack": attack,
-		"hp": Difficulty.scale_enemy_stat(state, int(entry["hp"]) * coeff),
+		"hp": hp, "max_hp": hp,
 		"strength": _type_strength(state, card_id),
 		"row": entry["row"], "flags": (entry["flags"] as Array).duplicate(),
 		"accuracy": ENEMY_ACCURACY, "dodge": ENEMY_DODGE, "speed": ENEMY_SPEED,
-		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"",
+		"progress": 0.0, "instance": null, "stationed": false, "screened_by": &"", "cover": &"",
 	}
 
 
@@ -484,16 +529,17 @@ static func regular_unit(state: GameState, card_id: StringName, side: StringName
 
 static func _unit_from_card(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> Dictionary:
 	var entry: Dictionary = Cards.card(instance.id)
+	var hp: int = Cards.hp_of(instance)
 	return {
 		"card_id": instance.id, "grade": &"", "regular": false,
 		"side": &"player", "faction": &"player",
-		"attack": Cards.attack_of(instance), "hp": Cards.hp_of(instance),
+		"attack": Cards.attack_of(instance), "hp": hp, "max_hp": hp,
 		"strength": Cards.attack_of(instance) + Cards.hp_of(instance),
 		"row": entry["row"], "flags": (entry["flags"] as Array).duplicate(),
 		"accuracy": _snapshot_accuracy(state, battle, instance),
 		"dodge": Cards.dodge_of(state, instance),
 		"speed": Cards.speed_of(state, instance),
-		"progress": 0.0, "instance": instance, "stationed": false, "screened_by": &"",
+		"progress": 0.0, "instance": instance, "stationed": false, "screened_by": &"", "cover": &"",
 	}
 
 
@@ -518,13 +564,26 @@ static func _refresh_player_stats(state: GameState, battle: BattleField) -> void
 		unit["speed"] = Cards.speed_of(state, instance)
 
 
-static func _fort_from_card(instance: Cards.CardInstance) -> Dictionary:
-	# 運作中／被禁用 is the fort's whole state (ADR-0007) — no hit points, no damage counter.
-	return {"card_id": instance.id, "flags": (Cards.card(instance.id)["flags"] as Array).duplicate(),
-			"disabled": false}
+static func _fort_from_card(state: GameState, instance: Cards.CardInstance) -> Dictionary:
+	# 運作中／被禁用 is the fort's whole state (ADR-0007) — no hit points, no damage counter. A
+	# 盾陣 additionally carries how many shots its current wall can still absorb (ADR-0010): a
+	# budget is not a health bar, it is spent by absorbing and refilled by the engineer.
+	var fort: Dictionary = {"card_id": instance.id,
+			"flags": (Cards.card(instance.id)["flags"] as Array).duplicate(),
+			"disabled": false, "shots": 0}
+	_arm_wall(state, fort)
+	return fort
 
 
-static func _repair_forts(battle: BattleField, events: Array[Dictionary]) -> void:
+static func _arm_wall(state: GameState, fort: Dictionary) -> void:
+	# 每道牆佈陣時抽定 3～5 發吸收上限，吸滿即失效待修，修好後重抽 (戰鬥.md 工事卡, ADR-0010).
+	# Re-rolled on repair rather than remembered, so 同場上限 2 is not a lottery the player cannot
+	# see (docs/decisions.md W14.9). 防空飛彈 absorbs nothing, so it never carries a budget.
+	if (fort["flags"] as Array).has(&"screens_ranged_row"):
+		fort["shots"] = _roll_shots(state, WALL_TIER)
+
+
+static func _repair_forts(state: GameState, battle: BattleField, events: Array[Dictionary]) -> void:
 	# 工兵團每回合修復一個待修工事 (ADR-0007). Presence timing no longer matters — only that an
 	# engineer stands on the side when the repair runs, so later waves clear an older backlog.
 	# Multiple disabled forts take turns: the cursor advances past the one just repaired, so a
@@ -538,6 +597,7 @@ static func _repair_forts(battle: BattleField, events: Array[Dictionary]) -> voi
 		if not bool(fort["disabled"]):
 			continue
 		fort["disabled"] = false
+		_arm_wall(state, fort)   # 修好後重抽發數 (ADR-0010)
 		battle.repair_cursor = (i + 1) % count
 		events.append({"tick": 0, "type": &"repair", "side": &"player",
 				"card_id": fort["card_id"]})
@@ -581,6 +641,95 @@ static func _has_engineer(units: Array[Dictionary]) -> bool:
 		if int(unit["hp"]) > 0 and (unit["flags"] as Array).has(&"repairs_fortifications"):
 			return true
 	return false
+
+
+# --- internals: 中立掩體 (neutral cover, ADR-0010) ---
+
+static func _seek_cover_all(battle: BattleField, events: Array[Dictionary]) -> void:
+	# The 下一個機會 pass: a unit whose barrier was destroyed under it, and any hurt survivor that
+	# had nowhere to go when it was hit. Player units in deploy order, then enemy units — the same
+	# fixed order the tick window rides on, which is what makes 先到先用 deterministic.
+	if battle.barriers.is_empty():
+		return
+	for unit: Dictionary in battle.player_units:
+		_seek_cover(battle, unit, 0, events)
+	for unit: Dictionary in battle.enemy_units:
+		_seek_cover(battle, unit, 0, events)
+
+
+static func _seek_cover(battle: BattleField, unit: Dictionary, tick: int, events: Array[Dictionary]) -> void:
+	# 受傷的陸軍單位會自動退到還完好的掩體後面 (戰鬥.md 場景呈現). 受傷 ＝ any hit point lost
+	# (docs/decisions.md W14.9), so the fallback lands the moment a unit is first hit. 掩體先到先用、
+	# 敵我都能用, one unit per barrier; 空域單位不用掩體 (scatter is ground dressing, ADR-0006 owns
+	# air). The player never picks who hides where.
+	if int(unit["hp"]) <= 0 or int(unit["hp"]) >= int(unit["max_hp"]) or _is_air(unit):
+		return
+	if StringName(unit["cover"]) != &"":
+		return
+	for barrier: Dictionary in battle.barriers:
+		if bool(barrier["destroyed"]) or not _barrier_free(battle, StringName(barrier["prop"])):
+			continue
+		unit["cover"] = barrier["prop"]
+		events.append({"tick": tick, "type": &"take_cover", "side": unit["side"],
+				"unit": _unit_label(unit), "barrier": barrier["prop"], "tier": barrier["tier"]})
+		return
+
+
+static func _barrier_free(battle: BattleField, prop: StringName) -> bool:
+	# Occupancy lives on the unit, not on the barrier: a dead unit stops occupying its rock the
+	# moment it dies, without anyone having to remember to release it.
+	for units: Array[Dictionary] in [battle.player_units, battle.enemy_units]:
+		for unit: Dictionary in units:
+			if int(unit["hp"]) > 0 and StringName(unit["cover"]) == prop:
+				return false
+	return true
+
+
+static func _cover_of(battle: BattleField, unit: Dictionary) -> Dictionary:
+	# The intact barrier this unit is behind, or {} — a destroyed one absorbs nothing.
+	var prop: StringName = unit["cover"]
+	if prop == &"":
+		return {}
+	for barrier: Dictionary in battle.barriers:
+		if StringName(barrier["prop"]) == prop and not bool(barrier["destroyed"]):
+			return barrier
+	return {}
+
+
+static func _absorb_wall(fort: Dictionary, attacker: Dictionary, tick: int, events: Array[Dictionary]) -> void:
+	# 吸收一發射向遠程列的遠程火力，無視攻擊力; 吸滿發數即失效待修 — disabled, never removed
+	# (ADR-0007 lifecycle, ADR-0010 trigger).
+	fort["shots"] = int(fort["shots"]) - 1
+	if int(fort["shots"]) <= 0:
+		fort["disabled"] = true
+	events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
+			"by": _unit_label(attacker), "card_id": fort["card_id"], "barrier": &"",
+			"shots_left": maxi(int(fort["shots"]), 0)})
+
+
+static func _absorb_barrier(battle: BattleField, barrier: Dictionary, attacker: Dictionary, tick: int, events: Array[Dictionary]) -> void:
+	# A 中立掩體 absorbs exactly as a wall does, and then dies where a wall would wait for the
+	# engineer: 散景不是工事，吸滿發數就永久消失 (戰鬥.md 場景呈現).
+	barrier["shots"] = int(barrier["shots"]) - 1
+	events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
+			"by": _unit_label(attacker), "card_id": &"", "barrier": barrier["prop"],
+			"shots_left": maxi(int(barrier["shots"]), 0)})
+	if int(barrier["shots"]) > 0:
+		return
+	barrier["destroyed"] = true
+	events.append({"tick": tick, "type": &"barrier_destroyed", "side": attacker["side"],
+			"by": _unit_label(attacker), "barrier": barrier["prop"]})
+	# Whoever was behind it is exposed again, and falls back to another intact barrier at the next
+	# opportunity if one is free (docs/decisions.md W14.9).
+	for units: Array[Dictionary] in [battle.player_units, battle.enemy_units]:
+		for unit: Dictionary in units:
+			if StringName(unit["cover"]) != StringName(barrier["prop"]):
+				continue
+			unit["cover"] = &""
+			if int(unit["hp"]) <= 0:
+				continue
+			events.append({"tick": tick, "type": &"take_cover", "side": unit["side"],
+					"unit": _unit_label(unit), "barrier": &"", "tier": &""})
 
 
 static func _cast_skill(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> void:
@@ -678,18 +827,24 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	var target: Dictionary = _pick_target(defenders, kind)
 	if target.is_empty():
 		return   # 近戰打不到空域、空襲打不到空域: no legal target = no attack this shot
-	# 盾陣＝遠程列的掩體 (ADR-0008): it intercepts one melee attack aimed at a unit in the
-	# 遠程列 — the layer it stands in front of — ignoring attack value, and the interception
-	# disables it (ADR-0007). An attack on the 近戰列 lands in FRONT of the wall and is never
-	# intercepted; shots at 空域 bypass the 工事線 entirely, since a wall on the ground cannot
-	# absorb a shot at the sky (ADR-0006). A screen with no 遠程列 unit behind it therefore
-	# never fires and never disables (docs/decisions.md, W14.6).
-	if kind == &"melee" and target["row"] == &"ranged":
-		var shield: int = _first_active_fort(defender_forts, &"screens_ranged_row")
-		if shield >= 0:
-			defender_forts[shield]["disabled"] = true
-			events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
-					"by": _unit_label(attacker), "card_id": defender_forts[shield]["card_id"]})
+	# 掩體擋的是子彈，不是人 (ADR-0010). Only 遠程列 fire is absorbed, and it is absorbed BEFORE any
+	# roll: 無視攻擊力 means the shot never resolves at all, so an accurate shot and a blind one cost
+	# the same one from the budget. 近戰 walks around a wall and engages the row directly; 空襲 comes
+	# from above it and is never absorbed; shots at 空域 bypass the 工事線 entirely, since a wall on
+	# the ground cannot absorb a shot at the sky (ADR-0006, docs/decisions.md W14.9).
+	if kind == &"ranged":
+		# The 工事線 stands in front of the WHOLE 遠程列, so a wall answers before anything the
+		# target found for itself; a screen with no 遠程列 unit behind it still never fires
+		# (docs/decisions.md W14.6). A 中立掩體 covers its occupant in any row, and is what is left
+		# once the wall is down.
+		if target["row"] == &"ranged":
+			var shield: int = _first_active_fort(defender_forts, &"screens_ranged_row")
+			if shield >= 0:
+				_absorb_wall(defender_forts[shield], attacker, tick, events)
+				return
+		var barrier: Dictionary = _cover_of(battle, target)
+		if not barrier.is_empty():
+			_absorb_barrier(battle, barrier, attacker, tick, events)
 			return
 	# accuracy roll, then dodge roll — both on the &"battle" track, in this order.
 	if not state.rng.chance(&"battle", float(attacker["accuracy"]) / 100.0):
@@ -711,6 +866,8 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 		# 閃避率 XP: survived the hit (被攻擊且活下來). A miss accrues nothing — the attack
 		# never reached the unit (docs/decisions.md, W13). The killing blow accrues nothing.
 		_grant_battle_xp(target, &"dodge", tick, events)
+		# ...and a land unit that has just lost hit points falls back behind cover (ADR-0010).
+		_seek_cover(battle, target, tick, events)
 	if int(target["hp"]) <= 0:
 		events.append({"tick": tick, "type": &"death", "side": attacker["side"],
 				"victim": _unit_label(target), "by": _unit_label(attacker),

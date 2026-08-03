@@ -17,7 +17,8 @@
 //      - every event in every fixture resolves to something on screen (unresolved === 0),
 //      - each era plays to its recorded end and reports the core's own outcome,
 //      - the 掩護鏈 stages front to back: 近戰列 → 工事線 → 遠程列 → 空域, mirrored per side,
-//      - forts are never removed and never gain hit points,
+//      - forts are never removed and never gain hit points, and 中立掩體 are destroyed exactly as
+//        often as the fixture says and never repaired (ADR-0010),
 //      - a stale field reference in a draw function throws here, not in someone's browser.
 
 const fs = require('fs'), vm = require('vm'), path = require('path');
@@ -100,7 +101,7 @@ vm.runInContext(BODY, sandbox, {filename: path.basename(PAGE)});
 const run = (code) => vm.runInContext(code, sandbox);
 
 function drawOnce(){
-  run(`drawField(); forts.forEach(drawFort);
+  run(`drawField(); barriers.forEach(drawBarrier); forts.forEach(drawFort);
        units.filter(u=>u.row!=='air').sort((a,b)=>a.y-b.y).forEach(drawUnit);
        units.filter(u=>u.row==='air').forEach(drawUnit);
        drawHealthBars(); drawStatTags(); drawProjectiles(); drawFlashes(); drawFloaters();
@@ -125,6 +126,12 @@ for(const era of eras){
   const fixtureRounds = run('FX.rounds.length');
   const events = run('plan.length');
   const fortCount = run('forts.length');
+  const barrierCount = run('barriers.length');
+  // ADR-0010: a barrier is destroyed, never repaired, so the page's count of destroyed ones must
+  // end up equal to the fixture's own barrier_destroyed events — no more (invented), no fewer
+  // (dropped), and never one that came back.
+  const destroyedInFixture = run(
+    'FX.rounds.reduce((n,r)=>n+r.events.filter(e=>e.type==="barrier_destroyed").length,0)');
   const staged = run('units.filter(u=>u.staged).length');
   const settled = replay(60);
 
@@ -136,6 +143,13 @@ for(const era of eras){
   check(`era ${era}: 工事永不移除 (count unchanged)`, run('forts.length') === fortCount);
   check(`era ${era}: 工事沒有血量 (state is 運作中／被禁用 only)`,
     run('forts.every(f=>f.hp===undefined && f.maxhp===undefined)'));
+  check(`era ${era}: 中立掩體 roster is the fixture's (${barrierCount})`,
+    run('barriers.length') === barrierCount && barrierCount === run('FX.barriers.length'));
+  check(`era ${era}: 掩體吸滿就永久消失, ${destroyedInFixture} destroyed and none repaired`,
+    run('barriers.filter(b=>b.destroyed).length') === destroyedInFixture,
+    run('barriers.filter(b=>b.destroyed).length') + ' vs ' + destroyedInFixture);
+  check(`era ${era}: 掩體沒有血量 either (a budget is the core's, not the page's)`,
+    run('barriers.every(b=>b.hp===undefined && b.maxhp===undefined)'));
   check(`era ${era}: the closing card reports core's own outcome`,
     ['win', 'loss', 'retreat', 'defected'].includes(run('FX.outcome')), run('FX.outcome'));
 }

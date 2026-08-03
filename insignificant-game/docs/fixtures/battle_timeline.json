@@ -1,6 +1,18 @@
 {
   "eras": [
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 2,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 1,
       "era": 1,
@@ -115,6 +127,14 @@
               "type": "hit"
             },
             {
+              "barrier": "scat_worldwar_debris",
+              "side": "enemy",
+              "tick": 89,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "infantry"
+            },
+            {
               "by": "infantry",
               "damage": 1,
               "side": "enemy",
@@ -123,20 +143,21 @@
               "type": "hit"
             },
             {
-              "by": "archers",
-              "damage": 1,
-              "side": "enemy",
-              "target": "infantry",
+              "barrier": "scat_worldwar_stump",
+              "side": "player",
               "tick": 100,
-              "type": "hit"
+              "tier": "medium",
+              "type": "take_cover",
+              "unit": "infantry"
             },
             {
+              "barrier": "scat_worldwar_stump",
               "by": "archers",
-              "faction": "player",
+              "card_id": "",
+              "shots_left": 1,
               "side": "enemy",
               "tick": 100,
-              "type": "death",
-              "victim": "infantry"
+              "type": "intercept"
             }
           ],
           "round": 1
@@ -144,41 +165,58 @@
         {
           "events": [
             {
+              "barrier": "scat_worldwar_debris",
               "by": "archers",
-              "damage": 1,
-              "side": "player",
-              "target": "infantry",
-              "tick": 2,
-              "type": "hit"
-            },
-            {
-              "by": "archers",
-              "faction": "enemy",
+              "card_id": "",
+              "shots_left": 0,
               "side": "player",
               "tick": 2,
-              "type": "death",
-              "victim": "infantry"
-            },
-            {
-              "by": "cavalry",
-              "card_id": "shield_wall",
-              "side": "player",
-              "tick": 28,
               "type": "intercept"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "side": "player",
+              "tick": 2,
+              "type": "barrier_destroyed"
+            },
+            {
+              "barrier": "",
+              "side": "enemy",
+              "tick": 2,
+              "tier": "",
+              "type": "take_cover",
+              "unit": "infantry"
             },
             {
               "by": "cavalry",
               "damage": 2,
               "side": "player",
-              "target": "archers",
-              "tick": 91,
+              "target": "infantry",
+              "tick": 28,
               "type": "hit"
             },
             {
               "by": "cavalry",
               "faction": "enemy",
               "side": "player",
-              "tick": 91,
+              "tick": 28,
+              "type": "death",
+              "victim": "infantry"
+            },
+            {
+              "by": "infantry",
+              "damage": 1,
+              "side": "player",
+              "target": "archers",
+              "tick": 78,
+              "type": "hit"
+            },
+            {
+              "by": "infantry",
+              "faction": "enemy",
+              "side": "player",
+              "tick": 78,
               "type": "death",
               "victim": "archers"
             }
@@ -300,6 +338,18 @@
       "winner": "player"
     },
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 2,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 2,
       "era": 2,
@@ -407,18 +457,26 @@
             },
             {
               "by": "elite_forces",
-              "damage": 6,
               "side": "player",
               "target": "elite_forces",
               "tick": 67,
-              "type": "hit"
+              "type": "miss"
             },
             {
               "by": "cavalry",
+              "damage": 4,
               "side": "player",
               "target": "elite_forces",
               "tick": 78,
-              "type": "miss"
+              "type": "hit"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "side": "enemy",
+              "tick": 78,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "elite_forces"
             },
             {
               "by": "elite_forces",
@@ -461,26 +519,51 @@
               "type": "hit"
             },
             {
-              "by": "archers",
-              "damage": 2,
-              "side": "enemy",
-              "target": "archers",
+              "barrier": "scat_worldwar_stump",
+              "side": "player",
               "tick": 100,
-              "type": "hit"
+              "tier": "medium",
+              "type": "take_cover",
+              "unit": "elite_forces"
             },
             {
+              "barrier": "",
               "by": "archers",
-              "faction": "player",
+              "card_id": "shield_wall",
+              "shots_left": 2,
               "side": "enemy",
               "tick": 100,
-              "type": "death",
-              "victim": "archers"
+              "type": "intercept"
             }
           ],
           "round": 1
         },
         {
           "events": [
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "card_id": "",
+              "shots_left": 0,
+              "side": "player",
+              "tick": 11,
+              "type": "intercept"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "side": "player",
+              "tick": 11,
+              "type": "barrier_destroyed"
+            },
+            {
+              "barrier": "",
+              "side": "enemy",
+              "tick": 11,
+              "tier": "",
+              "type": "take_cover",
+              "unit": "elite_forces"
+            },
             {
               "by": "elite_forces",
               "side": "player",
@@ -506,10 +589,19 @@
             },
             {
               "by": "cavalry",
-              "card_id": "shield_wall",
+              "damage": 4,
+              "side": "enemy",
+              "target": "archers",
+              "tick": 100,
+              "type": "hit"
+            },
+            {
+              "by": "cavalry",
+              "faction": "player",
               "side": "enemy",
               "tick": 100,
-              "type": "intercept"
+              "type": "death",
+              "victim": "archers"
             },
             {
               "by": "infantry",
@@ -520,12 +612,21 @@
               "type": "hit"
             },
             {
-              "by": "archers",
-              "damage": 2,
-              "side": "enemy",
-              "target": "engineers",
+              "barrier": "scat_worldwar_stump",
+              "side": "player",
               "tick": 100,
-              "type": "hit"
+              "tier": "medium",
+              "type": "take_cover",
+              "unit": "engineers"
+            },
+            {
+              "barrier": "",
+              "by": "archers",
+              "card_id": "shield_wall",
+              "shots_left": 1,
+              "side": "enemy",
+              "tick": 100,
+              "type": "intercept"
             }
           ],
           "round": 2
@@ -533,36 +634,15 @@
         {
           "events": [
             {
-              "card_id": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "repair"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "engineers"
-            },
-            {
               "by": "elite_forces",
-              "card_id": "shield_wall",
-              "side": "enemy",
-              "tick": 100,
-              "type": "intercept"
-            },
-            {
-              "by": "cavalry",
-              "damage": 4,
+              "damage": 6,
               "side": "enemy",
               "target": "engineers",
               "tick": 100,
               "type": "hit"
             },
             {
-              "by": "cavalry",
+              "by": "elite_forces",
               "faction": "player",
               "side": "enemy",
               "tick": 100,
@@ -717,6 +797,18 @@
       "winner": "enemy"
     },
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 3,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 3,
       "era": 3,
@@ -855,26 +947,25 @@
               "type": "hit"
             },
             {
-              "by": "privateers",
-              "damage": 6,
-              "side": "player",
-              "target": "elite_forces",
-              "tick": 98,
-              "type": "hit"
+              "barrier": "scat_worldwar_debris",
+              "side": "enemy",
+              "tick": 60,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "elite_forces"
             },
             {
               "by": "privateers",
-              "faction": "enemy",
               "side": "player",
+              "target": "elite_forces",
               "tick": 98,
-              "type": "death",
-              "victim": "elite_forces"
+              "type": "miss"
             },
             {
               "by": "elite_forces",
               "damage": 9,
               "side": "player",
-              "target": "cavalry",
+              "target": "elite_forces",
               "tick": 100,
               "type": "hit"
             },
@@ -884,7 +975,7 @@
               "side": "player",
               "tick": 100,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "elite_forces"
             },
             {
               "by": "artillery",
@@ -894,19 +985,43 @@
               "type": "disable"
             },
             {
-              "by": "infantry",
-              "damage": 3,
+              "by": "cavalry",
+              "damage": 6,
               "side": "enemy",
               "target": "infantry",
               "tick": 100,
               "type": "hit"
             },
             {
-              "attacker": "archers",
-              "by": "infantry",
+              "by": "cavalry",
+              "faction": "player",
+              "side": "enemy",
+              "tick": 100,
+              "type": "death",
+              "victim": "infantry"
+            },
+            {
+              "attacker": "infantry",
+              "by": "cavalry",
               "side": "player",
               "tick": 100,
               "type": "dodge"
+            },
+            {
+              "by": "archers",
+              "damage": 3,
+              "side": "enemy",
+              "target": "archers",
+              "tick": 100,
+              "type": "hit"
+            },
+            {
+              "by": "archers",
+              "faction": "player",
+              "side": "enemy",
+              "tick": 100,
+              "type": "death",
+              "victim": "archers"
             }
           ],
           "round": 1
@@ -925,14 +1040,6 @@
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "take_station",
               "unit": "engineers"
             },
             {
@@ -944,48 +1051,33 @@
               "unit": "artillery"
             },
             {
-              "by": "infantry",
-              "damage": 3,
-              "side": "player",
-              "target": "infantry",
-              "tick": 8,
-              "type": "hit"
-            },
-            {
               "by": "cavalry",
-              "damage": 6,
               "side": "player",
-              "target": "infantry",
+              "target": "cavalry",
               "tick": 20,
-              "type": "hit"
-            },
-            {
-              "by": "cavalry",
-              "faction": "enemy",
-              "side": "player",
-              "tick": 20,
-              "type": "death",
-              "victim": "infantry"
-            },
-            {
-              "by": "archers",
-              "side": "player",
-              "target": "artillery",
-              "tick": 79,
               "type": "miss"
             },
             {
               "by": "cavalry",
-              "card_id": "shield_wall",
+              "damage": 6,
+              "side": "player",
+              "target": "cavalry",
+              "tick": 80,
+              "type": "hit"
+            },
+            {
+              "by": "cavalry",
+              "faction": "enemy",
               "side": "player",
               "tick": 80,
-              "type": "intercept"
+              "type": "death",
+              "victim": "cavalry"
             },
             {
               "by": "privateers",
               "damage": 6,
               "side": "player",
-              "target": "artillery",
+              "target": "infantry",
               "tick": 95,
               "type": "hit"
             },
@@ -994,45 +1086,37 @@
               "faction": "enemy",
               "side": "player",
               "tick": 95,
+              "type": "death",
+              "victim": "infantry"
+            },
+            {
+              "by": "elite_forces",
+              "damage": 9,
+              "side": "player",
+              "target": "artillery",
+              "tick": 100,
+              "type": "hit"
+            },
+            {
+              "by": "elite_forces",
+              "faction": "enemy",
+              "side": "player",
+              "tick": 100,
               "type": "death",
               "victim": "artillery"
             },
             {
-              "by": "elite_forces",
+              "attacker": "archers",
+              "by": "cavalry",
               "side": "player",
-              "target": "archers",
               "tick": 100,
-              "type": "miss"
-            },
-            {
-              "by": "archers",
-              "damage": 3,
-              "side": "enemy",
-              "target": "infantry",
-              "tick": 100,
-              "type": "hit"
-            },
-            {
-              "by": "archers",
-              "faction": "player",
-              "side": "enemy",
-              "tick": 100,
-              "type": "death",
-              "victim": "infantry"
+              "type": "dodge"
             }
           ],
           "round": 2
         },
         {
           "events": [
-            {
-              "row": "ranged",
-              "screened_by": "",
-              "side": "enemy",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "archers"
-            },
             {
               "by": "cavalry",
               "damage": 6,
@@ -1248,6 +1332,18 @@
       "winner": "player"
     },
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 3,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 5,
       "era": 4,
@@ -1476,126 +1572,47 @@
             },
             {
               "by": "privateers",
-              "card_id": "shield_wall",
-              "side": "player",
-              "tick": 84,
-              "type": "intercept"
-            },
-            {
-              "by": "archers",
+              "damage": 10,
               "side": "player",
               "target": "artillery",
+              "tick": 84,
+              "type": "hit"
+            },
+            {
+              "by": "privateers",
+              "faction": "enemy",
+              "side": "player",
+              "tick": 84,
+              "type": "death",
+              "victim": "artillery"
+            },
+            {
+              "barrier": "",
+              "by": "archers",
+              "card_id": "shield_wall",
+              "shots_left": 3,
+              "side": "player",
               "tick": 94,
-              "type": "miss"
+              "type": "intercept"
             },
             {
               "by": "infantry",
               "damage": 5,
               "side": "player",
-              "target": "artillery",
+              "target": "archers",
               "tick": 96,
               "type": "hit"
             },
             {
-              "by": "artillery",
-              "card_id": "shield_wall",
-              "side": "enemy",
-              "tick": 100,
-              "type": "disable"
-            },
-            {
-              "by": "archers",
-              "damage": 5,
-              "side": "enemy",
-              "target": "infantry",
-              "tick": 100,
-              "type": "hit"
-            }
-          ],
-          "round": 1
-        },
-        {
-          "events": [
-            {
-              "card_id": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "repair"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "archers"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "engineers"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "shield_wall",
-              "side": "player",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "artillery"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "",
-              "side": "enemy",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "artillery"
-            },
-            {
-              "row": "ranged",
-              "screened_by": "",
-              "side": "enemy",
-              "tick": 0,
-              "type": "take_station",
-              "unit": "archers"
-            },
-            {
-              "by": "holy_warriors",
-              "damage": 20,
-              "side": "player",
-              "target": "artillery",
-              "tick": 48,
-              "type": "hit"
-            },
-            {
-              "by": "holy_warriors",
+              "by": "infantry",
               "faction": "enemy",
               "side": "player",
-              "tick": 48,
-              "type": "death",
-              "victim": "artillery"
-            },
-            {
-              "by": "artillery",
-              "damage": 20,
-              "side": "player",
-              "target": "archers",
-              "tick": 50,
-              "type": "hit"
-            },
-            {
-              "by": "artillery",
-              "faction": "enemy",
-              "side": "player",
-              "tick": 50,
+              "tick": 96,
               "type": "death",
               "victim": "archers"
             }
           ],
-          "round": 2
+          "round": 1
         }
       ],
       "spent": 215,
@@ -1846,6 +1863,18 @@
       "winner": "player"
     },
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 2,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 8,
       "era": 5,
@@ -2025,6 +2054,14 @@
               "type": "hit"
             },
             {
+              "barrier": "scat_worldwar_debris",
+              "side": "enemy",
+              "tick": 56,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "elite_forces"
+            },
+            {
               "by": "elite_forces",
               "damage": 24,
               "side": "player",
@@ -2072,20 +2109,36 @@
               "type": "hit"
             },
             {
-              "by": "archers",
-              "damage": 8,
-              "side": "enemy",
-              "target": "infantry",
+              "barrier": "scat_worldwar_debris",
+              "side": "player",
               "tick": 100,
-              "type": "hit"
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "infantry"
             },
             {
+              "barrier": "scat_worldwar_debris",
               "by": "archers",
-              "faction": "player",
+              "card_id": "",
+              "shots_left": 0,
               "side": "enemy",
               "tick": 100,
-              "type": "death",
-              "victim": "infantry"
+              "type": "intercept"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "side": "enemy",
+              "tick": 100,
+              "type": "barrier_destroyed"
+            },
+            {
+              "barrier": "",
+              "side": "player",
+              "tick": 100,
+              "tier": "",
+              "type": "take_cover",
+              "unit": "infantry"
             }
           ],
           "round": 1
@@ -2123,11 +2176,21 @@
               "unit": "artillery"
             },
             {
-              "by": "archers",
+              "barrier": "scat_worldwar_stump",
               "side": "player",
-              "target": "artillery",
+              "tick": 0,
+              "tier": "medium",
+              "type": "take_cover",
+              "unit": "infantry"
+            },
+            {
+              "barrier": "",
+              "by": "archers",
+              "card_id": "shield_wall",
+              "shots_left": 4,
+              "side": "player",
               "tick": 11,
-              "type": "miss"
+              "type": "intercept"
             },
             {
               "by": "cavalry",
@@ -2147,47 +2210,40 @@
             },
             {
               "by": "elite_forces",
-              "card_id": "shield_wall",
+              "damage": 24,
               "side": "player",
+              "target": "artillery",
               "tick": 35,
-              "type": "intercept"
-            },
-            {
-              "by": "artillery",
-              "side": "player",
-              "target": "artillery",
-              "tick": 42,
-              "type": "miss"
-            },
-            {
-              "by": "privateers",
-              "damage": 16,
-              "side": "player",
-              "target": "artillery",
-              "tick": 59,
               "type": "hit"
             },
             {
-              "by": "privateers",
+              "by": "elite_forces",
               "faction": "enemy",
               "side": "player",
-              "tick": 59,
+              "tick": 35,
               "type": "death",
               "victim": "artillery"
             },
             {
-              "by": "cavalry",
-              "damage": 16,
+              "by": "artillery",
+              "card_id": "shield_wall",
+              "side": "player",
+              "tick": 42,
+              "type": "disable"
+            },
+            {
+              "by": "infantry",
+              "damage": 8,
               "side": "player",
               "target": "archers",
-              "tick": 67,
+              "tick": 45,
               "type": "hit"
             },
             {
-              "by": "cavalry",
+              "by": "infantry",
               "faction": "enemy",
               "side": "player",
-              "tick": 67,
+              "tick": 45,
               "type": "death",
               "victim": "archers"
             }
@@ -2426,6 +2482,18 @@
       "winner": "player"
     },
     {
+      "barriers": [
+        {
+          "barrier": "scat_worldwar_debris",
+          "shots": 1,
+          "tier": "weak"
+        },
+        {
+          "barrier": "scat_worldwar_stump",
+          "shots": 2,
+          "tier": "medium"
+        }
+      ],
       "battle_type": "world_war",
       "coeff": 12,
       "era": 6,
@@ -2597,6 +2665,14 @@
               "type": "hit"
             },
             {
+              "barrier": "scat_worldwar_debris",
+              "side": "enemy",
+              "tick": 67,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "elite_forces"
+            },
+            {
               "by": "elite_forces",
               "damage": 36,
               "side": "player",
@@ -2636,19 +2712,44 @@
               "type": "disable"
             },
             {
-              "attacker": "infantry",
               "by": "infantry",
-              "side": "player",
-              "tick": 100,
-              "type": "dodge"
-            },
-            {
-              "by": "archers",
               "damage": 12,
               "side": "enemy",
               "target": "infantry",
               "tick": 100,
               "type": "hit"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "side": "player",
+              "tick": 100,
+              "tier": "weak",
+              "type": "take_cover",
+              "unit": "infantry"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "card_id": "",
+              "shots_left": 0,
+              "side": "enemy",
+              "tick": 100,
+              "type": "intercept"
+            },
+            {
+              "barrier": "scat_worldwar_debris",
+              "by": "archers",
+              "side": "enemy",
+              "tick": 100,
+              "type": "barrier_destroyed"
+            },
+            {
+              "barrier": "",
+              "side": "player",
+              "tick": 100,
+              "tier": "",
+              "type": "take_cover",
+              "unit": "infantry"
             }
           ],
           "round": 1
@@ -2686,20 +2787,28 @@
               "unit": "artillery"
             },
             {
-              "by": "archers",
-              "damage": 12,
+              "barrier": "scat_worldwar_stump",
               "side": "player",
-              "target": "artillery",
+              "tick": 0,
+              "tier": "medium",
+              "type": "take_cover",
+              "unit": "infantry"
+            },
+            {
+              "barrier": "",
+              "by": "archers",
+              "card_id": "shield_wall",
+              "shots_left": 3,
+              "side": "player",
               "tick": 3,
-              "type": "hit"
+              "type": "intercept"
             },
             {
               "by": "infantry",
-              "damage": 12,
               "side": "player",
               "target": "infantry",
               "tick": 34,
-              "type": "hit"
+              "type": "miss"
             },
             {
               "by": "artillery",
@@ -2726,25 +2835,16 @@
             },
             {
               "by": "bomber",
-              "damage": 60,
               "side": "player",
               "target": "artillery",
               "tick": 47,
-              "type": "hit"
-            },
-            {
-              "by": "bomber",
-              "faction": "enemy",
-              "side": "player",
-              "tick": 47,
-              "type": "death",
-              "victim": "artillery"
+              "type": "miss"
             },
             {
               "by": "cavalry",
               "damage": 24,
               "side": "player",
-              "target": "archers",
+              "target": "artillery",
               "tick": 75,
               "type": "hit"
             },
@@ -2754,10 +2854,48 @@
               "side": "player",
               "tick": 75,
               "type": "death",
-              "victim": "archers"
+              "victim": "artillery"
+            },
+            {
+              "barrier": "scat_worldwar_stump",
+              "by": "archers",
+              "card_id": "",
+              "shots_left": 1,
+              "side": "enemy",
+              "tick": 100,
+              "type": "intercept"
             }
           ],
           "round": 2
+        },
+        {
+          "events": [
+            {
+              "row": "ranged",
+              "screened_by": "",
+              "side": "enemy",
+              "tick": 0,
+              "type": "take_station",
+              "unit": "archers"
+            },
+            {
+              "by": "infantry",
+              "damage": 12,
+              "side": "player",
+              "target": "archers",
+              "tick": 1,
+              "type": "hit"
+            },
+            {
+              "by": "infantry",
+              "faction": "enemy",
+              "side": "player",
+              "tick": 1,
+              "type": "death",
+              "victim": "archers"
+            }
+          ],
+          "round": 3
         }
       ],
       "spent": 420,

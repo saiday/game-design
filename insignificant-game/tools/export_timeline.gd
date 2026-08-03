@@ -10,7 +10,8 @@ extends SceneTree
 # field can no longer change instead of expiring on a round cap), the player fielding one card
 # per era-legal unit class plus its whole 工事線, the enemy fielding one 正規軍 per era-legal
 # roster type plus the 盾陣 that wave brings (Battle.regular_screens). Skill cards are left out:
-# they have no station in the 掩護鏈 and nothing to render.
+# they have no station in the 掩護鏈 and nothing to render. 世界大戰 ground carries two 中立掩體
+# (ADR-0010), which is why every fixture exercises neutral cover without being asked to.
 #
 # ONE UNIT PER CLASS PER SIDE IS LOAD-BEARING, not a convenience. Timeline labels are card ids
 # (or an irregular's anonymous grade) and architecture.md is explicit that labels are NOT
@@ -87,6 +88,13 @@ func _export_era(era: int) -> Dictionary:
 		works.append(_fort_row(fort, &"player", era))
 	for fort: Dictionary in battle.enemy_forts:
 		works.append(_fort_row(fort, &"enemy", era))
+	# 中立掩體 belong to nobody, so they carry no side (ADR-0010). The roster is state, not events:
+	# `barrier_destroyed` and `take_cover` name a prop id that must already be on the replayer's
+	# field. `shots` is the budget as rolled at 佈陣, before any of it was spent.
+	var cover: Array = []
+	for barrier: Dictionary in battle.barriers:
+		cover.append({"barrier": String(barrier["prop"]), "tier": String(barrier["tier"]),
+				"shots": int(barrier["shots"])})
 
 	var rounds: Array = []
 	var guarded := false
@@ -111,6 +119,7 @@ func _export_era(era: int) -> Dictionary:
 		"merit": battle.merit,
 		"units": cast,
 		"forts": works,
+		"barriers": cover,
 		"rounds": rounds,
 	}
 
