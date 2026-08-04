@@ -49,80 +49,100 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 5
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 9,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 6
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 7
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 9,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 8
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 1
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 2
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 4,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 3
             },
             {
               "by": "cavalry",
+              "by_uid": 7,
               "damage": 2,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 1,
               "tick": 64,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 7,
               "faction": "enemy",
               "side": "player",
               "tick": 64,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 1
             },
             {
               "by": "infantry",
+              "by_uid": 5,
               "damage": 1,
               "side": "player",
               "target": "infantry",
+              "target_uid": 2,
               "tick": 89,
               "type": "hit"
             },
@@ -132,13 +152,16 @@
               "tick": 89,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 2
             },
             {
               "by": "infantry",
+              "by_uid": 2,
               "damage": 1,
               "side": "enemy",
               "target": "infantry",
+              "target_uid": 5,
               "tick": 100,
               "type": "hit"
             },
@@ -148,12 +171,15 @@
               "tick": 100,
               "tier": "medium",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 5
             },
             {
               "barrier": "scat_worldwar_stump",
               "by": "archers",
+              "by_uid": 3,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 1,
               "side": "enemy",
               "tick": 100,
@@ -167,7 +193,9 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 0,
               "side": "player",
               "tick": 2,
@@ -176,6 +204,7 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "side": "player",
               "tick": 2,
               "type": "barrier_destroyed"
@@ -186,39 +215,48 @@
               "tick": 2,
               "tier": "",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 2
             },
             {
               "by": "cavalry",
+              "by_uid": 7,
               "damage": 2,
               "side": "player",
               "target": "infantry",
+              "target_uid": 2,
               "tick": 28,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 7,
               "faction": "enemy",
               "side": "player",
               "tick": 28,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 2
             },
             {
               "by": "infantry",
+              "by_uid": 5,
               "damage": 1,
               "side": "player",
               "target": "archers",
+              "target_uid": 3,
               "tick": 78,
               "type": "hit"
             },
             {
               "by": "infantry",
+              "by_uid": 5,
               "faction": "enemy",
               "side": "player",
               "tick": 78,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 3
             }
           ],
           "round": 2
@@ -386,87 +424,109 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 6
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 11,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 7
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 8
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 11,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 9
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 10
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 1
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 2
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 3
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 5,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 4
             },
             {
               "by": "elite_forces",
+              "by_uid": 10,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 67,
               "type": "miss"
             },
             {
               "by": "cavalry",
+              "by_uid": 8,
               "damage": 4,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 78,
               "type": "hit"
             },
@@ -476,45 +536,56 @@
               "tick": 78,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 1
             },
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "damage": 6,
               "side": "enemy",
               "target": "infantry",
+              "target_uid": 6,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 6
             },
             {
               "by": "cavalry",
+              "by_uid": 2,
               "damage": 4,
               "side": "enemy",
               "target": "cavalry",
+              "target_uid": 8,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 2,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 8
             },
             {
               "by": "infantry",
+              "by_uid": 3,
               "damage": 2,
               "side": "enemy",
               "target": "elite_forces",
+              "target_uid": 10,
               "tick": 100,
               "type": "hit"
             },
@@ -524,12 +595,15 @@
               "tick": 100,
               "tier": "medium",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 10
             },
             {
               "barrier": "",
               "by": "archers",
+              "by_uid": 4,
               "card_id": "shield_wall",
+              "card_id_uid": 11,
               "shots_left": 2,
               "side": "enemy",
               "tick": 100,
@@ -543,7 +617,9 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 7,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 0,
               "side": "player",
               "tick": 11,
@@ -552,6 +628,7 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 7,
               "side": "player",
               "tick": 11,
               "type": "barrier_destroyed"
@@ -562,52 +639,65 @@
               "tick": 11,
               "tier": "",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 1
             },
             {
               "by": "elite_forces",
+              "by_uid": 10,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 34,
               "type": "miss"
             },
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "damage": 6,
               "side": "enemy",
               "target": "elite_forces",
+              "target_uid": 10,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "elite_forces"
+              "victim": "elite_forces",
+              "victim_uid": 10
             },
             {
               "by": "cavalry",
+              "by_uid": 2,
               "damage": 4,
               "side": "enemy",
               "target": "archers",
+              "target_uid": 7,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 2,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 7
             },
             {
               "by": "infantry",
+              "by_uid": 3,
               "damage": 2,
               "side": "enemy",
               "target": "engineers",
+              "target_uid": 9,
               "tick": 100,
               "type": "hit"
             },
@@ -617,12 +707,15 @@
               "tick": 100,
               "tier": "medium",
               "type": "take_cover",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 9
             },
             {
               "barrier": "",
               "by": "archers",
+              "by_uid": 4,
               "card_id": "shield_wall",
+              "card_id_uid": 11,
               "shots_left": 1,
               "side": "enemy",
               "tick": 100,
@@ -635,19 +728,23 @@
           "events": [
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "damage": 6,
               "side": "enemy",
               "target": "engineers",
+              "target_uid": 9,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 1,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "engineers"
+              "victim": "engineers",
+              "victim_uid": 9
             }
           ],
           "round": 3
@@ -845,104 +942,130 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 7
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 8
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 9
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 10
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 11
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 12
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "privateers"
+              "unit": "privateers",
+              "unit_uid": 14
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 1
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 6,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 2
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 3
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 4
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 6,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 5
             },
             {
               "by": "cavalry",
+              "by_uid": 9,
               "damage": 6,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 60,
               "type": "hit"
             },
@@ -952,76 +1075,95 @@
               "tick": 60,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 1
             },
             {
               "by": "privateers",
+              "by_uid": 14,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 98,
               "type": "miss"
             },
             {
               "by": "elite_forces",
+              "by_uid": 11,
               "damage": 9,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 1,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 11,
               "faction": "enemy",
               "side": "player",
               "tick": 100,
               "type": "death",
-              "victim": "elite_forces"
+              "victim": "elite_forces",
+              "victim_uid": 1
             },
             {
               "by": "artillery",
+              "by_uid": 2,
               "card_id": "shield_wall",
+              "card_id_uid": 13,
               "side": "enemy",
               "tick": 100,
               "type": "disable"
             },
             {
               "by": "cavalry",
+              "by_uid": 3,
               "damage": 6,
               "side": "enemy",
               "target": "infantry",
+              "target_uid": 7,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 3,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 7
             },
             {
               "attacker": "infantry",
+              "attacker_uid": 4,
               "by": "cavalry",
+              "by_uid": 9,
               "side": "player",
               "tick": 100,
               "type": "dodge"
             },
             {
               "by": "archers",
+              "by_uid": 5,
               "damage": 3,
               "side": "enemy",
               "target": "archers",
+              "target_uid": 8,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "archers",
+              "by_uid": 5,
               "faction": "player",
               "side": "enemy",
               "tick": 100,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 8
             }
           ],
           "round": 1
@@ -1030,6 +1172,7 @@
           "events": [
             {
               "card_id": "shield_wall",
+              "card_id_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "repair"
@@ -1037,77 +1180,97 @@
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 10
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 13,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 12
             },
             {
               "by": "cavalry",
+              "by_uid": 9,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 3,
               "tick": 20,
               "type": "miss"
             },
             {
               "by": "cavalry",
+              "by_uid": 9,
               "damage": 6,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 3,
               "tick": 80,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 9,
               "faction": "enemy",
               "side": "player",
               "tick": 80,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 3
             },
             {
               "by": "privateers",
+              "by_uid": 14,
               "damage": 6,
               "side": "player",
               "target": "infantry",
+              "target_uid": 4,
               "tick": 95,
               "type": "hit"
             },
             {
               "by": "privateers",
+              "by_uid": 14,
               "faction": "enemy",
               "side": "player",
               "tick": 95,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 4
             },
             {
               "by": "elite_forces",
+              "by_uid": 11,
               "damage": 9,
               "side": "player",
               "target": "artillery",
+              "target_uid": 2,
               "tick": 100,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 11,
               "faction": "enemy",
               "side": "player",
               "tick": 100,
               "type": "death",
-              "victim": "artillery"
+              "victim": "artillery",
+              "victim_uid": 2
             },
             {
               "attacker": "archers",
+              "attacker_uid": 5,
               "by": "cavalry",
+              "by_uid": 9,
               "side": "player",
               "tick": 100,
               "type": "dodge"
@@ -1119,19 +1282,23 @@
           "events": [
             {
               "by": "cavalry",
+              "by_uid": 9,
               "damage": 6,
               "side": "player",
               "target": "archers",
+              "target_uid": 5,
               "tick": 39,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 9,
               "faction": "enemy",
               "side": "player",
               "tick": 39,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 5
             }
           ],
           "round": 3
@@ -1390,206 +1557,258 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 9
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 10
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 11
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 12
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 13
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 14
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "holy_warriors"
+              "unit": "holy_warriors",
+              "unit_uid": 17
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "privateers"
+              "unit": "privateers",
+              "unit_uid": 18
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 1
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 2
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 3
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 4
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 5
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 6
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "side": "player",
               "target": "bomber",
+              "target_uid": 1,
               "tick": 1,
               "type": "shootdown"
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "faction": "enemy",
               "side": "player",
               "tick": 1,
               "type": "death",
-              "victim": "bomber"
+              "victim": "bomber",
+              "victim_uid": 1
             },
             {
               "by": "holy_warriors",
+              "by_uid": 17,
               "damage": 20,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 2,
               "tick": 74,
               "type": "hit"
             },
             {
               "by": "holy_warriors",
+              "by_uid": 17,
               "faction": "enemy",
               "side": "player",
               "tick": 74,
               "type": "death",
-              "victim": "elite_forces"
+              "victim": "elite_forces",
+              "victim_uid": 2
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "damage": 10,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 4,
               "tick": 80,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "faction": "enemy",
               "side": "player",
               "tick": 80,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 4
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "damage": 15,
               "side": "player",
               "target": "infantry",
+              "target_uid": 5,
               "tick": 84,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "faction": "enemy",
               "side": "player",
               "tick": 84,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 5
             },
             {
               "by": "privateers",
+              "by_uid": 18,
               "damage": 10,
               "side": "player",
               "target": "artillery",
+              "target_uid": 3,
               "tick": 84,
               "type": "hit"
             },
             {
               "by": "privateers",
+              "by_uid": 18,
               "faction": "enemy",
               "side": "player",
               "tick": 84,
               "type": "death",
-              "victim": "artillery"
+              "victim": "artillery",
+              "victim_uid": 3
             },
             {
               "barrier": "",
               "by": "archers",
+              "by_uid": 9,
               "card_id": "shield_wall",
+              "card_id_uid": 7,
               "shots_left": 3,
               "side": "player",
               "tick": 94,
@@ -1597,19 +1816,23 @@
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "damage": 5,
               "side": "player",
               "target": "archers",
+              "target_uid": 6,
               "tick": 96,
               "type": "hit"
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "faction": "enemy",
               "side": "player",
               "tick": 96,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 6
             }
           ],
           "round": 1
@@ -1921,135 +2144,169 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 9
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 10
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 11
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 12
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 13
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 14
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "privateers"
+              "unit": "privateers",
+              "unit_uid": 17
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 1
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 2
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 3
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 4
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 5
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 6
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "side": "player",
               "target": "bomber",
+              "target_uid": 1,
               "tick": 1,
               "type": "shootdown"
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "faction": "enemy",
               "side": "player",
               "tick": 1,
               "type": "death",
-              "victim": "bomber"
+              "victim": "bomber",
+              "victim_uid": 1
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "damage": 16,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 2,
               "tick": 56,
               "type": "hit"
             },
@@ -2059,52 +2316,65 @@
               "tick": 56,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 2
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "damage": 24,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 2,
               "tick": 68,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "faction": "enemy",
               "side": "player",
               "tick": 68,
               "type": "death",
-              "victim": "elite_forces"
+              "victim": "elite_forces",
+              "victim_uid": 2
             },
             {
               "by": "privateers",
+              "by_uid": 17,
               "damage": 16,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 4,
               "tick": 80,
               "type": "hit"
             },
             {
               "by": "privateers",
+              "by_uid": 17,
               "faction": "enemy",
               "side": "player",
               "tick": 80,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 4
             },
             {
               "by": "artillery",
+              "by_uid": 3,
               "card_id": "shield_wall",
+              "card_id_uid": 15,
               "side": "enemy",
               "tick": 100,
               "type": "disable"
             },
             {
               "by": "infantry",
+              "by_uid": 5,
               "damage": 8,
               "side": "enemy",
               "target": "infantry",
+              "target_uid": 8,
               "tick": 100,
               "type": "hit"
             },
@@ -2114,12 +2384,15 @@
               "tick": 100,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 0,
               "side": "enemy",
               "tick": 100,
@@ -2128,6 +2401,7 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "side": "enemy",
               "tick": 100,
               "type": "barrier_destroyed"
@@ -2138,7 +2412,8 @@
               "tick": 100,
               "tier": "",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             }
           ],
           "round": 1
@@ -2147,6 +2422,7 @@
           "events": [
             {
               "card_id": "shield_wall",
+              "card_id_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "repair"
@@ -2154,26 +2430,32 @@
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 9
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 11
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 13
             },
             {
               "barrier": "scat_worldwar_stump",
@@ -2181,12 +2463,15 @@
               "tick": 0,
               "tier": "medium",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "barrier": "",
               "by": "archers",
+              "by_uid": 9,
               "card_id": "shield_wall",
+              "card_id_uid": 7,
               "shots_left": 4,
               "side": "player",
               "tick": 11,
@@ -2194,58 +2479,72 @@
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "damage": 16,
               "side": "player",
               "target": "infantry",
+              "target_uid": 5,
               "tick": 12,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "faction": "enemy",
               "side": "player",
               "tick": 12,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 5
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "damage": 24,
               "side": "player",
               "target": "artillery",
+              "target_uid": 3,
               "tick": 35,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "faction": "enemy",
               "side": "player",
               "tick": 35,
               "type": "death",
-              "victim": "artillery"
+              "victim": "artillery",
+              "victim_uid": 3
             },
             {
               "by": "artillery",
+              "by_uid": 13,
               "card_id": "shield_wall",
+              "card_id_uid": 7,
               "side": "player",
               "tick": 42,
               "type": "disable"
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "damage": 8,
               "side": "player",
               "target": "archers",
+              "target_uid": 6,
               "tick": 45,
               "type": "hit"
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "faction": "enemy",
               "side": "player",
               "tick": 45,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 6
             }
           ],
           "round": 2
@@ -2540,127 +2839,159 @@
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 9
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 10
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 11
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 12
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 13
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 14
             },
             {
               "row": "air",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "bomber"
+              "unit": "bomber",
+              "unit_uid": 1
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 2
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 3
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "cavalry"
+              "unit": "cavalry",
+              "unit_uid": 4
             },
             {
               "row": "melee",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 5
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 7,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 6
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "side": "player",
               "target": "bomber",
+              "target_uid": 1,
               "tick": 1,
               "type": "shootdown"
             },
             {
               "by": "anti_air",
+              "by_uid": 16,
               "faction": "enemy",
               "side": "player",
               "tick": 1,
               "type": "death",
-              "victim": "bomber"
+              "victim": "bomber",
+              "victim_uid": 1
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "damage": 12,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 2,
               "tick": 67,
               "type": "hit"
             },
@@ -2670,52 +3001,65 @@
               "tick": 67,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "elite_forces"
+              "unit": "elite_forces",
+              "unit_uid": 2
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "damage": 36,
               "side": "player",
               "target": "elite_forces",
+              "target_uid": 2,
               "tick": 73,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "faction": "enemy",
               "side": "player",
               "tick": 73,
               "type": "death",
-              "victim": "elite_forces"
+              "victim": "elite_forces",
+              "victim_uid": 2
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "damage": 24,
               "side": "player",
               "target": "cavalry",
+              "target_uid": 4,
               "tick": 88,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "faction": "enemy",
               "side": "player",
               "tick": 88,
               "type": "death",
-              "victim": "cavalry"
+              "victim": "cavalry",
+              "victim_uid": 4
             },
             {
               "by": "artillery",
+              "by_uid": 3,
               "card_id": "shield_wall",
+              "card_id_uid": 15,
               "side": "enemy",
               "tick": 100,
               "type": "disable"
             },
             {
               "by": "infantry",
+              "by_uid": 5,
               "damage": 12,
               "side": "enemy",
               "target": "infantry",
+              "target_uid": 8,
               "tick": 100,
               "type": "hit"
             },
@@ -2725,12 +3069,15 @@
               "tick": 100,
               "tier": "weak",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 0,
               "side": "enemy",
               "tick": 100,
@@ -2739,6 +3086,7 @@
             {
               "barrier": "scat_worldwar_debris",
               "by": "archers",
+              "by_uid": 6,
               "side": "enemy",
               "tick": 100,
               "type": "barrier_destroyed"
@@ -2749,7 +3097,8 @@
               "tick": 100,
               "tier": "",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             }
           ],
           "round": 1
@@ -2758,6 +3107,7 @@
           "events": [
             {
               "card_id": "shield_wall",
+              "card_id_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "repair"
@@ -2765,26 +3115,32 @@
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 9
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "engineers"
+              "unit": "engineers",
+              "unit_uid": 11
             },
             {
               "row": "ranged",
               "screened_by": "shield_wall",
+              "screened_by_uid": 15,
               "side": "player",
               "tick": 0,
               "type": "take_station",
-              "unit": "artillery"
+              "unit": "artillery",
+              "unit_uid": 13
             },
             {
               "barrier": "scat_worldwar_stump",
@@ -2792,12 +3148,15 @@
               "tick": 0,
               "tier": "medium",
               "type": "take_cover",
-              "unit": "infantry"
+              "unit": "infantry",
+              "unit_uid": 8
             },
             {
               "barrier": "",
               "by": "archers",
+              "by_uid": 9,
               "card_id": "shield_wall",
+              "card_id_uid": 7,
               "shots_left": 3,
               "side": "player",
               "tick": 3,
@@ -2805,61 +3164,77 @@
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "side": "player",
               "target": "infantry",
+              "target_uid": 5,
               "tick": 34,
               "type": "miss"
             },
             {
               "by": "artillery",
+              "by_uid": 13,
               "card_id": "shield_wall",
+              "card_id_uid": 7,
               "side": "player",
               "tick": 44,
               "type": "disable"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "damage": 36,
               "side": "player",
               "target": "infantry",
+              "target_uid": 5,
               "tick": 46,
               "type": "hit"
             },
             {
               "by": "elite_forces",
+              "by_uid": 12,
               "faction": "enemy",
               "side": "player",
               "tick": 46,
               "type": "death",
-              "victim": "infantry"
+              "victim": "infantry",
+              "victim_uid": 5
             },
             {
               "by": "bomber",
+              "by_uid": 14,
               "side": "player",
               "target": "artillery",
+              "target_uid": 3,
               "tick": 47,
               "type": "miss"
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "damage": 24,
               "side": "player",
               "target": "artillery",
+              "target_uid": 3,
               "tick": 75,
               "type": "hit"
             },
             {
               "by": "cavalry",
+              "by_uid": 10,
               "faction": "enemy",
               "side": "player",
               "tick": 75,
               "type": "death",
-              "victim": "artillery"
+              "victim": "artillery",
+              "victim_uid": 3
             },
             {
               "barrier": "scat_worldwar_stump",
               "by": "archers",
+              "by_uid": 6,
               "card_id": "",
+              "card_id_uid": 0,
               "shots_left": 1,
               "side": "enemy",
               "tick": 100,
@@ -2873,26 +3248,32 @@
             {
               "row": "ranged",
               "screened_by": "",
+              "screened_by_uid": 0,
               "side": "enemy",
               "tick": 0,
               "type": "take_station",
-              "unit": "archers"
+              "unit": "archers",
+              "unit_uid": 6
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "damage": 12,
               "side": "player",
               "target": "archers",
+              "target_uid": 6,
               "tick": 1,
               "type": "hit"
             },
             {
               "by": "infantry",
+              "by_uid": 8,
               "faction": "enemy",
               "side": "player",
               "tick": 1,
               "type": "death",
-              "victim": "archers"
+              "victim": "archers",
+              "victim_uid": 6
             }
           ],
           "round": 3

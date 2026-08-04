@@ -325,6 +325,9 @@ every green wave.
       not touched. Gap decisions (11 new rows): decisions.md W14.9; conventions:
       implementation-notes.md W14.9.)*
 - [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
+      **Split into four sub-waves**, each with its own gate, because one wave that restores Part B
+      *and* builds three scenes has no green point to fall back to if it breaks halfway: W15.0 (the
+      two prerequisites, below), then one scene per sub-wave in the order the game plays them.
       Operations city panorama (collapsible bottom-right dock, icon+value HUD with focus tooltips,
       controller focus navigation) now also carrying 勳章 assignment + 解散 roll evaluation, route
       fog-map scene, and a **top-down** per-battle-type battle scene replaying the core's tick
@@ -344,6 +347,37 @@ every green wave.
       Interface behavior iterates in-engine on Part B captures (no more interface mocks).
       **Part B returns here** (`view/main.gd` is parse-broken until this wave).
       Gate: Part B captures reviewed, zero ASSERT FAIL.
+      - [x] **W15.0 — The two prerequisites, before a scene is drawn.** (1) **Per-unit identity in
+            the timeline**, which `architecture.md` already named as the thing W15 must close before
+            it replays a real 正規軍 roster: labels are card ids, so two 步兵團 on a side share one
+            and no replayer can attribute a strike to either. (2) **The backdrop registry** — all 17
+            approved `bg_*` plates were on disk with nothing mapping them, and the view resolves
+            every texture through `AssetPaths`.
+            *(done 2026-08-04: full suite exit 0 — 21/21 suites, **257/257 cases** (5 identity tests
+            in battle_test, 2 backdrop tests in asset_paths_test); `check_design_graph.py` exit 0;
+            fixture re-exported, page rebuilt, `check_motion_demo.js` exit 0. Every unit and fort
+            carries a `uid` assigned by one idempotent sweep (`_assign_uids`) at `start`, at the end
+            of each `deploy` and at the top of each `end_round`, so a test-injected unit is
+            identified like any other. **The contract rule has no exceptions** — every payload key
+            naming a unit or fort has `<key>_uid` beside it, `0` meaning it names none, which is why
+            one test walks the events and asserts the rule mechanically rather than listing keys
+            that would go stale. 中立掩體 deliberately get none (one instance per prop, so the prop
+            id is already a handle); a 勸降 defector keeps its uid across the side change.
+            `AssetPaths.BATTLE_PLATES` is keyed by canonical battle-type id, mirroring `SCATTER`.
+            Also fixed a stale `inventory.md` blockquote still calling the 7 top-down battle plates
+            "re-render in flight". Gap decisions: decisions.md W15.0.)*
+      - [ ] **W15.1 — View restored + operations city scene.** Split `view/` into scene scripts and
+            get it parsing against the post-W12 battle API (no hand). City panorama on
+            `bg_city_era*`, collapsible bottom-right command dock, icon+value HUD with focus
+            tooltips, controller focus navigation, 勳章 assignment + 解散 roll evaluation.
+            *Gate:* Part A + **Part B returns** (captures reviewed, zero ASSERT FAIL).
+      - [ ] **W15.2 — Route fog-map scene.** Own backdrop, nodes on the map, 迷霧 over unknown
+            nodes, the 世界地圖 upgrade drawing the 戰鬥面／機會面 on the node itself, skip as a
+            standing map exit. *Gate:* Part A + Part B.
+      - [ ] **W15.3 — Top-down battle scene.** Per-battle-type plate, the 掩護鏈 staged front to
+            back, seeded neutral scatter sized by barrier tier, timeline replay with zero rule code
+            in the view, spend-vs-reward always on screen, reward card at the settlement.
+            *Gate:* Part A + Part B.
 
 - [ ] **W16 — The sim bot learns to field fortifications (may run in parallel with W15).** Split out
       of W14.9 by human ruling so that wave's gate stays about rule correctness. `sim.gd::_pick_deploy`

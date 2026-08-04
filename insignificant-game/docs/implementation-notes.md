@@ -309,3 +309,26 @@
      tier (「體積對應掩體等級」 is a rule), positions from the battle seed.
   3. **The batch measured the enemy's half of this rule and nothing of the player's** — W16's
      fort-playing bot is the only way to see 盾陣's budget at all (balance-report.md W14.9).
+
+**W15.0 — per-unit identity + the backdrop registry (view prerequisites).** Touched
+`core/battle.gd` (`BattleField.next_uid`, `_assign_uids`, `_uid`, and a `<key>_uid` at all 18
+emission sites), `core/data/asset_paths.gd` (`BACKGROUND_DIR`, `BATTLE_PLATES`, `background*`),
+`test/battle_test.gd` (+5), `test/asset_paths_test.gd` (+2), `docs/architecture.md` (the identity
+rule, a `uid` glossary row, the label-vs-identity note rewritten now that the hole is closed),
+`assets/pipeline/inventory.md` (stale "re-render in flight" note on the 7 top-down plates) +
+re-exported fixture and rebuilt page. Gate met: **exit 0, 21/21 suites, 257/257 cases**;
+`check_design_graph.py` exit 0; `check_motion_demo.js` exit 0. Part B still down until W15.1.
+Conventions this sets for the scene waves:
+
+1. **Draw with the label, key with the uid.** A label resolves to a sprite (it is a card id or a
+   grade); a uid resolves to *which* sprite. A replayer that keys per-unit state off a label alone
+   is wrong even when it happens to work, which is what the one-unit-per-class fixtures were hiding.
+2. **The uid rule has no exceptions, so nothing has to be memorised.** Given a label key, the
+   identity key is that key plus `_uid`. `test_every_entity_naming_key_carries_its_uid` walks a real
+   battle's events and asserts it, so a new event type cannot quietly opt out.
+3. **`_assign_uids` is idempotent and called at three boundaries**, never from a constructor:
+   `regular_unit` is public and has no battle to count from, and tests append straight into a
+   BattleField. Anything on the field is identified by the next boundary.
+4. **Backdrops resolve through `AssetPaths` like every other class** — the view still loads no path
+   it composed itself. `BATTLE_PLATES` is keyed by canonical battle-type id, so the art pipeline's
+   shorter plate names stop at the registry.

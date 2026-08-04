@@ -886,3 +886,105 @@ func test_enemy_psyops_debuffs_accuracy_for_one_battle() -> void:
 	assert_float(float(battle.player_units[0]["accuracy"])).is_equal_approx(80.0, 0.001)
 	var second := Battle.start(s, &"tax_battle")                # 下場戰 only
 	assert_bool(second.psyops_active).is_false()
+
+
+# --- per-unit identity (W15.0): what a replayer keys its sprites off ---
+
+func test_two_units_of_one_class_get_distinct_uids() -> void:
+	# The hole architecture.md left open for W15: labels are card ids, so two 步兵團 on one side
+	# answer to one label and no replayer could attribute a strike to either. `uid` closes it.
+	var s := _state()
+	_craft(s, &"infantry", 1, 100.0, 0.0, 1.0)
+	_craft(s, &"infantry", 1, 100.0, 0.0, 1.0)
+	var battle := Battle.start(s, &"riot")
+	_deploy_id(s, battle, &"infantry")
+	_deploy_id(s, battle, &"infantry")
+	var first: int = int(battle.player_units[0]["uid"])
+	var second: int = int(battle.player_units[1]["uid"])
+	assert_str(String(battle.player_units[0]["card_id"])) \
+		.is_equal(String(battle.player_units[1]["card_id"]))   # one label...
+	assert_int(first).is_greater(0)
+	assert_int(second).is_not_equal(first)                     # ...two identities
+
+
+func test_every_entity_on_the_field_carries_a_uid() -> void:
+	var s := _state()
+	Rivals.setup(s)
+	Rivals.find(s, &"iron_tribe").power = 30.0    # 正規軍 + their own screen on the far side
+	_craft(s, &"archers", 1, 100.0, 0.0, 1.0)
+	_craft(s, &"shield_wall", 1, 0.0, 0.0, 0.0)
+	var battle := Battle.start(s, &"civil_war", &"iron_tribe")
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"shield_wall")
+	Battle.end_round(s, battle)
+	var seen: Dictionary = {}
+	for group: Array[Dictionary] in [battle.player_units, battle.enemy_units,
+			battle.player_forts, battle.enemy_forts]:
+		for entity: Dictionary in group:
+			var uid: int = int(entity.get("uid", 0))
+			assert_int(uid).override_failure_message("unidentified entity on the field").is_greater(0)
+			assert_bool(seen.has(uid)).override_failure_message("uid %d reused" % uid).is_false()
+			seen[uid] = true
+
+
+func test_every_entity_naming_key_carries_its_uid() -> void:
+	# The contract's rule, asserted mechanically: for every key that names a unit or a fort,
+	# `<key>_uid` sits beside it. A replayer computes the identity key from the label key.
+	var s := _state()
+	_craft(s, &"archers", 1, 100.0, 0.0, 1.0)
+	_craft(s, &"engineers", 1, 0.0, 0.0, 0.0)
+	_craft(s, &"shield_wall", 1, 0.0, 0.0, 0.0)
+	var battle := _world_war_field(s, &"bomber")   # a flier, so 防空 and 空襲 events fire too
+	_deploy_id(s, battle, &"archers")
+	_deploy_id(s, battle, &"engineers")
+	_deploy_id(s, battle, &"shield_wall")
+	var naming: Array[StringName] = [&"by", &"target", &"victim", &"attacker", &"unit",
+			&"card_id", &"screened_by"]
+	var checked: int = 0
+	for _round: int in range(6):
+		var report := Battle.end_round(s, battle)
+		for event: Dictionary in (report["events"] as Array):
+			for key: StringName in naming:
+				if not event.has(key):
+					continue
+				assert_bool(event.has(String(key) + "_uid")) \
+					.override_failure_message("%s event names '%s' with no identity" % [
+						event["type"], key]).is_true()
+				checked += 1
+		if battle.outcome != &"":
+			break
+	assert_int(checked).is_greater(10)
+
+
+func test_a_defector_keeps_its_identity_across_the_side_change() -> void:
+	# 勸降廣播 moves the same regiment to your side; a replayer must recognise the sprite it
+	# already has on screen rather than pop a new one into existence.
+	var s := _state()
+	_craft(s, &"persuasion_broadcast", 1, 0.0, 0.0, 0.0)
+	var battle := Battle.start(s, &"riot")
+	var before: int = int(battle.enemy_units[0]["uid"])
+	assert_int(before).is_greater(0)
+	_deploy_id(s, battle, &"persuasion_broadcast")
+	assert_int(battle.player_units.size()).is_equal(1)
+	assert_int(int(battle.player_units[0]["uid"])).is_equal(before)
+
+
+func test_uids_are_deterministic_under_a_seed() -> void:
+	var runs: Array[Array] = []
+	for _i: int in range(2):
+		var s := _state(404)
+		_craft(s, &"infantry", 1, 100.0, 0.0, 1.0)
+		_craft(s, &"archers", 1, 100.0, 0.0, 1.0)
+		var battle := Battle.start(s, &"field_battle")
+		_deploy_id(s, battle, &"infantry")
+		_deploy_id(s, battle, &"archers")
+		var uids: Array = []
+		for _round: int in range(4):
+			Battle.end_round(s, battle)
+			for group: Array[Dictionary] in [battle.player_units, battle.enemy_units]:
+				for entity: Dictionary in group:
+					uids.append(int(entity["uid"]))
+			if battle.outcome != &"":
+				break
+		runs.append(uids)
+	assert_array(runs[0]).is_equal(runs[1])

@@ -110,6 +110,28 @@ func test_scatter_barrier_profile_is_the_one_the_rules_read() -> void:
 				.override_failure_message("unknown tier on %s" % prop["id"]).is_true()
 
 
+func test_every_scene_has_its_own_backdrop() -> void:
+	# style bible §11: three main scenes, each with its OWN plate and never a shared one — the
+	# city panorama per era, the one route map, and a battlefield per battle type.
+	for era: int in range(1, 7):
+		assert_bool(FileAccess.file_exists(AssetPaths.background_city(era))) \
+			.override_failure_message("missing bg_city_era%d" % era).is_true()
+	for bg_id: StringName in [&"route_map", &"title", &"ending_survive", &"ending_collapse"]:
+		assert_bool(AssetPaths.has_background(bg_id)) \
+			.override_failure_message("missing bg_%s" % bg_id).is_true()
+
+
+func test_battle_plates_cover_every_battle_type() -> void:
+	# a battle type with no plate would open on nothing; the 7 types and the 7 plates are the
+	# same list by design (design/戰鬥.md 戰鬥類型表 ↔ inventory.md §Backgrounds)
+	for battle_type: StringName in Battle.TYPES:
+		assert_bool(AssetPaths.BATTLE_PLATES.has(battle_type)) \
+			.override_failure_message("no battle plate for %s" % battle_type).is_true()
+		assert_bool(FileAccess.file_exists(AssetPaths.background_battle(battle_type))) \
+			.override_failure_message("missing plate file for %s" % battle_type).is_true()
+	assert_int(AssetPaths.BATTLE_PLATES.size()).is_equal(Battle.TYPES.size())
+
+
 func test_approved_cards_exist_per_coverage() -> void:
 	# cards class pick gate closed: every (line, era) in CARD_COVERAGE is frozen on disk (52 forms)
 	var total := 0

@@ -9,6 +9,7 @@ extends RefCounted
 # Icon asset ids mirror assets/approved/icons/icon_<id>.png; canonical code ids (architecture.md)
 # map through the icon_* helpers (policy &"centralization" -> icon asset &"policy_centralization").
 
+const BACKGROUND_DIR: String = "res://assets/approved/backgrounds"
 const ICON_DIR: String = "res://assets/approved/icons"
 const BUILDING_DIR: String = "res://assets/approved/buildings"
 const UNIT_DIR: String = "res://assets/approved/units"
@@ -135,6 +136,24 @@ const SCATTER: Dictionary = {
 	],
 }
 
+# Approved backdrop plates (assets/pipeline/inventory.md §Backgrounds, style bible §11). Three main
+# scenes, each with its OWN plate and never a shared one: the operations city panorama (side-view,
+# one per era), the route fog map (one plate, reused every generation), and a top-down battlefield
+# per battle type (ADR-0009). Two ending plates and the title plate complete the set.
+# BATTLE_PLATES is keyed by the canonical battle-type id (Battle.TYPES) exactly as SCATTER is; the
+# asset ids keep the art pipeline's own shorter names, and this table is where the two schemes meet.
+# A battle plate is FLAT GROUND AND NOTHING ELSE (design/戰鬥.md §場景呈現): everything standing on
+# it — units, forts, scatter — is a separate object the view places, so nothing here is a composition.
+const BATTLE_PLATES: Dictionary = {
+	&"tax_battle": &"tax",
+	&"field_battle": &"field",
+	&"hidden_battle": &"hidden",
+	&"riot": &"riot",
+	&"democracy_blood": &"democracy",
+	&"civil_war": &"civwar",
+	&"world_war": &"worldwar",
+}
+
 # Approved card illustrations: line -> eras frozen (pick gate 2026-07-23; the per-subject seed
 # picks live in assets/pipeline/phase3_cards_batch.py PICKS, the freeze in phase3_cards_freeze.py).
 # Cards mirror the unit lines MINUS the enemy tiers (cards are player-side only) and, unlike units,
@@ -203,6 +222,22 @@ const UI_DIVIDER: Dictionary = {
 
 const FONT_REGULAR: String = "res://assets/fonts/NotoSansTC-Regular.subset.otf"
 const FONT_BOLD: String = "res://assets/fonts/NotoSansTC-Bold.subset.otf"
+
+
+static func background(bg_id: StringName) -> String:
+	return "%s/bg_%s.png" % [BACKGROUND_DIR, bg_id]
+
+
+static func has_background(bg_id: StringName) -> bool:
+	return FileAccess.file_exists(background(bg_id))
+
+
+static func background_city(era: int) -> String:
+	return background(StringName("city_era%d" % era))
+
+
+static func background_battle(battle_type: StringName) -> String:
+	return background(StringName("battle_" + BATTLE_PLATES[battle_type]))
 
 
 static func icon(icon_id: StringName) -> String:

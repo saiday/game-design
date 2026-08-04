@@ -139,6 +139,7 @@ class BattleField:
 	var mechanical_played: bool = false   # any 機械型部隊卡 fielded (riot 幸福 cost)
 	var psyops_active: bool = false       # 文化國心戰 (D16): player accuracy snapshots take
 	                                      # −RivalData.ENEMY_PSYOPS_ACCURACY_DEBUFF this battle
+	var next_uid: int = 0                 # hands out per-entity `uid` (see _assign_uids)
 	var last_timeline: Array[Dictionary] = []   # the previous round's full event list
 
 
@@ -184,6 +185,7 @@ static func start(state: GameState, battle_type: StringName, rival_id: StringNam
 		state.flags.erase(&"enemy_psyops_next_battle")
 	_place_barriers(state, battle)
 	_arrive_waves(state, battle)   # wave 1 (敵方開場單位 became wave 1)
+	_assign_uids(battle)
 	return battle
 
 
@@ -240,6 +242,7 @@ static func deploy(state: GameState, battle: BattleField, available_index: int) 
 			# 用後消耗: non-policy skills just don't return this battle
 		_:
 			battle.player_units.append(_unit_from_card(state, battle, instance))
+	_assign_uids(battle)   # the view can identify what it just fielded, before the round resolves
 	return {"ok": true, "reason": &"", "cost": cost}
 
 
@@ -264,6 +267,7 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 	if battle.outcome != &"":
 		return {"outcome": battle.outcome, "events": []}
 	var events: Array[Dictionary] = []
+	_assign_uids(battle)   # anything that arrived since the last boundary gets its handle first
 	_repair_forts(state, battle, events)
 	_take_stations(battle, events)   # after the repair: a restored wall screens from this round
 	_seek_cover_all(battle, events)  # 下一個機會 for anyone hurt and uncovered (ADR-0010)
@@ -600,7 +604,7 @@ static func _repair_forts(state: GameState, battle: BattleField, events: Array[D
 		_arm_wall(state, fort)   # 修好後重抽發數 (ADR-0010)
 		battle.repair_cursor = (i + 1) % count
 		events.append({"tick": 0, "type": &"repair", "side": &"player",
-				"card_id": fort["card_id"]})
+				"card_id": fort["card_id"], "card_id_uid": _uid(fort)})
 		if (fort["flags"] as Array).has(&"screens_ranged_row"):
 			# 修復再啟用 restores the cover, so the row it screens says so again at this tick —
 			# the wall may have gone down and come back inside one round (docs/decisions.md W14.6).
@@ -621,6 +625,7 @@ static func _take_stations(battle: BattleField, events: Array[Dictionary]) -> vo
 static func _station_side(units: Array[Dictionary], forts: Array[Dictionary], events: Array[Dictionary], force: bool = false) -> void:
 	var index: int = _first_active_fort(forts, &"screens_ranged_row")
 	var screen: StringName = forts[index]["card_id"] if index >= 0 else &""
+	var screen_uid: int = _uid(forts[index]) if index >= 0 else 0
 	for unit: Dictionary in units:
 		if int(unit["hp"]) <= 0:
 			continue
@@ -633,7 +638,8 @@ static func _station_side(units: Array[Dictionary], forts: Array[Dictionary], ev
 		unit["stationed"] = true
 		unit["screened_by"] = cover
 		events.append({"tick": 0, "type": &"take_station", "side": unit["side"],
-				"unit": _unit_label(unit), "row": unit["row"], "screened_by": cover})
+				"unit": _unit_label(unit), "unit_uid": _uid(unit), "row": unit["row"],
+				"screened_by": cover, "screened_by_uid": screen_uid if cover != &"" else 0})
 
 
 static func _has_engineer(units: Array[Dictionary]) -> bool:
@@ -671,7 +677,8 @@ static func _seek_cover(battle: BattleField, unit: Dictionary, tick: int, events
 			continue
 		unit["cover"] = barrier["prop"]
 		events.append({"tick": tick, "type": &"take_cover", "side": unit["side"],
-				"unit": _unit_label(unit), "barrier": barrier["prop"], "tier": barrier["tier"]})
+				"unit": _unit_label(unit), "unit_uid": _uid(unit),
+				"barrier": barrier["prop"], "tier": barrier["tier"]})
 		return
 
 
@@ -703,7 +710,8 @@ static func _absorb_wall(fort: Dictionary, attacker: Dictionary, tick: int, even
 	if int(fort["shots"]) <= 0:
 		fort["disabled"] = true
 	events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
-			"by": _unit_label(attacker), "card_id": fort["card_id"], "barrier": &"",
+			"by": _unit_label(attacker), "by_uid": _uid(attacker),
+			"card_id": fort["card_id"], "card_id_uid": _uid(fort), "barrier": &"",
 			"shots_left": maxi(int(fort["shots"]), 0)})
 
 
@@ -712,13 +720,14 @@ static func _absorb_barrier(battle: BattleField, barrier: Dictionary, attacker: 
 	# engineer: 散景不是工事，吸滿發數就永久消失 (戰鬥.md 場景呈現).
 	barrier["shots"] = int(barrier["shots"]) - 1
 	events.append({"tick": tick, "type": &"intercept", "side": attacker["side"],
-			"by": _unit_label(attacker), "card_id": &"", "barrier": barrier["prop"],
+			"by": _unit_label(attacker), "by_uid": _uid(attacker),
+			"card_id": &"", "card_id_uid": 0, "barrier": barrier["prop"],
 			"shots_left": maxi(int(barrier["shots"]), 0)})
 	if int(barrier["shots"]) > 0:
 		return
 	barrier["destroyed"] = true
 	events.append({"tick": tick, "type": &"barrier_destroyed", "side": attacker["side"],
-			"by": _unit_label(attacker), "barrier": barrier["prop"]})
+			"by": _unit_label(attacker), "by_uid": _uid(attacker), "barrier": barrier["prop"]})
 	# Whoever was behind it is exposed again, and falls back to another intact barrier at the next
 	# opportunity if one is free (docs/decisions.md W14.9).
 	for units: Array[Dictionary] in [battle.player_units, battle.enemy_units]:
@@ -729,7 +738,8 @@ static func _absorb_barrier(battle: BattleField, barrier: Dictionary, attacker: 
 			if int(unit["hp"]) <= 0:
 				continue
 			events.append({"tick": tick, "type": &"take_cover", "side": unit["side"],
-					"unit": _unit_label(unit), "barrier": &"", "tier": &""})
+					"unit": _unit_label(unit), "unit_uid": _uid(unit),
+					"barrier": &"", "tier": &""})
 
 
 static func _cast_skill(state: GameState, battle: BattleField, instance: Cards.CardInstance) -> void:
@@ -767,7 +777,8 @@ static func _destroy_one_non_leader(battle: BattleField, events: Array[Dictionar
 		if _is_non_leader(unit):
 			unit["hp"] = 0
 			events.append({"tick": tick, "type": &"death", "side": &"player",
-					"victim": _unit_label(unit), "by": &"skill", "faction": unit["faction"]})
+					"victim": _unit_label(unit), "victim_uid": _uid(unit),
+					"by": &"skill", "by_uid": 0, "faction": unit["faction"]})
 			_credit_clear(battle, &"player", unit)
 			return
 
@@ -822,7 +833,9 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 		if busted >= 0:
 			defender_forts[busted]["disabled"] = true
 			events.append({"tick": tick, "type": &"disable", "side": attacker["side"],
-					"by": _unit_label(attacker), "card_id": defender_forts[busted]["card_id"]})
+					"by": _unit_label(attacker), "by_uid": _uid(attacker),
+					"card_id": defender_forts[busted]["card_id"],
+					"card_id_uid": _uid(defender_forts[busted])})
 			return
 	var target: Dictionary = _pick_target(defenders, kind)
 	if target.is_empty():
@@ -849,11 +862,13 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 	# accuracy roll, then dodge roll — both on the &"battle" track, in this order.
 	if not state.rng.chance(&"battle", float(attacker["accuracy"]) / 100.0):
 		events.append({"tick": tick, "type": &"miss", "side": attacker["side"],
-				"by": _unit_label(attacker), "target": _unit_label(target)})
+				"by": _unit_label(attacker), "by_uid": _uid(attacker),
+				"target": _unit_label(target), "target_uid": _uid(target)})
 		return
 	if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
 		events.append({"tick": tick, "type": &"dodge", "side": target["side"],
-				"by": _unit_label(target), "attacker": _unit_label(attacker)})
+				"by": _unit_label(target), "by_uid": _uid(target),
+				"attacker": _unit_label(attacker), "attacker_uid": _uid(attacker)})
 		_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
 		return
 	var damage: int = int(attacker["attack"])
@@ -861,7 +876,8 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 		damage += 1   # 軍歌: 兩回合內全體 +1 攻
 	target["hp"] = int(target["hp"]) - damage
 	events.append({"tick": tick, "type": &"hit", "side": attacker["side"],
-			"by": _unit_label(attacker), "target": _unit_label(target), "damage": damage})
+			"by": _unit_label(attacker), "by_uid": _uid(attacker),
+			"target": _unit_label(target), "target_uid": _uid(target), "damage": damage})
 	if int(target["hp"]) > 0:
 		# 閃避率 XP: survived the hit (被攻擊且活下來). A miss accrues nothing — the attack
 		# never reached the unit (docs/decisions.md, W13). The killing blow accrues nothing.
@@ -870,7 +886,8 @@ static func _fire(state: GameState, battle: BattleField, attacker: Dictionary, t
 		_seek_cover(battle, target, tick, events)
 	if int(target["hp"]) <= 0:
 		events.append({"tick": tick, "type": &"death", "side": attacker["side"],
-				"victim": _unit_label(target), "by": _unit_label(attacker),
+				"victim": _unit_label(target), "victim_uid": _uid(target),
+				"by": _unit_label(attacker), "by_uid": _uid(attacker),
 				"faction": target["faction"]})
 		_credit_clear(battle, attacker["faction"], target)
 		if player_side and (attacker["flags"] as Array).has(&"plunder"):
@@ -895,20 +912,25 @@ static func _fire_batteries(state: GameState, battle: BattleField, forts: Array[
 		if target.is_empty():
 			continue
 		var label: StringName = fort["card_id"]
+		var label_uid: int = _uid(fort)
 		if not state.rng.chance(&"battle", ENEMY_ACCURACY / 100.0):
-			events.append({"tick": tick, "type": &"miss", "side": faction, "by": label,
-					"target": _unit_label(target)})
+			events.append({"tick": tick, "type": &"miss", "side": faction,
+					"by": label, "by_uid": label_uid,
+					"target": _unit_label(target), "target_uid": _uid(target)})
 			continue
 		if state.rng.chance(&"battle", float(target["dodge"]) / 100.0):
 			events.append({"tick": tick, "type": &"dodge", "side": target["side"],
-					"by": _unit_label(target), "attacker": label})
+					"by": _unit_label(target), "by_uid": _uid(target),
+					"attacker": label, "attacker_uid": label_uid})
 			_grant_battle_xp(target, &"dodge", tick, events)   # 被攻擊且活下來 (D9)
 			continue
 		target["hp"] = 0   # 命中即擊落: the missile ignores hit points
-		events.append({"tick": tick, "type": &"shootdown", "side": faction, "by": label,
-				"target": _unit_label(target)})
+		events.append({"tick": tick, "type": &"shootdown", "side": faction,
+				"by": label, "by_uid": label_uid,
+				"target": _unit_label(target), "target_uid": _uid(target)})
 		events.append({"tick": tick, "type": &"death", "side": faction,
-				"victim": _unit_label(target), "by": label, "faction": target["faction"]})
+				"victim": _unit_label(target), "victim_uid": _uid(target),
+				"by": label, "by_uid": label_uid, "faction": target["faction"]})
 		_credit_clear(battle, faction, target)
 
 
@@ -980,12 +1002,34 @@ static func _grant_battle_xp(unit: Dictionary, stat: StringName, tick: int, even
 		return
 	if Cards.grant_xp(instance, stat):
 		events.append({"tick": tick, "type": &"medal", "side": unit["side"],
-				"unit": _unit_label(unit), "stat": stat,
+				"unit": _unit_label(unit), "unit_uid": _uid(unit), "stat": stat,
 				"level": int(instance.levels.get(stat, 0))})
 
 
 static func _unit_label(unit: Dictionary) -> StringName:
 	return unit["card_id"] if unit["card_id"] != &"" else unit["grade"]
+
+
+static func _assign_uids(battle: BattleField) -> void:
+	# Per-entity identity for the replayers (architecture.md §Timeline event contract). A label is
+	# a card id, so two 步兵團 on one side answer to the same one and no replayer could tell their
+	# strikes apart; `uid` is the handle that can. Units and forts get one because their labels
+	# repeat; a 中立掩體 does not, because a battle fields at most one instance per prop id.
+	# Assigned by one fixed sweep over the field in arrival order, so the same seed hands out the
+	# same numbers, and never reassigned — a 投誠 defector keeps its uid across the side change,
+	# because it is the same regiment fighting for someone else.
+	for group: Array[Dictionary] in [battle.player_units, battle.enemy_units,
+			battle.player_forts, battle.enemy_forts]:
+		for entity: Dictionary in group:
+			if int(entity.get("uid", 0)) > 0:
+				continue
+			battle.next_uid += 1
+			entity["uid"] = battle.next_uid
+
+
+static func _uid(entity: Dictionary) -> int:
+	# 0 ＝ this field names no unit and no fort: a 技能卡 kill, an unscreened row.
+	return int(entity.get("uid", 0))
 
 
 static func _sweep_dead(units: Array[Dictionary]) -> int:

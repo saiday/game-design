@@ -325,10 +325,10 @@ Three main scenes, each with its own distinct background (never shared): the ope
 panorama, the route fog-of-war map, and per-battle-type battlefields. Time-of-day (one
 generation = one day) is an in-engine grade over the day plate, not separate art.
 
-> **The 7 `bg_battle_*` plates are superseded, re-render in flight (ADR-0009).** They are side-view
-> backdrops for a top-down field. Same 7 ids and same per-type subjects; the re-render changes the
-> camera, and it rides PLAN.md **W14.8** together with the unit sprites. The other 10 backgrounds
-> are untouched: the city panorama stays side-view by design (`style-bible.md` §11).
+> **The 7 `bg_battle_*` plates are top-down (ADR-0009)**, re-rendered in W14.8 alongside the unit
+> sprites: same 7 ids and same per-type subjects, new camera. The side-view set they replaced is
+> gone from disk. The other 10 backgrounds are untouched — the city panorama stays side-view by
+> design (`style-bible.md` §11). All 17 resolve through `AssetPaths.background*`.
 >
 > **A battle plate is flat ground and nothing else.** It has no sky, no horizon and no distant
 > hills, and it also carries no props: no trees, fences, hay bales, barricades, colonnades or

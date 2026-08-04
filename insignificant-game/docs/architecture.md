@@ -164,7 +164,8 @@ because they name a different concept or because no identifier uses them.
 | **timeline** | `last_timeline` | The complete tick-stamped event list core emits per round. The view replays it and decides nothing. | log, history |
 | **timeline fixture** | `docs/fixtures/battle_timeline.json` | One exported battle per era: the replayers' input and Part A's staleness gate. | sample, dump |
 | **replayer** | none | Anything that turns a timeline back into motion and decides nothing: `view/`'s battle scene and the HTML page. | simulator (a replayer holds no rule code) |
-| **label** | `_unit_label` | A unit's handle inside a timeline entry: its `card_id`, or its anonymous `grade`. **Not an identity** (see the contract below). | id, name, identity |
+| **label** | `_unit_label` | What a timeline entry calls a unit: its `card_id`, or its anonymous `grade`. Says *what kind of thing* it is, and so which sprite to draw. **Not an identity** — see `uid`. | id, name, identity |
+| **uid** | `uid`, `_assign_uids`, `next_uid` | Which particular unit or fort a label means: an int unique within the battle, handed out in arrival order and never reassigned. `0` names no entity. | index (it is not a position in any array), instance (that is `Cards.CardInstance`) |
 | **side** | `side` | On a timeline entry, the side of the party its actor field names. | `faction`, which also exists on `death` but means the *victim's* side |
 
 **Retired — never reintroduce:** 手牌 (hand), 部隊位 (slots; replaced by assignable 勳章),
@@ -192,12 +193,19 @@ same entry is on the opposite side, and a fort named by `card_id` belongs to the
 W14.7 added it: labels are card ids, so both camps' 步兵團 answer to one label and no replayer could
 attribute a strike to a camp without it.
 
-| `type` | Payload keys | Meaning |
+**Identity travels with every label.** For each payload key that names a unit or a fort, the entry
+also carries `<key>_uid`: `by_uid`, `target_uid`, `victim_uid`, `attacker_uid`, `unit_uid`,
+`card_id_uid`, `screened_by_uid`. That rule has **no exceptions**, so a replayer derives the identity
+key from the label key rather than memorising a table, and `0` means the key names no entity at all
+(`by: &"skill"`, an unscreened row). Barriers are deliberately left out: a battle fields at most one
+instance per scatter prop, so `barrier` is already a handle.
+
+| `type` | Payload keys (plus each one's `_uid`) | Meaning |
 |---|---|---|
 | `hit` | `by`, `target`, `damage` | An attack landed. `damage` already includes the 軍歌 +1. |
 | `miss` | `by`, `target` | Accuracy roll failed. A miss accrues no 閃避率 XP: the attack never reached the unit. |
 | `dodge` | `by`, `attacker` | Dodge roll succeeded. **`by` is the unit that dodged**, not the attacker (the only entry where `by` is the defender, so `side` is the dodger's). |
-| `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill, or a fort's `card_id` for a shootdown; `side` is the clearer's, so the victim is on the other one. `faction` is the victim's, for 戰功 attribution. |
+| `death` | `victim`, `by`, `faction` | HP reached 0. `by` is the clearer's label, `&"skill"` for a 技能卡 kill (`by_uid: 0`), or a fort's `card_id` for a shootdown; `side` is the clearer's, so the victim is on the other one. `faction` is the victim's, for 戰功 attribution. |
 | `intercept` | `by`, `card_id`, `barrier`, `shots_left` | Cover absorbed one **ranged** attack aimed at the unit behind it (ADR-0010; a 盾陣 covers the whole 遠程列, a 中立掩體 covers its own occupant in any row). Exactly one of `card_id` (the wall's card id) and `barrier` (the neutral barrier's prop id) is set, the other `&""`. `shots_left` is what remains of that cover's budget: at `0` a wall is now disabled and a barrier is destroyed. No accuracy or dodge roll happens — 無視攻擊力 means the shot never resolved. |
 | `disable` | `by`, `card_id` | A 帶攻城／空襲 attacker disabled an **active** fort. No roll; the fort is never removed. |
 | `shootdown` | `by`, `target` | A 防空飛彈 destroyed an aircraft. `by` is the fort's `card_id` and `side` is the fort's. Always followed by a `death` at the same tick. |
@@ -207,19 +215,24 @@ attribute a strike to a camp without it.
 | `take_cover` | `unit`, `barrier`, `tier` | A hurt land unit fell back behind a 中立掩體, or lost the one it had (ADR-0010). `barrier` is the barrier's prop id and `tier` its weak/medium/hard grade; **both are `&""` when the unit is now covered by nothing**, which is how a destroyed barrier's occupant is announced — the same convention `take_station` uses for an unscreened row. Fires at the tick of the hit that hurt the unit, or at `tick: 0` when a later chance frees a barrier up. |
 | `barrier_destroyed` | `by`, `barrier` | The shot that emptied a 中立掩體's budget destroyed it: no engineer, no repair, gone for the rest of the battle. Always preceded by the `intercept` that spent the last shot, at the same tick, and followed by a `take_cover` releasing whoever was behind it. |
 
-**What is state and not an event:** the roster of things on the field — units, forts, and now
+**What is state and not an event:** the roster of things on the field — units, forts, and
 `battle.barriers` — is read from the BattleField, exactly as the two replayers already read `units`
-and `forts`. The timeline only says what *happens* to them. A barrier is named by its scatter prop
-id (`scat_<type>_<prop>`), which is a genuine handle because a battle fields at most one instance per
-prop; where the props stand is the view's business, seeded from the battle's own seed (ADR-0010).
+and `forts`. Every unit and fort on it carries the same `uid` its events use. The timeline only says
+what *happens* to them. A barrier is named by its scatter prop id (`scat_<type>_<prop>`), which is a
+genuine handle because a battle fields at most one instance per prop; where the props stand is the
+view's business, seeded from the battle's own seed (ADR-0010).
 
-Labels (`by` / `target` / `victim` / `unit`) come from `_unit_label`: a unit's `card_id`, or its
-anonymous `grade` for irregulars. **Labels are not identities** — two 步兵團 on the same *side* share
-one label, so a replayer must track its own per-unit handles and must not key state off the label
-alone. `(side, label)` is a handle only in a field with one unit per class per side, which is exactly
-what `tools/export_timeline.gd` composes and why (docs/decisions.md, W14.7). A replayer that must
-handle repeats — the W15 battle scene over a real 正規軍 roster — needs per-unit identity added here
-first; nothing in the contract provides it today.
+**Label vs identity — draw with one, key with the other.** A label (`by` / `target` / `victim` /
+`unit` / `card_id`) comes from `_unit_label`: a unit's `card_id`, or its anonymous `grade` for
+irregulars. It says *what kind of thing this is*, which is how a replayer picks the sprite, and it
+repeats — two 步兵團 on the same side share one, and so do two 盾陣. The `uid` beside it says *which
+one*, and is what a replayer keys its per-unit state off. A defector keeps its `uid` across the side
+change, because 勸降 moves the same regiment rather than trading one unit for another.
+
+`uid`s are handed out by `Battle._assign_uids` in one fixed sweep over the field (player units, enemy
+units, player forts, enemy forts, each in arrival order) at `start`, at the end of every `deploy`, and
+at the top of every `end_round` — so the same seed hands out the same numbers, and a unit injected
+straight into a BattleField by a test is identified at the next boundary like any other.
 
 ## Canonical IDs (StringName; use these exactly — never invent variants)
 
