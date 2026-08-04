@@ -80,7 +80,7 @@ report it instead of hacking around it.
 ```gdscript
 class_name GameState extends RefCounted
 # identity / clock
-var seed: int
+var run_seed: int              # `seed` is a global GDScript function — the field cannot be called that
 var rng: SeededRng
 var generation: int            # 1..50
 var difficulty: StringName     # &"easy" | &"normal" | &"hard"

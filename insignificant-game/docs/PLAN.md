@@ -390,9 +390,21 @@ every green wave.
             unwrapped Label and covered a third of the screen. Known art gap, recorded not papered
             over: **no 勳章 icon exists**, so the HUD borrows `icon_attack`. Gap decisions:
             decisions.md W15.1.)*
-      - [ ] **W15.2 — Route fog-map scene.** Own backdrop, nodes on the map, 迷霧 over unknown
+      - [x] **W15.2 — Route fog-map scene.** Own backdrop, nodes on the map, 迷霧 over unknown
             nodes, the 世界地圖 upgrade drawing the 戰鬥面／機會面 on the node itself, skip as a
             standing map exit. *Gate:* Part A + Part B.
+            *(done 2026-08-04: Part A 21/21 suites, 259/259 cases, exit 0; `check_design_graph.py`
+            exit 0 (62 `code:` mappings); Part B 13 captures, 0 ASSERT FAIL. `view/route_scene.gd`
+            is a real scene — it REPLACES the city rather than floating over it, which is the
+            distinction 地圖與機會.md §場景呈現 makes and the W5 list could not. Node placement is
+            the view's, seeded on a **view-local** RNG from `run_seed` + generation: touching
+            `state.rng` would make looking at the map change the run. 迷霧 draws as a haze halo
+            behind an unreadable marker, so an unknown node is visibly THERE and unreadable — the
+            face is what the fog hides, and the 世界地圖 upgrade lifts the face, not the fog
+            (core already decides that in `face_shown`; the scene only draws it). 付錢略過 stands
+            in a fixed corner because it is an exit from the map, not one of the places you can go.
+            Also fixed a stale line in architecture.md's GameState schema: the field is `run_seed`,
+            not `seed` (`seed` is a global GDScript function and the name is unavailable).)*
       - [ ] **W15.3 — Top-down battle scene.** Per-battle-type plate, the 掩護鏈 staged front to
             back, seeded neutral scatter sized by barrier tier, timeline replay with zero rule code
             in the view, spend-vs-reward always on screen, reward card at the settlement.

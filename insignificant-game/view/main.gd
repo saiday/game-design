@@ -2,9 +2,12 @@ extends Control
 # Insignificant view root: owns the run, the HUD, and which scene is on screen.
 #
 # **Three main scenes** (design/營運.md §場景呈現, style bible §11), each with its own backdrop and
-# never a shared one: 營運＝活的城市全景 (CityScene, side-view), 選路＝迷霧地圖 (W15.2), 戰鬥＝依戰鬥
-# 類型的專屬戰場 (W15.3, top-down per ADR-0009). The phases that are not scenes — 機會, 結算, 世界
-# 大戰, 民主, 結局 — are parchment panels over the city, which is where the player already is.
+# never a shared one: 營運＝活的城市全景 (`CityScene`, side-view), 選路＝迷霧地圖 (`RouteScene`),
+# 戰鬥＝依戰鬥類型的專屬戰場 (W15.3, top-down per ADR-0009).
+#
+# A scene claims the whole screen; the phases that are not scenes — 機會, 戰鬥, 結算, 世界大戰, 民主,
+# 結局 — are parchment panels ON a scene. 機會 and 戰鬥 stay on whichever scene the player reached
+# them from, because they happened there; everything in `RETURNS_TO_CITY` sends the player home.
 #
 # The view computes NOTHING. Every rule call goes through core/, every texture through
 # core/data/asset_paths.gd, and no number on screen is derived here.
@@ -21,6 +24,10 @@ const HUD_BAND_HEIGHT: float = 168.0        # the scrim the HUD strip and event 
 const OUTCOME_NAMES: Dictionary = {
 	&"win": "勝", &"loss": "敗", &"retreat": "撤軍", &"defected": "敵方投誠",
 }
+# Panels whose appearance means the journey is over and the player is home again.
+const RETURNS_TO_CITY: Array[StringName] = [
+	&"reward", &"settle", &"world_war", &"democracy", &"ending",
+]
 const EFFECT_NAMES: Dictionary = {
 	"money": "金錢", "fee": "花費", "population": "人口", "happiness": "幸福",
 	"culture": "文化", "treasure": "國寶", "rare_card": "稀有卡",
@@ -37,10 +44,11 @@ var demo_failures: int = 0
 
 var hud: Hud
 var city: CityScene
+var route: RouteScene
 var event_label: Label
 var overlay: Control
 var panels: Dictionary = {}
-var route_actions: VBoxContainer
+var current_scene: StringName = &"city"
 var battle_info: Label
 var battle_spend: Label
 var battle_deploy: VBoxContainer
@@ -95,7 +103,7 @@ func _begin_generation() -> void:
 		_refresh_democracy()
 		_show_overlay(&"democracy")
 	else:
-		_show_overlay(&"")   # the city IS the operate screen; nothing sits over it
+		_show_scene(&"city")   # the city IS the operate screen; nothing sits over it
 	_refresh_stats()
 
 
@@ -103,9 +111,14 @@ func _end_operate() -> void:
 	Operations.end_operate_phase(state)
 	nodes = Turn.route(state)
 	city.set_time_of_day(&"midday")
-	_refresh_route()
-	_show_overlay(&"route")
+	route.refresh(state, nodes)
+	_show_scene(&"route")
 	_refresh_stats()
+
+
+func _skip_node() -> void:
+	MapNodes.skip_node(state)
+	_settle()
 
 
 func _enter_node(index: int) -> void:
@@ -233,32 +246,6 @@ func _refresh_stats() -> void:
 	hud.refresh(state)
 
 
-func _refresh_route() -> void:
-	# W15.2 promotes this to its own fog-map scene; until then it is a list over the city.
-	_clear(route_actions)
-	for i: int in range(nodes.size()):
-		var node: Dictionary = nodes[i]
-		# 迷霧 hides the CONTENT, never the node: an unknown node is visibly there and unreadable.
-		var face: String = "迷霧（看不出是什麼）"
-		var badge: StringName = &"map_unknown"
-		if node["kind"] == &"known" or bool(node["face_shown"]):
-			if node["content"] == &"battle":
-				face = Battle.type_name(node["battle_type"])
-				badge = &"map_battle"
-			else:
-				face = "機會事件"
-				badge = &"map_opportunity"
-		var index := i
-		route_actions.add_child(chrome.button("節點 %d：%s" % [i + 1, face],
-			func() -> void: _enter_node(index), badge))
-	route_actions.add_child(chrome.button("付錢略過（%d）→ 結算" % MapNodes.skip_cost(state),
-		func() -> void:
-			MapNodes.skip_node(state)
-			_settle(),
-		&"map_skip"))
-	_focus_first(route_actions)
-
-
 func _refresh_battle() -> void:
 	# W15.3 promotes this to the top-down battlefield scene; until then it is the round-boundary
 	# console over the city, already on the post-W12 API (no hand: 未出的卡 is the whole deck).
@@ -382,6 +369,12 @@ func _build_ui() -> void:
 	city.state_changed.connect(_refresh_stats)
 	city.operate_finished.connect(_end_operate)
 	add_child(city)
+	route = RouteScene.new()
+	route.setup(chrome)
+	route.visible = false
+	route.node_chosen.connect(_enter_node)
+	route.skip_chosen.connect(_skip_node)
+	add_child(route)
 	# HUD layer: icon+value strip, always on screen, never covered by a panel.
 	# It rides a dark scrim because it sits on whatever plate is behind it — Part B caught the
 	# danger row (accent gold on a pale sky) at the edge of unreadable over the city panorama.
@@ -421,7 +414,6 @@ func _build_ui() -> void:
 
 
 func _build_panels() -> void:
-	route_actions = _vbox(_panel(&"route", "選路"))
 	var battle_box := _vbox(_panel(&"battle", "戰鬥"))
 	battle_info = chrome.ink_label("", 16)
 	battle_box.add_child(battle_info)
@@ -509,13 +501,29 @@ func _vbox(parent: Control) -> VBoxContainer:
 	return box
 
 
+func _show_scene(scene_id: StringName) -> void:
+	# A scene claims the whole screen; panels are moments ON a scene, not scenes of their own.
+	current_scene = scene_id
+	city.visible = scene_id == &"city"
+	route.visible = scene_id == &"route"
+	_show_overlay(&"")
+
+
 func _show_overlay(id: StringName) -> void:
+	# Panels that end a journey send the player home to the city; 機會 and 戰鬥 stay on whichever
+	# scene the player reached them from, because they happened THERE.
+	if RETURNS_TO_CITY.has(id):
+		current_scene = &"city"
+		city.visible = true
+		route.visible = false
 	for key: StringName in panels.keys():
 		(panels[key] as Control).visible = key == id
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE if id == &"" else Control.MOUSE_FILTER_STOP
-	# The city keeps standing behind every panel (it is the world, not a screen), but its dock is
-	# the OPERATE phase's command surface — leaving it live during a battle would offer 蓋樓 mid-fight.
-	city.set_commands_visible(id == &"")
+	# The dock is the OPERATE phase's command surface — leaving it live during a battle would offer
+	# 蓋樓 mid-fight, and it has no business on the route map at all.
+	city.set_commands_visible(current_scene == &"city" and id == &"")
+	if id == &"" and current_scene == &"route":
+		route.focus_first()
 
 
 func _visible_overlay() -> StringName:
@@ -631,9 +639,19 @@ func _demo_city() -> void:
 
 func _demo_route_and_battle() -> void:
 	_end_operate()
-	await _capture(&"route", "route panel with node buttons")
-	_assert(route_actions.get_child_count() >= 2, "route lists nodes plus the skip exit")
-	(route_actions.get_child(0) as Button).pressed.emit()
+	await _capture(&"route", "route fog map: this generation's nodes on the near region")
+	_assert(current_scene == &"route", "選路 is its own scene, not a menu over the city")
+	_assert(route.visible and not city.visible, "the map replaces the city, never floats on it")
+	_assert(route.marker_count() == nodes.size(), "every generated node is on the map")
+	_assert(route.markers_on_map(), "no node lands outside the map")
+	# 迷霧: an unknown node without the 世界地圖 upgrade is visibly there and unreadable
+	var fogged: int = 0
+	for node: Dictionary in nodes:
+		if node["kind"] == &"unknown" and not bool(node["face_shown"]):
+			fogged += 1
+	_assert(fogged == 0 or route.fogged_count() == fogged,
+		"every unfaced unknown node draws as fog (%d of %d)" % [fogged, nodes.size()])
+	route.press_node(0)
 	if _visible_overlay() == &"battle":
 		await _capture(&"battle", "battle round-boundary console")
 		_assert(battle_spend.text.contains("軍費"), "spend-vs-reward line visible")
