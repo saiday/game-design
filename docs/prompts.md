@@ -2,65 +2,39 @@
 
 rougelike: cross-run meta-progression
 
+Look at @docs/Graph-Engineering-Athropic-Playbook.md, do you think we should maintain this kind of graph for this project?
+I'd like to adpot its approach, how would you apply it here? and make a plan for me.
+
+
+a mature game units should have animation for each pose and state transition. How do we transite our static unit asset into animation? what's the best practice of our kind of game?
+
+
 ---
 
-# Unsent Prompts
+sv-mobile-ios
+continue the workflow, can you switch verification and straightforward task agent model to sonnet5? Use Opus to validate and act on patch is fine though.
 
-### Project Documentation Architecture Audit & Agent-First Restructuring
 
-Perform a fresh, comprehensive review of our project documentation architecture and restructure it for optimal long-term maintenance, agent efficiency, and human clarity.
-
-#### Context & Current Pain Points
-- The workspace currently has a split structure across root (`.`) and sub-project (`insignificant-game/`), each hosting its own `doc/` or `docs/` directories and `CLAUDE.md` files.
-- We are concerned that documentation is fragmented, file responsibilities are blurred, and duplicated or overlapping content may be scattered across multiple files.
-- As an AI-first project, the documentation structure must prioritize agent discoverability, unambiguous boundaries, and seamless cross-referencing.
-
-#### Objectives & Workflow
-1. **Audit & Boundary Analysis**:
-   - Inspect all existing documentation files across the root and `insignificant-game/` directories.
-   - Evaluate whether `CLAUDE.md` provides sufficient entry-point context for future agents to understand project conventions and design specs.
-   - Identify obsolete, redundant, or scattered information.
-
-2. **Structural Restructuring**:
-   - Propose and execute a streamlined documentation hierarchy that eliminates ambiguity and duplication.
-   - Feel unconstrained by legacy structures—prioritize a clean layout optimized for long-term agent-driven development.
-
-3. **Deliverable 1: Agent Navigation Guide (in `CLAUDE.md`)**:
-   - Update `CLAUDE.md` to serve as the single source of truth entry point for AI agents.
-   - Include a concise, directive lookup matrix/index mapping developer intents to specific docs (**"When working on X scenario, consult document Y"**).
-
-4. **Deliverable 2: Human Documentation Dashboard (`doc-map.html`)**:
-   - Build a standalone, clean HTML visual dashboard (e.g. `doc/doc-map.html`).
-   - Clearly summarize each document's purpose, ownership/scope, target audience, and inter-file relationships/dependencies for human developers.
-
-### Units class (new session; run first)
-
-Read doc/image-assets-generation-orchestrator-cookbook.md and doc/mac-studio-handoff.md, then
-continue the Insignificant art pipeline from assets/pipeline (git log shows current state).
-
-Where we are: the backgrounds class gate is CLOSED, all 17 plates frozen in
-assets/approved/backgrounds/ (commit 9b45ed8). Remaining classes: units, cards, portraits.
-
-Next: run the units class per inventory.md (card-accurate subjects; the v4 mock round in §14
-already proved the recipe and suffix on figures). Full gated flow: candidate rolls, §8 review
-with zoom-before-verdict, contact sheets, then STOP at my pick gate. The machine just
-rebooted: verify the ComfyUI launchd service responds on /system_stats before batching.
-
-### W10 three-scene view revamp (run after the units gate closes)
-
-Read insignificant-game/CLAUDE.md and follow its reading order (architecture.md, dev-loop.md),
-then work from insignificant-game/.
-
-Where we are: the backgrounds art class is closed; all 17 plates are frozen in
-assets/approved/backgrounds/ (commit 9b45ed8; recipes in assets/pipeline/manifest.jsonl).
-
-Next: W10 on doc/PLAN.md, the three-scene view revamp (style bible §11 + corpus 場景呈現):
-operations city panorama with the collapsible dock and icon+value HUD, route fog-map scene,
-per-battle-type battle scene, built on the frozen bg_* plates. Interface behavior iterates
-in-engine and gates on Part B captures. Both loop parts before done.
+---
 
 <details>
 <summary>Archived</summary>
+
+### [2026-07-28 00:01:57] Implement W14.6 Corpus Round
+
+Implement the W14.6 corpus round from the plan at:
+`/Users/saiday/.claude/plans/from-insignificant-game-docs-explore-top-quizzical-hickey.md`
+
+Read it in full first, including the warning block at the top. All 14 decisions are
+human-confirmed — do not re-litigate them.
+
+Scope: documentation only. Code, demo, art and view are W14.7 / W14.8 / W15, which this
+session creates as PLAN.md entries but does not execute.
+
+Gate: `python3 insignificant-game/docs/tools/check_design_graph.py` → exit 0, holding
+`14 system docs, 62 feed edges, 57 code: mappings, 0 errors, 0 warnings`.
+
+The plan now runs 6 changes with an execution order that ends in commit-then-memory. Everything an implementer needs is either in it, or in CLAUDE.md / dev-loop.md which the session loads on its own.
 
 ### [2026-07-13 01:11:20] Adjust Prompt 4 and Proceed with Implementation
 
