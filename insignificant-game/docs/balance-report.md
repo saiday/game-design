@@ -1,221 +1,201 @@
 # Balance report — v1 baseline knobs under simulation
 
-**Measured at:** 2026-08-03, post-cover-model (W14.9: ADR-0010 — 盾陣 absorbs *ranged* fire with a
-3～5-shot budget instead of intercepting one melee attack, and barrier-bearing field scatter is
-unowned cover both sides may fall back behind) on top of the cover chain (W14.7: ADR-0008), the air
-& fortification delta (W14.5: ADR-0006/0007) and the battle-model rewrite (W11–W13.5 + W12.5:
-rolled card instances with growth, wave/tick battles, played world wars, 起始人口 0), with the W14
-tempo bot, 21 suites / 250 cases green. When rules or knobs change, re-run the batch and refresh
-this report (and this stamp) before comparing.
+**Measured at:** 2026-08-05, first batch in which the player fields 工事卡 (W16: `sim.gd` grew a
+fort policy, so ADR-0007's disable/repair lifecycle, ADR-0008's 遠程列 scope and ADR-0010's
+3～5-shot ranged budget are measured from the paying side for the first time), on top of the cover
+model (W14.9: ADR-0010), the cover chain (W14.7: ADR-0008), the air & fortification delta
+(W14.5: ADR-0006/0007) and the battle-model rewrite (W11–W13.5 + W12.5), 21 suites / 267 cases
+green. When rules or knobs change, re-run the batch and refresh this report (and this stamp)
+before comparing.
 
-Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), W14 bot
-(`core/sim.gd`: greedy builder; disbands personnel for population while pop < 20; routes all
-兵營 medals to its strongest unit; fields cheapest units to strength parity per boundary,
-personnel-first in riots; concedes unheld or frozen fields (W14.5) with a 200-round backstop;
-enters democracy at gen 38). Raw data:
-`reports/balance_batch.json`. These are **measurements and surfaced questions — balance
-calls stay with the PM.**
+Source: `tools/balance_batch.gd`, 60 runs (20 seeds × easy/normal/hard), W16 bot
+(`core/sim.gd`: greedy builder; disbands personnel for population while pop < 20, keeping its last
+工兵團 while it holds a 工事卡; routes all 兵營 medals to its strongest unit; fields cheapest units
+to strength parity per boundary, personnel-first in riots; then buys cover — 防空飛彈 against enemy
+air, 盾陣 for a 遠程列 under 遠程 fire, 工兵團 behind either; concedes unheld or frozen fields with a
+200-round backstop; enters democracy at gen 38). Raw data: `reports/balance_batch.json`. These are
+**measurements and surfaced questions — balance calls stay with the PM.**
+
+## Two limits on everything in the fort section
+
+Both were written into the W16 task before the numbers existed, and both survive it:
+
+1. **The batch measures a heuristic we authored, not what a wall is worth.** The bot buys a 盾陣
+   when it has a 遠程列 to screen and the enemy has someone shooting into it. That is a reading of
+   the rules, not of a wave schedule — a human sees the schedule at 開戰前情報 and can buy cover
+   *before* the fire arrives. Every fort figure below is a lower bound on a competent player's use
+   of the card and an exact measure of this bot's.
+2. **Every baseline in this report shifted the moment the bot started fielding walls.** Extra
+   deploys consume the `battle` rng track, so per-seed comparison against the 2026-08-03 batch is
+   meaningless and the 60-run set has to be **re-read, not diffed**. Where a W14.9 number appears
+   below it is there as a distribution, never as a paired sample.
 
 ## Headline numbers (mean over 20 runs; min–max where it matters)
 
 | Metric | easy | normal | hard |
 |---|---|---|---|
 | Endings | 20× survived | 19× survived, **1× 政權崩潰** | 19× survived, **1× 政權崩潰** |
-| Final rank (mean, range) | 1.3 (1–4) | 1.6 (1–4) | 2.6 (1–5) |
+| Final rank (mean, range) | 1.3 (1–3) | 1.7 (0–3) | 2.5 (0–4) |
 | Collapse check armed | 20/20 | 20/20 | 20/20 |
-| Final population (from 起始 0) | 109 (39–126) | 104 (4–135) | 107 (4–169) |
-| World wars fought / won by player camp | 40 / 39 (98%) | 38 / 37 (97%) | 38 / **28 (74%)** |
-| Medal levels on deck at gen 50 | 52 (9–87) | 42 (0–74) | 36 (0–90) |
+| Final population (from 起始 0) | 110 (40–126) | 107 (4–135) | 114 (4–169) |
+| World wars fought / won by player camp | 40 / 38 (95%) | 38 / 37 (97%) | 38 / **28 (74%)** |
+| Medal levels on deck at gen 50 | 54 (5–82) | 40 (0–74) | 41 (0–86) |
 | 兵營 medals left unassigned | 0 | 0 | 0 |
-| Final happiness | 95 (16–100) | 88 (36–100) | 92 (52–100) |
-| Unrest battles triggered / run | 5.2 | 5.5 | 4.8 |
-| Deepest debt touched | −127 (to −576) | −132 (to −383) | −303 (to **−1087**) |
-| Generations spent in debt | 8.1 | 9.6 | 10.4 |
-| Final treasury (gen 50, survivors) | ~9020 | ~9140 | ~9050 |
-| Buildings built (lifetime) | 11.0 | 10.6 | 11.1 |
-| Policies completed | 9.2 | 8.6 | 8.7 |
-| Deck size | 13.2 | 12.2 | 12.1 |
-| Rivals alive at gen 50 | 1.7 | 2.1 | 1.9 |
+| Final happiness | 98 (61–100) | 92 (42–100) | 92 (52–100) |
+| Unrest battles triggered / run | 4.9 | 5.5 | 4.7 |
+| Deepest debt touched | −133 (to −832) | −137 (to −350) | −209 (to −676) |
+| Generations spent in debt | 8.1 | 8.9 | 9.9 |
+| Final treasury (gen 50, survivors) | ~8830 | ~8750 | ~9030 |
+| Buildings built (lifetime) | 10.8 | 10.8 | 11.2 |
+| Policies completed | 9.4 | 8.7 | 8.3 |
+| Deck size | 13.4 | 12.1 | 12.2 |
+| Rivals alive at gen 50 | 1.8 | 2.2 | 1.8 |
 
 ## The three sensitive knobs
 
-1. **BP curve** — unchanged behavior: era caps bind before `pop/10` once population passes
-   ~50; ~9 policy nodes complete per run. The 起始人口 0 opening does NOT starve BP: the
-   floor-1 rule plus the disband engine reaches double-digit population inside the tribal
-   era. **No change suggested.**
-2. **Escalating cost 0.25** — same window as before (debt clusters classical/faith); the
-   rewrite didn't move it. Still runs out of things to price by industrial.
-3. **Unrest weights** — triggers hold at 4.6–5.8/run and the 內亂 chain **kills**: 3 of 60 runs
-   end in 政權崩潰 (see below). The lethality earlier reports flagged as missing exists; two of
-   the three are still the gen-4 opening trap, but one now lands at generation 13.
+1. **BP curve** — unchanged behavior: era caps bind before `pop/10` once population passes ~50;
+   8–9 policy nodes complete per run. The 起始人口 0 opening does not starve BP. **No change
+   suggested.**
+2. **Escalating cost 0.25** — same window as before (debt clusters classical/faith). Still runs
+   out of things to price by industrial.
+3. **Unrest weights** — triggers hold at 4.7–5.5/run and the 內亂 chain still **kills**: 2 of 60
+   runs end in 政權崩潰, both the gen-4 opening trap (below). Unchanged by cover: a riot is fought
+   by 非正規軍 in the 近戰列, which is precisely what a wall does not stop.
 
-## Cover model delta (W14.9) — half of it is measured, and the measured half moved hard
+## The fort delta (W16) — what a bot that builds cover actually does
 
-ADR-0010 changed two things: a 盾陣 stopped intercepting one melee attack and started absorbing
-3～5 **ranged** shots, and barrier-bearing field scatter became unowned cover a hurt land unit falls
-back behind on its own. **The split in what this batch can see is the whole story of these numbers.**
-Neutral cover is engine-placed, so every one of the 60 runs met it in every battle. The player's own
-盾陣 still needs a card played, and `sim.gd::_pick_deploy` skips `class == &"fortification"` — so on
-the player's side the inversion is pure loss and no gain: the enemy's 正規軍 screens went from
-eating one melee swing to eating 3–5 of the bot's arrows, while the bot fields no wall of its own.
-Read every number below through that asymmetry; it is a property of the bot, not of the rule.
+| Measure | easy | normal | hard | total |
+|---|---|---|---|---|
+| Battles driven | 629 | 624 | 601 | 1854 |
+| …opening with a 盾陣 in the deck | 505 (80%) | 477 (76%) | 463 (77%) | 1445 (78%) |
+| …opening with a 防空飛彈 in the deck | 63 | 56 | 68 | 187 (10%) |
+| …with a living enemy 空域 unit at any boundary | 0 | 1 | 19 | **20 (1%)** |
+| 盾陣 fielded | 59 | 82 | 65 | 206 |
+| 防空飛彈 fielded | 0 | 0 | 9 | 9 |
+| 工兵團 fielded by the follow-the-wall rule | 13 | 13 | 2 | 28 |
+| 軍費 spent on cover, per run | 44 | 58 | 51 | 51 |
+| Ranged shots absorbed by the player's walls | 179 | 138 | 48 | 365 |
+| …per wall fielded | **3.03** | **1.68** | **0.74** | 1.77 |
+| Player forts suppressed by 帶攻城／空襲 (`disable`) | 48 | 56 | 64 | 168 |
+| 工兵團 repairs | 77 | 71 | 65 | 213 |
+| Aircraft destroyed by the player's 防空飛彈 | 0 | 0 | 12 | 12 |
 
-- **Hard-difficulty world wars fell again, 86% → 74%** (28/38), while easy rose to 98% (39/40) and
-  normal to 97% (37/38). This is the largest single-wave move in the hard WW figure since ADR-0006's
-  air rules created the wall (95% → 79% → 86% → **74%**). Mechanism, in the order the effects bite:
-  the enemy's screen now absorbs 3–5 of the bot's ranged shots instead of one melee swing; both
-  camps' hurt survivors take neutral cover, which is symmetric on paper but favours the side with
-  more bodies on the field (gen-35 正規軍 camps, and hard multiplies their stats by 1.2); and the
-  bot's answer to bomber-heavy camps is ranged fire, which is exactly what cover absorbs. *PM call:
-  74% on hard with 97–98% below it is the sharpest difficulty separation this report has ever
-  measured. Is that the intended shape of gen 15/35, or has the wall gone from steep to unfair?*
-- **The player's 盾陣 is still unmeasured, and now it is the biggest hole in the report.** Its
-  3～5-shot budget is the strongest damage reduction in the game and the batch has never seen one on
-  the player's side. **PLAN.md W16** is the scheduled fix (a fort branch in `_pick_deploy` plus an
-  engineer-follows-wall rule); until it lands, treat the hard WW figure as "what happens to a player
-  who never builds cover while the enemy has it", not as the rule's value.
-- **Money went the other way from W14.7, and the debt clock did not.** Final treasury rose on normal
-  (~8660 → ~9140) and hard (~8250 → ~9050) — longer battles kill fewer of the bot's units per
-  round, so it refields less — but generations-in-debt still rose on hard (9.1 → 10.4) and its worst
-  debt deepened to −1087. The late-game money pile this report has flagged as sink-less for four
-  rounds is therefore back near its pre-W14.7 level. *PM call: the sink question stands.*
-- **The gen-13 collapse did not reproduce.** Collapses are back to 2/60 (seed 18 on normal and hard,
-  both the known gen-4 pop-5 opening trap); W14.7's mid-game collapse at gen 13 is gone. Battles
-  resolving differently reshuffles the `battle` rng track for the whole run, so this is a
-  distribution reading, not a repair: **per-seed comparison against the 2026-07-28 batch is
-  meaningless.** The chain proved it can kill outside the opening once, and one batch not showing it
-  is not evidence it cannot.
-- **Hard's final rank slipped 2.2 → 2.6** (range now 1–5), consistent with losing a quarter of its
-  world wars: reparations paid instead of collected.
-- **Nothing in the 3～5 band was tuned to any of this**, per the standing rule at the foot of this
-  file. The band came from the human's ruling (ADR-0010) and the tiers it is matched against.
+- **A wall's value collapses across the difficulty band, and the mechanism is ADR-0007, not
+  ADR-0010.** Shots absorbed per wall runs **3.03 → 1.68 → 0.74** from easy to hard while
+  suppressions rise 48 → 56 → 64 against a nearly flat number of walls. On hard the wall is
+  knocked into 待修 by a sieger or a bomber faster than it can spend its 3～5-shot budget, so the
+  budget is a soft number on easy and close to irrelevant on hard. *PM call: is "cover is the
+  first thing the enemy shoots" the intended shape, or does a wall that eats less than one arrow
+  on hard make 3 軍費 a trap at exactly the difficulty that needs it?*
+- **Teaching the bot to build cover did not move the world-war wall. Hard holds at 74%** (28/38),
+  the same figure W14.9 measured with no player cover at all; easy reads 95% and normal 97%. This
+  is the cleanest negative result in the report and it follows from the rules: a 盾陣 absorbs
+  **ranged** fire aimed at the 遠程列, and hard's world-war problem is **air** (ADR-0006 — melee
+  cannot reach 空域, and gen-35 正規軍 are bomber-heavy). The card that answers air is 防空飛彈,
+  and it was fielded 9 times in 60 runs.
+- **防空飛彈 is still effectively unmeasured, and the reason is opportunity, not policy.** The bot
+  held one in 10% of battles (it enters the reward pool only at era 4, and this bot acquires cards
+  only by being handed them) and **met a living enemy aircraft in 1% of them** — 0 battles on
+  easy, 1 on normal, 19 on hard. The 9 batteries and 12 shootdowns all come from 7 hard runs.
+  Air is a 正規軍 phenomenon confined to 文明戰爭 and 世界大戰 at era 4+, and outside hard those
+  fields are cleared without the bomber wave ever mattering. **Getting the destroy-on-hit exchange
+  under measurement needs a bot that *buys* the card (an unlock branch), not one that plays what it
+  is dealt** — a cheap follow-up if the PM wants that knob covered.
+- **The repair lifecycle went from zero coverage to the best-covered fort rule in the batch:**
+  168 suppressions and 213 restorations. Repairs exceed suppressions because a wall also goes 待修
+  by exhausting its budget, which the timeline reports as an `intercept` with `shots_left: 0` and
+  not as a `disable`.
+- **The engineer-follows-wall rule barely fires, and that is fine.** It accounts for 28 of those
+  deploys because 工兵團 costs 2 軍費 — the same as 步兵團 and 弓箭團 — so the tempo policy already
+  fields it most of the time. The rule is the backstop for the battles where it does not.
+- **The bot held a 盾陣 in 78% of battles and fielded one in 11%**, which is a fact about the bot,
+  not about the card. It buys a wall only when both halves of the rule are on the field, and
+  neither is common under this policy: the tempo bot fields the *cheapest* unit and 步兵團 ties
+  with 弓箭團 at 2 軍費 while sitting earlier in the deck, so its 遠程列 is often empty; and
+  非正規軍 stand in the 近戰列 unless they carry 帶攻城, so most small battles contain no ranged
+  fire for a wall to eat at all. A player who fields archers on purpose meets the precondition far
+  more often. 17 of 20 runs at every difficulty fielded at least one wall, so this is not a deck
+  problem.
+- **Cover costs about 51 軍費 per run** and final treasury reads ~8830/8750/9030 against W14.9's
+  ~9020/9140/9050. Generations-in-debt improved on normal (9.6 → 8.9) and hard (10.4 → 9.9).
+  Neither move is attributable to cover on its own — battles resolving differently reshuffles the
+  whole run — but the money pile did not grow, and it remains the standing imbalance below.
+- **Nothing in the 3～5 band was tuned to any of this.** The band is the human's ruling (ADR-0010)
+  matched to the neutral-cover tiers; the standing rule at the foot of this file applies.
 
-## Cover-chain delta (W14.7) — measured, and mostly not measurable
+## What the earlier deltas established (still current)
 
-Three rule changes landed: 盾陣 narrowed to the 遠程列, 工兵團 moved from the 近戰列 to the 遠程列,
-and 正規軍 now field a 盾陣 of their own. Only the last two can show up in this batch at all.
+- **The 空域 rules are what makes hard difficulty hard** (W14.5, ADR-0006). Player-camp world-war
+  wins have sat at 95% → 79% → 86% → 74% → **74%** on hard across the last five batches while easy
+  and normal stay at 95–98%. 正規軍 conversion is greedy strongest-first and 轟炸機 carries the
+  highest 攻+血, so gen-35 camps are bomber-heavy and **melee cannot touch them**. Answering air
+  needs 遠程 fire or a 防空飛彈. This is the closest the batch has come to the design's "gen 35 is a
+  wall" anchor, and it arrived from targeting structure rather than from the sizing knobs (P×0.5,
+  2 waves, 60/40). *PM call: is a 20-point difficulty gap at gen 35 the wall you want?*
+- **The enemy's 盾陣 is worth more than the player's** (W14.9, ADR-0010). Enemy 正規軍 screens went
+  from eating one melee swing to eating 3–5 ranged shots when the model inverted, and W16 shows the
+  player's own wall does not repay that: the bot's walls absorb 1.77 shots each, and on hard 0.74.
+  The asymmetry is structural rather than unfair — the enemy's screen arrives free with the wave,
+  the player's costs 3 軍費 and a fort slot — but it is the largest single asymmetry the report
+  measures.
+- **帶攻城 is a live rider** (W14.7). `battle.enemy_forts` used to be declared and never filled, so
+  火砲's and 轟炸機's 「可癱瘓敵方工事」 was inert in every battle in the game. It now fires on both
+  sides, and the 168 suppressions above are its player-side half.
+- **Melee-only remnants stare at bombers and the bot gives up the field.** A frozen field is a legal
+  battle state; the engine settles it as 僵局 once neither side can commit anything, and the bot
+  concedes rather than burn empty rounds. `Battle.can_act()` is the read that explains an idle unit.
+- **Growth is highly active**: 40–54 medal levels on a ~12-card deck by gen 50, and the bot banks
+  nothing (兵營 stock always spent). The design's standing flag — attack speed is uncapped and
+  lane-routed to every melee carry — is live in the numbers; per-stat level telemetry is a cheap
+  next instrument if the PM wants to see the 攻速 runaway before v1 ships.
+- **Happiness moves.** Pre-rewrite it pegged at 100 in all 60 runs; means are now 92–98 with minima
+  of 42. The <60 penalty zone is reachable in real runs.
+- **起始人口 0 works as designed past the opening**: every run arms the collapse check, and every run
+  that survives generation 5 finishes at pop 40–169.
 
-- **盾陣's narrowing is still unmeasured, by construction.** The bot plays no fortification cards
-  (`sim.gd::_pick_deploy` skips `class == &"fortification"`), so the player never fields a screen
-  and the rescoped interception never fires on the player's side. Unchanged from W14.5: the knob
-  has **zero batch coverage** and lives only in `battle_test`.
-- **帶攻城 became a live rider for the first time.** `battle.enemy_forts` used to be declared and
-  never filled, so 火砲's and 轟炸機's 「可癱瘓敵方工事」 was inert in every battle in the game.
-  Enemy 正規軍 screens now exist, which means player siege/air units spend a shot disabling a wall
-  instead of hitting a unit, and player melee that reaches an enemy 遠程列 can be intercepted once
-  per wall. Both effects are small per battle and only in 文明戰爭 / 世界大戰.
-- **The 近戰列 lost its free sponge.** An engineer in the melee row used to soak a full round of
-  enemy attention without ever attacking (hp 3×係數, `no_attack`). Behind the wall it soaks
-  nothing, and the enemy melee reaches a real carry a round earlier.
-- **Aggregate movement is inside stream-reshuffle noise.** Hard-difficulty WW wins read 86% (31/36)
-  against W14.5's 79% (30/38) — up, not down, i.e. the opposite sign to the two changes above, on a
-  sample where two runs is 5 points. Normal reads 95% (36/38) against 100%. Battles resolving
-  differently reshuffles the `battle` rng track for the whole run, so **per-seed comparison against
-  the 2026-07-26 batch is meaningless and only distributions count.** Read this as "the cover chain
-  did not move the world-war wall", not as a 7-point gain.
-- **Money is the one clear directional move.** Final treasury fell on normal (~9190 → ~8660) and
-  hard (~9140 → ~8250), generations-in-debt rose (9.3 → 10.5 normal, 8.4 → 9.1 hard) and normal's
-  worst debt deepened to −1150. Consistent with battles costing more 軍費 to close: the bot refields
-  more to replace what it loses. *PM call: this eats into the late-game money pile the report has
-  flagged as sink-less for three rounds — is it enough, or does the sink question stand?*
-- **A collapse fired outside the opening trap for the first time** (3/60 total, up from 2/60):
-  seed 1 on hard ends at **generation 13** with 人口 4, where both previous collapses were the
-  known gen-4 pop-5 trap (seed 18, normal and hard, both still present). A mid-game collapse means
-  the 內亂 chain can now kill a state that had already got past its fragile opening. *PM call: is a
-  gen-13 loss the intended teeth, or is it the same −20% riot loss landing on a population the
-  disband engine keeps thin?*
+## The collapse chain fires (2/60) — an opening-game fragility
 
-## Air & fortification delta (W14.5) — what those rules changed
+Both are seed 18 (normal and hard) and both end at **generation 4**:
 
-- **The 空域 rules gave hard difficulty its first real world-war wall.** Player-camp WW wins
-  fell from 95% to **79% on hard** (30/38) while easy held at 95% and normal went to 100%
-  (W14.7 re-measured these at 95%/95%/86% — see above; the mechanism below is unchanged).
-  Mechanism: 正規軍 conversion is greedy strongest-first and 轟炸機 has the highest 攻+血, so
-  gen-35 camps are bomber-heavy — and **melee can no longer touch them** (ADR-0006). Answering
-  air now requires 遠程 or a 防空飛彈, and hard's ×1.2 enemy stats make a melee-only army lose
-  the exchange. This is the closest the batch has come to the design's "gen 35 is a wall"
-  anchor, and it arrived from targeting structure rather than from the sizing knobs (P×0.5,
-  2 waves, 60/40) that the last report nominated. *PM call: is 79%/100%/95% the wall you
-  want, or should the sizing knobs still move?*
-- **Caveat on that number: the bot has no air policy.** `_pick_deploy` fields the *cheapest*
-  unit card, which is 步兵團/弓箭團 in deck order, and it never plays fortifications — so it
-  answers enemy bombers only by accident. A player who deliberately fields 弓箭團/火砲 or a
-  防空飛彈+工兵團 pair should do markedly better than 79%. Read the hard-difficulty drop as
-  "melee-only armies now lose to air", not as the ceiling for a competent player.
-- **防空飛彈 and 盾陣 are unmeasured.** The bot plays no fort cards at all, so the
-  disable/repair loop, the battery's destroy-on-hit exchange, and the 同場上限 2 pricing
-  (軍費 4, one repair per round) have **zero batch coverage** — they are tested only in
-  `battle_test`. **Now a scheduled task, not a suggestion: PLAN.md W16** teaches the bot to field
-  forts and re-runs all three difficulties. It was deliberately kept out of W14.9 so that wave's
-  gate stays about rule correctness, which means ADR-0010's 3～5-shot ranged budget on 盾陣 joins
-  this list until W16 lands. Two limits W16 must state when it reports: the batch will measure the
-  fort-playing heuristic we author rather than what a wall is worth to a human reading a wave
-  schedule, and every baseline in this report shifts the moment the bot starts fielding walls, so
-  the 60-run set has to be re-read rather than diffed.
-- **Melee-only remnants now stare at bombers, and the bot gives up the field.** Two hard
-  gen-35 wars froze completely (one air unit per camp, zero events per round) because 空域 is
-  unreachable from 近戰. The engine settles that as 僵局 once neither side can commit anything;
-  the bot now also concedes when neither side can act, which is a legal 選擇不出 and keeps
-  uncapped wars from burning empty rounds. Watch for this in the view: a frozen field is a
-  legal battle state now, and `Battle.can_act()` is the read that explains an idle unit.
-- Battles resolving differently reshuffles the `battle` rng stream for the whole run, so per-seed
-  comparisons across batches are never meaningful — only distributions are. That caveat has held
-  through every round since and applies to the W14.7 numbers above too.
+1. The 解散-for-population opening lifts 人口 to exactly **5** at gen 3, which is what **arms** the
+   政權崩潰 check (W13.5: it arms at first 人口 ≥ 5).
+2. Gen 4 loses an 內部暴動戰 → 失去 1 區域 **and** 人口 −20% → 5 → **4** → below the threshold → run
+   over, before the deck or the economy exists.
 
-## The collapse chain fires (3/60) — mostly an opening-game fragility
+So the check arms exactly at the value where a single lost riot is lethal, and the bot lingers there
+for a generation or two by design. Cover changes nothing here: a riot is 非正規軍 in the 近戰列, and
+at generation 4 the bot owns no 工事卡 yet. W14.7 saw one mid-game collapse (gen 13, hard) that has
+not reproduced in the two batches since; the chain has proved it can kill outside the opening once,
+and two clean batches are not evidence it cannot. *PM calls: should the arming threshold sit above
+the lethal one (arm at 人口 ≥ 8–10?), should the riot's −20% have a floor while the state is tiny, or
+is "your first riot can end the run" the intended teeth of the opening?*
 
-Two of the three are the same seed (18, normal and hard) and both end at **generation 4**; the
-third (seed 1, hard) reaches generation 13 first and is discussed in the W14.7 section above:
+## Standing imbalances
 
-1. The 解散-for-population opening lifts 人口 to exactly **5** at gen 3, which is what **arms**
-   the 政權崩潰 check (W13.5: it arms at first 人口 ≥ 5).
-2. Gen 4 loses an 內部暴動戰 → 失去 1 區域 **and** 人口 −20% → 5 → **4** → below the threshold
-   → run over, before the deck or the economy exists.
-
-So the check arms exactly at the value where a single lost riot is lethal, and the bot lingers
-there for a generation or two by design (it disbands up to pop 20 over several gens). The air
-delta didn't create this — it only reshuffled which runs lose that early riot; the trap has
-been reachable since 起始人口 0 landed. *PM calls: should the arming threshold sit above the
-lethal one (arm at 人口 ≥ 8–10?), should the riot's −20% have a floor while the state is tiny,
-or is "your first riot can end the run" the intended teeth of the opening?*
-
-## Earlier-model findings (still current)
-
-- **The player's camp still wins world wars comfortably outside hard** (105 of 114 overall,
-  92%). Real veterans + medal growth against baseline 正規軍, plus the bounded catch-up, keep
-  the shared table player-favored; reparations then feed the money pile.
-- **Growth is highly active**: 43–52 medal levels on a ~12-card deck by gen 50, and the bot
-  banks nothing (兵營 stock always spent). The design's standing flag — attack speed is
-  uncapped and lane-routed to every melee carry — is now live in numbers; per-stat level
-  telemetry (which lanes those levels sit on) is a cheap next instrument if the PM wants to
-  see the 攻速 runaway before v1 numbers ship.
-- **Happiness moves.** Pre-rewrite it pegged at 100 in all 60 runs; now means are 88–97 with
-  minima of 24 — riot suppression costs plus a heavier unrest cadence bite mid-run. The <60
-  penalty zone is reachable in real runs, and hard's mean has slid from 92 to 88.
-- **起始人口 0 works as designed past the opening**: every run arms the check, and every run
-  that survives generation 5 finishes at pop 53–169. All the fragility is in the first four
-  generations (above).
-
-## Standing imbalances (unchanged from the pre-rewrite report)
-
-- **Late-game money still has no sink** (~9,000–9,150 final treasury; WW reparations add to it).
-  If gen-50 wealth should mean something, the design needs a late sink or the ranking should
-  weigh it. W14.7's heavier battles took the pile down ~10%; W14.9's longer ones put it back.
+- **Late-game money still has no sink** (~8750–9030 final treasury; WW reparations add to it).
+  Cover took ~51 軍費 per run out of it and did not dent the shape. If gen-50 wealth should mean
+  something, the design needs a late sink or the ranking should weigh it.
 - **Rival churn is high**: ~3 of 5 rivals die per run; WW camps are thin by gen 35.
 - **隱藏災難 mitigation is a money wash** — flagged in docs/decisions.md (W2 gaps).
-- **Difficulty channels work**: hard drops mean rank to 2.6, costs ~1 policy node, carries the whole
-  WW win-rate gap (74% against 97–98%), and keeps the deepest debt band (worst case −1087 hard,
-  −576 easy — debt depth is no longer monotone in difficulty). Slopes remain usable as v1, but the
-  hard WW gap is now wide enough to be a design question rather than a slope (see W14.9 above).
+- **Difficulty channels work**: hard drops mean rank to 2.5, costs ~1 policy node, carries the whole
+  WW win-rate gap (74% against 95–97%), and now also carries the fort gap (0.74 shots absorbed per
+  wall against easy's 3.03). Slopes remain usable as v1; the world-war gap is wide enough to be a
+  design question rather than a slope.
 
 ## Caveats
 
-The bot is one archetype (balanced builder, strength-parity fielder). It never rushes
-military, never plays skill or fortification cards, **never answers air deliberately** (it
-fields the cheapest unit, so 弓箭團 only when the cheap 步兵團 are spent), never uses psyops,
-and always accepts first-seen rewards. Extreme-archetype bots (all-military, all-culture,
-debt-max, never-disband, **fort-and-engineer**) would stress different edges — cheap follow-up
-if wanted, and the fort archetype (**PLAN.md W16**) is the only way to get the
-ADR-0006/0007/0008/0010 knobs (軍費 3 and 4, 同場上限 2, one repair per round, and 盾陣's 3～5-shot
-ranged budget) under measurement. Medal telemetry is total levels only;
-per-stat/per-lane splits are not yet instrumented.
+The bot is one archetype (balanced builder, strength-parity fielder, opportunistic fort builder). It
+never rushes military, never plays skill cards, **never buys a card it was not handed** (`_unlock_cards`
+buys four ids and stops, which is why 防空飛彈 reaches the deck in only 10% of battles), never uses
+psyops, and always accepts first-seen rewards. Extreme-archetype bots (all-military, all-culture,
+debt-max, never-disband, **air-denial**) would stress different edges — cheap follow-up if wanted, and
+an air-denial archetype that *unlocks* 防空飛彈 is the only way left to get ADR-0006's destroy-on-hit
+exchange under measurement. Medal telemetry is total levels only; per-stat/per-lane splits are not
+yet instrumented.
+
+## Standing rule
+
+Numbers in `design/` are **v1 baseline knobs**. The sim exists to *measure* them, not to tune them:
+findings and PM calls belong in this file, and the human calibrates by playing. No value in the
+corpus has ever been moved to make a batch look better, and this report is where that promise is
+kept (`docs/PLAN.md` §Standing rules).

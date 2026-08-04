@@ -41,7 +41,10 @@ func _summarize(result: Dictionary, seed_value: int, difficulty: StringName) -> 
 	for ww: Dictionary in state.ww_results:
 		if bool(ww.get("player_won", false)):
 			ww_wins += 1
-	return {
+	# W16: the bot's own fort counters ride through as `telemetry` rather than on GameState —
+	# they describe how this auto-player played, not what the game is (Sim.new_telemetry).
+	var telemetry: Dictionary = result.get("telemetry", Sim.new_telemetry())
+	var row: Dictionary = {
 		"seed": seed_value,
 		"difficulty": String(difficulty),
 		"ending": String(ending.get("kind", &"none")),
@@ -68,3 +71,6 @@ func _summarize(result: Dictionary, seed_value: int, difficulty: StringName) -> 
 		"is_democracy": state.is_democracy,
 		"player_power": Rivals.player_power(state),
 	}
+	for key: String in telemetry.keys():
+		row[key] = int(telemetry[key])
+	return row

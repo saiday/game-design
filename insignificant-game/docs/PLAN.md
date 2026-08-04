@@ -432,7 +432,7 @@ every green wave.
             `AssetPaths.PROJECTILE_BY_FORM` closes a gap the registry's own comment claimed core
             covered: which ammo a form throws existed only in `inventory.md` prose.)*
 
-- [ ] **W16 — The sim bot learns to field fortifications (may run in parallel with W15).** Split out
+- [x] **W16 — The sim bot learns to field fortifications (may run in parallel with W15).** Split out
       of W14.9 by human ruling so that wave's gate stays about rule correctness. `sim.gd::_pick_deploy`
       skips `class == &"fortification"` and `&"skill"`, which it has done since W14, so the batch has
       **never** seen a player-side 盾陣 or 防空飛彈. Every fort rule the last four design rounds
@@ -450,6 +450,27 @@ every green wave.
       — surface findings, the human calibrates by playing (standing rule at the foot of this file).
       *Gate:* Part A green; batch re-run across 3 difficulties; `docs/balance-report.md` rewritten
       with the fort figures and both limits above stated.
+      *(done 2026-08-05: Part A exit 0 — 21/21 suites, **267/267 cases** (7 new in sim_test);
+      `check_design_graph.py` exit 0; fixture byte-stable and `check_motion_demo.js` exit 0
+      (`core/battle.gd` untouched — this wave is bot policy only). Batch re-run on all three
+      difficulties and balance-report.md rewritten, both limits stated at the top.
+      **One deviation from the plan, deliberate:** the fort branch is NOT in `_pick_deploy`. That
+      function is called inside a strength-parity loop and a 工事卡 carries no 攻 and no 血, so a
+      parity loop asked to buy one would never stop — cover is a separate pass (`_field_support`)
+      after the unit race, and the two decisions are public reads (`Sim.fort_pick`,
+      `Sim.engineer_pick`) so the heuristic itself is what the tests assert rather than a run
+      outcome. `_grow_population` also learned to keep its last 工兵團 while a 工事卡 sits in the
+      deck: disbanding it turns every wall the bot owns into a one-shot item.
+      **The measurement is a clean negative and an honest hole.** 206 walls fielded, 365 ranged
+      shots absorbed, 168 suppressions and 213 repairs — ADR-0007's lifecycle went from zero
+      coverage to the best-covered fort rule in the batch, and shots-absorbed-per-wall falls
+      **3.03 → 1.68 → 0.74** across easy/normal/hard because on hard the wall is knocked into 待修
+      faster than it spends its budget. But **hard world wars stayed at 74%**: a 盾陣 answers ranged
+      fire and hard's problem is air. 防空飛彈 remains unmeasured for a reason no policy can fix —
+      the bot held one in 10% of battles and met a living enemy aircraft in **1%** (0/1/19 across
+      the difficulties), so covering ADR-0006's destroy-on-hit exchange needs a bot that *buys* the
+      card, which is named in the report as the next cheap follow-up rather than done here. Gap
+      decisions: decisions.md W16; conventions: implementation-notes.md W16.)*
 
 ## Closed: PoC waves W0–W9 (record; all gates passed)
 

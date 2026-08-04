@@ -391,3 +391,34 @@ Handoff to W15.2 and W15.3:
 
 Handoff to W16: nothing in these scenes blocks it. The bot learning to field forts changes numbers,
 not the picture — and the picture is now the only place a human can see whether a wall was worth it.
+
+**W16 — the sim bot learns to field fortifications.** Touched `core/sim.gd` (fort policy +
+telemetry), `tools/balance_batch.gd` (telemetry folded into each row), `test/sim_test.gd` (+7),
+`docs/balance-report.md` (rewritten). No rule file changed: `core/battle.gd` is untouched, which is
+why the timeline fixture re-exported byte-identical. Gate met: Part A **exit 0, 21/21 suites,
+267/267 cases**; `check_design_graph.py` exit 0; fixture byte-stable, `check_motion_demo.js` exit 0;
+batch re-run on all three difficulties. Part B not required — nothing in `view/` reads `Sim`.
+
+1. **A decision the batch depends on should be a public read, not a private branch.**
+   `Sim.fort_pick(battle)` and `Sim.engineer_pick(battle)` return an index into `battle.available`,
+   so `sim_test` asserts *the heuristic* against hand-built fields instead of asserting a run
+   outcome that happens to contain a wall. A seed-dependent "did a wall appear in run 5" test would
+   pass for the wrong reasons and go red on any unrelated rng change.
+2. **Zero-strength cards do not belong in a strength loop.** The unit picker runs inside
+   `while player_strength < enemy_strength`; a 工事卡 moves that by nothing. Cover is a separate
+   pass after the race, which also keeps the W14 tempo policy the dominant term so a batch delta is
+   attributable to the addition rather than to a reordering.
+3. **Write bot heuristics as rule readings, not engine readings.** `_wall_wanted` asks "is there a
+   遠程列 of ours under 遠程 fire", which is what ADR-0008/0010 say a wall is for. The engine's
+   ranged focus-fire happens to run in deploy order, and a heuristic tuned to that would have
+   measured `_pick_target` while appearing to measure the wall.
+4. **Telemetry that only counts successes cannot explain a zero.** Every deploy counter has an
+   opportunity counter beside it (held the card / faced the target). The 防空飛彈 result — 9 deploys
+   in 60 runs — is a finding rather than a bug only because `battles_air_faced` says the bot met a
+   living enemy aircraft in 1% of its battles.
+5. **Bot telemetry stays off `GameState`.** `Sim.run` returns it; the batch folds it into the row.
+   The counters describe an auto-player, and `GameState` is the game.
+6. **Read the timeline for what happened, the bot's own decisions for what it chose.** Absorption,
+   suppression, repair and shootdown counts come from `Battle.end_round`'s event array via the
+   contract in architecture.md — the same source the two replayers read — so they cannot drift from
+   what the engine actually did.
