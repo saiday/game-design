@@ -324,7 +324,7 @@ every green wave.
       opening trap). All surfaced in balance-report.md with the asymmetry stated; the 3～5 band was
       not touched. Gap decisions (11 new rows): decisions.md W14.9; conventions:
       implementation-notes.md W14.9.)*
-- [ ] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
+- [x] **W15 — Three-scene view revamp, top-down battle (style bible §11 + corpus 場景呈現; was W10).**
       **Split into four sub-waves**, each with its own gate, because one wave that restores Part B
       *and* builds three scenes has no green point to fall back to if it breaks halfway: W15.0 (the
       two prerequisites, below), then one scene per sub-wave in the order the game plays them.
@@ -405,10 +405,32 @@ every green wave.
             in a fixed corner because it is an exit from the map, not one of the places you can go.
             Also fixed a stale line in architecture.md's GameState schema: the field is `run_seed`,
             not `seed` (`seed` is a global GDScript function and the name is unavailable).)*
-      - [ ] **W15.3 — Top-down battle scene.** Per-battle-type plate, the 掩護鏈 staged front to
+      - [x] **W15.3 — Top-down battle scene.** Per-battle-type plate, the 掩護鏈 staged front to
             back, seeded neutral scatter sized by barrier tier, timeline replay with zero rule code
             in the view, spend-vs-reward always on screen, reward card at the settlement.
             *Gate:* Part A + Part B.
+            *(done 2026-08-04: Part A 21/21 suites, **260/260 cases**, exit 0; `check_design_graph.py`
+            exit 0 (63 `code:` mappings); fixture byte-stable and `check_motion_demo.js` exit 0;
+            Part B 14 captures, 0 ASSERT FAIL. `view/battle_scene.gd` is the second replayer of the
+            same contract the HTML page reads, and holds **no rule code**: it walks
+            `battle.last_timeline` in tick order and draws what already happened. The chain is the
+            picture — both sides across a midline, 近戰列 → 工事線 → 遠程列 → 空域 by depth, asserted
+            by `chain_reads_front_to_back` per side rather than described. A 盾陣 draws as a segment
+            spanning the frontage it screens, at the sprite's own axis; scatter lands in the gaps
+            between station columns from the battle seed, sized by barrier tier.
+            **Four defects only the captures could show**, each fixed and now asserted: sprites at
+            74 px were unreadable against a 1920-wide plate; the scatter bunched into a strip down
+            the midline; the enemy's 正規軍 faced the wrong way (they use the player LINES' art,
+            which is authored right-facing — the anonymous tiers are the left-facing ones, so the
+            flip is a function of art and side, not side alone); and era-1 mobs fired bullets,
+            because ammo was resolved from the event's LABEL instead of the attacker's row.
+            **The watchdog earned its keep too**: fast-forwarding a round spawned a tween and a
+            sprite per event and stalled the run, so a skip now applies what events changed and
+            animates none of it. One core fix fell out of this wave: waves arrive at the *end* of
+            `end_round`, after `_assign_uids`, so the view read unidentified units at the boundary —
+            uids are now handed out again after arrival, with a test that walks the boundary.
+            `AssetPaths.PROJECTILE_BY_FORM` closes a gap the registry's own comment claimed core
+            covered: which ammo a form throws existed only in `inventory.md` prose.)*
 
 - [ ] **W16 — The sim bot learns to field fortifications (may run in parallel with W15).** Split out
       of W14.9 by human ruling so that wave's gate stays about rule correctness. `sim.gd::_pick_deploy`

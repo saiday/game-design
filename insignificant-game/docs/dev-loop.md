@@ -48,7 +48,7 @@ python3 docs/tools/check_design_graph.py            # exit 1 on any error
 python3 docs/tools/check_design_graph.py --doc-map  # also regenerate doc-map's graph table
 ```
 
-Current clean state: **14 system docs, 62 feed edges, 59 `code:` mappings, 0 errors, 0 warnings.**
+Current clean state: **14 system docs, 62 feed edges, 63 `code:` mappings, 0 errors, 0 warnings.**
 
 What it enforces, so you don't have to hold it in your head:
 
@@ -95,7 +95,7 @@ Compare against `docs/balance-report.md` before/after a knob change.
 
 1. **Shell cwd resets between tool calls** — `cd` into this directory in EVERY command, or
    Godot/runtest.sh won't find the project. Sanity check on any test run: the summary must say
-   21 suites / 259 cases, exit 0 (update this pin when suites or cases are added).
+   21 suites / 260 cases, exit 0 (update this pin when suites or cases are added).
 2. **New `class_name` ⇒ import warm-up first**, or discovery fails with exit `105`
    ("Identifier not declared"). The warm-up is load-bearing, not a safety belt.
 3. **gdUnit4 aborts a suite after its first failing case** — one red run doesn't show

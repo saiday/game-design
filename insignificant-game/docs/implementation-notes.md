@@ -366,3 +366,28 @@ Handoff to W15.2 and W15.3:
    and shows itself there; nothing else in `main.gd` needs to know.
 3. **The battle scene already has its identity handles** — `uid` on every unit and fort (W15.0), and
    `AssetPaths.background_battle` / `SCATTER` / `PROJECTILES` for what stands on the plate.
+
+**W15.2/W15.3 — the other two scenes; W15 closes.** Touched `view/route_scene.gd` and
+`view/battle_scene.gd` (new), `view/main.gd` (scene switching replaces the route and battle panels),
+`core/battle.gd` (uids re-assigned after wave arrival), `core/data/asset_paths.gd`
+(`PROJECTILE_BY_FORM` + `projectile_for`), `test/battle_test.gd` (+1),
+`design/地圖與機會.md` + `design/戰鬥.md` (`code:`). Gate met: Part A **exit 0, 21/21 suites,
+260/260 cases**; `check_design_graph.py` exit 0 (63 mappings); fixture byte-stable and
+`check_motion_demo.js` exit 0; Part B **14 captures, 0 ASSERT FAIL**.
+
+1. **A scene claims the screen; a panel is a moment on a scene.** `_show_scene` switches the world,
+   `_show_overlay` puts a panel on it, and `RETURNS_TO_CITY` says which panels mean the journey is
+   over. 機會 and 戰鬥 stay where the player reached them.
+2. **Two replayers, one contract.** `view/battle_scene.gd` and the HTML page read the same event
+   table and hold no rules between them. A divergence is a bug in one of them, never a difference of
+   opinion — which is why `chain_reads_front_to_back` mirrors the checker's staging assertion into
+   the engine scene instead of restating it in prose.
+3. **Placement is the view's, and it is seeded off `run_seed`, never `state.rng`.** Looking at the
+   game must not change it.
+4. **Ask the unit, not the event.** A timeline label is not an identity and says nothing about
+   equipment; the sprite carries `line` and `row` as metadata and every draw decision reads those.
+5. **Skipping an animation means skipping the animation.** `_silent` is what makes a fast-forward a
+   fast-forward rather than a hang.
+
+Handoff to W16: nothing in these scenes blocks it. The bot learning to field forts changes numbers,
+not the picture — and the picture is now the only place a human can see whether a wall was worth it.

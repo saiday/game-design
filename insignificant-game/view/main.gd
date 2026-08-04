@@ -45,14 +45,11 @@ var demo_failures: int = 0
 var hud: Hud
 var city: CityScene
 var route: RouteScene
+var arena: BattleScene
 var event_label: Label
 var overlay: Control
 var panels: Dictionary = {}
 var current_scene: StringName = &"city"
-var battle_info: Label
-var battle_spend: Label
-var battle_deploy: VBoxContainer
-var battle_buttons: HBoxContainer
 var opportunity_label: Label
 var opportunity_actions: VBoxContainer
 var opportunity_card_art: TextureRect
@@ -97,8 +94,7 @@ func _begin_generation() -> void:
 	if world_war_generation:
 		# 整代覆寫: the world war is a played battle on the shared table (W12.5), not a summary.
 		battle = WorldWar.start(state)
-		_refresh_battle()
-		_show_overlay(&"battle")
+		_open_battle()
 	elif report.has("democracy"):
 		_refresh_democracy()
 		_show_overlay(&"democracy")
@@ -131,8 +127,7 @@ func _enter_node(index: int) -> void:
 		battle = Battle.start(
 			state, node["battle_type"], node.get("rival_id", &""),
 			bool(node.get("player_declared", false)), bool(node.get("surprise", false)))
-		_refresh_battle()
-		_show_overlay(&"battle")
+		_open_battle()
 	_refresh_stats()
 
 
@@ -153,19 +148,48 @@ func _resolve_opportunity(choice: StringName) -> void:
 	_settle()
 
 
+func _open_battle() -> void:
+	# 進戰即切到專屬戰場畫面，城市退出畫面 (戰鬥.md §場景呈現).
+	arena.open(state, battle)
+	_show_scene(&"battle")
+	_refresh_stats()
+
+
 func _battle_deploy(available_index: int) -> void:
 	Battle.deploy(state, battle, available_index)
-	_refresh_battle()
+	arena.refresh()
 	_refresh_stats()
 
 
 func _battle_end_round() -> void:
+	# Core resolves the whole window first; the scene then replays it tick by tick. The outcome is
+	# already decided while the player is still watching it happen — which is the point of D6.
 	Battle.end_round(state, battle)
+	arena.play_round()
+	_refresh_stats()
+	await arena.playback_finished
+	if battle == null:
+		return          # a concurrent path already settled it
 	if battle.outcome != &"":
 		_finish_battle()
 	else:
-		_refresh_battle()
+		arena.refresh()
 	_refresh_stats()
+
+
+func _battle_concede() -> void:
+	Battle.concede(battle)
+	_battle_end_round()
+
+
+func _battle_retreat() -> void:
+	Battle.retreat(state, battle)
+	_finish_battle()
+
+
+func _battle_defect() -> void:
+	Battle.defect(state, battle)
+	_finish_battle()
 
 
 func _finish_battle() -> void:
@@ -211,8 +235,7 @@ func _settle() -> void:
 			event_label.text += "｜讓步：內亂戰取消"
 		else:
 			battle = Battle.start(state, &"riot")
-			_refresh_battle()
-			_show_overlay(&"battle")
+			_open_battle()
 			return
 	world_war_generation = false
 	city.set_time_of_day(&"dusk")
@@ -244,52 +267,6 @@ func _show_ending(ending: Dictionary) -> void:
 
 func _refresh_stats() -> void:
 	hud.refresh(state)
-
-
-func _refresh_battle() -> void:
-	# W15.3 promotes this to the top-down battlefield scene; until then it is the round-boundary
-	# console over the city, already on the post-W12 API (no hand: 未出的卡 is the whole deck).
-	var enemy_lines: Array[String] = []
-	for unit: Dictionary in battle.enemy_units:
-		enemy_lines.append("%s 攻%d/血%d" % [_unit_name(unit), int(unit["attack"]), int(unit["hp"])])
-	var our_lines: Array[String] = []
-	for unit: Dictionary in battle.player_units:
-		our_lines.append("%s 攻%d/血%d" % [_unit_name(unit), int(unit["attack"]), int(unit["hp"])])
-	var intel: String = "情報：本場波次表可見" if battle.intel_visible else "情報：盲打（當代未覆蓋）"
-	var cap: String = "第 %d 回合（無上限）" % battle.round if battle.round_cap == 0 \
-		else "第 %d/%d 回合" % [battle.round, battle.round_cap]
-	battle_info.text = "%s｜%s｜%s\n敵：%s\n我：%s" % [
-		Battle.type_name(battle.battle_type), cap, intel,
-		"　".join(enemy_lines) if not enemy_lines.is_empty() else "（已清空）",
-		"　".join(our_lines) if not our_lines.is_empty() else "（未部署）"]
-	# 本場已燒軍費 vs 預期賠償 全程常駐 (戰鬥.md 核心博弈)
-	battle_spend.text = "本場已燒軍費 %d ｜ 預期賠償 %d" % [battle.spent, battle.expected_reward]
-	_clear(battle_deploy)
-	for i: int in range(battle.available.size()):
-		var instance: Cards.CardInstance = battle.available[i]
-		var index := i
-		var note: String = ""
-		if battle.battle_type == &"riot" and Cards.card(instance.id)["class"] == &"mechanical":
-			note = "　※鎮壓代價 幸福 −%d" % Battle.RIOT_MECH_HAPPINESS
-		battle_deploy.add_child(chrome.button("投入 %s（軍費 %d）%s" % [
-			Cards.display_name(instance), Battle.card_cost(state, battle, instance), note],
-			func() -> void: _battle_deploy(index)))
-	_clear(battle_buttons)
-	if Battle.can_defect(state, battle):
-		battle_buttons.add_child(chrome.button("投誠（免軍費勝）", func() -> void:
-			Battle.defect(state, battle)
-			_finish_battle()))
-	battle_buttons.add_child(chrome.button("結束回合 → 演出", _battle_end_round))
-	battle_buttons.add_child(chrome.button("不再出牌（自願認輸）", func() -> void:
-		Battle.concede(battle)
-		_battle_end_round()))
-	if Battle.can_retreat(battle):
-		battle_buttons.add_child(chrome.button("撤軍（%d 錢，+%d 人口）" % [
-			Battle.RETREAT_COST_BASE * Era.coeff(state.generation), Battle.RETREAT_POP],
-			func() -> void:
-				Battle.retreat(state, battle)
-				_finish_battle()))
-	_focus_first(battle_buttons)
 
 
 func _refresh_reward() -> void:
@@ -375,6 +352,15 @@ func _build_ui() -> void:
 	route.node_chosen.connect(_enter_node)
 	route.skip_chosen.connect(_skip_node)
 	add_child(route)
+	arena = BattleScene.new()
+	arena.setup(chrome)
+	arena.visible = false
+	arena.deploy_requested.connect(_battle_deploy)
+	arena.round_requested.connect(_battle_end_round)
+	arena.concede_requested.connect(_battle_concede)
+	arena.retreat_requested.connect(_battle_retreat)
+	arena.defect_requested.connect(_battle_defect)
+	add_child(arena)
 	# HUD layer: icon+value strip, always on screen, never covered by a panel.
 	# It rides a dark scrim because it sits on whatever plate is behind it — Part B caught the
 	# danger row (accent gold on a pale sky) at the edge of unreadable over the city panorama.
@@ -414,15 +400,6 @@ func _build_ui() -> void:
 
 
 func _build_panels() -> void:
-	var battle_box := _vbox(_panel(&"battle", "戰鬥"))
-	battle_info = chrome.ink_label("", 16)
-	battle_box.add_child(battle_info)
-	battle_spend = chrome.ink_label("", 19, true)
-	battle_box.add_child(battle_spend)
-	battle_deploy = VBoxContainer.new()
-	battle_box.add_child(battle_deploy)
-	battle_buttons = HBoxContainer.new()
-	battle_box.add_child(battle_buttons)
 	# 戰後結算畫面亮出獎勵卡 (戰鬥.md): the card is SHOWN, illustration and all — 「太爛就放棄」
 	# is a decision about these particular men, so the reveal has to be a card, not a line of text.
 	var reward_split := HBoxContainer.new()
@@ -504,8 +481,7 @@ func _vbox(parent: Control) -> VBoxContainer:
 func _show_scene(scene_id: StringName) -> void:
 	# A scene claims the whole screen; panels are moments ON a scene, not scenes of their own.
 	current_scene = scene_id
-	city.visible = scene_id == &"city"
-	route.visible = scene_id == &"route"
+	_set_scene_visibility()
 	_show_overlay(&"")
 
 
@@ -514,8 +490,7 @@ func _show_overlay(id: StringName) -> void:
 	# scene the player reached them from, because they happened THERE.
 	if RETURNS_TO_CITY.has(id):
 		current_scene = &"city"
-		city.visible = true
-		route.visible = false
+		_set_scene_visibility()
 	for key: StringName in panels.keys():
 		(panels[key] as Control).visible = key == id
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE if id == &"" else Control.MOUSE_FILTER_STOP
@@ -524,6 +499,12 @@ func _show_overlay(id: StringName) -> void:
 	city.set_commands_visible(current_scene == &"city" and id == &"")
 	if id == &"" and current_scene == &"route":
 		route.focus_first()
+
+
+func _set_scene_visibility() -> void:
+	city.visible = current_scene == &"city"
+	route.visible = current_scene == &"route"
+	arena.visible = current_scene == &"battle"
 
 
 func _visible_overlay() -> StringName:
@@ -652,17 +633,31 @@ func _demo_route_and_battle() -> void:
 	_assert(fogged == 0 or route.fogged_count() == fogged,
 		"every unfaced unknown node draws as fog (%d of %d)" % [fogged, nodes.size()])
 	route.press_node(0)
-	if _visible_overlay() == &"battle":
-		await _capture(&"battle", "battle round-boundary console")
-		_assert(battle_spend.text.contains("軍費"), "spend-vs-reward line visible")
-		_assert(battle_deploy.get_child_count() >= 1, "未出的卡 offered at the boundary")
-		(battle_deploy.get_child(0) as Button).pressed.emit()
+	if current_scene == &"battle":
+		_assert(not city.visible and not route.visible,
+			"進戰即切到專屬戰場畫面，城市退出畫面")
+		_assert(arena.deploy_option_count() >= 1, "未出的卡 offered at the boundary")
+		arena.press_deploy(0)
+		# a 工事 on the field so the 工事線 layer of the chain is really exercised
+		if arena.press_deploy_named("盾"):
+			_assert(battle.player_forts.size() == 1, "a 工事卡 goes to the 工事線, not the ranks")
+			_assert(arena.wall_is_a_segment(),
+				"a 盾陣 is drawn as a segment across the lane, not a block on one unit")
+		await _capture(&"battle", "top-down battlefield: both sides staged in the cover chain")
 		_assert(battle != null and battle.player_units.size() + battle.player_forts.size() >= 1,
 			"deploying puts something on the field")
+		_assert(arena.sprite_count() >= battle.player_units.size() + battle.enemy_units.size(),
+			"everything on the field has a sprite")
+		_assert(arena.barrier_count() == _intact_barriers(),
+			"the neutral cover on screen is the roster core fielded")
+		# 掩護鏈 read as depth, mirrored per side — the picture IS the rule (ADR-0008)
+		_assert(arena.chain_reads_front_to_back(&"player"), "our chain stages 近戰→工事→遠程→空域")
+		_assert(arena.chain_reads_front_to_back(&"enemy"), "theirs mirrors it")
+		await _play_a_round_on_screen()
 		var guard: int = 0
 		while battle != null and guard < 30:
 			guard += 1
-			_battle_end_round()
+			await _drive_round()
 		_assert(battle == null, "the battle reaches an outcome")
 		await _capture(&"reward", "post-battle reward card reveal")
 		_assert(_visible_overlay() == &"reward", "every battle ends on the reward reveal")
@@ -677,7 +672,7 @@ func _demo_route_and_battle() -> void:
 
 
 func _demo_settle() -> void:
-	if _visible_overlay() == &"battle":
+	if current_scene == &"battle":
 		Battle.retreat(state, battle)   # riot fallback so the demo always advances
 		_finish_battle()
 		(reward_actions.get_child(0) as Button).pressed.emit()
@@ -689,18 +684,22 @@ func _demo_world_war() -> void:
 	# 整代覆寫: the war is a played battle on the shared table, not a rolled summary (W12.5).
 	state.generation = 15
 	_begin_generation()
-	_assert(_visible_overlay() == &"battle", "a world-war generation opens on the battle table")
+	_assert(current_scene == &"battle", "a world-war generation opens on the battle table")
 	_assert(battle != null and battle.round_cap == 0, "世界大戰 has no round cap")
 	await _capture(&"world_war_battle", "world war fought on the shared table")
-	_assert(_deploy_button_count() >= 1, "our own cards are offered in the world war")
+	_assert(arena.deploy_option_count() >= 1, "our own cards are offered in the world war")
+	_assert(not arena.press_action("撤軍"), "世界大戰 offers no retreat — 全員選邊、無退出口")
 	var guard: int = 0
 	while battle != null and guard < 250:
 		guard += 1
-		if _deploy_button_count() > 0 and battle.round <= 2:
-			(battle_deploy.get_child(0) as Button).pressed.emit()
-		else:
-			Battle.concede(battle)   # 留卡省軍費 is a legal voluntary concession (D3)
-			_battle_end_round()
+		if arena.deploy_option_count() > 0 and battle.round <= 2:
+			arena.press_deploy(0)
+		elif not battle.conceded:
+			arena.press_action("不再出牌")   # 留卡省軍費 is a legal voluntary concession (D3)
+			arena.finish_playback()
+			await get_tree().process_frame
+			continue
+		await _drive_round()
 	_assert(battle == null, "the uncapped war reaches an outcome")
 	await _capture(&"world_war", "world war settlement: camps, pool, our payout")
 	_assert(ww_label.text.contains("世界大戰"), "world war summary visible")
@@ -710,8 +709,39 @@ func _demo_world_war() -> void:
 	(reward_actions.get_child(0) as Button).pressed.emit()
 
 
-func _deploy_button_count() -> int:
-	return battle_deploy.get_child_count() if battle != null else 0
+func _intact_barriers() -> int:
+	var live: int = 0
+	for barrier: Dictionary in battle.barriers:
+		if not bool(barrier["destroyed"]):
+			live += 1
+	return live
+
+
+func _play_a_round_on_screen() -> void:
+	# The one thing this scene exists for: a 回合 is WATCHED. Press the same button a player
+	# presses, let real frames run so the replay is exercised at its own pace, and capture it
+	# mid-window — a still of a moving thing is the only evidence Part B can leave behind.
+	_assert(arena.press_action("結束回合"), "the boundary offers 結束回合 → 演出")
+	_assert(arena.playing(), "the round window plays out on screen")
+	_assert(arena.deploy_option_count() == 0 or not arena.press_deploy_enabled(),
+		"玩家在窗口內不操作: the console is out of reach during playback")
+	for _frame: int in range(14):
+		await get_tree().process_frame
+	await _capture(&"battle_playback", "the tick window playing: shots crossing the field")
+	arena.finish_playback()
+	_assert(not arena.playing(), "playback ends and the boundary returns to the player")
+
+
+func _drive_round() -> void:
+	# The player's path with the watching skipped: press 結束回合, then jump to the end of the
+	# replay. `_battle_end_round` resumes the moment `finish_playback` emits, so by the time this
+	# returns the boundary (or the settlement) is already on screen.
+	if battle == null:
+		return
+	if not arena.press_action("結束回合"):
+		return
+	arena.finish_playback()
+	await get_tree().process_frame
 
 
 func _demo_democracy() -> void:

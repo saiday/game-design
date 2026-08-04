@@ -23,6 +23,8 @@
    | `view/chrome.gd` | `Chrome`: the runtime-composed approved-art chrome (styleboxes, plate icons, the card widget, the divider) plus the shared texture cache |
    | `view/hud.gd` | `Hud`: the icon+value stat strip and its focus/hover tooltips |
    | `view/city_scene.gd` | `CityScene`: 營運＝活的城市全景 and the collapsible command dock |
+   | `view/route_scene.gd` | `RouteScene`: 選路＝迷霧地圖, the generation's nodes on the near region |
+   | `view/battle_scene.gd` | `BattleScene`: the top-down battlefield — **the second replayer of the timeline contract**, alongside the HTML page |
 
    A string a player reads is **never** a code identifier. Anything that is a *name* carries a `zh`
    in its own data table (`Battle.TYPES`, `PolicyNodes.NODES`, `BuildingData.LINES`…) and the view

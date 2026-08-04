@@ -75,12 +75,23 @@ const UNIT_COVERAGE: Dictionary = {
 # Approved flying weapons (W14.8; picks in assets/pipeline/phase3_projectiles_topdown_picks.json).
 # A class the camera created: seen from above an attack IS a thing crossing the gap between two
 # stations, and the timeline emits a hit/miss per attack with nothing to draw. Unlike every other
-# sprite table this one has NO ERA — one sprite per ammo type, shared by every era that fires it
-# (the ammo-to-line mapping lives in assets/pipeline/inventory.md §Flying weapons, because it is
-# art bookkeeping; the core resolves an attack's ammo from the card, not from here).
+# sprite table this one has NO ERA — one sprite per ammo type, shared by every era that fires it.
 const PROJECTILES: Array[StringName] = [
 	&"arrow", &"bolt", &"bomb", &"bullet", &"cannonball", &"missile", &"shell", &"stone",
 ]
+
+# Which ammo a form fires: line -> per-era ammo, `&""` where that form throws nothing a camera can
+# follow (every melee form — the view shows a lunge instead). Pure art bookkeeping, unlike SCATTER's
+# `barrier` column: NO RULE READS THIS. It exists because the sprite a `hit` event draws has to come
+# from somewhere, and the roster in assets/pipeline/inventory.md §Flying weapons is that somewhere.
+const PROJECTILE_BY_FORM: Dictionary = {
+	&"archers": [&"stone", &"arrow", &"bolt", &"bullet", &"bullet", &"missile"],
+	&"artillery": [&"", &"", &"stone", &"cannonball", &"shell", &"shell"],
+	&"infantry": [&"", &"", &"", &"bullet", &"bullet", &"bullet"],
+	&"bomber": [&"", &"", &"", &"bomb", &"bomb", &"bomb"],
+	&"anti_air": [&"", &"", &"", &"missile", &"missile", &"missile"],
+}
+const PROJECTILE_FALLBACK: StringName = &"bullet"   # the anonymous enemy tiers (inventory.md)
 
 # Approved neutral field scatter (W14.8 gate; seed picks and per-prop notes in
 # assets/pipeline/phase3_scatter_topdown_picks.json, roster in assets/pipeline/inventory.md
@@ -288,6 +299,14 @@ static func projectile(ammo: StringName) -> String:
 
 static func has_projectile(ammo: StringName) -> bool:
 	return FileAccess.file_exists(projectile(ammo))
+
+
+static func projectile_for(line: StringName, era: int) -> StringName:
+	# The ammo this form throws, or &"" when it closes to melee instead. An unlisted line is one of
+	# the anonymous enemy tiers, which the inventory assigns the generic bullet.
+	if not PROJECTILE_BY_FORM.has(line):
+		return PROJECTILE_FALLBACK
+	return (PROJECTILE_BY_FORM[line] as Array)[clampi(era, 1, 6) - 1]
 
 
 static func scatter(prop: StringName, variant: int) -> String:

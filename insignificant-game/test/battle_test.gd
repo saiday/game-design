@@ -1004,3 +1004,22 @@ func test_every_battle_type_names_itself_and_its_retreat_rule() -> void:
 		assert_bool(Battle.can_retreat(battle)) \
 			.override_failure_message("retreat rule wrong for %s" % battle_type) \
 			.is_equal(not no_retreat.has(battle_type))
+
+
+func test_nothing_stands_on_the_field_without_a_uid() -> void:
+	# The invariant the contract states, checked at the BOUNDARY rather than mid-round: a wave
+	# arrives at the end of `end_round`, and the view reads the field right there. W15.3 found
+	# newly-arrived units unidentified in exactly that window.
+	var s := _state(77)
+	Cards.starting_deck(s)
+	var battle := Battle.start(s, &"field_battle")
+	for _round: int in range(6):
+		for group: Array[Dictionary] in [battle.player_units, battle.enemy_units,
+				battle.player_forts, battle.enemy_forts]:
+			for entity: Dictionary in group:
+				assert_int(int(entity.get("uid", 0))) \
+					.override_failure_message("an unidentified %s is on the field at the boundary"
+						% entity.get("card_id", entity.get("grade", "?"))).is_greater(0)
+		if battle.outcome != &"":
+			break
+		Battle.end_round(s, battle)

@@ -77,8 +77,8 @@ Numbers changed? Run the balance batch and diff against `docs/balance-report.md`
 | Where | What |
 |---|---|
 | `core/` (19 modules) + `core/data/` (7 tables) | all game logic; module↔doc map in architecture.md |
-| `test/` (21 suites, 259 cases green) | one suite per module; sim_test = full-run invariants |
-| `view/` | `main.gd` (run flow, phase panels, embedded Part B demo) · `chrome.gd` (approved-art chrome + texture cache) · `hud.gd` (icon+value strip, focus tooltips) · `city_scene.gd` (營運 city panorama + command dock). 1920×1080, built programmatically, no rules |
+| `test/` (21 suites, 260 cases green) | one suite per module; sim_test = full-run invariants |
+| `view/` | `main.gd` (run flow, phase panels, embedded Part B demo) · `chrome.gd` (approved-art chrome + texture cache) · `hud.gd` (icon+value strip, focus tooltips) · `city_scene.gd` (營運 city panorama + command dock) · `route_scene.gd` (選路 fog map) · `battle_scene.gd` (top-down battlefield; the second replayer of the timeline contract). 1920×1080, built programmatically, no rules |
 | `tools/balance_batch.gd` | 60-run telemetry → `reports/balance_batch.json` |
 | `tools/export_timeline.gd` | one full-roster battle per era → `docs/fixtures/battle_timeline.json`; the HTML battle replayer plays that back and holds zero rule code. Part A re-runs the exporter and fails on a diff |
 | `docs/difficulty-design.md` | difficulty formula + rationale (folded into `design/`) |

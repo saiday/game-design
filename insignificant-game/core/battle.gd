@@ -303,6 +303,8 @@ static func end_round(state: GameState, battle: BattleField) -> Dictionary:
 	if battle.outcome == &"":
 		battle.round += 1
 		_arrive_waves(state, battle)   # next wave stacks on the remnant (D4)
+		_assign_uids(battle)   # the arrivals are on the field NOW, and the view reads it at the
+		                       # boundary — everything standing there has to have a handle already
 		if battle.attack_buff_rounds > 0:
 			battle.attack_buff_rounds -= 1
 		if battle.cost_discount_rounds > 0:
