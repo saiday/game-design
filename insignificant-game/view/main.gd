@@ -1,53 +1,68 @@
 extends Control
-# Insignificant PoC view: one panel per phase (operate / route / battle / opportunity /
-# settle / world war / democracy / ending). Chrome is composed at RUNTIME from the frozen
-# approved templates + icon glyphs in core/data/asset_paths.gd (style bible §9): NinePatch-style
-# styleboxes, glyph-on-plate badges, card frame with live Label text — never baked together.
-# The view computes NOTHING — every rule call goes through core/.
-# Demo mode (INSIG_DEMO=1): simulates the same click handlers, captures a PNG per phase
-# into captures/, prints ASSERT PASS/FAIL lines, then quits (Part B of the loop).
+# Insignificant view root: owns the run, the HUD, and which scene is on screen.
+#
+# **Three main scenes** (design/營運.md §場景呈現, style bible §11), each with its own backdrop and
+# never a shared one: 營運＝活的城市全景 (CityScene, side-view), 選路＝迷霧地圖 (W15.2), 戰鬥＝依戰鬥
+# 類型的專屬戰場 (W15.3, top-down per ADR-0009). The phases that are not scenes — 機會, 結算, 世界
+# 大戰, 民主, 結局 — are parchment panels over the city, which is where the player already is.
+#
+# The view computes NOTHING. Every rule call goes through core/, every texture through
+# core/data/asset_paths.gd, and no number on screen is derived here.
+#
+# Demo mode (INSIG_DEMO=1): drives the same handlers a human clicks, captures a PNG per screen,
+# prints ASSERT PASS/FAIL, exits 0/1 (Part B of the loop).
 
-const BG_COLOR := Color(0.10, 0.11, 0.13)
-const PANEL_COLOR := Color(0.18, 0.20, 0.24)
-const ACCENT_COLOR := Color(0.85, 0.72, 0.35)
-const CHROME_SCALE := 0.5   # frozen templates render at half source scale (in-engine scaling, §8)
-const STAT_ICON := 28       # inline stat glyph size (px)
-const CITY_SPRITE_HEIGHT := 100  # building sprite display height (px); width follows aspect
-const INK_COLOR := Color(0.20, 0.13, 0.08)         # body text on parchment chrome
-const INK_ACCENT_COLOR := Color(0.55, 0.16, 0.10)  # accent text on parchment chrome
+const BG_COLOR := Color(0.10, 0.11, 0.13)   # only ever seen if a backdrop plate fails to load
+const HUD_BAND_HEIGHT: float = 168.0        # the scrim the HUD strip and event line read against
 
-var _texture_cache: Dictionary = {}
+# Outcome and opportunity-effect wording. These are view strings for values core reports as ids;
+# anything that is a NAME (a battle type, a policy node, a building line) carries its own "zh" in
+# the data table instead, because a name belongs to the content and a phrasing belongs to the UI.
+const OUTCOME_NAMES: Dictionary = {
+	&"win": "勝", &"loss": "敗", &"retreat": "撤軍", &"defected": "敵方投誠",
+}
+const EFFECT_NAMES: Dictionary = {
+	"money": "金錢", "fee": "花費", "population": "人口", "happiness": "幸福",
+	"culture": "文化", "treasure": "國寶", "rare_card": "稀有卡",
+}
 
+var chrome: Chrome
 var state: GameState
 var nodes: Array[Dictionary] = []
 var battle: Battle.BattleField = null
+var pending_reward: Cards.CardInstance = null
 var current_opportunity: StringName = &""
+var world_war_generation: bool = false   # 整代覆寫: no operate, no route, no unrest roll
 var demo_failures: int = 0
 
-var stats_label: RichTextLabel
-var danger_label: RichTextLabel
-var phase_title: Label
+var hud: Hud
+var city: CityScene
 var event_label: Label
+var overlay: Control
 var panels: Dictionary = {}
-var operate_city: HFlowContainer
-var operate_actions: VBoxContainer
 var route_actions: VBoxContainer
 var battle_info: Label
 var battle_spend: Label
-var battle_hand: VBoxContainer
+var battle_deploy: VBoxContainer
 var battle_buttons: HBoxContainer
 var opportunity_label: Label
 var opportunity_actions: VBoxContainer
 var opportunity_card_art: TextureRect
 var opportunity_card_text: Label
 var settle_label: Label
+var reward_label: Label
+var reward_card_art: TextureRect
+var reward_card_text: Label
+var reward_actions: HBoxContainer
 var ww_label: Label
+var ww_next: Button
 var democracy_label: Label
 var democracy_actions: VBoxContainer
 var ending_label: Label
 
 
 func _ready() -> void:
+	chrome = Chrome.new()
 	_build_ui()
 	_start_run()
 	if OS.get_environment("INSIG_DEMO") == "1":
@@ -68,31 +83,28 @@ func _start_run() -> void:
 
 func _begin_generation() -> void:
 	var report := Turn.begin_generation(state)
-	if report.has("world_war"):
-		phase_title.text = "世界大戰"
-		var result := Turn.run_world_war(state)
-		var camp_line: String = "我方陣營: %s\n敵方陣營: %s" % [
-			", ".join(_civ_names(result["player_camp"])), ", ".join(_civ_names(result["enemy_camp"]))]
-		ww_label.text = "第 %d 代 — 世界大戰（整代覆寫）\n%s\n勝方: %s\n賠款池: %d\n我方收付: %s" % [
-			int(result["generation"]), camp_line,
-			"我方" if bool(result["player_won"]) else "敵方",
-			int(result["pool"]),
-			str((result["payouts"] as Dictionary).get(&"player", -(result["reparations"] as Dictionary).get(&"player", 0)))]
-		_show_panel(&"world_war")
+	city.set_time_of_day(&"morning")
+	city.refresh(state)
+	world_war_generation = report.has("world_war")
+	if world_war_generation:
+		# 整代覆寫: the world war is a played battle on the shared table (W12.5), not a summary.
+		battle = WorldWar.start(state)
+		_refresh_battle()
+		_show_overlay(&"battle")
 	elif report.has("democracy"):
 		_refresh_democracy()
-		_show_panel(&"democracy")
+		_show_overlay(&"democracy")
 	else:
-		_refresh_operate()
-		_show_panel(&"operate")
+		_show_overlay(&"")   # the city IS the operate screen; nothing sits over it
 	_refresh_stats()
 
 
 func _end_operate() -> void:
 	Operations.end_operate_phase(state)
 	nodes = Turn.route(state)
+	city.set_time_of_day(&"midday")
 	_refresh_route()
-	_show_panel(&"route")
+	_show_overlay(&"route")
 	_refresh_stats()
 
 
@@ -101,24 +113,35 @@ func _enter_node(index: int) -> void:
 	if node["content"] == &"opportunity":
 		current_opportunity = MapNodes.roll_opportunity(state)
 		_refresh_opportunity()
-		_show_panel(&"opportunity")
+		_show_overlay(&"opportunity")
 	else:
 		battle = Battle.start(
 			state, node["battle_type"], node.get("rival_id", &""),
 			bool(node.get("player_declared", false)), bool(node.get("surprise", false)))
 		_refresh_battle()
-		_show_panel(&"battle")
+		_show_overlay(&"battle")
 	_refresh_stats()
 
 
 func _resolve_opportunity(choice: StringName) -> void:
 	var report := MapNodes.resolve_opportunity(state, current_opportunity, choice)
-	event_label.text = "機會: %s → %s" % [current_opportunity, str(report)]
+	var parts: Array[String] = []
+	for key: String in EFFECT_NAMES:
+		if not report.has(key):
+			continue
+		var value: Variant = report[key]
+		if value is bool:
+			parts.append("%s ×1" % EFFECT_NAMES[key])
+		elif int(value) != 0:
+			parts.append("%s %+d" % [EFFECT_NAMES[key], int(value)])
+	event_label.text = "機會：%s → %s" % [
+		OpportunityData.TABLE[current_opportunity]["label"],
+		"、".join(parts) if not parts.is_empty() else "無變化"]
 	_settle()
 
 
-func _battle_play(hand_index: int) -> void:
-	Battle.play_card(state, battle, hand_index)
+func _battle_deploy(available_index: int) -> void:
+	Battle.deploy(state, battle, available_index)
 	_refresh_battle()
 	_refresh_stats()
 
@@ -133,17 +156,41 @@ func _battle_end_round() -> void:
 
 
 func _finish_battle() -> void:
-	var report := Battle.finish(state, battle)
-	if report.has("reward_card") and state.flags.has(&"pending_reward_card"):
-		Cards.add_reward_card(state, state.flags[&"pending_reward_card"])
-		state.flags.erase(&"pending_reward_card")
-	event_label.text = "戰鬥結束: %s（軍費 %d／戰功 %d）" % [battle.outcome, battle.spent, battle.merit]
+	# 戰後結算畫面亮出獎勵卡 (戰鬥.md): core rolls it, the player accepts or drops it here.
+	# 世界大戰 settles camps and reparations on top of the same battle report.
+	var world_war: bool = battle.battle_type == &"world_war"
+	var report: Dictionary = WorldWar.finish(state, battle) if world_war \
+		else Battle.finish(state, battle)
+	event_label.text = "%s結束：%s（軍費 %d／戰功 %d）" % [
+		Battle.type_name(battle.battle_type), OUTCOME_NAMES[battle.outcome],
+		battle.spent, battle.merit]
 	battle = null
+	pending_reward = report["reward_instance"]
+	if world_war:
+		ww_label.text = "第 %d 代 — 世界大戰（整代覆寫）\n我方陣營：%s\n敵方陣營：%s\n勝方：%s\n打了 %d 回合｜賠款池 %d｜我方收付 %s" % [
+			int(report["generation"]),
+			", ".join(_civ_names(report["player_camp"])), ", ".join(_civ_names(report["enemy_camp"])),
+			"我方" if bool(report["player_won"]) else "敵方", int(report["rounds"]), int(report["pool"]),
+			str((report["payouts"] as Dictionary).get(&"player",
+				-(report["reparations"] as Dictionary).get(&"player", 0)))]
+		_show_overlay(&"world_war")
+	else:
+		_refresh_reward()
+		_show_overlay(&"reward")
+	_refresh_stats()
+
+
+func _resolve_reward(accept: bool) -> void:
+	if accept:
+		Cards.accept_reward(state, pending_reward)
+	pending_reward = null
+	city.refresh(state)
 	_settle()
 
 
 func _settle() -> void:
-	if Turn.roll_unrest_battle(state):
+	# 世界大戰整代覆寫: no unrest roll on a war generation — the generation was the war.
+	if not world_war_generation and Turn.roll_unrest_battle(state):
 		if Unrest.use_martial_law(state):
 			event_label.text += "｜戒嚴動用：內亂戰閃避"
 		elif state.treasury >= Unrest.concession_cost(state):
@@ -152,185 +199,156 @@ func _settle() -> void:
 		else:
 			battle = Battle.start(state, &"riot")
 			_refresh_battle()
-			_show_panel(&"battle")
+			_show_overlay(&"battle")
 			return
-	phase_title.text = "結算"
+	world_war_generation = false
+	city.set_time_of_day(&"dusk")
 	var report := Turn.settle(state)
 	var economy: Dictionary = report["economy"]
-	settle_label.text = "第 %d 代結算\n稅收 +%d｜資本利得 +%d｜利息 −%d\n國庫: %d" % [
+	settle_label.text = "第 %d 代結算\n稅收 +%d｜資本利得 +%d｜利息 −%d\n國庫 %d" % [
 		state.generation - 1, int(economy["tax"]), int(economy["capital_gains"]),
 		int(economy["interest"]), state.treasury]
 	var ending: Dictionary = report["ending"]
 	if bool(ending["over"]):
 		_show_ending(ending)
 	else:
-		_show_panel(&"settle")
+		_show_overlay(&"settle")
 	_refresh_stats()
 
 
 func _show_ending(ending: Dictionary) -> void:
-	phase_title.text = "結局"
-	var head: String = {&"collapse": "政權崩潰", &"total_victory": "提前完全勝利", &"survived": "走到最後（第 %d 名）" % int(ending.get("rank", 0))}[ending["kind"]]
+	city.set_time_of_day(&"night")
+	var head: String = {
+		&"collapse": "政權崩潰",
+		&"total_victory": "提前完全勝利",
+		&"survived": "走到最後（第 %d 名）" % int(ending.get("rank", 0)),
+	}[ending["kind"]]
 	ending_label.text = "%s\n\n%s" % [head, String(ending["epilogue"])]
-	_show_panel(&"ending")
+	_show_overlay(&"ending")
 
 
-# ---------- panel refresh ----------
+# ---------- refresh ----------
 
 func _refresh_stats() -> void:
-	stats_label.text = "%s 第 %d 代（%s） %s %d %s %d %s %d %s %d %s %d %s %d" % [
-		_stat_img(AssetPaths.icon_era(Era.index(state.generation))), state.generation, Era.of(state.generation),
-		_stat_img(AssetPaths.icon(&"population")), state.population,
-		_stat_img(AssetPaths.icon(&"happiness")), state.happiness,
-		_stat_img(AssetPaths.icon(&"culture")), state.culture,
-		_stat_img(AssetPaths.icon(&"tech")), state.tech,
-		_stat_img(AssetPaths.icon(&"money")), state.treasury,
-		_stat_img(AssetPaths.icon(&"bp")), state.bp]
-	var danger := Ending.danger_panel(state)
-	danger_label.text = "%s 債務 %d｜%s 利息/代 %d｜%s 內亂權重 %d%%｜%s 人口距崩潰 %d" % [
-		_stat_img(AssetPaths.icon(&"debt")), int(danger["debt"]),
-		_stat_img(AssetPaths.icon(&"interest")), int(danger["interest_per_gen"]),
-		_stat_img(AssetPaths.icon(&"unrest")), int(round(float(danger["unrest_weight"]) * 100.0)),
-		_stat_img(AssetPaths.icon(&"population")), state.population - int(danger["collapse_threshold"])]
-
-
-func _stat_img(path: String) -> String:
-	return "[img=%d]%s[/img]" % [STAT_ICON, path]
-
-
-func _refresh_operate() -> void:
-	_clear(operate_actions)
-	phase_title.text = "營運相位"
-	_refresh_city()
-	for step: Array in Sim.BUILD_ORDER:
-		if operate_actions.get_child_count() >= 6:
-			break
-		var kind: StringName = step[0]
-		var target: StringName = step[1]
-		if kind == &"region" and not state.regions.has(target):
-			_add_button(operate_actions, "建區域 %s（%d 錢＋1BP）" % [BuildingData.REGIONS[target]["zh"], Operations.region_cost(state)],
-				func() -> void:
-					Operations.build_region(state, target)
-					_refresh_operate()
-					_refresh_stats())
-		elif kind == &"building" and not state.buildings.has(target) \
-				and state.regions.has(BuildingData.LINES[target]["region"]):
-			_add_button(operate_actions, "蓋 %s（%d 錢＋1BP）" % [BuildingData.LINES[target]["zh"], Operations.building_cost(state, target)],
-				func() -> void:
-					Operations.build_building(state, target)
-					_refresh_operate()
-					_refresh_stats())
-	var open := Policy.available(state)
-	if not open.is_empty() and state.bp >= 2:
-		var target_policy: StringName = state.policy_in_progress if state.policy_in_progress != &"" else open[0]
-		_add_button(operate_actions, "推國策 %s（鎖 1 BP，%d/%d）" % [target_policy, Policy.progress(state, target_policy), int(PolicyNodes.NODES[target_policy]["cost_bp"])],
-			func() -> void:
-				Policy.invest(state, target_policy, 1)
-				_refresh_operate()
-				_refresh_stats())
-	_add_button(operate_actions, "結束營運相位 → 選路", _end_operate)
-
-
-func _refresh_city() -> void:
-	# approved building sprites: 政權核心 follows the current era, each built line shows its own
-	# tier's era form — texture swaps by id, never restyled in code (style bible §10)
-	_clear(operate_city)
-	var era := Era.index(state.generation)
-	_city_cell(&"core", era, BuildingData.CORE_NAMES[era - 1])
-	for line_id: StringName in BuildingData.LINES:
-		if state.buildings.has(line_id):
-			var tier: int = int(state.buildings[line_id])
-			_city_cell(line_id, tier, String((BuildingData.LINES[line_id]["names"] as Array)[tier - 1]))
-
-
-func _city_cell(line_id: StringName, era_form: int, caption: String) -> void:
-	var cell := VBoxContainer.new()
-	var art := TextureRect.new()
-	var texture := load(AssetPaths.building(line_id, era_form)) as Texture2D
-	art.texture = texture
-	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	art.custom_minimum_size = Vector2(
-		float(CITY_SPRITE_HEIGHT) * texture.get_width() / texture.get_height(), CITY_SPRITE_HEIGHT)
-	cell.add_child(art)
-	var caption_label := Label.new()
-	caption_label.text = caption
-	caption_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	caption_label.add_theme_font_size_override("font_size", 13)
-	caption_label.add_theme_color_override("font_color", INK_COLOR)
-	cell.add_child(caption_label)
-	operate_city.add_child(cell)
+	hud.refresh(state)
 
 
 func _refresh_route() -> void:
+	# W15.2 promotes this to its own fog-map scene; until then it is a list over the city.
 	_clear(route_actions)
-	phase_title.text = "選路"
 	for i: int in range(nodes.size()):
 		var node: Dictionary = nodes[i]
-		var face: String = "?"
+		# 迷霧 hides the CONTENT, never the node: an unknown node is visibly there and unreadable.
+		var face: String = "迷霧（看不出是什麼）"
 		var badge: StringName = &"map_unknown"
 		if node["kind"] == &"known" or bool(node["face_shown"]):
 			if node["content"] == &"battle":
-				face = "戰鬥(%s)" % node["battle_type"]
+				face = Battle.type_name(node["battle_type"])
 				badge = &"map_battle"
 			else:
-				face = "機會"
-				badge = &""   # no dedicated map-opportunity glyph in the icon set (flagged)
+				face = "機會事件"
+				badge = &"map_opportunity"
 		var index := i
-		_add_button(route_actions, "節點 %d：%s／%s" % [i + 1, node["kind"], face],
-			func() -> void: _enter_node(index), badge)
-	var skip_action := func() -> void:
-		MapNodes.skip_node(state)
-		_settle()
-	_add_button(route_actions, "付錢略過（%d）→ 結算" % MapNodes.skip_cost(state), skip_action, &"map_skip")
+		route_actions.add_child(chrome.button("節點 %d：%s" % [i + 1, face],
+			func() -> void: _enter_node(index), badge))
+	route_actions.add_child(chrome.button("付錢略過（%d）→ 結算" % MapNodes.skip_cost(state),
+		func() -> void:
+			MapNodes.skip_node(state)
+			_settle(),
+		&"map_skip"))
+	_focus_first(route_actions)
 
 
 func _refresh_battle() -> void:
-	phase_title.text = "戰鬥"
+	# W15.3 promotes this to the top-down battlefield scene; until then it is the round-boundary
+	# console over the city, already on the post-W12 API (no hand: 未出的卡 is the whole deck).
 	var enemy_lines: Array[String] = []
 	for unit: Dictionary in battle.enemy_units:
-		enemy_lines.append("敵 %s 攻%d/血%d" % [unit.get("grade", &"?"), int(unit["attack"]), int(unit["hp"])])
+		enemy_lines.append("%s 攻%d/血%d" % [_unit_name(unit), int(unit["attack"]), int(unit["hp"])])
 	var our_lines: Array[String] = []
 	for unit: Dictionary in battle.player_units:
-		our_lines.append("我 %s 攻%d/血%d" % [Cards.card(unit["card_id"])["zh"] if unit["card_id"] != &"test" else "單位", int(unit["attack"]), int(unit["hp"])])
-	var intel: String = "情報：可見敵方牌池" if battle.intel_visible else "情報：盲打（當代未覆蓋）"
-	battle_info.text = "%s 第 %d/%d 回合｜%s\n%s\n%s" % [
-		battle.battle_type, battle.round, battle.round_cap, intel,
-		"　".join(enemy_lines) if not enemy_lines.is_empty() else "（敵方已清空）",
-		"　".join(our_lines) if not our_lines.is_empty() else "（我方未部署）"]
+		our_lines.append("%s 攻%d/血%d" % [_unit_name(unit), int(unit["attack"]), int(unit["hp"])])
+	var intel: String = "情報：本場波次表可見" if battle.intel_visible else "情報：盲打（當代未覆蓋）"
+	var cap: String = "第 %d 回合（無上限）" % battle.round if battle.round_cap == 0 \
+		else "第 %d/%d 回合" % [battle.round, battle.round_cap]
+	battle_info.text = "%s｜%s｜%s\n敵：%s\n我：%s" % [
+		Battle.type_name(battle.battle_type), cap, intel,
+		"　".join(enemy_lines) if not enemy_lines.is_empty() else "（已清空）",
+		"　".join(our_lines) if not our_lines.is_empty() else "（未部署）"]
+	# 本場已燒軍費 vs 預期賠償 全程常駐 (戰鬥.md 核心博弈)
 	battle_spend.text = "本場已燒軍費 %d ｜ 預期賠償 %d" % [battle.spent, battle.expected_reward]
-	_clear(battle_hand)
-	for i: int in range(battle.hand.size()):
-		var instance: Cards.CardInstance = battle.hand[i]
+	_clear(battle_deploy)
+	for i: int in range(battle.available.size()):
+		var instance: Cards.CardInstance = battle.available[i]
 		var index := i
-		_add_button(battle_hand, "出牌 %s（軍費 %d）" % [Cards.form_name(instance.id, instance.tier), Battle.card_cost(state, battle, instance)],
-			func() -> void: _battle_play(index))
+		var note: String = ""
+		if battle.battle_type == &"riot" and Cards.card(instance.id)["class"] == &"mechanical":
+			note = "　※鎮壓代價 幸福 −%d" % Battle.RIOT_MECH_HAPPINESS
+		battle_deploy.add_child(chrome.button("投入 %s（軍費 %d）%s" % [
+			Cards.display_name(instance), Battle.card_cost(state, battle, instance), note],
+			func() -> void: _battle_deploy(index)))
 	_clear(battle_buttons)
 	if Battle.can_defect(state, battle):
-		_add_button(battle_buttons, "投誠（免軍費勝）", func() -> void:
+		battle_buttons.add_child(chrome.button("投誠（免軍費勝）", func() -> void:
 			Battle.defect(state, battle)
-			_finish_battle())
-	_add_button(battle_buttons, "結束回合", _battle_end_round)
-	_add_button(battle_buttons, "撤軍（%d 錢，+2 人口）" % (10 * Era.coeff(state.generation)), func() -> void:
-		Battle.retreat(state, battle)
-		_finish_battle())
+			_finish_battle()))
+	battle_buttons.add_child(chrome.button("結束回合 → 演出", _battle_end_round))
+	battle_buttons.add_child(chrome.button("不再出牌（自願認輸）", func() -> void:
+		Battle.concede(battle)
+		_battle_end_round()))
+	if Battle.can_retreat(battle):
+		battle_buttons.add_child(chrome.button("撤軍（%d 錢，+%d 人口）" % [
+			Battle.RETREAT_COST_BASE * Era.coeff(state.generation), Battle.RETREAT_POP],
+			func() -> void:
+				Battle.retreat(state, battle)
+				_finish_battle()))
+	_focus_first(battle_buttons)
+
+
+func _refresh_reward() -> void:
+	# 「太爛就放棄」的決策瞬間就在這一幕 — the roll's grade and innate three are the whole decision.
+	var duplicate: bool = false
+	for owned: Cards.CardInstance in state.deck:
+		if owned.id == pending_reward.id:
+			duplicate = true
+			break
+	var price: String = "重複卡：收編價 %d 錢" % (Cards.REWARD_DUPLICATE_COST_BASE * Era.coeff(state.generation)) \
+		if duplicate else "首見：免費納入"
+	var name := Cards.display_name(pending_reward)
+	var lines: Array[String] = [name]
+	if Cards.is_unit(pending_reward.id):
+		lines.append("攻 %d／血 %d" % [Cards.attack_of(pending_reward), Cards.hp_of(pending_reward)])
+		lines.append("命中 %.0f／閃避 %.0f／攻速 %.2f" % [
+			pending_reward.accuracy, pending_reward.dodge, pending_reward.speed])
+	else:
+		lines.append("工事／技能：不抽品質三項")
+	lines.append("軍費 %d" % Cards.military_cost_of(state, pending_reward))
+	lines.append(price)
+	reward_label.text = "\n".join(lines)
+	reward_card_text.text = name
+	reward_card_art.texture = _card_illustration(pending_reward)
+	_clear(reward_actions)
+	reward_actions.add_child(chrome.button("納入牌組", func() -> void: _resolve_reward(true)))
+	reward_actions.add_child(chrome.button("放棄", func() -> void: _resolve_reward(false)))
+	_focus_first(reward_actions)
 
 
 func _refresh_opportunity() -> void:
-	phase_title.text = "機會事件"
 	var entry: Dictionary = OpportunityData.TABLE[current_opportunity]
-	opportunity_label.text = "%s" % entry["label"]
-	opportunity_card_art.texture = load(AssetPaths.icon_opportunity(current_opportunity)) as Texture2D
+	opportunity_label.text = String(entry["label"])
+	opportunity_card_art.texture = chrome.texture(AssetPaths.icon_opportunity(current_opportunity))
 	opportunity_card_text.text = String(entry["label"])
 	_clear(opportunity_actions)
 	for choice: StringName in MapNodes.opportunity_choices(current_opportunity):
 		var picked := choice
-		_add_button(opportunity_actions, String(picked), func() -> void: _resolve_opportunity(picked))
+		opportunity_actions.add_child(chrome.button(String(picked),
+			func() -> void: _resolve_opportunity(picked)))
+	_focus_first(opportunity_actions)
 
 
 func _refresh_democracy() -> void:
-	phase_title.text = "民主（自動營運）"
-	var lines: Array[String] = ["現任：%s" % (CandidateData.CANDIDATES[state.incumbent]["zh"] if state.incumbent != &"" else "—")]
+	var lines: Array[String] = ["現任：%s" % (
+		CandidateData.CANDIDATES[state.incumbent]["zh"] if state.incumbent != &"" else "—")]
 	if state.incumbent != &"":
 		lines.append("「%s」" % CandidateData.CANDIDATES[state.incumbent]["copy"])
 	lines.append("連任機率 %d%%" % int(round(Democracy.reelection_chance(state) * 100.0)))
@@ -338,246 +356,199 @@ func _refresh_democracy() -> void:
 	_clear(democracy_actions)
 	for candidate_id: StringName in Democracy.top_three(state):
 		var picked := candidate_id
-		_add_button(democracy_actions, "金援 %s（50 錢，+10%%）" % CandidateData.CANDIDATES[picked]["zh"],
+		democracy_actions.add_child(chrome.button("金援 %s（50 錢，+10%%）" % CandidateData.CANDIDATES[picked]["zh"],
 			func() -> void:
 				Democracy.fund(state, picked)
 				_refresh_democracy()
-				_refresh_stats())
-	_add_button(democracy_actions, "看國家自動運轉 → 結算", func() -> void:
+				_refresh_stats(),
+			&"fund"))
+	democracy_actions.add_child(chrome.button("看國家自動運轉 → 結算", func() -> void:
 		Democracy.generation_step(state)
-		_settle())
+		_settle()))
+	_focus_first(democracy_actions)
 
 
 # ---------- UI scaffolding ----------
 
 func _build_ui() -> void:
-	theme = _build_theme()
+	theme = chrome.theme()
 	var bg := ColorRect.new()
 	bg.color = BG_COLOR
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(bg)
-	var root := VBoxContainer.new()
-	root.set_anchors_preset(Control.PRESET_FULL_RECT)
-	root.offset_left = 24.0
-	root.offset_top = 16.0
-	root.offset_right = -24.0
-	root.offset_bottom = -16.0
-	root.add_theme_constant_override("separation", 10)
-	add_child(root)
-	stats_label = _rich_label(root, 20)
-	danger_label = _rich_label(root, 17)
-	danger_label.modulate = ACCENT_COLOR
-	_divider(root)
-	phase_title = _label(root, 30)
-	phase_title.add_theme_font_override("font", load(AssetPaths.FONT_BOLD) as FontFile)
-	event_label = _label(root, 15)
-	panels[&"operate"] = _panel(root)
-	var operate_box := _vbox(panels[&"operate"])
-	operate_city = HFlowContainer.new()
-	operate_city.add_theme_constant_override("h_separation", 18)
-	operate_box.add_child(operate_city)
-	operate_actions = _vbox(operate_box)
-	panels[&"route"] = _panel(root)
-	route_actions = _vbox(panels[&"route"])
-	panels[&"battle"] = _panel(root)
-	var battle_box := _vbox(panels[&"battle"])
-	battle_info = _panel_label(battle_box, 16)
-	battle_spend = _panel_label(battle_box, 18)
-	battle_spend.add_theme_color_override("font_color", INK_ACCENT_COLOR)
-	battle_hand = VBoxContainer.new()
-	battle_box.add_child(battle_hand)
+	# scene layer (bottom): the city is the standing screen, the other two scenes land in W15.2/3
+	city = CityScene.new()
+	city.setup(chrome)
+	city.state_changed.connect(_refresh_stats)
+	city.operate_finished.connect(_end_operate)
+	add_child(city)
+	# HUD layer: icon+value strip, always on screen, never covered by a panel.
+	# It rides a dark scrim because it sits on whatever plate is behind it — Part B caught the
+	# danger row (accent gold on a pale sky) at the edge of unreadable over the city panorama.
+	var scrim := ColorRect.new()
+	scrim.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	scrim.offset_bottom = HUD_BAND_HEIGHT
+	scrim.color = Color(0.06, 0.07, 0.09, 0.55)
+	scrim.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(scrim)
+	var top := VBoxContainer.new()
+	top.set_anchors_preset(Control.PRESET_TOP_WIDE)
+	top.offset_left = 24.0
+	top.offset_top = 14.0
+	top.offset_right = -24.0
+	top.add_theme_constant_override("separation", 6)
+	add_child(top)
+	hud = Hud.new()
+	hud.setup(chrome)
+	top.add_child(hud)
+	top.add_child(chrome.divider())
+	event_label = Label.new()
+	event_label.add_theme_font_size_override("font_size", 16)
+	event_label.add_theme_color_override("font_color", Color(0.96, 0.94, 0.88))
+	event_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	top.add_child(event_label)
+	# overlay layer: the phases that are panels rather than scenes
+	overlay = Control.new()
+	overlay.set_anchors_preset(Control.PRESET_FULL_RECT)
+	overlay.offset_left = 120.0
+	overlay.offset_top = 190.0
+	overlay.offset_right = -120.0
+	overlay.offset_bottom = -120.0
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	add_child(overlay)
+	_build_panels()
+	add_child(hud.build_tooltip())   # last child: the tooltip overhangs everything
+
+
+func _build_panels() -> void:
+	route_actions = _vbox(_panel(&"route", "選路"))
+	var battle_box := _vbox(_panel(&"battle", "戰鬥"))
+	battle_info = chrome.ink_label("", 16)
+	battle_box.add_child(battle_info)
+	battle_spend = chrome.ink_label("", 19, true)
+	battle_box.add_child(battle_spend)
+	battle_deploy = VBoxContainer.new()
+	battle_box.add_child(battle_deploy)
 	battle_buttons = HBoxContainer.new()
 	battle_box.add_child(battle_buttons)
-	panels[&"opportunity"] = _panel(root)
+	# 戰後結算畫面亮出獎勵卡 (戰鬥.md): the card is SHOWN, illustration and all — 「太爛就放棄」
+	# is a decision about these particular men, so the reveal has to be a card, not a line of text.
+	var reward_split := HBoxContainer.new()
+	reward_split.add_theme_constant_override("separation", 28)
+	_vbox(_panel(&"reward", "戰後獎勵卡")).add_child(reward_split)
+	var reward_card := chrome.card_widget()
+	reward_card_art = reward_card["art"]
+	reward_card_text = reward_card["text"]
+	reward_split.add_child(reward_card["root"])
+	var reward_box := VBoxContainer.new()
+	reward_box.add_theme_constant_override("separation", 8)
+	reward_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	reward_split.add_child(reward_box)
+	reward_label = chrome.ink_label("", 19)
+	reward_box.add_child(reward_label)
+	reward_actions = HBoxContainer.new()
+	reward_actions.add_theme_constant_override("separation", 8)
+	reward_box.add_child(reward_actions)
 	var opp_split := HBoxContainer.new()
 	opp_split.add_theme_constant_override("separation", 28)
-	panels[&"opportunity"].add_child(opp_split)
-	opp_split.add_child(_build_opportunity_card())
+	_vbox(_panel(&"opportunity", "機會事件")).add_child(opp_split)
+	var opp_card := chrome.card_widget()
+	opportunity_card_art = opp_card["art"]
+	opportunity_card_text = opp_card["text"]
+	opp_split.add_child(opp_card["root"])
 	var opp_box := VBoxContainer.new()
 	opp_box.add_theme_constant_override("separation", 6)
 	opp_box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	opp_split.add_child(opp_box)
-	opportunity_label = _panel_label(opp_box, 20)
+	opportunity_label = chrome.ink_label("", 20)
+	opp_box.add_child(opportunity_label)
 	opportunity_actions = VBoxContainer.new()
 	opp_box.add_child(opportunity_actions)
-	panels[&"settle"] = _panel(root)
-	var settle_box := _vbox(panels[&"settle"])
-	settle_label = _panel_label(settle_box, 18)
-	_add_button(settle_box, "進入下一代", _begin_generation)
-	panels[&"world_war"] = _panel(root)
-	var ww_box := _vbox(panels[&"world_war"])
-	ww_label = _panel_label(ww_box, 18)
-	_add_button(ww_box, "結算 → 下一代", func() -> void: _settle())
-	panels[&"democracy"] = _panel(root)
-	var demo_box := _vbox(panels[&"democracy"])
-	democracy_label = _panel_label(demo_box, 18)
+	var settle_box := _vbox(_panel(&"settle", "結算"))
+	settle_label = chrome.ink_label("", 18)
+	settle_box.add_child(settle_label)
+	settle_box.add_child(chrome.button("進入下一代", _begin_generation))
+	var ww_box := _vbox(_panel(&"world_war", "世界大戰"))
+	ww_label = chrome.ink_label("", 18)
+	ww_box.add_child(ww_label)
+	ww_next = chrome.button("戰後獎勵卡 →", func() -> void:
+		_refresh_reward()
+		_show_overlay(&"reward"))
+	ww_box.add_child(ww_next)
+	var demo_box := _vbox(_panel(&"democracy", "民主（自動營運）"))
+	democracy_label = chrome.ink_label("", 18)
+	demo_box.add_child(democracy_label)
 	democracy_actions = VBoxContainer.new()
 	demo_box.add_child(democracy_actions)
-	panels[&"ending"] = _panel(root)
-	var ending_box := _vbox(panels[&"ending"])
-	ending_label = _panel_label(ending_box, 19)
-	_add_button(ending_box, "再來一局", func() -> void: _start_run())
+	var ending_box := _vbox(_panel(&"ending", "結局"))
+	ending_label = chrome.ink_label("", 19)
+	ending_box.add_child(ending_label)
+	ending_box.add_child(chrome.button("再來一局", _start_run))
 
 
-# ---------- approved-art chrome helpers (style bible §9; scaled in-engine, never re-baked) ----------
-
-func _build_theme() -> Theme:
-	var t := Theme.new()
-	t.default_font = load(AssetPaths.FONT_REGULAR) as FontFile
-	t.default_font_size = 18
-	return t
-
-
-func _scaled_texture(path: String, scale: float) -> ImageTexture:
-	var key := "%s@%f" % [path, scale]
-	if not _texture_cache.has(key):
-		var image := _image(path)
-		image.resize(int(image.get_width() * scale), int(image.get_height() * scale),
-			Image.INTERPOLATE_LANCZOS)
-		_texture_cache[key] = ImageTexture.create_from_image(image)
-	return _texture_cache[key]
-
-
-func _image(path: String) -> Image:
-	var image: Image = (load(path) as Texture2D).get_image()
-	if image.is_compressed():
-		image.decompress()
-	return image
-
-
-func _chrome_stylebox(tpl: Dictionary, modulate_color: Color = Color.WHITE) -> StyleBoxTexture:
-	var style := StyleBoxTexture.new()
-	style.texture = _scaled_texture(String(tpl["path"]), CHROME_SCALE)
-	var margins: Dictionary = tpl["margins"]
-	style.texture_margin_left = float(margins["left"]) * CHROME_SCALE
-	style.texture_margin_top = float(margins["top"]) * CHROME_SCALE
-	style.texture_margin_right = float(margins["right"]) * CHROME_SCALE
-	style.texture_margin_bottom = float(margins["bottom"]) * CHROME_SCALE
-	style.content_margin_left = style.texture_margin_left * 0.8
-	style.content_margin_top = style.texture_margin_top * 0.8
-	style.content_margin_right = style.texture_margin_right * 0.8
-	style.content_margin_bottom = style.texture_margin_bottom * 0.8
-	style.modulate_color = modulate_color
-	return style
-
-
-func _plate_icon(icon_path: String, size: int) -> ImageTexture:
-	# glyph composited into the frozen plate's disc rect at runtime (style bible §9)
-	var key := "plate:%s@%d" % [icon_path, size]
-	if _texture_cache.has(key):
-		return _texture_cache[key]
-	var plate := _image(String(AssetPaths.UI_ICON_PLATE["path"]))
-	var glyph := _image(icon_path)
-	var disc: Rect2i = AssetPaths.UI_ICON_PLATE["disc"]
-	var fill := float(AssetPaths.UI_ICON_PLATE["glyph_fill"])
-	var box := Vector2(disc.size) * fill
-	var glyph_scale: float = minf(box.x / glyph.get_width(), box.y / glyph.get_height())
-	glyph.resize(int(glyph.get_width() * glyph_scale), int(glyph.get_height() * glyph_scale),
-		Image.INTERPOLATE_LANCZOS)
-	var at := disc.position + (disc.size - Vector2i(glyph.get_width(), glyph.get_height())) / 2
-	plate.blend_rect(glyph, Rect2i(Vector2i.ZERO, glyph.get_size()), at)
-	plate.resize(int(round(float(size) * plate.get_width() / plate.get_height())), size,
-		Image.INTERPOLATE_LANCZOS)
-	_texture_cache[key] = ImageTexture.create_from_image(plate)
-	return _texture_cache[key]
-
-
-func _build_opportunity_card() -> Control:
-	# live card composition (style bible §9): art UNDER the frame's transparent window,
-	# Label text OVER the parchment text panel — three layers, composed here, never baked.
-	var frame_size := Vector2(AssetPaths.UI_CARD_FRAME["size"] as Vector2i) * CHROME_SCALE
-	var card := Control.new()
-	card.custom_minimum_size = frame_size
-	card.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
-	var window: Rect2i = AssetPaths.UI_CARD_FRAME["window"]
-	opportunity_card_art = TextureRect.new()
-	opportunity_card_art.position = Vector2(window.position) * CHROME_SCALE
-	opportunity_card_art.size = Vector2(window.size) * CHROME_SCALE
-	opportunity_card_art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	opportunity_card_art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	card.add_child(opportunity_card_art)
-	var frame := TextureRect.new()
-	frame.texture = _scaled_texture(String(AssetPaths.UI_CARD_FRAME["path"]), CHROME_SCALE)
-	frame.size = frame_size
-	card.add_child(frame)
-	var text_panel: Rect2i = AssetPaths.UI_CARD_FRAME["text_panel"]
-	opportunity_card_text = Label.new()
-	opportunity_card_text.position = Vector2(text_panel.position) * CHROME_SCALE + Vector2(10, 8)
-	opportunity_card_text.size = Vector2(text_panel.size) * CHROME_SCALE - Vector2(20, 16)
-	opportunity_card_text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	opportunity_card_text.add_theme_color_override("font_color", Color(0.20, 0.13, 0.08))
-	opportunity_card_text.add_theme_font_size_override("font_size", 18)
-	card.add_child(opportunity_card_text)
-	return card
-
-
-func _divider(parent: Control) -> void:
-	var rule := NinePatchRect.new()
-	rule.texture = load(String(AssetPaths.UI_DIVIDER["path"])) as Texture2D
-	var margins: Dictionary = AssetPaths.UI_DIVIDER["margins"]
-	rule.patch_margin_left = int(margins["left"])
-	rule.patch_margin_right = int(margins["right"])
-	rule.custom_minimum_size = Vector2(0, (AssetPaths.UI_DIVIDER["size"] as Vector2i).y)
-	parent.add_child(rule)
-
-
-func _panel(parent: Control) -> PanelContainer:
-	var panel := PanelContainer.new()
-	panel.add_theme_stylebox_override("panel", _chrome_stylebox(AssetPaths.UI_PANEL))
+func _panel(id: StringName, title: String) -> VBoxContainer:
+	var panel := chrome.panel()
+	panel.set_anchors_preset(Control.PRESET_FULL_RECT)
 	panel.visible = false
-	panel.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	parent.add_child(panel)
-	return panel
+	overlay.add_child(panel)
+	panels[id] = panel
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 8)
+	panel.add_child(box)
+	var heading := chrome.ink_label(title, 28)
+	heading.add_theme_font_override("font", chrome.bold_font())
+	box.add_child(heading)
+	return box
 
 
 func _vbox(parent: Control) -> VBoxContainer:
 	var box := VBoxContainer.new()
 	box.add_theme_constant_override("separation", 6)
+	box.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	parent.add_child(box)
 	return box
 
 
-func _label(parent: Control, size: int) -> Label:
-	var label := Label.new()
-	label.add_theme_font_size_override("font_size", size)
-	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-	parent.add_child(label)
-	return label
+func _show_overlay(id: StringName) -> void:
+	for key: StringName in panels.keys():
+		(panels[key] as Control).visible = key == id
+	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE if id == &"" else Control.MOUSE_FILTER_STOP
+	# The city keeps standing behind every panel (it is the world, not a screen), but its dock is
+	# the OPERATE phase's command surface — leaving it live during a battle would offer 蓋樓 mid-fight.
+	city.set_commands_visible(id == &"")
 
 
-func _panel_label(parent: Control, size: int) -> Label:
-	# labels living INSIDE parchment panels read in ink, not the on-dark default white
-	var label := _label(parent, size)
-	label.add_theme_color_override("font_color", INK_COLOR)
-	return label
+func _visible_overlay() -> StringName:
+	for key: StringName in panels.keys():
+		if (panels[key] as Control).visible:
+			return key
+	return &""
 
 
-func _rich_label(parent: Control, size: int) -> RichTextLabel:
-	var label := RichTextLabel.new()
-	label.bbcode_enabled = true
-	label.fit_content = true
-	label.scroll_active = false
-	label.add_theme_font_size_override("normal_font_size", size)
-	parent.add_child(label)
-	return label
+func _card_illustration(instance: Cards.CardInstance) -> Texture2D:
+	# Skills are era-neutral (one illustration); everything else is per era form. The coverage
+	# holes are real (砲兵 starts era 3, 私掠 ends before 資訊), so an absent form draws no art
+	# rather than crashing on a path the registry never promised.
+	if Cards.card(instance.id)["class"] == &"skill":
+		if AssetPaths.has_card_skill(instance.id):
+			return chrome.texture(AssetPaths.card_skill(instance.id))
+		return null
+	if AssetPaths.has_card(instance.id, instance.tier):
+		return chrome.texture(AssetPaths.card(instance.id, instance.tier))
+	return null
 
 
-func _add_button(parent: Control, text: String, handler: Callable, icon_id: StringName = &"") -> Button:
-	var button := Button.new()
-	button.text = text
-	button.add_theme_stylebox_override("normal", _chrome_stylebox(AssetPaths.UI_BUTTON))
-	button.add_theme_stylebox_override("hover", _chrome_stylebox(AssetPaths.UI_BUTTON, Color(1.08, 1.08, 1.02)))
-	button.add_theme_stylebox_override("pressed", _chrome_stylebox(AssetPaths.UI_BUTTON, Color(0.78, 0.78, 0.82)))
-	button.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	button.add_theme_color_override("font_color", Color(0.16, 0.11, 0.07))
-	button.add_theme_color_override("font_hover_color", Color(0.10, 0.06, 0.03))
-	button.add_theme_color_override("font_pressed_color", Color(0.16, 0.11, 0.07))
-	if icon_id != &"":
-		button.icon = _plate_icon(AssetPaths.icon(icon_id), 44)
-		button.add_theme_constant_override("h_separation", 10)
-	button.pressed.connect(handler)
-	parent.add_child(button)
-	return button
+func _unit_name(unit: Dictionary) -> String:
+	if unit["card_id"] != &"":
+		return Cards.form_name(unit["card_id"], Era.index(state.generation))
+	return {&"weak": "弱兵", &"medium": "中兵", &"hard": "硬兵"}.get(unit["grade"], "？")
+
+
+func _civ_names(camp: Array) -> Array[String]:
+	var out: Array[String] = []
+	for civ_id: StringName in camp:
+		out.append("你" if civ_id == &"player" else Rivals.find(state, civ_id).display_name)
+	return out
 
 
 func _clear(container: Control) -> void:
@@ -586,82 +557,158 @@ func _clear(container: Control) -> void:
 		child.queue_free()
 
 
-func _show_panel(name: StringName) -> void:
-	for key: StringName in panels.keys():
-		(panels[key] as Control).visible = key == name
-
-
-func _civ_names(camp: Array) -> Array[String]:
-	var out: Array[String] = []
-	for civ_id: StringName in camp:
-		if civ_id == &"player":
-			out.append("你")
-		else:
-			out.append(Rivals.find(state, civ_id).display_name)
-	return out
+func _focus_first(container: Control) -> void:
+	for child: Node in container.get_children():
+		if child is Button and not (child as Button).disabled:
+			(child as Button).grab_focus()
+			return
 
 
 # ---------- Part B demo: simulated clicks + captures + ASSERTs ----------
 
 func _run_demo() -> void:
-	var watchdog := get_tree().create_timer(45.0)
+	var watchdog := get_tree().create_timer(90.0)
 	watchdog.timeout.connect(func() -> void:
 		print("ASSERT FAIL: demo watchdog expired")
 		get_tree().quit(1))
-	await _capture(&"operate", "operate panel with action buttons")
-	_assert(operate_actions.get_child_count() >= 2, "operate panel offers actions")
-	# click the first build action, then end the phase
-	(operate_actions.get_child(0) as Button).pressed.emit()
-	await _capture(&"operate_after_click", "operate after one build click")
-	_assert(state.buildings_built + state.regions.size() >= 1, "click actually built something")
+	await _demo_city()
+	await _demo_route_and_battle()
+	await _demo_settle()
+	await _demo_world_war()
+	await _demo_democracy()
+	await _demo_ending()
+	_assert_pixels()
+	print("DEMO DONE: %d assert failures" % demo_failures)
+	get_tree().quit(0 if demo_failures == 0 else 1)
+
+
+func _demo_city() -> void:
+	# the city IS the operate screen: no panel over it, the dock is the whole command surface
+	await _capture(&"city", "operations city panorama with the command dock open")
+	_assert(_visible_overlay() == &"", "operate phase shows the city, not a panel")
+	_assert(city.dock_open(), "command dock opens with the phase")
+	_assert(city.dock_action_count() >= 2, "dock offers build actions")
+	var before: int = state.regions.size() + state.buildings_built
+	_assert(city.press_dock_action(), "the dock has an enabled action to click")
+	_assert(state.regions.size() + state.buildings_built > before, "a dock click actually built something")
+	# a seeded spread of era forms, so the skyline capture shows the tier→era-form swap
+	state.buildings = {&"housing": 1, &"school": 2, &"debt_office": 3, &"commerce": 4,
+		&"bank": 5, &"media": 6}
+	city.refresh(state)
+	await _capture(&"city_skyline", "city with six built lines at spread era forms")
+	_assert(city.skyline_count() >= 1, "skyline drawn")
+	_assert(city.end_phase_reachable(), "結束營運相位 stays visible under a full action list")
+	# 收合式指令盤: the city must be able to become the whole screen
+	city.toggle_dock()
+	await _capture(&"city_dock_closed", "dock folded away, city unobstructed")
+	_assert(not city.dock_open(), "dock collapses")
+	city.toggle_dock()
+	_assert(city.dock_open(), "dock reopens")
+	# HUD tooltips: hover and controller focus are the same verb
+	hud.focus_cell(&"population")
+	await _capture(&"hud_tooltip", "HUD tooltip opened by controller focus")
+	_assert(hud.tooltip_visible(), "focusing a HUD cell opens its tooltip")
+	_assert(hud.tooltip_term() == "人口", "the tooltip names the term the cell shows")
+	hud.hide_tip()
+	# 勳章 assignment + 解散 evaluation both live in the deck tab
+	state.medals += 1
+	city.open_tab(&"deck")
+	await _capture(&"city_deck", "deck tab: medal assignment and disband evaluation")
+	var medals_before: int = state.medals
+	_assert(city.press_dock_action("授勳"), "the deck tab offers 授勳 while a medal is banked")
+	_assert(state.medals == medals_before - 1, "授勳 spends a medal")
+	# 解散 has a floor: the starting deck IS the minimum, so the button must be refused there and
+	# offered the moment a reward card lifts the deck above it (卡牌.md 卡牌經濟).
+	_assert(state.deck.size() == Cards.DECK_MINIMUM, "the run opens at the deck minimum")
+	_assert(not city.dock_action_enabled("解散"), "解散 is refused at the deck minimum")
+	Cards.accept_reward(state, Cards.roll_reward(state))
+	city.refresh(state)
+	var deck_before: int = state.deck.size()
+	_assert(city.press_dock_action("解散"), "解散 opens up once the deck clears the minimum")
+	_assert(state.deck.size() == deck_before - 1, "解散 removes a card from the deck")
+	city.open_tab(&"build")
+
+
+func _demo_route_and_battle() -> void:
 	_end_operate()
 	await _capture(&"route", "route panel with node buttons")
-	_assert(route_actions.get_child_count() >= 2, "route panel lists nodes + skip")
+	_assert(route_actions.get_child_count() >= 2, "route lists nodes plus the skip exit")
 	(route_actions.get_child(0) as Button).pressed.emit()
-	if battle != null:
-		await _capture(&"battle", "battle panel")
+	if _visible_overlay() == &"battle":
+		await _capture(&"battle", "battle round-boundary console")
 		_assert(battle_spend.text.contains("軍費"), "spend-vs-reward line visible")
+		_assert(battle_deploy.get_child_count() >= 1, "未出的卡 offered at the boundary")
+		(battle_deploy.get_child(0) as Button).pressed.emit()
+		_assert(battle != null and battle.player_units.size() + battle.player_forts.size() >= 1,
+			"deploying puts something on the field")
 		var guard: int = 0
-		while battle != null and battle.outcome == &"" and guard < 20:
+		while battle != null and guard < 30:
 			guard += 1
-			if battle_hand.get_child_count() > 0:
-				(battle_hand.get_child(0) as Button).pressed.emit()
 			_battle_end_round()
+		_assert(battle == null, "the battle reaches an outcome")
+		await _capture(&"reward", "post-battle reward card reveal")
+		_assert(_visible_overlay() == &"reward", "every battle ends on the reward reveal")
+		_assert(reward_card_text.text.length() > 0, "the revealed card names itself on the card")
+		_assert(reward_card_art.texture != null, "the revealed card shows its illustration")
+		_assert(reward_label.text.contains("納入") or reward_label.text.contains("收編價"),
+			"the reveal states what taking it costs")
+		(reward_actions.get_child(0) as Button).pressed.emit()
 	else:
 		await _capture(&"opportunity", "opportunity panel")
 		(opportunity_actions.get_child(0) as Button).pressed.emit()
-	if battle != null and panels[&"battle"].visible:
-		Battle.retreat(state, battle)   # riot battle fallback so the demo always advances
+
+
+func _demo_settle() -> void:
+	if _visible_overlay() == &"battle":
+		Battle.retreat(state, battle)   # riot fallback so the demo always advances
 		_finish_battle()
-	await _capture(&"settle", "settle panel")
+		(reward_actions.get_child(0) as Button).pressed.emit()
+	await _capture(&"settle", "settle panel at dusk")
 	_assert(settle_label.text.contains("結算"), "settle summary visible")
-	# city strip block: seed a spread of era-form tiers and re-enter operate
-	state.buildings = {&"housing": 1, &"school": 2, &"debt_office": 3, &"commerce": 4, &"bank": 5, &"media": 6}
-	_refresh_operate()
-	_show_panel(&"operate")
-	await _capture(&"operate_city", "operate panel with approved building sprites")
-	_assert(operate_city.get_child_count() == state.buildings.size() + 1, "city strip = core + every built line")
-	_assert((operate_city.get_child(0).get_child(0) as TextureRect).texture != null, "core sprite texture loaded")
-	# world war block (jump the clock)
+
+
+func _demo_world_war() -> void:
+	# 整代覆寫: the war is a played battle on the shared table, not a rolled summary (W12.5).
 	state.generation = 15
 	_begin_generation()
-	await _capture(&"world_war", "world war panel")
+	_assert(_visible_overlay() == &"battle", "a world-war generation opens on the battle table")
+	_assert(battle != null and battle.round_cap == 0, "世界大戰 has no round cap")
+	await _capture(&"world_war_battle", "world war fought on the shared table")
+	_assert(_deploy_button_count() >= 1, "our own cards are offered in the world war")
+	var guard: int = 0
+	while battle != null and guard < 250:
+		guard += 1
+		if _deploy_button_count() > 0 and battle.round <= 2:
+			(battle_deploy.get_child(0) as Button).pressed.emit()
+		else:
+			Battle.concede(battle)   # 留卡省軍費 is a legal voluntary concession (D3)
+			_battle_end_round()
+	_assert(battle == null, "the uncapped war reaches an outcome")
+	await _capture(&"world_war", "world war settlement: camps, pool, our payout")
 	_assert(ww_label.text.contains("世界大戰"), "world war summary visible")
-	_settle()
-	# democracy block
+	_assert(ww_label.text.contains("賠款池"), "the reparations pool is shown")
+	ww_next.pressed.emit()
+	_assert(_visible_overlay() == &"reward", "the war issues a reward card like any other battle")
+	(reward_actions.get_child(0) as Button).pressed.emit()
+
+
+func _deploy_button_count() -> int:
+	return battle_deploy.get_child_count() if battle != null else 0
+
+
+func _demo_democracy() -> void:
 	state.culture = maxi(state.culture, 25)
 	Democracy.enter(state, true)
 	_begin_generation()
 	await _capture(&"democracy", "democracy panel")
 	_assert(democracy_label.text.contains("現任"), "democracy incumbent visible")
-	# ending block
+
+
+func _demo_ending() -> void:
 	state.generation = Era.FINAL_GENERATION + 1
 	_show_ending(Ending.check(state))
-	await _capture(&"ending", "ending panel")
+	await _capture(&"ending", "ending panel at night")
 	_assert(ending_label.text.length() > 20, "epilogue text visible")
-	_assert_pixels()
-	print("DEMO DONE: %d assert failures" % demo_failures)
-	get_tree().quit(0 if demo_failures == 0 else 1)
 
 
 func _capture(tag: StringName, description: String) -> void:
@@ -669,18 +716,13 @@ func _capture(tag: StringName, description: String) -> void:
 	await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	var image := get_viewport().get_texture().get_image()
-	var path := "res://captures/w5_%s.png" % tag
+	var path := "res://captures/w15_%s.png" % tag
 	image.save_png(ProjectSettings.globalize_path(path))
 	print("CAPTURE %s -> %s" % [description, path])
-	var visible_panel: StringName = &""
-	for key: StringName in panels.keys():
-		if (panels[key] as Control).visible:
-			visible_panel = key
-	_assert(visible_panel == tag or String(tag).begins_with(String(visible_panel)), "panel '%s' is the visible block" % tag)
-	_assert(stats_label.text.length() > 10, "stats bar populated")
-	_assert(danger_label.text.contains("內亂權重"), "danger panel always on screen")
+	_assert(hud.value_of(&"population").length() > 0, "HUD population cell populated")
+	_assert(hud.value_of(&"unrest").ends_with("%"), "danger row always on screen")
 	var rect := get_viewport_rect()
-	_assert(rect.encloses(stats_label.get_global_rect()), "stats bar inside viewport")
+	_assert(rect.encloses(hud.get_global_rect()), "HUD strip inside the viewport")
 
 
 func _assert(condition: bool, message: String) -> void:
@@ -692,15 +734,15 @@ func _assert(condition: bool, message: String) -> void:
 
 
 func _assert_pixels() -> void:
-	# Gamma-tolerant classification: sample corners vs panel area.
+	# The W5 version classified the corner against BG_COLOR, which stopped meaning anything the
+	# moment a backdrop plate covered the whole screen. What is still worth asserting is that the
+	# frame is a PICTURE and not a flat fill: a scene that failed to load its plate, or a panel
+	# that painted over everything, both come out uniform.
 	var image := get_viewport().get_texture().get_image()
-	var corner := image.get_pixel(4, image.get_height() - 4)
-	_assert(_closer_to(corner, BG_COLOR, PANEL_COLOR), "background pixel classifies as BG")
-
-
-func _closer_to(sample: Color, target: Color, other: Color) -> bool:
-	return _dist(sample, target) < _dist(sample, other)
-
-
-func _dist(a: Color, b: Color) -> float:
-	return (a.r - b.r) * (a.r - b.r) + (a.g - b.g) * (a.g - b.g) + (a.b - b.b) * (a.b - b.b)
+	var seen: Dictionary = {}
+	for x: int in range(8, image.get_width() - 8, 97):
+		for y: int in range(8, image.get_height() - 8, 89):
+			var c := image.get_pixel(x, y)
+			seen[Vector3i(int(c.r * 16), int(c.g * 16), int(c.b * 16))] = true
+	_assert(seen.size() >= 8, "the final frame is a rendered scene, not a flat fill (%d tones)"
+		% seen.size())

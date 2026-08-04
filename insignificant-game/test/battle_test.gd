@@ -988,3 +988,19 @@ func test_uids_are_deterministic_under_a_seed() -> void:
 				break
 		runs.append(uids)
 	assert_array(runs[0]).is_equal(runs[1])
+
+
+# --- what the UI is allowed to read off the type table (W15.1) ---
+
+func test_every_battle_type_names_itself_and_its_retreat_rule() -> void:
+	# A player fights a 收稅戰, never a `tax_battle`; and 三個型別禁用撤軍 is a corpus rule, so the
+	# UI asks rather than keeping its own list of three ids.
+	var no_retreat: Array[StringName] = [&"riot", &"democracy_blood", &"world_war"]
+	for battle_type: StringName in Battle.TYPES:
+		assert_str(Battle.type_name(battle_type)) \
+			.override_failure_message("%s has no display name" % battle_type).is_not_empty()
+		var battle := Battle.BattleField.new()
+		battle.battle_type = battle_type
+		assert_bool(Battle.can_retreat(battle)) \
+			.override_failure_message("retreat rule wrong for %s" % battle_type) \
+			.is_equal(not no_retreat.has(battle_type))

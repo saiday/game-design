@@ -196,3 +196,26 @@ approved backdrop plates were on disk with nothing mapping them.
 | When uids are assigned, given tests and the world-war composer build fields outside the arrival path | One idempotent sweep at `start`, at the end of every `deploy`, and at the top of every `end_round` — so a unit injected straight into a BattleField is identified at the next boundary like any other, and nothing has to remember to call a constructor. Assigning inside the unit constructors was rejected: `regular_unit` is public and has no battle to count on | battle.gd `_assign_uids` callers |
 | Whether a 勸降-converted unit is a new unit | **No — it keeps its uid.** The regiment is the same men fighting for someone else, and a replayer that saw it pop out of existence and a stranger appear would be showing something that did not happen | battle.gd `_cast_skill` (convert branch) |
 | How the view resolves backdrops, given `AssetPaths` registered every other approved class but not the 17 `bg_*` plates | `BATTLE_PLATES` keyed by the **canonical battle-type id**, mirroring `SCATTER` — the art pipeline keeps its own shorter plate names and the registry is the one place the two naming schemes meet. City plates resolve by era, the route map is a single plate reused every generation | `core/data/asset_paths.gd`; `test/asset_paths_test.gd` |
+
+## W15.1 gaps: the view comes back, and the city becomes the screen
+
+Restoring `view/` against the post-W12 core surfaced gaps that were invisible while nothing
+rendered. Three of them are the same gap wearing different clothes: **content that had no display
+name**, because until now nothing showed it to a human.
+
+| Gap | Decision | Where |
+|---|---|---|
+| 24 policy nodes, 7 battle types and 4 battle outcomes had no player-facing name, so the UI printed `enlightened_absolutism` and `tax_battle` | A **`zh` field in the data table** for anything that is a NAME (`PolicyNodes.NODES`, `Battle.TYPES`); a view-side map only for *phrasings* the content has no opinion about (勝/敗/撤軍, effect labels). The line is ownership: a name belongs to the content, a wording belongs to the UI. A view-side lookup table for all of it was rejected — it drifts from the catalog the first time a card moves | `core/data/policy_nodes.gd`; `core/battle.gd` `TYPES` + `type_name`; `view/main.gd` `OUTCOME_NAMES` |
+| 三個型別禁用撤軍 was enforced "by the caller/UI" (a comment in `retreat`), which means every future caller re-remembers three ids | `no_retreat` moves into `TYPES` as data and `Battle.can_retreat(battle)` answers the question. A UI that has to remember a rule will eventually forget it | `core/battle.gd`; `test/battle_test.gd` asserts the whole table |
+| Where the operate phase's screen is, now that 營運 is a scene rather than a panel | **The city IS the operate screen**: no panel over it, the dock is the entire command surface. The phases that are not scenes (機會/結算/世界大戰/民主/結局) stay panels over the city, because the city is the world and they are moments in it | `view/main.gd` `_show_overlay(&"")` |
+| Whether the dock stays live during a battle or a settlement | **Off-phase the panorama stays and the commands don't.** Leaving it live would offer 蓋樓 mid-fight. The player's fold state is remembered across phases, so re-entering operate restores the dock they left | `view/city_scene.gd` `set_commands_visible` |
+| 世界大戰 in the view: the old panel rolled a summary, but W12.5 made it a played battle | The war **opens on the battle table like any other battle** and settles through `WorldWar.finish`; the summary panel became the post-battle screen, and the war issues its reward card through the same reveal. A war generation also skips the unrest roll — 整代覆寫 means the generation was the war | `view/main.gd` `_begin_generation` / `_finish_battle` |
+| What the 獎勵卡 reveal shows, given 「太爛就放棄」 is supposed to be a decision | The **actual card**, illustration composited under the frame, plus the roll (grade prefix, 攻/血, 命中／閃避／攻速) and the acquisition price. A text line was what W5 had, and it makes the decision unreadable | `view/main.gd` `_refresh_reward`; `Chrome.card_widget` (shared with the opportunity card) |
+| No 勳章 icon exists in the approved 75-icon set, and the HUD needs one for the banked stock | Interim: reuse `icon_attack`, and **record it as an art gap rather than pretend it fits** — a medal is not a sword. Filling it is one cell on a future icon pass, not a reason to hold the view wave | `view/hud.gd` STATS; `assets/pipeline/inventory.md` §UI icons |
+
+**Three defects Part A could not have caught, all found by reading the captures** (which is the
+point of the gate): the phase's primary action (結束營運相位) scrolled off the bottom of a full
+build list; the HUD's danger row was accent-gold on a pale sky and barely legible over the city
+plate; and the tooltip sized itself off an autowrapping Label with no width to wrap at, covering a
+third of the screen. All three now have assertions, `end_phase_reachable()` being the sharpest —
+it asks whether the button is *inside the dock's rect*, not whether it exists.

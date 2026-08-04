@@ -153,3 +153,11 @@ func test_moon_race_tech() -> void:
 		Policy.on_generation_start(s)
 		Policy.invest(s, &"moon_race", 2)
 	assert_int(s.tech).is_equal(30)
+
+
+func test_every_node_has_a_display_name() -> void:
+	# the view may show a node only by its "zh": a player must never be reading a code identifier
+	for node_id: StringName in PolicyNodes.NODES:
+		var zh: String = String((PolicyNodes.NODES[node_id] as Dictionary).get("zh", ""))
+		assert_str(zh).override_failure_message("policy node %s has no zh name" % node_id) \
+			.is_not_empty()

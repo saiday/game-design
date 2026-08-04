@@ -332,3 +332,37 @@ Conventions this sets for the scene waves:
 4. **Backdrops resolve through `AssetPaths` like every other class** — the view still loads no path
    it composed itself. `BATTLE_PLATES` is keyed by canonical battle-type id, so the art pipeline's
    shorter plate names stop at the registry.
+
+**W15.1 — the view comes back, and 營運 becomes a scene.** Touched `view/` (split into `main.gd`,
+new `chrome.gd` / `hud.gd` / `city_scene.gd`), `core/battle.gd` (`zh` + `no_retreat` in `TYPES`,
+`type_name`, `can_retreat`), `core/data/policy_nodes.gd` (`zh` ×24), `test/battle_test.gd` (+1),
+`test/policy_test.gd` (+1), `design/營運.md` (`code:` for the two new view files),
+`assets/pipeline/inventory.md` (the 勳章 icon gap). Gate met: Part A **exit 0, 21/21 suites,
+259/259 cases**; `check_design_graph.py` exit 0; **Part B back after four waves down — 13 captures,
+0 ASSERT FAIL**. Conventions this sets:
+
+1. **A player never reads a code identifier.** Anything that is a NAME carries `zh` in its own data
+   table and the view asks for it; only phrasings the content has no opinion about (勝/敗, effect
+   labels) live in the view. This is why 24 policy nodes and 7 battle types gained a field rather
+   than the view gaining a dictionary — a view-side table drifts the first time a card moves.
+2. **A rule the UI is "expected to enforce" is a rule that will be forgotten.** `no_retreat` was a
+   comment naming three ids; it is now data behind `Battle.can_retreat`, and one test walks the
+   whole table.
+3. **The scene is the screen, the panel is the moment.** 營運 has no panel over it. The phases that
+   are not scenes sit on the city, and the dock goes away off-phase so no screen offers a verb that
+   belongs to another one.
+4. **Every Part B assertion should name what a player would lose.** `end_phase_reachable()` asks
+   whether the button lies inside the dock's own rect, not whether it exists — the defect it caught
+   was a button that existed, was enabled, and could not be seen.
+5. **Chrome is shared, not copied.** `Chrome.card_widget()` is one composition used by both the
+   opportunity card and the reward reveal; the previous copy-paste is gone.
+
+Handoff to W15.2 and W15.3:
+1. **The panels are placeholders on purpose.** `_refresh_route` and `_refresh_battle` are lists over
+   the city, carrying the full post-W12 API (deploy from `available`, concede, retreat gated by
+   `can_retreat`, spend-vs-reward standing). Each becomes a scene in its own sub-wave; the run flow
+   around them does not change.
+2. **`_show_overlay(&"")` is how a scene claims the screen.** A new scene adds a sibling to `city`
+   and shows itself there; nothing else in `main.gd` needs to know.
+3. **The battle scene already has its identity handles** — `uid` on every unit and fort (W15.0), and
+   `AssetPaths.background_battle` / `SCATTER` / `PROJECTILES` for what stands on the plate.

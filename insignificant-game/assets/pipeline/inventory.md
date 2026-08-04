@@ -291,6 +291,10 @@ Hard requirement (Insignificant.md, 結局): 債務深度、利息、內亂權�
 all times — those stats need unmistakable icons. Glyphs are generated onto the frozen icon
 base plate (Phase 2, §6).
 
+> **Known gap: no 勳章 icon.** The HUD carries the banked-medal stock as a standing cell (W15.1,
+> `view/hud.gd`) and there is no glyph for it, so it borrows `icon_attack` — a sword, which a medal
+> is not. One cell on the next icon pass; nothing is blocked on it.
+
 | group | ids | count |
 |---|---|---|
 | Core stats | icon_money icon_population icon_bp icon_tech icon_culture icon_happiness icon_debt icon_interest icon_unrest icon_power | 10 |

@@ -13,8 +13,21 @@
 2. **`core/data/` — static content tables** (buildings, cards, policy nodes, candidates, rivals,
    opportunities, epilogues) as `const` tables in plain GDScript. Data-driven: logic reads tables,
    never hardcodes content.
-3. **`view/` — Godot scenes/UI.** Reads GameState, calls core functions on click, renders with
-   placeholder visuals (ColorRect/Label/Button only). View never computes rules.
+3. **`view/` — Godot scenes/UI.** Reads GameState, calls core functions on click, renders approved
+   art resolved through `core/data/asset_paths.gd`. **View never computes rules.** It is built
+   programmatically (no hand-authored `.tscn`) and split by screen, not by widget:
+
+   | File | Owns |
+   |---|---|
+   | `view/main.gd` | the run, which screen is up, the phase panels, and the Part B demo |
+   | `view/chrome.gd` | `Chrome`: the runtime-composed approved-art chrome (styleboxes, plate icons, the card widget, the divider) plus the shared texture cache |
+   | `view/hud.gd` | `Hud`: the icon+value stat strip and its focus/hover tooltips |
+   | `view/city_scene.gd` | `CityScene`: 營運＝活的城市全景 and the collapsible command dock |
+
+   A string a player reads is **never** a code identifier. Anything that is a *name* carries a `zh`
+   in its own data table (`Battle.TYPES`, `PolicyNodes.NODES`, `BuildingData.LINES`…) and the view
+   asks for it; only *phrasings* the content has no opinion about (an outcome word, an effect label)
+   live in the view.
 4. **`test/` — gdUnit4 suites**, one per core module (`test/economy_test.gd` for `core/economy.gd`).
 5. **`tools/` — headless `SceneTree` scripts** run with `-s`, never part of the game: the balance
    batch (`balance_batch.gd` → `reports/`) and the timeline exporter (`export_timeline.gd` →

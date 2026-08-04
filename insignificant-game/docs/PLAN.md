@@ -366,11 +366,30 @@ every green wave.
             `AssetPaths.BATTLE_PLATES` is keyed by canonical battle-type id, mirroring `SCATTER`.
             Also fixed a stale `inventory.md` blockquote still calling the 7 top-down battle plates
             "re-render in flight". Gap decisions: decisions.md W15.0.)*
-      - [ ] **W15.1 — View restored + operations city scene.** Split `view/` into scene scripts and
+      - [x] **W15.1 — View restored + operations city scene.** Split `view/` into scene scripts and
             get it parsing against the post-W12 battle API (no hand). City panorama on
             `bg_city_era*`, collapsible bottom-right command dock, icon+value HUD with focus
             tooltips, controller focus navigation, 勳章 assignment + 解散 roll evaluation.
             *Gate:* Part A + **Part B returns** (captures reviewed, zero ASSERT FAIL).
+            *(done 2026-08-04: **Part B is back** — 13 captures reviewed, 0 ASSERT FAIL; Part A
+            21/21 suites, **259/259 cases**, exit 0; `check_design_graph.py` exit 0 (61 `code:`
+            mappings); fixture byte-stable. `view/` split into `main.gd` (run + panels + demo),
+            `chrome.gd`, `hud.gd`, `city_scene.gd`. The city IS the operate screen — no panel over
+            it, the dock is the whole command surface, and it folds on a background click or 取消.
+            **世界大戰 became a played battle in the view too**, which the old panel had wrong since
+            W12.5: it opens on the battle table, settles through `WorldWar.finish`, and issues its
+            reward card like any other battle. The 獎勵卡 reveal now shows the actual card
+            illustration in the frame, which is what makes 「太爛就放棄」 a readable decision.
+            **Content gained display names** rather than the view gaining a lookup table: `zh` on
+            all 24 policy nodes and all 7 battle types, and `no_retreat` moved into `Battle.TYPES`
+            behind `Battle.can_retreat` (three ids the UI was expected to remember).
+            **Part B earned its keep immediately** — three defects Part A structurally cannot see:
+            結束營運相位 scrolled off a full build list (now pinned outside the scroll, and
+            `end_phase_reachable()` asserts it is inside the dock's rect), the danger row was
+            accent-gold on a pale sky (HUD now rides a scrim), and the tooltip sized itself off an
+            unwrapped Label and covered a third of the screen. Known art gap, recorded not papered
+            over: **no 勳章 icon exists**, so the HUD borrows `icon_attack`. Gap decisions:
+            decisions.md W15.1.)*
       - [ ] **W15.2 — Route fog-map scene.** Own backdrop, nodes on the map, 迷霧 over unknown
             nodes, the 世界地圖 upgrade drawing the 戰鬥面／機會面 on the node itself, skip as a
             standing map exit. *Gate:* Part A + Part B.

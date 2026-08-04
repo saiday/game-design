@@ -69,23 +69,28 @@ const GRADE_STATS: Dictionary = {&"weak": [1, 2], &"medium": [2, 4], &"hard": [3
 # civil_war waves carry budget shares of 總實力 ≈ P×0.5 instead of fixed grades (對手文明).
 # world_war (the 7th type, WW1-WW5): round_cap 0 = uncapped (波數上限 throttles instead);
 # its two-camp wave schedule is composed by WorldWar and passed to start() prepared.
+# `zh` is the type's display name, the only string a player should ever read for it — a battle id
+# is a code identifier and nobody is fighting a `tax_battle`.
+# `no_retreat` ＝ 三個型別禁用撤軍 (戰鬥.md §撤軍): 內部暴動戰, 為民主而流血, 世界大戰 — 全員選邊、
+# 無退出口. It lives here as data rather than in the caller because it is a rule the corpus states,
+# and a UI that has to remember three ids will eventually forget one.
 const TYPES: Dictionary = {
-	&"world_war": {"round_cap": 0, "reward_per_coeff": 0, "waves": []},
-	&"tax_battle": {"round_cap": 6, "reward_per_coeff": 15,
+	&"world_war": {"zh": "世界大戰", "round_cap": 0, "reward_per_coeff": 0, "no_retreat": true, "waves": []},
+	&"tax_battle": {"zh": "收稅戰", "round_cap": 6, "reward_per_coeff": 15, "no_retreat": false,
 		"waves": [{"window": [1, 1], "grades": [&"weak", &"weak"], "siege": false}]},
-	&"field_battle": {"round_cap": 8, "reward_per_coeff": 25,
+	&"field_battle": {"zh": "一般地圖戰", "round_cap": 8, "reward_per_coeff": 25, "no_retreat": false,
 		"waves": [{"window": [1, 1], "grades": [&"medium", &"weak"], "siege": false},
 			{"window": [3, 4], "grades": [&"medium"], "siege": false}]},
-	&"hidden_battle": {"round_cap": 8, "reward_per_coeff": 45,
+	&"hidden_battle": {"zh": "隱藏戰", "round_cap": 8, "reward_per_coeff": 45, "no_retreat": false,
 		"waves": [{"window": [1, 1], "grades": [&"hard"], "siege": true},
 			{"window": [3, 4], "grades": [&"hard"], "siege": true}]},
-	&"riot": {"round_cap": 8, "reward_per_coeff": 0,
+	&"riot": {"zh": "內部暴動戰", "round_cap": 8, "reward_per_coeff": 0, "no_retreat": true,
 		"waves": [{"window": [1, 1], "grades": [&"medium"], "siege": false},
 			{"window": [3, 4], "grades": [&"medium"], "siege": false}]},
-	&"democracy_blood": {"round_cap": 8, "reward_per_coeff": 0,
+	&"democracy_blood": {"zh": "為民主而流血", "round_cap": 8, "reward_per_coeff": 0, "no_retreat": true,
 		"waves": [{"window": [1, 1], "grades": [&"hard", &"medium"], "siege": false},
 			{"window": [4, 5], "grades": [&"hard"], "siege": false}]},
-	&"civil_war": {"round_cap": 10, "reward_per_coeff": 0,
+	&"civil_war": {"zh": "文明戰爭", "round_cap": 10, "reward_per_coeff": 0, "no_retreat": false,
 		"waves": [{"window": [1, 1], "share": 0.40},
 			{"window": [4, 5], "share": 0.35},
 			{"window": [7, 8], "share": 0.25}]},
@@ -251,9 +256,18 @@ static func concede(battle: BattleField) -> void:
 	battle.conceded = true
 
 
+static func type_name(battle_type: StringName) -> String:
+	return String(TYPES[battle_type]["zh"])
+
+
+static func can_retreat(battle: BattleField) -> bool:
+	# 三個型別禁用撤軍 (戰鬥.md §撤軍). The UI asks; it does not keep its own list.
+	return not bool(TYPES[battle.battle_type]["no_retreat"])
+
+
 static func retreat(state: GameState, battle: BattleField) -> Dictionary:
-	# 隨時可退: 10×係數, 永久 +2 人口; spent stays sunk. Disabled types are enforced by the
-	# caller/UI (riot, democracy_blood, world war — 戰鬥.md 撤軍).
+	# 隨時可退: 10×係數, 永久 +2 人口; spent stays sunk. Whether this type allows it at all is
+	# `can_retreat` — the caller asks before offering the button (戰鬥.md 撤軍).
 	var cost: int = RETREAT_COST_BASE * Era.coeff(state.generation)
 	state.treasury -= cost
 	state.population += RETREAT_POP

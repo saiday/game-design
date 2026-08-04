@@ -8,6 +8,8 @@ extends RefCounted
 # Policy._apply_completion at the moment the node completes. No node produces
 # per-generation output (buildings do that) — policy only rewrites rules or fires
 # one-shot events.
+# "zh" is the node's display name, the only string the view is ever allowed to show for it:
+# a node id is a code identifier and no player should be reading `enlightened_absolutism`.
 
 const TOTAL_BP: int = 139
 const NODE_COUNT: int = 24
@@ -15,6 +17,7 @@ const NODE_COUNT: int = 24
 const NODES: Dictionary = {
 	# ---- 權力穩固 (power) ----
 	&"centralization": {  # 中央集權 — root
+		"zh": "中央集權",
 		"cost_bp": 4,
 		"theme": &"power",
 		"requires_all": [],
@@ -22,6 +25,7 @@ const NODES: Dictionary = {
 		"effects": {"unrest_base_weight_delta": -0.05},
 	},
 	&"bureaucracy": {  # 官僚體系 — hub: feeds secret_police / enlightened_absolutism / political_marriage
+		"zh": "官僚體系",
 		"cost_bp": 5,
 		"theme": &"power",
 		"requires_all": [&"centralization"],
@@ -29,6 +33,7 @@ const NODES: Dictionary = {
 		"effects": {"tax_bonus": 0.10},
 	},
 	&"secret_police": {  # 秘密警察
+		"zh": "秘密警察",
 		"cost_bp": 6,
 		"theme": &"power",
 		"requires_all": [&"bureaucracy"],
@@ -41,6 +46,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"cultural_revolution": {  # 文化大革命 — terminal
+		"zh": "文化大革命",
 		"cost_bp": 6,
 		"theme": &"power",
 		"requires_all": [&"secret_police", &"mass_media"],
@@ -52,6 +58,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"enlightened_absolutism": {  # 開明專制 — terminal
+		"zh": "開明專制",
 		"cost_bp": 6,
 		"theme": &"power",
 		"requires_all": [&"bureaucracy", &"hundred_schools"],
@@ -65,6 +72,7 @@ const NODES: Dictionary = {
 
 	# ---- 科技 (tech) ----
 	&"writing_calendar": {  # 文字與曆法 — root
+		"zh": "文字與曆法",
 		"cost_bp": 4,
 		"theme": &"tech",
 		"requires_all": [],
@@ -72,6 +80,7 @@ const NODES: Dictionary = {
 		"effects": {"tech_gate_multiplier": 8},  # card tech gate 10×era_index -> 8×era_index
 	},
 	&"secularization": {  # 推行世俗
+		"zh": "推行世俗",
 		"cost_bp": 6,
 		"theme": &"tech",
 		"requires_all": [&"writing_calendar", &"hundred_schools"],
@@ -82,6 +91,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"patent_system": {  # 專利制度
+		"zh": "專利制度",
 		"cost_bp": 6,
 		"theme": &"tech",
 		"requires_all": [&"secularization"],
@@ -89,6 +99,7 @@ const NODES: Dictionary = {
 		"effects": {"card_unlock_cost_multiplier": 0.5},
 	},
 	&"moon_race": {  # 登月競賽
+		"zh": "登月競賽",
 		"cost_bp": 8,
 		"theme": &"tech",
 		"requires_all": [&"patent_system"],
@@ -99,6 +110,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"space_station": {  # 建立太空站 — terminal
+		"zh": "太空站",
 		"cost_bp": 8,
 		"theme": &"tech",
 		"requires_all": [&"moon_race"],
@@ -108,6 +120,7 @@ const NODES: Dictionary = {
 
 	# ---- 宗教 (religion) ----
 	&"ancestor_worship": {  # 祖靈崇拜 — root
+		"zh": "祖靈崇拜",
 		"cost_bp": 3,
 		"theme": &"religion",
 		"requires_all": [],
@@ -115,6 +128,7 @@ const NODES: Dictionary = {
 		"effects": {"concession_cost_multiplier": 0.5},
 	},
 	&"state_religion": {  # 建立國教
+		"zh": "建立國教",
 		"cost_bp": 6,
 		"theme": &"religion",
 		"requires_all": [&"ancestor_worship"],
@@ -125,6 +139,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"theocracy": {  # 政教合一
+		"zh": "政教合一",
 		"cost_bp": 6,
 		"theme": &"religion",
 		"requires_all": [&"state_religion", &"centralization"],
@@ -135,6 +150,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"holy_war": {  # 聖戰 — terminal
+		"zh": "聖戰",
 		"cost_bp": 7,
 		"theme": &"religion",
 		"requires_all": [&"theocracy"],
@@ -149,6 +165,7 @@ const NODES: Dictionary = {
 
 	# ---- 文化 (culture) ----
 	&"hundred_schools": {  # 百家爭鳴 — root, hub: feeds enlightened_absolutism / secularization / mass_media
+		"zh": "百家爭鳴",
 		"cost_bp": 4,
 		"theme": &"culture",
 		"requires_all": [],
@@ -159,6 +176,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"mass_media": {  # 大眾媒體 — hub: feeds cultural_revolution / cultural_export / world_expo / intelligence_agency
+		"zh": "大眾媒體",
 		"cost_bp": 6,
 		"theme": &"culture",
 		"requires_all": [&"hundred_schools"],
@@ -166,6 +184,7 @@ const NODES: Dictionary = {
 		"effects": {"democracy_pool_bias": 0.10},
 	},
 	&"cultural_export": {  # 文化輸出 — terminal
+		"zh": "文化輸出",
 		"cost_bp": 7,
 		"theme": &"culture",
 		"requires_all": [&"mass_media"],
@@ -180,6 +199,7 @@ const NODES: Dictionary = {
 
 	# ---- 探索 (exploration) ----
 	&"great_voyage": {  # 大航海 — root
+		"zh": "大航海",
 		"cost_bp": 6,
 		"theme": &"exploration",
 		"requires_all": [],
@@ -190,6 +210,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"world_map": {  # 世界地圖
+		"zh": "世界地圖",
 		"cost_bp": 5,
 		"theme": &"exploration",
 		"requires_all": [&"great_voyage", &"scout_camp"],
@@ -197,6 +218,7 @@ const NODES: Dictionary = {
 		"effects": {"fog_shows_node_face": true},  # unknown nodes show battle/opportunity face
 	},
 	&"world_expo": {  # 萬國博覽會 — terminal
+		"zh": "萬國博覽會",
 		"cost_bp": 8,
 		"theme": &"exploration",
 		"requires_all": [&"world_map", &"mass_media"],
@@ -211,6 +233,7 @@ const NODES: Dictionary = {
 
 	# ---- 偵查 (scouting) ----
 	&"scout_camp": {  # 斥候營 — root
+		"zh": "斥候營",
 		"cost_bp": 3,
 		"theme": &"scouting",
 		"requires_all": [],
@@ -218,6 +241,7 @@ const NODES: Dictionary = {
 		"effects": {"intel_coverage": [&"tribal", &"classical"]},
 	},
 	&"political_marriage": {  # 政治聯姻
+		"zh": "政治聯姻",
 		"cost_bp": 5,
 		"theme": &"scouting",
 		"requires_all": [&"scout_camp"],
@@ -228,6 +252,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"intelligence_agency": {  # 情報單位
+		"zh": "情報單位",
 		"cost_bp": 6,
 		"theme": &"scouting",
 		"requires_all": [&"political_marriage"],
@@ -238,6 +263,7 @@ const NODES: Dictionary = {
 		},
 	},
 	&"satellite_surveillance": {  # 衛星監控 — terminal
+		"zh": "衛星監控",
 		"cost_bp": 8,
 		"theme": &"scouting",
 		"requires_all": [&"intelligence_agency", &"moon_race"],
